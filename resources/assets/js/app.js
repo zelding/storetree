@@ -13,8 +13,13 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
-
-const app = new Vue({
+/*const app = new Vue({
     el: '#app'
+});*/
+
+window.$ = window.jQuery = require('jquery');
+require('bootstrap-sass');
+
+$( document ).ready(function() {
+    console.log($.fn.tooltip.Constructor.VERSION);
 });

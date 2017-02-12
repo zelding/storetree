@@ -12,5 +12,16 @@
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 });
+
+Route::resource('shops', 'ShopController');
+Route::resource('items', 'ItemController');
+
+Route::group(['middleware' => 'auth'], function() {
+
+
+});
+
+
