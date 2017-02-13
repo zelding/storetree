@@ -18,12 +18,13 @@ class CreateItemsTable extends Migration
 
             $table->increments('id');
             $table->string('name');
-            $table->text('description');
-            $table->unsignedInteger('cost');
+            $table->text('description')->nullable();
+            $table->unsignedInteger('cost')->default(0);
             $table->unsignedTinyInteger('stack_size')->default(1);
             $table->boolean('is_consumable')->default(false);
             $table->boolean('is_base_item')->default(false);
             $table->boolean('is_boss_item')->default(false);
+            $table->boolean('is_recipe')->default(false);
             $table->timestamps();
         });
     }

@@ -15,7 +15,11 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::with('components')->where('is_recipe', 0)->get();
+        $items = Item::with('components')
+            ->where('is_recipe', 0)
+            ->orderBy('is_base_item', 'desc')
+            ->orderBy('name', 'asc')
+            ->get();
         //$items = Item::all();
 
         return view('Item/index', ['items' => $items]);
