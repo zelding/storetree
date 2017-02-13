@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreItem;
+use App\Item;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -13,7 +15,10 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return view('Item/index');
+        $items = Item::with('components')->where('is_recipe', 0)->get();
+        //$items = Item::all();
+
+        return view('Item/index', ['items' => $items]);
     }
 
     /**
@@ -21,20 +26,34 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        return view('Item/index');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreItem  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreItem $request)
     {
-        //
+        $item = new Item();
+        $item->name          = $request->get('name');
+        $item->description   = $request->get('description');
+        $item->cost          = $request->get('cost');
+        $item->is_base_item  = $request->get('base_item') ?? 0;
+        $item->is_boss_item  = $request->get('boss_item') ?? 0;
+        $item->is_consumable = $request->get('consumable_item') ?? 0;
+        $item->is_recipe     = $request->get('recipe_item') ?? 0;
+        $item->save();
+
+        if ( !$item->is_boss_item ) {
+            $item->shops()->attach(1);
+        }
+
+        return redirect(route('items.index'), 201);
     }
 
     /**

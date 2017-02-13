@@ -11,17 +11,19 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
 
-    return view('welcome');
+    return view('welcome', [
+        "hasAuth" => Route::has('login')
+    ]);
 });
 
-Route::resource('shops', 'ShopController');
-Route::resource('items', 'ItemController');
+Route::group(['middleware' => 'auth', 'prefix' => 'storetree'], function() {
 
-Route::group(['middleware' => 'auth'], function() {
+    Route::get('/', 'HomeController@index')->name('storetree');
 
-
+    Route::resource('shops', 'ShopController');
+    Route::resource('items', 'ItemController');
 });
-
-

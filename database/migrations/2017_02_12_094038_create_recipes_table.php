@@ -18,6 +18,7 @@ class CreateRecipesTable extends Migration
 
             $table->increments('id');
             $table->integer('item_id');
+            $table->integer('component_id');
             $table->timestamps();
         });
     }

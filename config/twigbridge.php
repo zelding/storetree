@@ -145,8 +145,11 @@ return [
         |
         */
         'facades' => [
-            'Auth' => ['is_safe' =>['open']],
-            'Env' => ['is_safe' =>['open']],
+            'Route' => [
+                'is_safe' => [
+                    'open'
+                ]
+            ]
         ],
 
         /*

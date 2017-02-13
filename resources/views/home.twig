@@ -1,0 +1,21 @@
+{% extends 'layouts/storetree.twig' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">StoreTree overview</div>
+
+                <div class="panel-body">
+                    <p>Currently there are</p>
+                    <ul>
+                        <li>Items: {{ numberOfItems }}</li>
+                        <li>Shops: {{ numberOfShops }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
