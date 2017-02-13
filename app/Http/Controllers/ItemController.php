@@ -20,7 +20,6 @@ class ItemController extends Controller
             ->orderBy('is_base_item', 'desc')
             ->orderBy('name', 'asc')
             ->get();
-        //$items = Item::all();
 
         return view('Item/index', ['items' => $items]);
     }
