@@ -3,6 +3,21 @@
 {% block content %}
     <div id="page-content-wrapper">
         <div class="container-fluid">
+            {% if errors|length %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error</strong>
+                            <ul>
+                                {% for error in errors.all %}
+                                    <li><span>{{ error }}</span></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
             {% include 'Item/form_edit.twig' with {item: item} %}
         </div>
     </div>

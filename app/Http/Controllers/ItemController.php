@@ -6,13 +6,15 @@ use App\Http\Requests\StoreItem;
 use App\Item;
 use App\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
 class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * return \Illuminate\Http\Response
+     * return Response
      */
     public function index()
     {
@@ -33,7 +35,7 @@ class ItemController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create(Request $request)
     {
@@ -44,7 +46,7 @@ class ItemController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  StoreItem  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(StoreItem $request)
     {
@@ -71,18 +73,22 @@ class ItemController extends Controller
             }
         }
 
-        return redirect(route('items.index'), 201);
+        return redirect(route('items.show', ['id' => $item->id]), 201);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response|RedirectResponse
      */
     public function show($id)
     {
         $item = Item::find($id);
+
+        if ( !($item instanceof Item)) {
+            return redirect(route('items.index'), 404);
+        }
 
         return view('Item/view', [
             "item" => $item
@@ -93,37 +99,81 @@ class ItemController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
-        $item = Item::find($id);
+        $item  = Item::find($id);
+        $shops = Shop::all();
+
+        $currentShops = [];
+
+        if ( !empty($item->shops) ) {
+            foreach ($item->shops as $shop) {
+                $currentShops[] = $shop->id;
+            }
+        }
 
         return view('Item/view', [
-            "item" => $item
+            "item"         => $item,
+            'shops'        => $shops,
+            'currentShops' => $currentShops
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreItem  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreItem $request, $id)
     {
-        //
+        $item  = Item::find($id);
+        $shops = Shop::all();
+
+        $item->name          = $request->get('name');
+        $item->description   = $request->get('description');
+        $item->cost          = $request->get('cost');
+        $item->is_base_item  = $request->get('base_item') ?? 0;
+        $item->is_boss_item  = $request->get('boss_item') ?? 0;
+        $item->is_consumable = $request->get('consumable_item') ?? 0;
+        $item->is_recipe     = $request->get('recipe_item') ?? 0;
+        $item->save();
+
+        $newShops = $request->get('item_shops');
+        $currentShops = [];
+
+        if ( !empty($item->shops) ) {
+            foreach ($item->shops as $shop) {
+
+                $currentShops[] = $shop->id;
+            }
+
+            $item->shops()->detach($currentShops);
+        }
+
+        if ( !empty($newShops) ) {
+            $item->shops()->attach($newShops);
+        }
+
+        return view('Item/view', [
+            "item"         => $item,
+            'shops'        => $shops,
+            'request'      => $request,
+            'currentShops' => $currentShops
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
-        //
+        return redirect(route('items.index'), 204);
     }
 }
