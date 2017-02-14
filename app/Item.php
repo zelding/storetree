@@ -32,6 +32,12 @@ class Item extends Model
         return $this->belongsToMany(Item::class, 'recipes', 'item_id', 'component_id');
     }
 
+    public function buildsInto()
+    {
+        //needs the distinct so items don't show up multiple times when they build from multiple components of the same type
+        return $this->belongsToMany(Item::class, 'recipes', 'component_id', 'item_id')->distinct();
+    }
+
     public function shops()
     {
         return $this->belongsToMany(Shop::class);

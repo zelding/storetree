@@ -7688,4 +7688,8 @@ button.close {
   }
 }
 
+#page-content-wrapper .page-header {
+  margin: 0 0 22px;
+}
+
 /*# sourceMappingURL=app.css.map */

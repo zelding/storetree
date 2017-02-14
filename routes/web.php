@@ -26,4 +26,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'storetree'], function() {
 
     Route::resource('shops', 'ShopController');
     Route::resource('items', 'ItemController');
+
+    Route::group(['prefix' => 'build'], function () {
+        Route::get('/', 'BuildController@index')->name('build.index');
+    });
 });

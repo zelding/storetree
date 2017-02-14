@@ -20,6 +20,19 @@
             <li class="{{ Route.currentRouteName == 'shops.index' ? 'active' : '' }}">
                 <a href="{{ route('shops.index') }}">Stores</a>
             </li>
+
+            <li>
+                <a href="#">Builds</a>
+            </li>
         </ul>
     </div>
+{% endblock %}
+
+{% block inlineJs %}
+    <script type="application/javascript">
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 {% endblock %}

@@ -39,7 +39,8 @@ class ItemController extends Controller
      */
     public function create(Request $request)
     {
-        return view('Item/index');
+        $shops = Shop::all();
+        return view('Item/create', ['shops' => $shops]);
     }
 
     /**
@@ -84,7 +85,7 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        $item = Item::find($id);
+        $item = Item::with('shops','components', 'buildsInto')->find($id);
 
         if ( !($item instanceof Item)) {
             return redirect(route('items.index'), 404);
@@ -101,7 +102,7 @@ class ItemController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $item  = Item::find($id);
         $shops = Shop::all();
@@ -115,6 +116,7 @@ class ItemController extends Controller
         }
 
         return view('Item/view', [
+            "request"      => $request,
             "item"         => $item,
             'shops'        => $shops,
             'currentShops' => $currentShops
@@ -131,7 +133,6 @@ class ItemController extends Controller
     public function update(StoreItem $request, $id)
     {
         $item  = Item::find($id);
-        $shops = Shop::all();
 
         $item->name          = $request->get('name');
         $item->description   = $request->get('description');
@@ -158,12 +159,7 @@ class ItemController extends Controller
             $item->shops()->attach($newShops);
         }
 
-        return view('Item/view', [
-            "item"         => $item,
-            'shops'        => $shops,
-            'request'      => $request,
-            'currentShops' => $currentShops
-        ]);
+        return redirect(route('items.edit', ["id" => $item->id]));
     }
 
     /**
