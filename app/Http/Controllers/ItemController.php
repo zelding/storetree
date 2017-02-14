@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreItem;
 use App\Item;
+use App\Shop;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -15,13 +16,18 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::with('components')
+        $items = Item::with('components', 'shops')
             ->where('is_recipe', 0)
             ->orderBy('is_base_item', 'desc')
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('Item/index', ['items' => $items]);
+        $shops = Shop::all();
+
+        return view('Item/index', [
+            'items' => $items,
+            'shops' => $shops
+        ]);
     }
 
     /**
@@ -52,8 +58,17 @@ class ItemController extends Controller
         $item->is_recipe     = $request->get('recipe_item') ?? 0;
         $item->save();
 
-        if ( !$item->is_boss_item ) {
-            $item->shops()->attach(1);
+        $shops = $request->get('item_shops');
+
+        if ( empty($shops) ) {
+            if (!$item->is_boss_item) {
+                $item->shops()->attach(1);
+            }
+        }
+        else {
+            foreach ($shops as $shop_id) {
+                $item->shops()->attach($shop_id);
+            }
         }
 
         return redirect(route('items.index'), 201);
@@ -67,7 +82,11 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = Item::find($id);
+
+        return view('Item/view', [
+            "item" => $item
+        ]);
     }
 
     /**
@@ -78,7 +97,11 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Item::find($id);
+
+        return view('Item/view', [
+            "item" => $item
+        ]);
     }
 
     /**

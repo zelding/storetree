@@ -1,0 +1,9 @@
+{% extends 'layouts/storetree.twig' %}
+
+{% block content %}
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            {% include 'Item/form_edit.twig' with {item: item} %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+<table class="table table-hover table-striped table-condensed">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Cost</th>
+            <th>Boss Item</th>
+            <th>Base Item</th>
+            <th>Shops</th>
+            <th>#</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for item in items %}
+            {# @var Item item #}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.totalCost }}</td>
+                <td>{{ item.is_boss_item ? "Y" : "N" }}</td>
+                <td>{{ item.is_base_item ? "Y" : "N" }}</td>
+                <td>
+                    {% for shop in item.shops %}
+                        {{ shop.name }}<br>
+                    {% else %}
+                        No shops set
+                    {% endfor %}
+                </td>
+                <td><a href="{{ route('items.edit', {id: item.id}) }}">view</a></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>No items found</td>
+                <td colspan="6">&nbsp;</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
