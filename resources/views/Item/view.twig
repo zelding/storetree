@@ -16,12 +16,16 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h2>
-                        &nbsp;
-                        <a href="{{ route('items.edit', {id: item.id}) }}" class="btn btn-primary btn-sm pull-right">Edit</a>
+                        <a href="{{ route('items.edit', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                        <button id="deleteButton" class="btn btn-danger btn-sm pull-right">Delete</button>
                     </h2>
+
+                    <form id="deleteForm" action="{{ route('items.destroy', {id: item.id}) }}" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                    </form>
                 </div>
             </div>
-
 
             <div class="row">
                 <div class="col-lg-6">
@@ -87,4 +91,16 @@
             </div>
         </div>
     </div>
+
+    <script type="application/javascript">
+        $(function () {
+            $('#deleteButton').on('click', function() {
+                "use strict";
+
+                if( confirm('Are you sure?') ) {
+                    $("#deleteForm").trigger('submit');
+                }
+            });
+        });
+    </script>
 {% endblock %}

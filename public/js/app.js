@@ -37497,7 +37497,15 @@ window.$ = window.jQuery = require('jquery');
 require('bootstrap-sass');
 
 $(document).ready(function () {
-  console.log($.fn.tooltip.Constructor.VERSION);
+    console.log($.fn.tooltip.Constructor.VERSION);
+
+    $('#deleteButton').on('click', function () {
+        "use strict";
+
+        if (confirm('Are you sure?')) {
+            $("#deleteForm").trigger('submit');
+        }
+    });
 });
 
 },{"./bootstrap":32,"bootstrap-sass":26,"jquery":27}],32:[function(require,module,exports){

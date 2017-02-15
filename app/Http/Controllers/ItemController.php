@@ -202,6 +202,12 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        return redirect(route('items.index'), 204);
+        $item = Item::find($id);
+        $item->shops()->detach();
+        if ( !$item->is_base_item )
+            $item->components()->detach();
+        $item->delete();
+
+        return redirect(route('items.index'), 301);
     }
 }
