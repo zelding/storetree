@@ -29,7 +29,7 @@ class Item extends Model
             throw new \TypeError("Base items doesn't have components");
         }
 
-        return $this->belongsToMany(Item::class, 'recipes', 'item_id', 'component_id');
+        return $this->belongsToMany(Item::class, 'recipes', 'item_id', 'component_id')->withPivot('id');
     }
 
     public function buildsInto()

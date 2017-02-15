@@ -8,6 +8,7 @@ use App\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class ItemController extends Controller
 {
@@ -104,7 +105,15 @@ class ItemController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $item  = Item::find($id);
+        $item  = Item::with('shops', 'components')->find($id);
+
+        if ( !($item instanceof Item)) {
+            return redirect(route('items.index'), 404);
+        }
+
+        $items = Item::whereNotIn('id', [$id])
+            ->orderBy('name')
+            ->get();
         $shops = Shop::all();
 
         $currentShops = [];
@@ -115,9 +124,10 @@ class ItemController extends Controller
             }
         }
 
-        return view('Item/view', [
+        return view('Item/edit', [
             "request"      => $request,
             "item"         => $item,
+            "items"        => $items,
             'shops'        => $shops,
             'currentShops' => $currentShops
         ]);
@@ -157,6 +167,28 @@ class ItemController extends Controller
 
         if ( !empty($newShops) ) {
             $item->shops()->attach($newShops);
+        }
+
+        return redirect(route('items.edit', ["id" => $item->id]));
+    }
+
+    public function updateComponent(Request $request, $id)
+    {
+        $item = Item::find($id);
+
+        $componentsToRemove = $request->get('components_remove'); //pivot table ids
+        $componentsToAdd    = $request->get('components_add');    //item ids
+
+        if (!empty($componentsToRemove)) {
+            foreach($componentsToRemove as $c_id) {
+                DB::table('recipes')->where('id', $c_id)->delete();
+            }
+        }
+
+        if (!empty($componentsToAdd)) {
+            foreach($componentsToAdd as $c_id) {
+                $item->components()->attach($c_id);
+            }
         }
 
         return redirect(route('items.edit', ["id" => $item->id]));

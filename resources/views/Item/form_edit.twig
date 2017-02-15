@@ -1,4 +1,4 @@
-<form class="form-horizontal" action="{{ route('items.update', {id: item.id}) }}" method="post">
+
     <div class="row">
         <div class="col-lg-4">
             <div class="form-group">
@@ -32,7 +32,7 @@
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="item_desc">Description</label>
                 <div class="col-lg-8">
-                    <textarea class="form-control" rows="4" id="item_desc" placeholder="Breaks your face" name="description">{{ request.description ?? item.description }}</textarea>
+                    <textarea class="form-control" rows="8" id="item_desc" placeholder="Breaks your face" name="description">{{ request.description ?? item.description }}</textarea>
                 </div>
             </div>
         </div>
@@ -79,10 +79,3 @@
             </div>
         </div>
     </div>
-
-    <button type="submit" class="btn btn-default">Edit item</button>
-    <input type="hidden" name="id" value="{{ item.id }}">
-
-    {{ csrf_field() }}
-    {{ method_field('PUT') }}
-</form>

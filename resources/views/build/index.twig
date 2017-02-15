@@ -1,33 +1,33 @@
 {% extends 'layouts/storetree.twig' %}
 
 {% block content %}
-<!-- Page Content -->
-<div id="page-content-wrapper">
-    <div class="container-fluid">
-        <div class="page-header">
-            <h1>Builds <small>list, create, add, modify, update</small></h1>
-        </div>
-
-        <ol class="breadcrumb">
-            <li><a href="{{ route('storetree') }}">Home</a></li>
-            <li class="active">Builds</li>
-        </ol>
-
-        <div class="row">
-            <div class="col-lg-12">
-                {% for item in items %}
-                    <button>{{ item.name }}</button>
-                {% endfor %}
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="page-header">
+                <h1>Builds <small>list, create, add, modify, update</small></h1>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div id="build-container"></div>
+            <ol class="breadcrumb">
+                <li><a href="{{ route('storetree') }}">Home</a></li>
+                <li class="active">Builds</li>
+            </ol>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    {% for item in items %}
+                        <button>{{ item.name }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="build-container"></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <style>
         #build-container {

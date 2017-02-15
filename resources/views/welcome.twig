@@ -61,9 +61,9 @@
         {% if hasAuth %}
             <div class="top-right links">
                 {% if Auth.check() %}
-                    <a href="{{ url('/home') }}">Home</a>
+                    <a href="{{ route('~') }}">Home</a>
                 {% else %}
-                    <a href="{{ url('/login') }}">Login</a>
+                    <a href="{{ route('login') }}">Login</a>
                     {#<a href="{{ url('/register') }}">Register</a>#}
                 {% endif %}
             </div>
@@ -73,8 +73,8 @@
             <div class="title m-b-md">{{ config('app.name') }}</div>
 
             <div class="links">
-                <a target="_blank" href="https://github.com/zelding">GitHub</a>
-                <a target="_blank" href="http://stackoverflow.com/users/4308297/zedling">Stack overflow</a>
+                <a title="My Github profile" target="_blank" href="https://github.com/zelding">GitHub</a>
+                <a title="My Stack overflow profile" target="_blank" href="http://stackoverflow.com/users/4308297/zedling">Stack overflow</a>
             </div>
         </div>
     </div>

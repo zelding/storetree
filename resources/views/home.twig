@@ -1,21 +1,32 @@
 {% extends 'layouts/storetree.twig' %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">StoreTree overview</div>
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="page-header">
+                <h1>Overview <small>where to, Sir?</small></h1>
+            </div>
 
-                <div class="panel-body">
-                    <p>Currently there are</p>
-                    <ul>
-                        <li>Items: {{ numberOfItems }}</li>
-                        <li>Shops: {{ numberOfShops }}</li>
-                    </ul>
+            <ol class="breadcrumb">
+                <li class="active"><a href="#">Home</a></li>
+            </ol>
+
+            <div class="col-lg-2 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">StoreTree overview</div>
+
+                    <div class="panel-body">
+                        <p>Currently there are</p>
+                        <ul>
+                            <li>Items: {{ numberOfItems }}</li>
+                            <li>Shops: {{ numberOfShops }}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

@@ -14,6 +14,16 @@
             </ol>
 
             <div class="row">
+                <div class="col-lg-12">
+                    <h2>
+                        &nbsp;
+                        <a href="{{ route('items.edit', {id: item.id}) }}" class="btn btn-primary btn-sm pull-right">Edit</a>
+                    </h2>
+                </div>
+            </div>
+
+
+            <div class="row">
                 <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">Basic info</div>
@@ -51,11 +61,11 @@
                         <div class="panel-heading">Components</div>
 
                         <div class="panel-body">
-                            <ul class="list-group">
+                            <div class="list-group">
                                 {% for comp in item.components %}
-                                    <li class="list-group-item"><a href="{{ route('items.show', {id: comp.id}) }}">{{ comp.name }}</a></li>
+                                    <a class="list-group-item bg-primary" href="{{ route('items.show', {id: comp.id}) }}">{{ comp.name }}</a>
                                 {% endfor %}
-                            </ul>
+                            </div>
                         </div>
                     </div>
                     {% endif %}
@@ -64,13 +74,13 @@
                         <div class="panel-heading">Builds into</div>
 
                         <div class="panel-body">
-                            <ul class="list-group">
+                            <div class="list-group">
                                 {% for comp in item.buildsInto %}
-                                    <li class="list-group-item"><a href="{{ route('items.show', {id: comp.id}) }}">{{ comp.name }}</a></li>
-                                    {% else %}
-                                    <li class="list-group-item">No related items</li>
+                                    <a class="list-group-item" href="{{ route('items.show', {id: comp.id}) }}">{{ comp.name }}</a>
+                                {% else %}
+                                    <a class="list-group-item">No related items</a>
                                 {% endfor %}
-                            </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -18,11 +18,11 @@
             </li>
 
             <li class="{{ Route.currentRouteName == 'shops.index' ? 'active' : '' }}">
-                <a href="{{ route('shops.index') }}">Stores</a>
+                <a href="{{ route('shops.index') }}">Shops</a>
             </li>
 
-            <li>
-                <a href="#">Builds</a>
+            <li class="{{ Route.currentRouteName == 'builds.index' ? 'active' : '' }}">
+                <a href="{{ route('builds.index') }}">Builds</a>
             </li>
         </ul>
     </div>

@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome', [
         "hasAuth" => Route::has('login')
     ]);
-});
+})->name('home');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'storetree'], function() {
 
@@ -27,7 +27,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'storetree'], function() {
     Route::resource('shops', 'ShopController');
     Route::resource('items', 'ItemController');
 
+    Route::put('items/{id}/edit/components', 'ItemController@updateComponent')->name('items.update.components');
+
     Route::group(['prefix' => 'build'], function () {
-        Route::get('/', 'BuildController@index')->name('build.index');
+        Route::get('/', 'BuildController@index')->name('builds.index');
     });
 });
