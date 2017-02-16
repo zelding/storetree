@@ -13,6 +13,8 @@
         <!-- Bootstrap Core CSS -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/datatables-bootstrap3.css') }}" rel="stylesheet">
+
         {% block styleSheets %}
         {% endblock %}
 
@@ -50,6 +52,12 @@
 
         <script src="{{ asset('js/app.js') }}" type="application/javascript"></script>
 
+        <script type="application/javascript">
+            $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        </script>
         {% block inlineJs %}
         {% endblock %}
     </body>

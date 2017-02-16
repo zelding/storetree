@@ -53,6 +53,14 @@
     <!-- /#page-content--wrapper -->
 {% endblock %}
 
+{% block inlineJs %}
+    <script type="application/javascript">
+        $(function () {
+            $('.dataTable').dataTable();
+        });
+    </script>
+{% endblock %}
+
 {% macro item_components(item) %}
     <li>
         {% if item.is_base_item %}

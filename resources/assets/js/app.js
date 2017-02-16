@@ -19,9 +19,5 @@ require('./bootstrap');
 
 window.$ = window.jQuery = require('jquery');
 require('bootstrap-sass');
-
-$( document ).ready(function() {
-    $('.select2').select2({
-        theme: "bootstrap"
-    });
-});
+let dt = require( 'datatables.net' )();
+require('datatables-bootstrap3-plugin');

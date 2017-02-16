@@ -8,3 +8,10 @@ Homestead.json
 Homestead.yaml
 .env
 /bower_components/
+/public/css/
+/public/fonts/
+/public/js/
+/resources/assets/js/select2.full.js
+/resources/assets/less/datatables-bootstrap3.less
+/resources/assets/css/select2.css
+/resources/assets/css/select2-bootstrap.css

@@ -8,13 +8,14 @@
   },
   "dependencies": {
     "bootstrap-sass": "^3.3.7",
-    "jquery": "^3.1.0",
+    "datatables-bootstrap3-plugin": "^0.5.0",
     "gulp": "^3.9.1",
-    "laravel-mix": "^0.6.0",
+    "jquery": "^3.1.0",
     "jquery-file-download": "^1.4.5",
     "laravel-elixir": "^6.0.0-15",
     "laravel-elixir-webpack-advanced": "^0.3.9-3",
-    "laravel-elixir-webpack-official": "^1.0.10"
+    "laravel-elixir-webpack-official": "^1.0.10",
+    "laravel-mix": "^0.6.0"
   },
   "devDependencies": {
     "axios": "^0.15.2",
