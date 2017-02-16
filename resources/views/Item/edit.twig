@@ -76,7 +76,7 @@
                                         <div class="form-group">
                                             <label class="control-label col-lg-2 text-success" for="item_shop">Components to add</label>
                                             <div class="col-lg-10">
-                                                <select id="item_shop" name="components_add[]" multiple class="form-control" style="height: 300px">
+                                                <select id="item_shop" name="components_add[]" multiple class="form-control select2" style="height: 300px">
                                                     {% for item in items %}
                                                         <option value="{{ item.id }}">{{ item.name }}</option>
                                                     {% endfor %}
