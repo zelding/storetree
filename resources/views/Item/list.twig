@@ -27,7 +27,11 @@
                         No shops set
                     {% endfor %}
                 </td>
-                <td><a href="{{ route('items.show', {id: item.id}) }}">view</a></td>
+                <td>
+                    <a class="btn btn-xs btn-warning" href="{{ route('items.show', {id: item.id}) }}">
+                        <i class="fa fa-window-maximize"></i>&nbsp;view
+                    </a>
+                </td>
             </tr>
         {% else %}
             <tr>

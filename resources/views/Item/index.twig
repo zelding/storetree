@@ -5,7 +5,13 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="page-header">
-                <h1>Items <small>list, create, add, modify, update</small></h1>
+                <h1>
+                    Items <small>list, create, add, modify, update</small>
+                    <a href="{{ route('items.create') }}" class="btn btn-success pull-right">
+                        <i class="fa fa-plus"></i>
+                        Add new
+                    </a>
+                </h1>
             </div>
 
             <ol class="breadcrumb">
@@ -15,17 +21,7 @@
 
             <div class="row">
 
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Add a new Items</div>
-
-                        <div class="panel-body">
-                            <a href="{{ route('items.create') }}" class="btn btn-default">Add new</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
+                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">Search Items</div>
 
@@ -39,14 +35,6 @@
                         </div>
                     </div>
                 </div>
-
-                {#<div class="col-lg-12">
-                    <ul>
-                        {% for item in items %}
-                            {{ _self.item_components(item) }}
-                        {% endfor %}
-                    </ul>
-                </div>#}
             </div>
         </div>
     </div>
