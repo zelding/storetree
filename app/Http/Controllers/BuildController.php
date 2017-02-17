@@ -20,10 +20,28 @@ class BuildController extends Controller
     {
         $items = Item::with('components')
             ->where('is_recipe', 0)
+            ->where('is_consumable', 0)
             ->get();
 
         return view('build/index', [
             'items' => $items
         ]);
+    }
+
+    public function show($id)
+    {
+        $item = Item::find($id);
+
+        return view("build/item", [
+            'item' => $item
+        ]);
+    }
+
+    public function listRelated($id)
+    {
+        $item = Item::with('components', 'buildsInto')
+            ->find($id);
+
+        return [];
     }
 }

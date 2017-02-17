@@ -17,7 +17,13 @@ require('./bootstrap');
     el: '#app'
 });*/
 
-window.$ = window.jQuery = require('jquery');
-require('bootstrap-sass');
+
 let dt = require( 'datatables.net' )();
 require('datatables-bootstrap3-plugin');
+
+$(function () {
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+});

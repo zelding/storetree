@@ -16,14 +16,22 @@
             <div class="row">
                 <div class="col-lg-12">
                     {% for item in items %}
-                        <button>{{ item.name }}</button>
+                        <button class="btn btn-sm btn-default itemButton"
+                                data-item-id="{{ item.id }}"
+                                data-toggle="button"
+                                aria-pressed="false"
+                                autocomplete="off">
+                            {{ item.name }}
+                        </button>
                     {% endfor %}
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-12">
-                    <div id="build-container"></div>
+                    <div id="build-container">
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -37,4 +45,15 @@
             margin-top: 20px;
         }
     </style>
+{% endblock %}
+
+{% block pageJs %}
+    <script type="application/javascript">
+        let $btn = $('.itemButton');
+
+        $btn.on('click', function (event){
+            event.preventDefault();
+            event.stopPropagation();
+        });
+    </script>
 {% endblock %}

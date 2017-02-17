@@ -52,13 +52,7 @@
 
         <script src="{{ asset('js/app.js') }}" type="application/javascript"></script>
 
-        <script type="application/javascript">
-            $("#menu-toggle").click(function(e) {
-                e.preventDefault();
-                $("#wrapper").toggleClass("toggled");
-            });
-        </script>
-        {% block inlineJs %}
-        {% endblock %}
+        {% block pageJs %}{% endblock %}
+        {% block inlineJs %}{% endblock %}
     </body>
 </html>
