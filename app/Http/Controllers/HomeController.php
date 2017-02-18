@@ -15,14 +15,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $numberOfItems = Item::where('is_recipe', 0)->count();
+        $numberOfItems = Item::count();
         $numberOfShops = Shop::count();
+        $baseItems     = Item::where('is_base_item',1 )->count();
+        $bossItems     = Item::where('is_boss_item', 1)->count();
+        $recipes       = Item::where('is_recipe', 1)->count();
+        $consumables   = Item::where('is_consumable', 1)->count();
 
         return view(
             'home',
             [
                 'numberOfItems' => $numberOfItems,
-                'numberOfShops' => $numberOfShops
+                'numberOfShops' => $numberOfShops,
+                'baseItems'     => $baseItems,
+                'bossItems'     => $bossItems,
+                'recipes'       => $recipes,
+                'consumables'   => $consumables
             ]
         );
     }

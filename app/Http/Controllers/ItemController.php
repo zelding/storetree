@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -34,8 +35,8 @@ class ItemController extends Controller
         $shops = Shop::all();
 
         return view('Item/index', [
-            'items' => $items,
-            'shops' => $shops
+            'items'    => $items,
+            'shops'    => $shops
         ]);
     }
 
@@ -208,10 +209,16 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
+        if ( !Auth::check() ) {
+            return response('Log in first!', 403);
+        }
+
         $item = Item::find($id);
         $item->shops()->detach();
-        if ( !$item->is_base_item )
+        if ( !$item->is_base_item ) {
             $item->components()->detach();
+        }
+
         $item->delete();
 
         return redirect(route('items.index'), 301);

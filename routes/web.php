@@ -20,7 +20,7 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::group(['middleware' => 'auth', 'prefix' => 'storetree'], function() {
+Route::group(['prefix' => 'storetree'], function() {
 
     Route::get('/', 'HomeController@index')->name('storetree');
 

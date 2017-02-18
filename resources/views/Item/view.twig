@@ -13,6 +13,7 @@
                 <li class="active">{{ item.name }}</li>
             </ol>
 
+            {% if Auth.check() %}
             <div class="row">
                 <div class="col-lg-12">
                     <h2>
@@ -26,6 +27,7 @@
                     </form>
                 </div>
             </div>
+            {% endif %}
 
             <div class="row">
                 <div class="col-lg-6">
