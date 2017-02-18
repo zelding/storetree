@@ -15,13 +15,19 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * return Response
+     * @param Request $request
+     *
+     * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::with('components', 'shops')
-            ->where('is_recipe', 0)
-            ->orderBy('is_base_item', 'desc')
+        $query = Item::with('components', 'shops');
+
+        if ( !$request->has('all') ) {
+            $query->where('is_recipe', 0);
+        }
+
+        $items = $query->orderBy('is_base_item', 'desc')
             ->orderBy('name', 'asc')
             ->get();
 

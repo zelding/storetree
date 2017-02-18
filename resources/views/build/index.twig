@@ -39,21 +39,101 @@
 
     <style>
         #build-container {
-            height: 600px;
+            height: 100vh;
             position: relative;
             border: 1px solid black;
             margin-top: 20px;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .item-selected {
+            display:flex;
+            position: relative;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .item-group {
+            display: inline;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .item-components, .item-buildsInto {
+            position: relative;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .item-components .item {
+            background-color: #c7ddef;
+        }
+
+        .item-buildsInto .item {
+            background-color: #d0e9c6;
+        }
+
+        .panel-item, .item {
+            position: relative;
+            display: inline-flex;
+            min-height: 36px;
+            min-width: 100px;
+            padding: 5px;
+            border: 1px dotted black;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .item.itemButton {
+            cursor: pointer;
+        }
+
+        .item .heading {
+            width: 100%;
+            text-align: center;
+        }
+
+        .item .heading > strong {
+            width: 100%;
         }
     </style>
 {% endblock %}
 
 {% block pageJs %}
     <script type="application/javascript">
-        let $btn = $('.itemButton');
+        let $btn = $('.itemButton:not(disabled)');
+        let $container = $('#build-container');
 
-        $btn.on('click', function (event){
+        $("#page-content-wrapper").on('click', '.itemButton:not(.disabled)', function (event){
             event.preventDefault();
             event.stopPropagation();
+
+            const $this = $(this);
+
+            $container.html('');
+            $btn.removeClass('disabled');
+
+            let call = $.ajax({
+                url: '/storetree/build/show/' + $this.data('item-id')
+            });
+
+            call.done(function(response){
+                $container.append(response);
+                $this.addClass('disabled');
+            });
+
+            call.fail(function(error){
+                alert(error);
+            });
         });
     </script>
 {% endblock %}

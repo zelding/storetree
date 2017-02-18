@@ -33,5 +33,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'storetree'], function() {
         Route::get('/', 'BuildController@index')->name('builds.index');
 
         Route::get('show/{id}', 'BuildController@show')->name('builds.show');
+
+        Route::get('related/{id}', 'BuildController@listRelated')->name('builds.related');
     });
 });

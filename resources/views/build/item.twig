@@ -1,0 +1,57 @@
+<div class="item-group">
+    <div class="item-buildsInto">
+        {% for comp in item.buildsInto %}
+            {{ _self.item_buildsInto(comp) }}
+        {% endfor %}
+    </div>
+
+    <div class="item-selected">
+        <div class="item" data-item-id="{{ item.id }}" data-components="[{{ components }}]" data-builds-into="[{{ buildsInto }}]">
+            <div class="heading"><strong>{{ item.name }}</strong> {{ item.totalCost }} g</div>
+        </div>
+    </div>
+
+    <div class="item-components">
+        {% if not item.is_base_item %}
+            {{ _self.item_components(item) }}
+        {% endif %}
+    </div>
+</div>
+
+{% macro item_components(item) %}
+    <div class="item-group">
+        <div class="item-selected">
+            {% if not item.is_base_item %}
+                {% for component in item.components %}
+                    {% if component.is_recipe %}
+                        <div class="item">
+                            <div class="heading">{{ component.name }}</div>
+                        </div>
+                    {% else %}
+                        <div class="item itemButton" data-item-id="{{ component.id }}">
+                            <div class="heading"><strong>{{ component.name }}</strong></div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="item-components">
+            {% if not item.is_base_item %}
+                {% for component in item.components %}
+                    {{ _self.item_components(component) }}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endmacro item_components %}
+
+{% macro item_buildsInto(item) %}
+    <div class="item-group">
+        <div class="item-selected">
+            <div class="item itemButton" data-item-id="{{ item.id }}">
+                <div class="heading"><strong>{{ item.name }}</strong></div>
+            </div>
+        </div>
+    </div>
+{% endmacro item_buildsInto %}
