@@ -178,6 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         //twig
         TwigBridge\ServiceProvider::class,
+
+        Orangehill\Iseed\IseedServiceProvider::class
     ],
 
     /*

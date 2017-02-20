@@ -60,9 +60,10 @@ namespace App{
  * @property bool $is_consumable
  * @property bool $is_base_item
  * @property bool $is_boss_item
+ * @property bool $is_recipe
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property bool $is_recipe
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $buildsInto
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $components
  * @property-read mixed $components_cost
  * @property-read mixed $total_cost
