@@ -51,11 +51,15 @@
                             <p>Shops</p>
 
                             <ul>
-                                {% for shop in item.shops %}
-                                    <li><a href="{{ route('shops.show', {id: shop.id}) }}">{{ shop.name }}</a></li>
+                                {% if item.is_purchasable %}
+                                    {% for shop in item.shops %}
+                                        <li><a href="{{ route('shops.show', {id: shop.id}) }}">{{ shop.name }}</a></li>
+                                    {% else %}
+                                        <li>No shops added yet</li>
+                                    {% endfor %}
                                 {% else %}
-                                    <li>No shops added yet</li>
-                                {% endfor %}
+                                    <li class="text-danger">This item isn't purchasable</li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -119,6 +123,16 @@
                                 <dt>Is Alertable</dt><dd>{{ item.is_alertable ? 'Yes' : 'No' }}</dd>
                                 <dt>Alert text</dt><dd>{{ item.alert_text }}</dd>
                             </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Stats <small>the numbers you were looking for</small></div>
+
+                        <div class="panel-body">
+
                         </div>
                     </div>
                 </div>
