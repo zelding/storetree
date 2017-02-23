@@ -4,6 +4,82 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Item
+ *
+ * @property int $id
+ * @property int $dota_id
+ * @property string $base_class
+ * @property bool $max_level
+ * @property bool $base_level
+ * @property bool $is_consumable
+ * @property bool $is_base_item
+ * @property bool $is_boss_item
+ * @property bool $is_recipe
+ * @property bool $is_killable
+ * @property bool $is_sellable
+ * @property bool $is_purchasable
+ * @property bool $is_droppable
+ * @property bool $in_backpack
+ * @property string $name
+ * @property string $description
+ * @property int $cost
+ * @property bool $stack_size
+ * @property string $model
+ * @property bool $fight_recap
+ * @property string $quality
+ * @property string $share
+ * @property bool $stock_max
+ * @property int $stock_time
+ * @property bool $stock_initial
+ * @property bool $start_charges
+ * @property bool $show_charges
+ * @property bool $needs_charges
+ * @property bool $is_autocast
+ * @property bool $is_alertable
+ * @property string $alert_text
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $buildsInto
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $components
+ * @property-read mixed $components_cost
+ * @property-read mixed $total_cost
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Shop[] $shops
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereAlertText($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereBaseClass($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereBaseLevel($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereCost($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereDotaId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereFightRecap($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereInBackpack($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsAlertable($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsAutocast($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsBaseItem($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsBossItem($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsConsumable($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsDroppable($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsKillable($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsPurchasable($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsRecipe($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsSellable($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereMaxLevel($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereModel($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereNeedsCharges($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereQuality($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereShare($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereShowCharges($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereStackSize($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereStartCharges($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereStockInitial($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereStockMax($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereStockTime($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Item extends Model
 {
     /**
@@ -18,9 +94,18 @@ class Item extends Model
     ];
 
     protected $casts = [
-        'is_base_item'  => 'boolean',
-        'is_boss_item'  => 'boolean',
-        'is_consumable' => 'boolean'
+        'is_base_item'   => 'boolean',
+        'is_boss_item'   => 'boolean',
+        'is_consumable'  => 'boolean',
+        'is_killable'    => 'boolean',
+        'is_sellable'    => 'boolean',
+        'is_purchasable' => 'boolean',
+        'is_droppable'   => 'boolean',
+        'in_backpack'    => 'boolean',
+        'show_charges'   => 'boolean',
+        'needs_charges'  => 'boolean',
+        'is_autocast'    => 'boolean',
+        'is_alertable'   => 'boolean'
     ];
 
     public function components()

@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Basic info</div>
+                        <div class="panel-heading">Basic info <small>fyi</small></div>
 
                         <div class="panel-body">
                             <p>Data</p>
@@ -87,6 +87,38 @@
                                     <a class="list-group-item">No related items</a>
                                 {% endfor %}
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">Advanced properties <small>for the scripts</small></div>
+
+                        <div class="panel-body">
+                            <dl class="dl-horizontal">
+                                <dt>Dota Id</dt><dd>{{ item.dota_id }}</dd>
+                                <dt>Dota class</dt><dd><code>{{ item.base_class }}</code></dd>
+                                <dt>Max level</dt><dd>{{ item.max_level }}</dd>
+                                <dt>Base level</dt><dd>{{ item.base_level }}</dd>
+                                <dt>Is killable</dt><dd>{{ item.is_killable ? 'Yes' : 'No' }}</dd>
+                                <dt>Is sellable</dt><dd>{{ item.is_sellable ? 'Yes' : 'No' }}</dd>
+                                <dt>Is purchasable</dt><dd>{{ item.is_purchasable ? 'Yes' : 'No' }}</dd>
+                                <dt>Is droppable</dt><dd>{{ item.is_droppable ? 'Yes' : 'No' }}</dd>
+                                <dt>Is backpackable</dt><dd>{{ item.in_backpack ? 'Yes' : 'No' }}</dd>
+                                <dt>Stack size</dt><dd>{{ item.stack_size }}</dd>
+                                <dt>Model path</dt><dd><code>{{ item.model }}</code></dd>
+                                <dt>Fight recap level</dt><dd>{{ item.fight_recap }}</dd>
+                                <dt>Quality level</dt><dd>{{ item.quality }}</dd>
+                                <dt>Share flags</dt><dd><code>{{ item.share }}</code></dd>
+                                <dt>Needs charges</dt><dd>{{ item.needs_charges ? 'Yes' : 'No' }}</dd>
+                                <dt>Show charges</dt><dd>{{ item.show_charges ? 'Yes' : 'No' }}</dd>
+                                <dt>Autocast on pickup</dt><dd>{{ item.is_autocast ? 'Yes' : 'No' }}</dd>
+                                <dt>Is Alertable</dt><dd>{{ item.is_alertable ? 'Yes' : 'No' }}</dd>
+                                <dt>Alert text</dt><dd>{{ item.alert_text }}</dd>
+                            </dl>
                         </div>
                     </div>
                 </div>
