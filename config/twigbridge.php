@@ -149,6 +149,11 @@ return [
                 'is_safe' => [
                     'open'
                 ]
+            ],
+            'Auth' => [
+                'is_safe' => [
+                    'open'
+                ]
             ]
         ],
 
