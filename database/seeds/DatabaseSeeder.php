@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->seedShops();
         $this->call(UsersTableSeeder::class);
+        $this->seedItemsFromWeb();
         $this->call(ItemsTableSeeder::class);
         $this->call(ItemShopTableSeeder::class);
         $this->call(RecipesTableSeeder::class);
@@ -42,6 +43,8 @@ class DatabaseSeeder extends Seeder
 
     protected function seedItemsFromWeb()
     {
+        \DB::table('items')->delete();
+
         Api::init('354765AC2104244D57B1F434CBB8B4F7', []);
 
         $itemMapper = new \Dota2Api\Mappers\ItemsMapperWeb();
@@ -49,9 +52,11 @@ class DatabaseSeeder extends Seeder
 
         foreach ( $itemInfo as $item ) {
             $newItem = new Item();
-            $newItem->name      = $item->get('localized_name');
-            $newItem->cost      = $item->get('cost');
-            $newItem->is_recipe = $item->get('recipe');
+            $newItem->dota_id    = $item->get('id');
+            $newItem->name       = $item->get('localized_name');
+            $newItem->base_class = $item->get('name');
+            $newItem->cost       = $item->get('cost');
+            $newItem->is_recipe  = $item->get('recipe');
             $newItem->save();
 
             if ( $item->get('side_shop') ) {
