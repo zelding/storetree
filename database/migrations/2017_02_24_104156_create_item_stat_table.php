@@ -17,8 +17,8 @@ class CreateItemStatTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('id');
-            $table->integer('item_id');
-            $table->integer('stat_id');
+            $table->unsignedInteger('item_id');
+            $table->unsignedInteger('stat_id');
             $table->string('value');
             $table->timestamps();
         });

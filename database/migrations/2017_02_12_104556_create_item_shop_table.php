@@ -17,8 +17,8 @@ class CreateItemShopTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('id');
-            $table->integer('item_id');
-            $table->integer('shop_id');
+            $table->unsignedInteger('item_id');
+            $table->unsignedInteger('shop_id');
             $table->timestamps();
         });
     }

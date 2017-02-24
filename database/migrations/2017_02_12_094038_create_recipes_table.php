@@ -17,8 +17,8 @@ class CreateRecipesTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('id');
-            $table->integer('item_id');
-            $table->integer('component_id');
+            $table->unsignedInteger('item_id');
+            $table->unsignedInteger('component_id');
             $table->timestamps();
         });
     }
