@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Item;
 use App\Shop;
+use App\Stat;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,6 +18,7 @@ class HomeController extends Controller
     {
         $numberOfItems = Item::count();
         $numberOfShops = Shop::count();
+        $stats         = Stat::count();
         $baseItems     = Item::where('is_base_item',1 )->count();
         $bossItems     = Item::where('is_boss_item', 1)->count();
         $recipes       = Item::where('is_recipe', 1)->count();
@@ -30,7 +32,8 @@ class HomeController extends Controller
                 'baseItems'     => $baseItems,
                 'bossItems'     => $bossItems,
                 'recipes'       => $recipes,
-                'consumables'   => $consumables
+                'consumables'   => $consumables,
+                'stats'         => $stats
             ]
         );
     }

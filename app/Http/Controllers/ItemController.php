@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreItem;
 use App\Item;
 use App\Shop;
+use App\Stat;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -43,12 +44,17 @@ class ItemController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
+     *
      * @return Response
      */
     public function create(Request $request)
     {
         $shops = Shop::all();
-        return view('Item/create', ['shops' => $shops]);
+        return view('Item/create', [
+            'shops'   => $shops,
+            'request' => $request
+        ]);
     }
 
     /**
@@ -93,7 +99,7 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        $item = Item::with('shops','components', 'buildsInto')->find($id);
+        $item = Item::with('shops','components', 'buildsInto', 'stats')->find($id);
 
         if ( !($item instanceof Item)) {
             return redirect(route('items.index'), 404);
@@ -107,7 +113,8 @@ class ItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Request $request
+     * @param  int     $id
      * @return Response
      */
     public function edit(Request $request, $id)
@@ -145,7 +152,7 @@ class ItemController extends Controller
      *
      * @param  StoreItem  $request
      * @param  int  $id
-     * @return Response
+     * @return Response|RedirectResponse
      */
     public function update(StoreItem $request, $id)
     {
@@ -179,6 +186,51 @@ class ItemController extends Controller
         return redirect(route('items.edit', ["id" => $item->id]));
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response|RedirectResponse
+     */
+    public function destroy($id)
+    {
+        if ( !Auth::check() ) {
+            return response('Log in first!', 403);
+        }
+
+        $item = Item::find($id);
+        $item->shops()->detach();
+        if ( !$item->is_base_item ) {
+            $item->components()->detach();
+        }
+
+        $item->delete();
+
+        return redirect(route('items.index'), 301);
+    }
+
+    /******************************************************
+     *                  COMPONENTS
+     ******************************************************/
+
+    /**
+     * @param int $id ItemId
+     *
+     * @return RedirectResponse|Response
+     */
+    public function editComponent($id)
+    {
+        $item  = Item::with('components')->find($id);
+
+        if ( !($item instanceof Item)) {
+            return redirect(route('items.index'), 404);
+        }
+
+        return view('Item/edit_components', [
+            "item" => $item,
+        ]);
+    }
+
     public function updateComponent(Request $request, $id)
     {
         $item = Item::find($id);
@@ -201,26 +253,35 @@ class ItemController extends Controller
         return redirect(route('items.edit', ["id" => $item->id]));
     }
 
+    /******************************************************
+     *                     STATS
+     ******************************************************/
+
     /**
-     * Remove the specified resource from storage.
+     * @param Request $request
+     * @param int     $id
      *
-     * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function editStats(Request $request, $id)
     {
-        if ( !Auth::check() ) {
-            return response('Log in first!', 403);
-        }
+        $item = Item::with('stats')->find($id);
+        $stats = Stat::all();
 
+        return view('Item/edit_stats', [
+            'item'  => $item,
+            'stats' => $stats
+        ]);
+    }
+
+    public function updateStats(Request $request, $id)
+    {
         $item = Item::find($id);
-        $item->shops()->detach();
-        if ( !$item->is_base_item ) {
-            $item->components()->detach();
-        }
 
-        $item->delete();
+        $item->stats()->attach([
+            $request->get('new_stat') => ['value' => json_encode($request->get('new_stat_value'))]
+        ]);
 
-        return redirect(route('items.index'), 301);
+        return redirect(route('items.edit.stats', ["id" => $item->id]));
     }
 }

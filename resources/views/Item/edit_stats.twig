@@ -1,0 +1,108 @@
+{% extends 'layouts/storetree.twig' %}
+
+{% block content %}
+<!-- Page Content -->
+
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="page-header">
+            <h1>Edit {{ item.name }} stats<small> ({{ item.id }}) and attributes</small></h1>
+        </div>
+
+        <ol class="breadcrumb">
+            <li><a href="{{ route('storetree') }}">Home</a></li>
+            <li><a href="{{ route('items.index') }}">Items</a></li>
+            <li><a href="{{ route('items.show', {id: item.id}) }}">{{ item.name }}</a></li>
+            <li class="active">Stats</li>
+        </ol>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Item max level: {{ item.max_level }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="form-horizontal" action="{{ route('items.update.stats', {id: item.id}) }}" method="post">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Update components</div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <dl class="dl-horizontal">
+                                        {% for stat in item.stats %}
+                                            <dt><abbr title="{{ stat.dota_name }}">{{ stat.name }}</abbr></dt>
+                                            <dd>
+                                                {% for i, v in stat.pivot.value %}
+                                                    {% if i == (item.base_level - 1) or loop.length == 1 %}
+                                                        <strong>{{ v }}</strong>
+                                                    {% else %}
+                                                        {{ v }}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </dd>
+                                        {% else %}
+                                            <dt>No</dt><dd>stats available</dd>
+                                        {% endfor %}
+                                    </dl>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-2 text-success" for="stat_type">Stat to add</label>
+                                        <div class="col-lg-10">
+                                            <select id="stat_type" name="new_stat" class="form-control select2" style="height: 300px">
+                                                {% for stat in stats %}
+                                                    <option value="{{ stat.id }}">{{ stat.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-2 text-success" for="stat_value">Stat values</label>
+                                        <div class="col-lg-10">
+                                            <select id="stat_value" name="new_stat_value[]" multiple class="form-control select2" style="height: 300px">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="panel-footer">
+                            <a class="btn btn-default" href="{{ route('items.show', {id: item.id}) }}">Back</a>
+                            <button type="submit" class="btn btn-warning pull-right clearfix">Update components</button>
+                            <input type="hidden" name="id" value="{{ item.id }}">
+
+                            {{ csrf_field() }}
+                            {{ method_field('PUT') }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block inlineJs %}
+    <script type="application/javascript">
+        $(function () {
+            $('.select2').select2({
+                theme: "bootstrap",
+                tags: true,
+                createTag: function (params) {
+                    return {
+                        id: params.term,
+                        text: params.term,
+                        newOption: true
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

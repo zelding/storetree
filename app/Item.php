@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Utils\StatPivot;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -94,18 +95,18 @@ class Item extends Model
     ];
 
     protected $casts = [
-        'is_base_item'   => 'boolean',
-        'is_boss_item'   => 'boolean',
-        'is_consumable'  => 'boolean',
-        'is_killable'    => 'boolean',
-        'is_sellable'    => 'boolean',
-        'is_purchasable' => 'boolean',
-        'is_droppable'   => 'boolean',
-        'in_backpack'    => 'boolean',
-        'show_charges'   => 'boolean',
-        'needs_charges'  => 'boolean',
-        'is_autocast'    => 'boolean',
-        'is_alertable'   => 'boolean'
+        'is_base_item'      => 'boolean',
+        'is_boss_item'      => 'boolean',
+        'is_consumable'     => 'boolean',
+        'is_killable'       => 'boolean',
+        'is_sellable'       => 'boolean',
+        'is_purchasable'    => 'boolean',
+        'is_droppable'      => 'boolean',
+        'in_backpack'       => 'boolean',
+        'show_charges'      => 'boolean',
+        'needs_charges'     => 'boolean',
+        'is_autocast'       => 'boolean',
+        'is_alertable'      => 'boolean'
     ];
 
     public function components()
@@ -129,6 +130,11 @@ class Item extends Model
     public function shops()
     {
         return $this->belongsToMany(Shop::class);
+    }
+
+    public function stats()
+    {
+        return $this->belongsToMany(Stat::class)->using(StatPivot::class)->withPivot('value');
     }
 
     public function getTotalCostAttribute()

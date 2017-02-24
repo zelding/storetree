@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Utils\Constants;
 
 class CreateStatsTable extends Migration
 {
@@ -18,7 +19,7 @@ class CreateStatsTable extends Migration
 
             $table->increments('id');
             $table->string('name');
-            $table->enum('var_type', \App\Constants::$varTypes)->default('FIELD_INTEGER');
+            $table->enum('var_type', Constants::$varTypes)->default('FIELD_INTEGER');
             $table->string('dota_name')->unique();
             $table->timestamps();
         });

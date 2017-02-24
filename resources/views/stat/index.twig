@@ -6,9 +6,9 @@
         <div class="container-fluid">
             <div class="page-header">
                 <h1>
-                    Shops <small>list, create, add, modify, update</small>
+                    Stats <small>list, create, add, modify, update</small>
                     {% if Auth.check() %}
-                        <a href="{{ route('shops.create') }}" class="btn btn-success pull-right">
+                        <a href="{{ route('stats.create') }}" class="btn btn-success pull-right">
                             <i class="fa fa-plus"></i>
                             Add new
                         </a>
@@ -18,7 +18,7 @@
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('storetree') }}">Home</a></li>
-                <li class="active">Shops</li>
+                <li class="active">Stats</li>
             </ol>
 
             <div class="row">
@@ -28,17 +28,19 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Items</th>
-                                <th>&nbsp;</th>
+                                <th>Class anme</th>
+                                <th>Type</th>
+                                <th>#</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            {% for shop in shops %}
+                            {% for stat in stats %}
                                 <tr>
-                                    <td>{{ shop.id }}</td>
-                                    <td>{{ shop.name }}</td>
-                                    <td>{{ shop.items.count }}</td>
+                                    <td>{{ stat.id }}</td>
+                                    <td>{{ stat.name }}</td>
+                                    <td>{{ stat.dota_name }}</td>
+                                    <td>{{ stat.var_type }}</td>
                                     <td>&nbsp;</td>
                                 </tr>
                             {% endfor %}
@@ -49,7 +51,6 @@
 
         </div>
     </div>
-
 {% endblock %}
 
 {% block inlineJs %}

@@ -8,7 +8,7 @@
  * Date: 2/20/17 6:09 PM
  */
 
-namespace App;
+namespace App\Utils;
 
 final class Constants
 {

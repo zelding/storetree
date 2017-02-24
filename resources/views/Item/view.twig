@@ -31,7 +31,7 @@
 
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="panel panel-default">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">Basic info <small>fyi</small></div>
 
                         <div class="panel-body">
@@ -62,12 +62,22 @@
                                 {% endif %}
                             </ul>
                         </div>
+
+                        {% if Auth.check() %}
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <a href="{{ route('items.edit', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
 
                 <div class="col-lg-6">
                     {% if not item.is_base_item %}
-                    <div class="panel panel-default">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">Components</div>
 
                         <div class="panel-body">
@@ -77,10 +87,20 @@
                                 {% endfor %}
                             </div>
                         </div>
+
+                        {% if Auth.check() %}
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <a href="{{ route('items.edit.components', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                     {% endif %}
 
-                    <div class="panel panel-default">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">Builds into</div>
 
                         <div class="panel-body">
@@ -128,12 +148,37 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <div class="panel panel-primary">
+                    <div class="panel panel-warning">
                         <div class="panel-heading">Stats <small>the numbers you were looking for</small></div>
 
                         <div class="panel-body">
-
+                            <dl class="dl-horizontal">
+                                {% for stat in item.stats %}
+                                    <dt><abbr title="{{ stat.dota_name }}">{{ stat.name }}</abbr></dt>
+                                    <dd>
+                                        {% for i, v in stat.pivot.value %}
+                                            {% if i == (item.base_level - 1) or loop.length == 1 %}
+                                                <strong>{{ v }}</strong>
+                                            {% else %}
+                                                {{ v }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </dd>
+                                {% else %}
+                                    <dt>No</dt><dd>stats available</dd>
+                                {% endfor %}
+                            </dl>
                         </div>
+
+                        {% if Auth.check() %}
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <a href="{{ route('items.edit.stats', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

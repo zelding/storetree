@@ -8,10 +8,10 @@
                 <h1>
                     Items <small>list, create, add, modify, update</small>
                     {% if Auth.check() %}
-                    <a href="{{ route('items.create') }}" class="btn btn-success pull-right">
-                        <i class="fa fa-plus"></i>
-                        Add new
-                    </a>
+                        <a href="{{ route('items.create') }}" class="btn btn-success pull-right">
+                            <i class="fa fa-plus"></i>
+                            Add new
+                        </a>
                     {% endif %}
                 </h1>
             </div>

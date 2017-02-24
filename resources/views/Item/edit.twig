@@ -53,64 +53,7 @@
                     </form>
                 </div>
 
-                <div class="col-lg-12">
-                    <form class="form-horizontal" action="{{ route('items.update.components', {id: item.id}) }}" method="post">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Update components</div>
-
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label class="control-label col-lg-2 text-danger" for="item_shop">Components to remove</label>
-                                            <div class="col-lg-10">
-                                                <select id="item_shop" name="components_remove[]" multiple class="form-control" style="height: 300px">
-                                                    {% for item in item.components %}
-                                                        <option value="{{ item.pivot.id }}">{{ item.name }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label class="control-label col-lg-2 text-success" for="item_shop">Components to add</label>
-                                            <div class="col-lg-10">
-                                                <select id="item_shop" name="components_add[]" multiple class="form-control select2" style="height: 300px">
-                                                    {% for item in items %}
-                                                        <option value="{{ item.id }}">{{ item.name }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="panel-footer">
-                                <a class="btn btn-default" href="{{ route('items.show', {id: item.id}) }}">Back</a>
-                                <button type="submit" class="btn btn-warning pull-right clearfix">Update components</button>
-                                <input type="hidden" name="id" value="{{ item.id }}">
-
-                                {{ csrf_field() }}
-                                {{ method_field('PUT') }}
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block inlineJs %}
-    <script type="application/javascript">
-        $(function () {
-            $('.select2').select2({
-                theme: "bootstrap"
-            });
-        });
-    </script>
 {% endblock %}

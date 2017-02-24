@@ -24,6 +24,10 @@
             <li class="{{ Route.currentRouteName == 'builds.index' ? 'active' : '' }}">
                 <a href="{{ route('builds.index') }}">Builds</a>
             </li>
+
+            <li class="{{ Route.currentRouteName == 'stats.index' ? 'active' : '' }}">
+                <a href="{{ route('stats.index') }}">Stats</a>
+            </li>
         </ul>
     </div>
 {% endblock %}

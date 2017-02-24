@@ -26,8 +26,13 @@ Route::group(['prefix' => 'storetree'], function() {
 
     Route::resource('shops', 'ShopController');
     Route::resource('items', 'ItemController');
+    Route::resource('stats', 'StatController');
 
+    Route::get('items/{id}/edit/components', 'ItemController@editComponent')->name('items.edit.components');
     Route::put('items/{id}/edit/components', 'ItemController@updateComponent')->name('items.update.components');
+
+    Route::get('items/{id}/edit/stats', 'ItemController@editStats')->name('items.edit.stats');
+    Route::put('items/{id}/edit/stats', 'ItemController@updateStats')->name('items.update.stats');
 
     Route::group(['prefix' => 'build'], function () {
         Route::get('/', 'BuildController@index')->name('builds.index');
