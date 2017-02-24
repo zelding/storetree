@@ -61,12 +61,13 @@
         {% if hasAuth %}
             <div class="top-right links">
                 {% if Auth.check() %}
-                    <a href="{{ route('~') }}">Home</a>
+                    <a href="{{ route('home') }}">Home</a>
                 {% else %}
                     <a href="{{ route('login') }}">Login</a>
-                    <a href="{{ route('storetree') }}">StoreTree</a>
+
                     {#<a href="{{ url('/register') }}">Register</a>#}
                 {% endif %}
+                <a href="{{ route('storetree') }}">StoreTree</a>
             </div>
         {% endif %}
 
