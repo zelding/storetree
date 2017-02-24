@@ -141,7 +141,6 @@ class ItemController extends Controller
         return view('Item/edit', [
             "request"      => $request,
             "item"         => $item,
-            "items"        => $items,
             'shops'        => $shops,
             'currentShops' => $currentShops
         ]);
@@ -221,13 +220,17 @@ class ItemController extends Controller
     public function editComponent($id)
     {
         $item  = Item::with('components')->find($id);
+        $items = Item::whereNotIn('id', [$id])
+                     ->orderBy('name')
+                     ->get();
 
         if ( !($item instanceof Item)) {
             return redirect(route('items.index'), 404);
         }
 
         return view('Item/edit_components', [
-            "item" => $item,
+            "item"  => $item,
+            'items' => $items
         ]);
     }
 
@@ -250,7 +253,7 @@ class ItemController extends Controller
             }
         }
 
-        return redirect(route('items.edit', ["id" => $item->id]));
+        return redirect(route('items.edit.components', ["id" => $item->id]));
     }
 
     /******************************************************
