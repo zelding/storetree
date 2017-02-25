@@ -44,6 +44,7 @@ class CreateItemsTable extends Migration
             $table->tinyInteger('start_charges')->default(0);
             $table->boolean('show_charges')->default(false);;
             $table->boolean('needs_charges')->default(false);
+            $table->boolean('is_permanent')->default(true);
             $table->boolean('is_autocast')->default(false);
             $table->boolean('is_alertable')->default(false);
             $table->string('alert_text')->nullable();

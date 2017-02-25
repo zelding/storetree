@@ -6,6 +6,7 @@ use App\Http\Requests\StoreItem;
 use App\Item;
 use App\Shop;
 use App\Stat;
+use App\Utils\Constants;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -105,6 +106,20 @@ class ItemController extends Controller
             return redirect(route('items.index'), 404);
         }
 
+        if ( $item->base_level > 1 ) {
+            $name = preg_replace('~_\d{1,}~', '', $item->base_class);
+            $lvl1 = Item::with('stats')
+                ->where('base_level', '=', 1)
+                ->where('base_class', $name)
+                ->first();
+
+            $lvl1->stats->each(function (&$item, $key) {
+                $item->inherited = true;
+            });
+
+            $item->stats = $item->stats->union($lvl1->stats);
+        }
+
         return view('Item/view', [
             "item" => $item
         ]);
@@ -139,10 +154,12 @@ class ItemController extends Controller
         }
 
         return view('Item/edit', [
-            "request"      => $request,
-            "item"         => $item,
-            'shops'        => $shops,
-            'currentShops' => $currentShops
+            "request"       => $request,
+            "item"          => $item,
+            'shops'         => $shops,
+            'currentShops'  => $currentShops,
+            'qualityLevels' => Constants::$itemQuality,
+            'shareFlags'    => Constants::$shareable
         ]);
     }
 

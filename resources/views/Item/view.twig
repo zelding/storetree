@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h2>
-                        <a href="{{ route('items.edit', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                        This is what we know
                         <button id="deleteButton" class="btn btn-danger btn-sm pull-right">Delete</button>
                     </h2>
 
@@ -132,12 +132,14 @@
                                 <dt>Is purchasable</dt><dd>{{ item.is_purchasable ? 'Yes' : 'No' }}</dd>
                                 <dt>Is droppable</dt><dd>{{ item.is_droppable ? 'Yes' : 'No' }}</dd>
                                 <dt>Is backpackable</dt><dd>{{ item.in_backpack ? 'Yes' : 'No' }}</dd>
+                                <dt>Is permanent</dt><dd>{{ item.is_permanent ? 'Yes' : 'No' }}</dd>
                                 <dt>Stack size</dt><dd>{{ item.stack_size }}</dd>
                                 <dt>Model path</dt><dd><code>{{ item.model }}</code></dd>
                                 <dt>Fight recap level</dt><dd>{{ item.fight_recap }}</dd>
                                 <dt>Quality level</dt><dd>{{ item.quality }}</dd>
                                 <dt>Share flags</dt><dd><code>{{ item.share }}</code></dd>
                                 <dt>Needs charges</dt><dd>{{ item.needs_charges ? 'Yes' : 'No' }}</dd>
+                                <dt>Start charges</dt><dd>{{ item.start_charges }}</dd>
                                 <dt>Show charges</dt><dd>{{ item.show_charges ? 'Yes' : 'No' }}</dd>
                                 <dt>Autocast on pickup</dt><dd>{{ item.is_autocast ? 'Yes' : 'No' }}</dd>
                                 <dt>Is Alertable</dt><dd>{{ item.is_alertable ? 'Yes' : 'No' }}</dd>
@@ -147,14 +149,15 @@
                     </div>
                 </div>
 
+                {% if not item.is_recipe %}
                 <div class="col-lg-6">
                     <div class="panel panel-warning">
-                        <div class="panel-heading">Stats <small>the numbers you were looking for</small></div>
+                        <div class="panel-heading">Stats <small>yellow stats are inherited from lvl1</small></div>
 
                         <div class="panel-body">
                             <dl class="dl-horizontal">
                                 {% for stat in item.stats %}
-                                    <dt><abbr title="{{ stat.dota_name }}">{{ stat.name }}</abbr></dt>
+                                    <dt><abbr class="{{ stat.inherited ? 'bg-warning' }}" title="{{ stat.dota_name }}">{{ stat.name }}</abbr></dt>
                                     <dd>
                                         {% for i, v in stat.pivot.value %}
                                             {% if i == (item.base_level - 1) or loop.length == 1 %}
@@ -181,10 +184,10 @@
                         {% endif %}
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
-
 {% endblock %}
 
 {% block inlineJs %}

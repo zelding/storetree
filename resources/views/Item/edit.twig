@@ -39,6 +39,10 @@
                                 {% endif %}
 
                                 {% include 'Item/form_edit.twig' %}
+
+                                <hr>
+
+                                {% include 'Item/form_edit_advanced.twig' %}
                             </div>
 
                             <div class="panel-footer">
@@ -56,4 +60,39 @@
             </div>
         </div>
     </div>
+
+    <style>
+        .tooltip-inner {
+            display: inline-block;
+            max-width: 350px;
+            min-width: 100px;
+            height: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block pageJs %}
+    <script type="application/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({
+                html: true
+            });
+
+            $("#item-recipe").on('change', function () {
+               $("#base-class-addon").html(
+                   $(this).is(':checked') ?
+                       'item_recipe_' :
+                       'item_'
+               );
+            });
+
+            $("#base-item").on('change', function () {
+               $("#item_cost").attr('disabled', !$(this).is(':checked'));
+            });
+
+            $("#is-purchasable").on('change', function () {
+               $("#item_shop").attr('disabled', !$(this).is(':checked'));
+            });
+        });
+    </script>
 {% endblock %}

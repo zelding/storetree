@@ -1,0 +1,224 @@
+<div class="row">
+    <div class="col-lg-4">
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="item_dota_id">Dota ID</label>
+            <div class="col-lg-8" data-toggle="tooltip" title="The <strong>UNIQUE</strong> ID of the item in the dota2 system">
+                <input type="text" class="form-control" id="item_dota_id" placeholder="10001"
+                       name="dota_id" value="{{ request.dota_id ?? item.dota_id }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="item-dota-class">Dota Class</label>
+            <div class="col-lg-8" data-toggle="tooltip" title="The class name of the item in dota scripts.<br>The prefixes will be added automatically">
+                <div class="input-group">
+                    <span class="input-group-addon" id="base-class-addon">item_{{ item.is_recipe ? 'recipe_' }}</span>
+                    {% set value = request.base_class ?? item.base_class %}
+                    {% set value = value|replace({'item_': '', 'recipe_': ''}) %}
+                    <input type="text" class="form-control" id="item-dota-class" placeholder="10001"
+                           name="base_class" value="{{ value }}"
+                           aria-describedby="base-class-addon">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 col-lg-offset-1 control-label" for="item-base-level">Base level</label>
+
+            <div class="col-lg-2" data-toggle="tooltip" title="The current level in the upgrade line">
+                <input type="number" class="form-control" id="item-base-level" placeholder="1"
+                       name="base_level" value="{{ request.base_level ?? item.base_level }}" min="1" max="10">
+            </div>
+
+            <label class="col-lg-3 col-lg-offset-1 control-label" for="item-max-level">Max level</label>
+            <div class="col-lg-2" data-toggle="tooltip" title="How many upgrades it have?<br>It has nothing to do with combining it with other items, just linear upgrades like Dagon.">
+                <input type="number" class="form-control" id="item-max-level" placeholder="1"
+                       name="max_level" value="{{ request.max_level ?? item.max_level }}" min="1" max="10">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="item-stack-size">Stack size</label>
+            <div class="col-lg-8" data-toggle="tooltip" title="How many can you stack in one slot (Tango has charges)">
+                <input type="number" class="form-control" id="item-stack-size" placeholder="1" min="1"
+                       name="stack_size" value="{{ request.stack_size ?? item.stack_size }}">
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="item-start-charges">Initial charges</label>
+            <div class="col-lg-8" data-toggle="tooltip" title="How many charges should it have when bought">
+                <input type="number" class="form-control" id="item-start-charges" placeholder="0" min="0"
+                       name="start_charges" value="{{ request.start_charges ?? item.start_charges }}"
+                       {{ item.needs_charges ?: ' disabled' }}>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="item_dota_id">Alert text</label>
+            <div class="col-lg-8" data-toggle="tooltip" data-placement="bottom" title="This text will be showed when someone alt-clicks on it">
+                <input type="text" class="form-control" id="item-alert-text" placeholder="Dank item dropped here"
+                       name="alert_text" value="{{ request.alert_text ?? item.alert_text }}"
+                       {{ item.is_alertable ?: ' disabled' }}>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="item-model-path">Model path</label>
+            <div class="col-lg-8" data-toggle="tooltip" data-placement="right" title="path to the model file">
+                <input type="text" class="form-control" id="item-model-path" placeholder="models/props_gameplay/recipe.vmdl"
+                       name="model" value="{{ request.model ?? item.model }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="item-fight-recap">Fight recap level</label>
+            <div class="col-lg-8" data-toggle="tooltip" data-placement="right" title="how much stats should be in the battle-log">
+                <input type="number" class="form-control" id="item-fight-recap" placeholder="0" min="0"
+                       name="fight_recap" value="{{ request.fight_recap ?? item.fight_recap }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-4" for="item-quality">Quality</label>
+            <div class="col-lg-8" data-toggle="tooltip" data-placement="right" title="Only changes the color of the items name">
+                <select id="item-quality" name="quality" class="form-control">
+                    {% for q in qualityLevels %}
+                        {% set selected = (request.quality ?? item.quality) == q ? 'selected="selected"' %}
+                        <option value="{{ q }}" {{ selected }}>{{ q }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-4" for="item-share">Shareable flag</label>
+            <div class="col-lg-8" data-toggle="tooltip" title="Partially: Ring of health<br>Full: Gem<br>Stacking: consumables">
+                <select id="item-share" name="share" class="form-control">
+                    {% for s in shareFlags %}
+                        {% set selected = (request.share ?? item.share) == q ? 'selected="selected"' %}
+                        <option value="{{ s }}" {{ selected }}>{{ s }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="Can it be destroyed when on the ground?">
+                        <input type="checkbox" name="is_killable"
+                               value="1" {{ (request.is_killable ?? item.is_killable) ? 'checked="checked"' }}> Is Killable
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="Can you sell it?">
+                        <input type="checkbox" name="is_sellable"
+                               value="1" {{ (request.is_sellable ?? item.is_sellable) ? 'checked="checked"' }}> Is Sellable
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="Can you buy it? (boss items)">
+                        <input type="checkbox" name="is_purchasable" id="is-purchasable"
+                               value="1" {{ (request.is_purchasable ?? item.is_purchasable) ? 'checked="checked"' }}> Is Purchasable
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="Can it be dropped? Rapier can not">
+                        <input type="checkbox" name="is_droppable"
+                               value="1" {{ (request.is_droppable ?? item.is_droppable) ? 'checked="checked"' }}> Is Droppable
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="Can the item put in the backpack? On gem it is disabled for example">
+                        <input type="checkbox" name="is_backpackable"
+                               value="1" {{ (request.is_backpackable ?? item.is_backpackable) ? 'checked="checked"' }}> Is Backpackable
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="Won't disappear when runs out of charges">
+                        <input type="checkbox" name="is_permanent" id="is-permanent"
+                               value="1" {{ (request.is_permanent ?? item.is_permanent) ? 'checked="checked"' }}> Is permanent
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="Item active needs charges to function (Urn, bottle, bs)">
+                        <input type="checkbox" name="needs_charges" id="needs-charges"
+                               value="1" {{ (request.needs_charges ?? item.needs_charges) ? 'checked="checked"' }}> Needs charges
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="Show the number of charges. On Aegis it is hidden">
+                        <input type="checkbox" name="show_charges" id="show-charges"
+                               value="1" {{ (request.show_charges ?? item.show_charges) ? 'checked="checked"' }}> Show charges
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="You can alt+click to alert allies">
+                        <input type="checkbox" name="is_alertable" id="is-alertable"
+                               value="1" {{ (request.is_alertable ?? item.is_alertable) ? 'checked="checked"' }}> Is alertable
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="Auto consume when picked up (potions, tomes)">
+                        <input type="checkbox" name="is_autocast" id="is-autocast"
+                               value="1" {{ (request.is_autocast ?? item.is_autocast) ? 'checked="checked"' }}> Autocast on pickup
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -106,7 +106,8 @@ class Item extends Model
         'show_charges'      => 'boolean',
         'needs_charges'     => 'boolean',
         'is_autocast'       => 'boolean',
-        'is_alertable'      => 'boolean'
+        'is_alertable'      => 'boolean',
+        'is_permanent'      => 'boolean'
     ];
 
     public function components()
@@ -134,7 +135,9 @@ class Item extends Model
 
     public function stats()
     {
-        return $this->belongsToMany(Stat::class)->using(StatPivot::class)->withPivot('value');
+        $stats = $this->belongsToMany(Stat::class)->using(StatPivot::class)->withPivot('value');
+
+        return $stats;
     }
 
     public function getTotalCostAttribute()

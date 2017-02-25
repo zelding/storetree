@@ -1,81 +1,88 @@
-
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="item_name">Name</label>
-                <div class="col-lg-8">
-                    <input type="text" class="form-control" id="item_name" placeholder="Facebreaker" name="name" value="{{ request.name ?? item.name }}">
-                </div>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="item_name">Name</label>
+            <div class="col-lg-8" data-toggle="tooltip" title="Nice name of the item">
+                <input type="text" class="form-control" id="item_name" placeholder="Facebreaker"
+                       name="name" value="{{ request.name ?? item.name }}">
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="item_cost">Cost</label>
-                <div class="col-lg-8">
-                    <input type="number" class="form-control" id="item_cost" placeholder="100 000" name="cost" value="{{ request.cost ?? item.cost }}">
-                </div>
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="item_cost">Cost</label>
+            <div class="col-lg-8" data-toggle="tooltip" title="Cost in gold<br>Only base items should have costs, the rest is calculated">
+                <input type="number" class="form-control" id="item_cost" placeholder="100 000"
+                       name="cost" value="{{ request.cost ?? item.cost }}"
+                       {{ item.is_base_item ?: ' disabled' }}>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="control-label col-lg-4" for="item_shop">Shops</label>
-                <div class="col-lg-8">
-                    <select id="item_shop" name="item_shops[]" multiple class="form-control">
-                        {% for shop in shops %}
-                            {% set selected = (shop.id in request.item_shops or shop.id in currentShops) ? 'selected="selected"' : "" %}
-                            <option value="{{ shop.id }}" {{ selected }}>{{ shop.name }}</option>
-                        {% endfor %}
-                    </select>
+        <div class="form-group">
+            <label class="control-label col-lg-4" for="item_shop">Shops</label>
+            <div class="col-lg-8" data-toggle="tooltip" title="Where can you bu it?<br>You may select multiple shops">
+                <select id="item_shop" name="item_shops[]" multiple class="form-control" {{ item.is_purchasable ?: 'disabled' }}>
+                    {% for shop in shops %}
+                        {% set selected = (shop.id in request.item_shops or shop.id in currentShops) ? 'selected="selected"' : "" %}
+                        <option value="{{ shop.id }}" {{ selected }}>{{ shop.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="item_desc">Description</label>
+            <div class="col-lg-8" data-toggle="tooltip" title="Just some text, wont affect anything, but it will be included in the itemlist.txt as a comment">
+                <textarea class="form-control" rows="8" id="item_desc" placeholder="Breaks your face"
+                          name="description">{{ request.description ?? item.description }}</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" title="Base items don't have components, they have prices">
+                        <input type="checkbox" name="base_item" id="base-item"
+                               value="1" {{ (request.base_item ?? item.is_base_item) ? 'checked="checked"' }}> Base item
+                    </label>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4">
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="item_desc">Description</label>
-                <div class="col-lg-8">
-                    <textarea class="form-control" rows="8" id="item_desc" placeholder="Breaks your face" name="description">{{ request.description ?? item.description }}</textarea>
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" title="Drops from bosses">
+                        <input type="checkbox" name="boss_item"
+                               value="1" {{ (request.boss_item ?? item.is_boss_item) ? 'checked="checked"' }}> Boss item
+                    </label>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4">
-            <div class="form-group">
-                <div class="col-lg-offset-1 col-sm-8">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="base_item" value="1" {{ (request.base_item ?? item.is_base_item) ? 'checked="checked"' }}> Base item
-                        </label>
-                    </div>
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" title="Can you eat it?">
+                        <input type="checkbox" name="consumable_item"
+                               value="1" {{ (request.consumable_item ?? item.is_consumable) ? 'checked="checked"' }}> Consumable item
+                    </label>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <div class="col-lg-offset-1 col-sm-8">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="boss_item" value="1" {{ (request.boss_item ?? item.is_boss_item) ? 'checked="checked"' }}> Boss item
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-lg-offset-1 col-sm-8">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="consumable_item" value="1" {{ (request.consumable_item ?? item.is_consumable) ? 'checked="checked"' }}> Consumable item
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-lg-offset-1 col-sm-8">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="recipe_item" value="1" {{ (request.recipe_item ?? item.is_recipe) ? 'checked="checked"' }}> Recipe item
-                        </label>
-                    </div>
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" title="Is a recipe? If it is, than it should be a base item too.">
+                        <input type="checkbox" name="recipe_item" id="item-recipe"
+                               value="1" {{ (request.recipe_item ?? item.is_recipe) ? 'checked="checked"' }}> Recipe item
+                    </label>
                 </div>
             </div>
         </div>
     </div>
+</div>
