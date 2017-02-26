@@ -117,6 +117,7 @@ class Item extends Model
 
     public function usedInRecipes()
     {
+        //only show one item once
         return $this->belongsToMany(Recipe::class)->groupBy('item_id');
     }
 

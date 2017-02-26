@@ -31,163 +31,172 @@
 
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">Basic info <small>fyi</small></div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Basic info <small>fyi</small></div>
 
-                        <div class="panel-body">
-                            <p>Data</p>
+                                <div class="panel-body">
+                                    <p>Data</p>
 
-                            <dl class="dl-horizontal">
-                                <dt>Id</dt><dd>{{ item.id }}</dd>
-                                <dt>Name</dt><dd>{{ item.name }}</dd>
-                                <dt>Cost</dt><dd>{{ item.totalCost }} g</dd>
-                                <dt>Description</dt><dd>{{ item.description|nl2br }}</dd>
-                                <dt>Base item</dt><dd>{{ item.is_base_item ? 'Yes' : 'No' }}</dd>
-                                <dt>Boss item</dt><dd>{{ item.is_boss_item ? 'Yes' : 'No' }}</dd>
-                                <dt>Recipe</dt><dd>{{ item.is_recipe ? 'Yes' : 'No' }}</dd>
-                                <dt>Consumable</dt><dd>{{ item.is_consumable ? 'Yes' : 'No' }}</dd>
-                            </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>Id</dt><dd>{{ item.id }}</dd>
+                                        <dt>Name</dt><dd>{{ item.name }}</dd>
+                                        <dt>Cost</dt><dd>{{ item.totalCost }} g</dd>
+                                        <dt>Description</dt><dd>{{ item.description|nl2br }}</dd>
+                                        <dt>Base item</dt><dd>{{ item.is_base_item ? 'Yes' : 'No' }}</dd>
+                                        <dt>Boss item</dt><dd>{{ item.is_boss_item ? 'Yes' : 'No' }}</dd>
+                                        <dt>Recipe</dt><dd>{{ item.is_recipe ? 'Yes' : 'No' }}</dd>
+                                        <dt>Consumable</dt><dd>{{ item.is_consumable ? 'Yes' : 'No' }}</dd>
+                                    </dl>
 
-                            <p>Shops</p>
+                                    <p>Shops</p>
 
-                            <ul>
-                                {% if item.is_purchasable %}
-                                    {% for shop in item.shops %}
-                                        <li><a href="{{ route('shops.show', {id: shop.id}) }}">{{ shop.name }}</a></li>
-                                    {% else %}
-                                        <li>No shops added yet</li>
-                                    {% endfor %}
-                                {% else %}
-                                    <li class="text-danger">This item isn't purchasable</li>
+                                    <ul>
+                                        {% if item.is_purchasable %}
+                                            {% for shop in item.shops %}
+                                                <li><a href="{{ route('shops.show', {id: shop.id}) }}">{{ shop.name }}</a></li>
+                                            {% else %}
+                                                <li>No shops added yet</li>
+                                            {% endfor %}
+                                        {% else %}
+                                            <li class="text-danger">This item isn't purchasable</li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+
+                                {% if Auth.check() %}
+                                    <div class="panel-footer">
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <a href="{{ route('items.edit', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 {% endif %}
-                            </ul>
+                            </div>
                         </div>
 
-                        {% if Auth.check() %}
-                            <div class="panel-footer">
-                                <div class="row">
-                                    <div class="col-lg-2">
-                                        <a href="{{ route('items.edit', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                        <div class="col-lg-12">
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">Advanced properties <small>for the scripts</small></div>
+
+                                <div class="panel-body">
+                                    <dl class="dl-horizontal">
+                                        <dt>Dota Id</dt><dd>{{ item.dota_id }}</dd>
+                                        <dt>Dota class</dt><dd><code>{{ item.base_class }}</code></dd>
+                                        <dt>Max level</dt><dd>{{ item.max_level }}</dd>
+                                        <dt>Base level</dt><dd>{{ item.base_level }}</dd>
+                                        <dt>Is killable</dt><dd>{{ item.is_killable ? 'Yes' : 'No' }}</dd>
+                                        <dt>Is sellable</dt><dd>{{ item.is_sellable ? 'Yes' : 'No' }}</dd>
+                                        <dt>Is purchasable</dt><dd>{{ item.is_purchasable ? 'Yes' : 'No' }}</dd>
+                                        <dt>Is droppable</dt><dd>{{ item.is_droppable ? 'Yes' : 'No' }}</dd>
+                                        <dt>Is backpackable</dt><dd>{{ item.in_backpack ? 'Yes' : 'No' }}</dd>
+                                        <dt>Is permanent</dt><dd>{{ item.is_permanent ? 'Yes' : 'No' }}</dd>
+                                        <dt>Stack size</dt><dd>{{ item.stack_size }}</dd>
+                                        <dt>Model path</dt><dd><code>{{ item.model }}</code></dd>
+                                        <dt>Fight recap level</dt><dd>{{ item.fight_recap }}</dd>
+                                        <dt>Quality level</dt><dd>{{ item.quality }}</dd>
+                                        <dt>Share flags</dt><dd><code>{{ item.share }}</code></dd>
+                                        <dt>Needs charges</dt><dd>{{ item.needs_charges ? 'Yes' : 'No' }}</dd>
+                                        <dt>Start charges</dt><dd>{{ item.start_charges }}</dd>
+                                        <dt>Show charges</dt><dd>{{ item.show_charges ? 'Yes' : 'No' }}</dd>
+                                        <dt>Autocast on pickup</dt><dd>{{ item.is_autocast ? 'Yes' : 'No' }}</dd>
+                                        <dt>Is Alertable</dt><dd>{{ item.is_alertable ? 'Yes' : 'No' }}</dd>
+                                        <dt>Alert text</dt><dd>{{ item.alert_text }}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {% if not item.is_base_item %}
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Recipes</div>
+
+                                    <div class="panel-body">
+                                        {% for recipe in item.recipes %}
+                                            <p>#{{ loop.index }}</p>
+                                            <div class="list-group">
+                                                {% for comp in recipe.components %}
+                                                    <a class="list-group-item bg-primary" href="{{ route('items.show', {id: comp.id}) }}">{{ comp.name }}</a>
+                                                {% endfor %}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+
+                                    {% if Auth.check() %}
+                                        <div class="panel-footer">
+                                            <div class="row">
+                                                <div class="col-lg-2">
+                                                    <a href="{{ route('items.edit.components', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Builds into</div>
+
+                                <div class="panel-body">
+                                    <div class="list-group">
+                                        {% for recipe in item.usedInRecipes %}
+                                            <a class="list-group-item" href="{{ route('items.show', {id: recipe.for.id}) }}">{{ recipe.for.name }}</a>
+                                        {% else %}
+                                            <a class="list-group-item">No related items</a>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    {% if not item.is_base_item %}
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">Recipes</div>
-
-                        <div class="panel-body">
-                            {% for recipe in item.recipes %}
-                                <p>#{{ loop.index }}</p>
-                                <div class="list-group">
-                                    {% for comp in recipe.components %}
-                                        <a class="list-group-item bg-primary" href="{{ route('items.show', {id: comp.id}) }}">{{ comp.name }}</a>
-                                    {% endfor %}
-                                </div>
-                            {% endfor %}
                         </div>
 
-                        {% if Auth.check() %}
-                        <div class="panel-footer">
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <a href="{{ route('items.edit.components', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-                    {% endif %}
+                        <div class="col-lg-12">
+                            {% if not item.is_recipe %}
+                                <div class="panel panel-warning">
+                                    <div class="panel-heading">Stats <small>yellow stats are inherited from lvl1</small></div>
 
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">Builds into</div>
-
-                        <div class="panel-body">
-                            <div class="list-group">
-                                {% for recipe in item.usedInRecipes %}
-                                    <a class="list-group-item" href="{{ route('items.show', {id: recipe.for.id}) }}">{{ recipe.for.name }}</a>
-                                {% else %}
-                                    <a class="list-group-item">No related items</a>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-warning">
-                        <div class="panel-heading">Advanced properties <small>for the scripts</small></div>
-
-                        <div class="panel-body">
-                            <dl class="dl-horizontal">
-                                <dt>Dota Id</dt><dd>{{ item.dota_id }}</dd>
-                                <dt>Dota class</dt><dd><code>{{ item.base_class }}</code></dd>
-                                <dt>Max level</dt><dd>{{ item.max_level }}</dd>
-                                <dt>Base level</dt><dd>{{ item.base_level }}</dd>
-                                <dt>Is killable</dt><dd>{{ item.is_killable ? 'Yes' : 'No' }}</dd>
-                                <dt>Is sellable</dt><dd>{{ item.is_sellable ? 'Yes' : 'No' }}</dd>
-                                <dt>Is purchasable</dt><dd>{{ item.is_purchasable ? 'Yes' : 'No' }}</dd>
-                                <dt>Is droppable</dt><dd>{{ item.is_droppable ? 'Yes' : 'No' }}</dd>
-                                <dt>Is backpackable</dt><dd>{{ item.in_backpack ? 'Yes' : 'No' }}</dd>
-                                <dt>Is permanent</dt><dd>{{ item.is_permanent ? 'Yes' : 'No' }}</dd>
-                                <dt>Stack size</dt><dd>{{ item.stack_size }}</dd>
-                                <dt>Model path</dt><dd><code>{{ item.model }}</code></dd>
-                                <dt>Fight recap level</dt><dd>{{ item.fight_recap }}</dd>
-                                <dt>Quality level</dt><dd>{{ item.quality }}</dd>
-                                <dt>Share flags</dt><dd><code>{{ item.share }}</code></dd>
-                                <dt>Needs charges</dt><dd>{{ item.needs_charges ? 'Yes' : 'No' }}</dd>
-                                <dt>Start charges</dt><dd>{{ item.start_charges }}</dd>
-                                <dt>Show charges</dt><dd>{{ item.show_charges ? 'Yes' : 'No' }}</dd>
-                                <dt>Autocast on pickup</dt><dd>{{ item.is_autocast ? 'Yes' : 'No' }}</dd>
-                                <dt>Is Alertable</dt><dd>{{ item.is_alertable ? 'Yes' : 'No' }}</dd>
-                                <dt>Alert text</dt><dd>{{ item.alert_text }}</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-
-                {% if not item.is_recipe %}
-                <div class="col-lg-6">
-                    <div class="panel panel-warning">
-                        <div class="panel-heading">Stats <small>yellow stats are inherited from lvl1</small></div>
-
-                        <div class="panel-body">
-                            <dl class="dl-horizontal">
-                                {% for stat in item.stats %}
-                                    <dt><abbr class="{{ stat.inherited ? 'bg-warning' }}" title="{{ stat.dota_name }}">{{ stat.name }}</abbr></dt>
-                                    <dd>
-                                        {% for i, v in stat.pivot.value %}
-                                            {% if i == (item.base_level - 1) or loop.length == 1 %}
-                                                <strong>{{ v }}</strong>
+                                    <div class="panel-body">
+                                        <dl class="dl-horizontal">
+                                            {% for stat in item.stats %}
+                                                <dt><abbr class="{{ stat.inherited ? 'bg-warning' }}" title="{{ stat.dota_name }}">{{ stat.name }}</abbr></dt>
+                                                <dd>
+                                                    {% for i, v in stat.pivot.value %}
+                                                        {% if i == (item.base_level - 1) or loop.length == 1 %}
+                                                            <strong>{{ v }}</strong>
+                                                        {% else %}
+                                                            {{ v }}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </dd>
                                             {% else %}
-                                                {{ v }}
-                                            {% endif %}
-                                        {% endfor %}
-                                    </dd>
-                                {% else %}
-                                    <dt>No</dt><dd>stats available</dd>
-                                {% endfor %}
-                            </dl>
-                        </div>
+                                                <dt>No</dt><dd>stats available</dd>
+                                            {% endfor %}
+                                        </dl>
+                                    </div>
 
-                        {% if Auth.check() %}
-                        <div class="panel-footer">
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <a href="{{ route('items.edit.stats', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                                    {% if Auth.check() %}
+                                        <div class="panel-footer">
+                                            <div class="row">
+                                                <div class="col-lg-2">
+                                                    <a href="{{ route('items.edit.stats', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 </div>
-                            </div>
+                            {% endif %}
                         </div>
-                        {% endif %}
                     </div>
                 </div>
-                {% endif %}
             </div>
         </div>
     </div>
