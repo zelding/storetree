@@ -12,7 +12,7 @@ class Recipe extends Model
 
     public function components()
     {
-        return $this->belongsToMany(Item::class);
+        return $this->belongsToMany(Item::class)->orderBy('name');
     }
 
     public function for()

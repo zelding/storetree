@@ -117,7 +117,7 @@ class Item extends Model
 
     public function usedInRecipes()
     {
-        return $this->belongsToMany(Recipe::class);
+        return $this->belongsToMany(Recipe::class)->groupBy('item_id');
     }
 
     public function shops()
@@ -148,9 +148,11 @@ class Item extends Model
             return 0;
         }
 
-        $this->recipes()->first()->components()->get()->each(function (Item $item) use (&$sum) {
-            $sum += $item->getTotalCostAttribute();
-        });
+        if ( $this->recipes()->first() ) {
+            $this->recipes()->first()->components()->get()->each(function (Item $item) use (&$sum) {
+                $sum += $item->getTotalCostAttribute();
+            });
+        }
 
         return $sum;
     }
