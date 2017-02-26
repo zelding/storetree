@@ -1,7 +1,7 @@
 <div class="item-group">
     <div class="item-buildsInto">
-        {% for comp in item.buildsInto %}
-            {{ _self.item_buildsInto(comp) }}
+        {% for comp in item.usedInRecipes %}
+            {{ _self.item_buildsInto(comp.for) }}
         {% endfor %}
     </div>
 
@@ -22,7 +22,7 @@
     <div class="item-group">
         <div class="item-selected">
             {% if not item.is_base_item %}
-                {% for component in item.components %}
+                {% for component in item.recipes.first.components %}
                     {% if component.is_recipe %}
                         <div class="item">
                             <div class="heading">{{ component.name }}</div>
@@ -38,7 +38,7 @@
 
         <div class="item-components">
             {% if not item.is_base_item %}
-                {% for component in item.components %}
+                {% for component in item.recipes.first.components %}
                     {{ _self.item_components(component) }}
                 {% endfor %}
             {% endif %}

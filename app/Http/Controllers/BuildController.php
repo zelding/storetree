@@ -18,7 +18,7 @@ class BuildController extends Controller
 {
     public function index()
     {
-        $items = Item::with('components')
+        $items = Item::with('recipes.components', 'usedInRecipes.for')
             ->where('is_recipe', 0)
             ->where('is_consumable', 0)
             ->orderBy('name')
@@ -31,18 +31,18 @@ class BuildController extends Controller
 
     public function show($id)
     {
-        $item = Item::with('components', 'buildsInto')
+        $item = Item::with('recipes.components', 'usedInRecipes.for')
             ->find($id);
 
         $buildsInto = [];
         $components = [];
 
-        foreach($item->components as $component) {
+        foreach($item->recipes->first as $component) {
             $components[] = $component->id;
         }
 
-        foreach($item->buildsInto as $component) {
-            $buildsInto[] = $component->id;
+        foreach($item->usedInRecipes as $component) {
+            $buildsInto[] = $component->for->id;
         }
 
         return view("build/item", [
