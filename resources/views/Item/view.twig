@@ -78,14 +78,17 @@
                 <div class="col-lg-6">
                     {% if not item.is_base_item %}
                     <div class="panel panel-primary">
-                        <div class="panel-heading">Components</div>
+                        <div class="panel-heading">Recipes</div>
 
                         <div class="panel-body">
-                            <div class="list-group">
-                                {% for comp in item.components %}
-                                    <a class="list-group-item bg-primary" href="{{ route('items.show', {id: comp.id}) }}">{{ comp.name }}</a>
-                                {% endfor %}
-                            </div>
+                            {% for recipe in item.recipes %}
+                                <p>#{{ loop.index }}</p>
+                                <div class="list-group">
+                                    {% for comp in recipe.components %}
+                                        <a class="list-group-item bg-primary" href="{{ route('items.show', {id: comp.id}) }}">{{ comp.name }}</a>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
                         </div>
 
                         {% if Auth.check() %}
@@ -105,8 +108,8 @@
 
                         <div class="panel-body">
                             <div class="list-group">
-                                {% for comp in item.buildsInto %}
-                                    <a class="list-group-item" href="{{ route('items.show', {id: comp.id}) }}">{{ comp.name }}</a>
+                                {% for recipe in item.usedInRecipes %}
+                                    <a class="list-group-item" href="{{ route('items.show', {id: recipe.for.id}) }}">{{ recipe.for.name }}</a>
                                 {% else %}
                                     <a class="list-group-item">No related items</a>
                                 {% endfor %}

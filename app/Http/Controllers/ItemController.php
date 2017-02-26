@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreItem;
 use App\Item;
+use App\Recipe;
 use App\Shop;
 use App\Stat;
 use App\Utils\Constants;
@@ -24,7 +25,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Item::with('components', 'shops');
+        $query = Item::with('recipes', 'shops');
 
         if ( !$request->has('all') ) {
             $query->where('is_recipe', 0);
@@ -100,7 +101,7 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        $item = Item::with('shops','components', 'buildsInto', 'stats')->find($id);
+        $item = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats')->find($id);
 
         if ( !($item instanceof Item)) {
             return redirect(route('items.index'), 404);
@@ -121,7 +122,8 @@ class ItemController extends Controller
         }
 
         return view('Item/view', [
-            "item" => $item
+            "item" => $item,
+            "recipe" => Recipe::with('for')->find(93)
         ]);
     }
 
@@ -134,7 +136,7 @@ class ItemController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $item  = Item::with('shops', 'components')->find($id);
+        $item  = Item::with('shops', 'recipes.components')->find($id);
 
         if ( !($item instanceof Item)) {
             return redirect(route('items.index'), 404);
@@ -236,7 +238,7 @@ class ItemController extends Controller
      */
     public function editComponent($id)
     {
-        $item  = Item::with('components')->find($id);
+        $item  = Item::with('recipes.components')->find($id);
         $items = Item::whereNotIn('id', [$id])
                      ->orderBy('name')
                      ->get();

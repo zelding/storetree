@@ -110,22 +110,14 @@ class Item extends Model
         'is_permanent'      => 'boolean'
     ];
 
-    public function components()
+    public function recipes()
     {
-        if ( $this->is_base_item ) {
-            throw new \TypeError("Base items doesn't have components");
-        }
-
-        return $this->belongsToMany(Item::class, 'recipes', 'item_id', 'component_id')
-            ->withPivot('id')
-            ->orderBy('is_recipe')
-            ->orderBy('name');
+        return $this->hasMany(Recipe::class);
     }
 
-    public function buildsInto()
+    public function usedInRecipes()
     {
-        //needs the distinct so items don't show up multiple times when they build from multiple components of the same type
-        return $this->belongsToMany(Item::class, 'recipes', 'component_id', 'item_id')->distinct();
+        return $this->belongsToMany(Recipe::class);
     }
 
     public function shops()
@@ -156,9 +148,9 @@ class Item extends Model
             return 0;
         }
 
-        $this->components()->get()->each(function (Item $item) use (&$sum) {
+        /*$this->components()->get()->each(function (Item $item) use (&$sum) {
             $sum += $item->getTotalCostAttribute();
-        });
+        });*/
 
         return $sum;
     }

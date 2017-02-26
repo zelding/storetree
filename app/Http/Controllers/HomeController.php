@@ -6,6 +6,7 @@ use App\Item;
 use App\Shop;
 use App\Stat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {

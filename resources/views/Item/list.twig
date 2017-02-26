@@ -7,7 +7,7 @@
             <th>Boss Item</th>
             <th>Base Item</th>
             <th>Level</th>
-            <th>Components</th>
+            <th>Recipes</th>
             <th>Shops</th>
             <th>#</th>
         </tr>
@@ -23,7 +23,7 @@
                 <td>{{ item.is_boss_item ? "Y" : "N" }}</td>
                 <td>{{ item.is_base_item ? "Y" : "N" }}</td>
                 <td>{{ item.base_level }}/{{ item.max_level }}</td>
-                <td>{{ item.components.count }}</td>
+                <td>{{ item.recipes.count }}</td>
                 <td>
                     {% for shop in item.shops %}
                         {{ shop.name }}<br>

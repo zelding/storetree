@@ -20,6 +20,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Shop extends Model
 {
+    protected $dates = [
+        'created_at', 'updated_at'
+    ];
+
     public function items()
     {
         return $this->belongsToMany(Item::class);
