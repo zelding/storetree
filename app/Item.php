@@ -148,9 +148,9 @@ class Item extends Model
             return 0;
         }
 
-        /*$this->components()->get()->each(function (Item $item) use (&$sum) {
+        $this->recipes()->first()->components()->get()->each(function (Item $item) use (&$sum) {
             $sum += $item->getTotalCostAttribute();
-        });*/
+        });
 
         return $sum;
     }
