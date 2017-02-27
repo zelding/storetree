@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Utils\Constants;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,11 +39,19 @@ class StoreItem extends FormRequest
             "cost"        => "required_if:base_item,1",
             "base_item"   => "required_with:recipe_item",
             "boss_item"   => "denied_with:recipe_item",
-            "item_shops"  => "required_without:boss_item|distinct|exists:shops,id",
-            "dota_id"     => "required|numeric|unique:items,dota_id,{$this->dota_id}",
-            "base_class"  => "required|string|unique:items,base_class",
-            "base_level"  => "numeric|min:1",
-            "max_level"   => "numeric|greater_or_equal_than:base_level",
+            "item_shops"  => "required_with:is_purchasable|required_without:boss_item|distinct|exists:shops,id",
+
+            "dota_id"       => "required|numeric|unique:items,dota_id,{$this->dota_id}",
+            "base_class"    => "required|string|unique:items,base_class,{$this->base_class}",
+            "base_level"    => "numeric|min:1",
+            "max_level"     => "numeric|greater_or_equal_than:base_level",
+            "stack_size"    => "numeric|min:1",
+            "start_charges" => "required_with:needs_charges|numeric|min:0",
+            "alert_text"    => "string",
+            "model"         => "required|string",
+            "fight_recap"   => "required|numeric|min:0",
+            "quality"       => "required|in:".implode(',', Constants::$itemQuality),
+            "share"         => "required|in:".implode(',', Constants::$shareable),
         ];
     }
 }
