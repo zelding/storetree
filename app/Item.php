@@ -110,11 +110,25 @@ class Item extends Model
         'is_permanent'      => 'boolean'
     ];
 
+    /**
+     * Recipes that build this item;
+     *
+     * Only the first is considered in calculations currently
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function recipes()
     {
         return $this->hasMany(Recipe::class);
     }
 
+    /**
+     * Returns the recipes that include this item
+     *
+     *
+     *
+     * @return mixed
+     */
     public function usedInRecipes()
     {
         //only show one item once
@@ -156,5 +170,17 @@ class Item extends Model
         }
 
         return $sum;
+    }
+
+    public function getDotaClassAttribute()
+    {
+        return $this->is_recipe ?  'item_recipe_'.$this->base_class : 'item_'.$this->base_class;
+    }
+
+    public function setClassAttribute($className = "")
+    {
+        $this->base_class = $this->is_recipe ?  'item_recipe_'.$this->base_class : 'item_'.$this->base_class;
+
+        return $this;
     }
 }
