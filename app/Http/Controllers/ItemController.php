@@ -53,9 +53,13 @@ class ItemController extends Controller
     public function create(Request $request)
     {
         $shops = Shop::all();
+
         return view('Item/create', [
-            'shops'   => $shops,
-            'request' => $request
+            'shops'         => $shops,
+            'request'       => $request,
+            'currentShops'  => [],
+            'qualityLevels' => Constants::$itemQuality,
+            'shareFlags'    => Constants::$shareable
         ]);
     }
 

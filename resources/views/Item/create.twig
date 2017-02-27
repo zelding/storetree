@@ -1,47 +1,95 @@
 {% extends 'layouts/storetree.twig' %}
 
 {% block content %}
-<!-- Page Content -->
+    <!-- Page Content -->
 
-<div id="page-content-wrapper">
-    <div class="container-fluid">
-        <div class="page-header">
-            <h1>Create a new Item <small>you can set the components later</small></h1>
-        </div>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="page-header">
+                <h1>Create a new Item <small>you can set the components later</small></h1>
+            </div>
 
-        <ol class="breadcrumb">
-            <li><a href="{{ route('storetree') }}">Home</a></li>
-            <li><a href="{{ route('items.index') }}">Items</a></li>
-            <li class="active">Create new</li>
-        </ol>
-        
-        <div class="row">
+            <ol class="breadcrumb">
+                <li><a href="{{ route('storetree') }}">Home</a></li>
+                <li><a href="{{ route('items.index') }}">Items</a></li>
+                <li class="active">Create new</li>
+            </ol>
 
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Add a new Items</div>
+            <div class="row">
 
-                    <div class="panel-body">
-                        {% if errors|length %}
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="alert alert-danger" role="alert">
-                                        <strong>Error</strong>
-                                        <ul>
-                                            {% for error in errors.all %}
-                                                <li><span>{{ error }}</span></li>
-                                            {% endfor %}
-                                        </ul>
+                <div class="col-lg-12">
+                    <form class="form-horizontal" action="{{ route('items.store') }}" method="post">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Add a new Items</div>
+
+                            <div class="panel-body">
+                                {% if errors|length %}
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="alert alert-danger" role="alert">
+                                                <strong>Error</strong>
+                                                <ul>
+                                                    {% for error in errors.all %}
+                                                        <li><span>{{ error }}</span></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        {% endif %}
+                                {% endif %}
 
-                        {% include 'Item/form_new.twig' %}
-                    </div>
+                                {% include 'Item/form_edit.twig' %}
+
+                                <hr>
+
+                                {% include 'Item/form_edit_advanced.twig' %}
+                            </div>
+
+                            <div class="panel-footer">
+                                <a class="btn btn-default" href="{{ route('items.show', {id: item.id}) }}">Back</a>
+                                <button type="submit" class="btn btn-primary pull-right">Edit item</button>
+                                <input type="hidden" name="id" value="{{ item.id }}">
+
+                                {{ csrf_field() }}
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <style>
+        .tooltip-inner {
+            display: inline-block;
+            max-width: 350px;
+            min-width: 100px;
+            height: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block pageJs %}
+    <script type="application/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({
+                html: true
+            });
+
+            $("#item-recipe").on('change', function () {
+                $("#base-class-addon").html(
+                    $(this).is(':checked') ?
+                        'item_recipe_' :
+                        'item_'
+                );
+            });
+
+            $("#base-item").on('change', function () {
+                $("#item_cost").attr('disabled', !$(this).is(':checked'));
+            });
+
+            $("#is-purchasable").on('change', function () {
+                $("#item_shop").attr('disabled', !$(this).is(':checked'));
+            });
+        });
+    </script>
 {% endblock %}
