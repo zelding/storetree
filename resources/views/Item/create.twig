@@ -18,7 +18,7 @@
             <div class="row">
 
                 <div class="col-lg-12">
-                    <form class="form-horizontal" action="{{ route('items.store') }}" method="post">
+                    <form class="form-horizontal" action="{{ route('items.store') }}" method="post" enctype="application/x-www-form-urlencoded">
                         <div class="panel panel-default">
                             <div class="panel-heading">Add a new Items</div>
 
@@ -84,11 +84,11 @@
             });
 
             $("#base-item").on('change', function () {
-                $("#item_cost").attr('disabled', !$(this).is(':checked'));
+                $("#item_cost").attr('disabled', !$(this).is(':checked')).trigger('change');
             });
 
             $("#is-purchasable").on('change', function () {
-                $("#item_shop").attr('disabled', !$(this).is(':checked'));
+                $("#item_shop").attr('disabled', !$(this).is(':checked')).trigger('change');
             });
         });
     </script>

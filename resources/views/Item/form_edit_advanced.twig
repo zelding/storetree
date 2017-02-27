@@ -15,7 +15,7 @@
                     <span class="input-group-addon" id="base-class-addon">item_{{ item.is_recipe ? 'recipe_' }}</span>
                     {% set value = request.base_class ?? item.base_class %}
                     {% set value = value|replace({'item_': '', 'recipe_': ''}) %}
-                    <input type="text" class="form-control" id="item-dota-class" placeholder="10001"
+                    <input type="text" class="form-control" id="item-dota-class" placeholder="something_xy"
                            name="base_class" value="{{ value }}"
                            aria-describedby="base-class-addon">
                 </div>

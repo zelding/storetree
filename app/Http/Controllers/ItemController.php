@@ -56,7 +56,7 @@ class ItemController extends Controller
 
         return view('Item/create', [
             'shops'         => $shops,
-            'request'       => $request,
+            'request'       => $request->old(),
             'currentShops'  => [],
             'qualityLevels' => Constants::$itemQuality,
             'shareFlags'    => Constants::$shareable
@@ -74,11 +74,34 @@ class ItemController extends Controller
         $item = new Item();
         $item->name          = $request->get('name');
         $item->description   = $request->get('description');
-        $item->cost          = $request->get('cost');
+        $item->cost          = $request->get('cost') ?? 0;
         $item->is_base_item  = $request->get('base_item') ?? 0;
         $item->is_boss_item  = $request->get('boss_item') ?? 0;
         $item->is_consumable = $request->get('consumable_item') ?? 0;
         $item->is_recipe     = $request->get('recipe_item') ?? 0;
+
+        $item->dota_id = $request->get('dota_id');
+        $item->base_class = $request->get('base_class');
+        $item->base_level = $request->get('base_level') ?? 1;
+        $item->max_level = $request->get('max_level') ?? 1;
+        $item->stack_size = $request->get('stack_size') ?? 1;
+        $item->start_charges = $request->get('start_charges') ?? 0;
+        $item->alert_text = $request->get('alert_text');
+        $item->model = $request->get('model');
+        $item->fight_recap = $request->get('fight_recap') ?? 0;
+        $item->quality = $request->get('quality');
+        $item->share = $request->get('share');
+        $item->is_killable = $request->get('is_killable') ?? 0;
+        $item->is_sellable = $request->get('is_sellable') ?? 0;
+        $item->is_droppable = $request->get('is_droppable') ?? 0;
+        $item->in_backpack = $request->get('is_backpackable') ?? 0;
+        $item->is_permanent = $request->get('is_permanent') ?? 0;
+        $item->needs_charges = $request->get('needs_charges') ?? 0;
+        $item->show_charges = $request->get('show_charges') ?? 0;
+        $item->is_alertable = $request->get('is_alertable') ?? 0;
+        $item->is_autocast = $request->get('is_autocast') ?? 0;
+
+
         $item->save();
 
         $shops = $request->get('item_shops');
@@ -118,11 +141,13 @@ class ItemController extends Controller
                 ->where('base_class', $name)
                 ->first();
 
-            $lvl1->stats->each(function (&$item, $key) {
-                $item->inherited = true;
-            });
+            if ( $lvl1 instanceof Item && $lvl1->stats->count() ) {
+                $lvl1->stats->each(function (&$item, $key) {
+                    $item->inherited = true;
+                });
 
-            $item->stats = $item->stats->union($lvl1->stats);
+                $item->stats = $item->stats->union($lvl1->stats);
+            }
         }
 
         return view('Item/view', [
@@ -182,11 +207,34 @@ class ItemController extends Controller
 
         $item->name          = $request->get('name');
         $item->description   = $request->get('description');
-        $item->cost          = $request->get('cost');
+        $item->cost          = $request->get('cost') ?? 0;
         $item->is_base_item  = $request->get('base_item') ?? 0;
         $item->is_boss_item  = $request->get('boss_item') ?? 0;
         $item->is_consumable = $request->get('consumable_item') ?? 0;
         $item->is_recipe     = $request->get('recipe_item') ?? 0;
+
+        $item->dota_id = $request->get('dota_id');
+        $item->base_class = $request->get('base_class');
+        $item->base_level = $request->get('base_level') ?? 1;
+        $item->max_level = $request->get('max_level') ?? 1;
+        $item->stack_size = $request->get('stack_size') ?? 1;
+        $item->start_charges = $request->get('start_charges') ?? 0;
+        $item->alert_text = $request->get('alert_text');
+        $item->model = $request->get('model');
+        $item->fight_recap = $request->get('fight_recap') ?? 0;
+        $item->quality = $request->get('quality');
+        $item->share = $request->get('share');
+        $item->is_killable = $request->get('is_killable') ?? 0;
+        $item->is_sellable = $request->get('is_sellable') ?? 0;
+        $item->is_droppable = $request->get('is_droppable') ?? 0;
+        $item->in_backpack = $request->get('is_backpackable') ?? 0;
+        $item->is_permanent = $request->get('is_permanent') ?? 0;
+        $item->needs_charges = $request->get('needs_charges') ?? 0;
+        $item->show_charges = $request->get('show_charges') ?? 0;
+        $item->is_alertable = $request->get('is_alertable') ?? 0;
+        $item->is_autocast = $request->get('is_autocast') ?? 0;
+
+
         $item->save();
 
         $newShops = $request->get('item_shops');
@@ -240,7 +288,7 @@ class ItemController extends Controller
      *
      * @return RedirectResponse|Response
      */
-    public function editComponent($id)
+    public function editComponent(Request $request, $id)
     {
         $item  = Item::with('recipes.components')->find($id);
         $items = Item::whereNotIn('id', [$id])
@@ -253,7 +301,8 @@ class ItemController extends Controller
 
         return view('Item/edit_components', [
             "item"  => $item,
-            'items' => $items
+            'items' => $items,
+            'request' => $request->old()
         ]);
     }
 
@@ -265,18 +314,38 @@ class ItemController extends Controller
         $componentsToAdd    = $request->get('components_add');    //item ids
 
         if (!empty($componentsToRemove)) {
-            foreach($componentsToRemove as $c_id) {
-                DB::table('recipes')->where('id', $c_id)->delete();
+            foreach($componentsToRemove as $r_id => $items) {
+                if ( !empty($items) )
+                    DB::table('item_recipe')->whereIn('item_id', $items)
+                        ->where('recipe_id', $r_id)
+                        ->delete();
+
             }
         }
 
         if (!empty($componentsToAdd)) {
-            foreach($componentsToAdd as $c_id) {
-                $item->components()->attach($c_id);
+            foreach($componentsToAdd as $r_id => $items) {
+
+                if ( !empty($items) ) {
+                    $recipe = Recipe::find($r_id);
+
+                    if ( !($recipe instanceof Recipe) ) {
+                        $recipe = new Recipe();
+                        $recipe->item_id = $item->id;
+                        $recipe->save();
+
+                        $item->recipes()->save($recipe);
+                    }
+
+                    foreach($items as $i_id) {
+
+                        $recipe->components()->attach(Item::findOrFail($i_id));
+                    }
+                }
             }
         }
 
-        return redirect(route('items.edit.components', ["id" => $item->id]));
+        return redirect(route('items.edit.components', ["id" => $item->id]))->withInput();
     }
 
     /******************************************************

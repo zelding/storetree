@@ -26,11 +26,12 @@ class StoreItem extends FormRequest
     public function rules()
     {
         //add the required prefix before the class name
-        if ( $this->is_recipe ) {
-            $this->request->replace(['base_class' => "item_recipe_".$this->request->get('base_class')]);
+        $bc = $this->request->get('base_class');
+        if ( $this->recipe_item ) {
+            $this->request->set('base_class', "item_recipe_".$bc);
         }
         else {
-            $this->request->replace(['base_class' => "item_".$this->request->get('base_class')]);
+            $this->request->set('base_class', "item_".$bc);
         }
 
         return [
@@ -41,8 +42,8 @@ class StoreItem extends FormRequest
             "boss_item"   => "denied_with:recipe_item",
             "item_shops"  => "required_with:is_purchasable|required_without:boss_item|distinct|exists:shops,id",
 
-            "dota_id"       => "required|numeric|unique:items,dota_id,{$this->dota_id}",
-            "base_class"    => "required|string|unique:items,base_class,{$this->base_class}",
+            "dota_id"       => "required|numeric|unique:items,dota_id,{$this->id}",
+            "base_class"    => "required|string|unique:items,base_class,{$this->id}",
             "base_level"    => "numeric|min:1",
             "max_level"     => "numeric|greater_or_equal_than:base_level",
             "stack_size"    => "numeric|min:1",
