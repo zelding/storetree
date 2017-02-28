@@ -306,6 +306,11 @@ class ItemController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param int     $id
+     * @return $this
+     */
     public function updateComponent(Request $request, $id)
     {
         $item = Item::find($id);
