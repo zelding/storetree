@@ -366,8 +366,18 @@ class ItemController extends Controller
      */
     public function editStats(Request $request, $id)
     {
-        $item = Item::with('stats')->find($id);
+        $item  = Item::with('stats', 'recipes')->find($id);
         $stats = Stat::all();
+        $primaryRecipe = $item->recipes()->first();
+
+        if ( $primaryRecipe instanceof Recipe ) {
+            $components = $primaryRecipe->components;
+
+            if ( $components->count() ) {
+                //go through stats
+                //collect new ones
+            }
+        }
 
         return view('Item/edit_stats', [
             'item'  => $item,
