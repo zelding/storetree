@@ -1,0 +1,13 @@
+{% if errors|length %}
+    <button class="btn btn-danger" type="button"
+            data-toggle="popover" data-placement="bottom"
+            title="Here is where you are wrong"
+            data-content="
+                {%- for error in errors.all -%}
+                    {{- error -}}<br>
+                {%- endfor -%}
+            ">
+        Errors
+        <span class="badge">{{ errors.count }}</span>
+    </button>
+{% endif %}

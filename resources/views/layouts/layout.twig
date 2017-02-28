@@ -26,7 +26,7 @@
         </script>
     </head>
 
-    <body>
+    <body lang="{{ config('app.locale') }}">
         {% if hasSideBar %}
         <div id="wrapper">
         {% endif %}
@@ -34,9 +34,36 @@
             {% block sidebar %}
             {% endblock %}
 
-            {% block content %}
-            <!-- Page Content -->
-            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 pull-right">
+                            {% if Auth.Check() %}
+                                <form action="{{ route('logout') }}" method="post">
+                                    <button type="submit" title="what do you think?" class="btn btn-link pull-right">Getout</button>
+                                    {{ csrf_field() }}
+                                </form>
+                            {% else %}
+                                <a href="{{ route('login') }}" class="btn btn-link pull-right">Login</a>
+                                <a href="{{ route('register') }}" title="yes, register" class="btn btn-link pull-right">Getin</a>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="alert" role="alert">
+                                        {% include 'messages/header/errors.twig' %}
+                                        {% include 'messages/header/warning.twig' %}
+                                        {% include 'messages/header/messages.twig' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page Content -->
+                {% block content %}
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -44,9 +71,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- /#page-content-wrapper -->
-            {% endblock %}
+                {% endblock %}
+                <!-- /#page-content-wrapper -->
 
         {% if hasSideBar %}
         </div>
@@ -62,7 +88,8 @@
         {% block debug %}
             <script src="{{ asset('js/icheck.js')}}"></script>
             {#<script type="application/javascript" src="{{ asset('js/mat.min.js') }}"></script>#}
-        {#{{ dump() }}#}
+            {#{{ dump() }}#}
+            {{ dump() }}
         {% endblock %}
 
         <script type="application/javascript">
@@ -72,6 +99,9 @@
                     radioClass: 'iradio_minimal',
                     increaseArea: '-10%' // optional
                 });*/
+                $('[data-toggle="popover"]').popover({
+                    html: true
+                });
             });
 
             $(window).on('load', function() {

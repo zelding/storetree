@@ -12,6 +12,7 @@ use App\Utils\Constants;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -253,7 +254,7 @@ class ItemController extends Controller
             $item->shops()->attach($newShops);
         }
 
-        return redirect(route('items.edit', ["id" => $item->id]));
+        return redirect(route('items.edit', ["id" => $item->id]))->with('success', 'Item updated');
     }
 
     /**

@@ -158,6 +158,10 @@ class Item extends Model
 
     public function getTotalCostAttribute()
     {
+        if( $this->is_boss_item ) {
+            return 0;
+        }
+
         if ( $this->is_base_item ) {
             return $this->cost;
         }
