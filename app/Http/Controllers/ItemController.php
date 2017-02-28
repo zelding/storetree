@@ -152,8 +152,7 @@ class ItemController extends Controller
         }
 
         return view('Item/view', [
-            "item" => $item,
-            "recipe" => Recipe::with('for')->find(93)
+            "item" => $item
         ]);
     }
 
@@ -370,6 +369,11 @@ class ItemController extends Controller
         ]);
     }
 
+    /**
+     * @param StoreItemStat $request
+     * @param integer       $id
+     * @return $this|RedirectResponse
+     */
     public function updateStats(StoreItemStat $request, $id)
     {
         $item = Item::findOrFail($id);

@@ -46,6 +46,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed $components_cost
  * @property-read mixed $total_cost
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Shop[] $shops
+ * @method static \Illuminate\Database\Query\Builder|\App\Item find($id)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item findOrFail($id)
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereAlertText($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereBaseClass($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereBaseLevel($value)
@@ -79,12 +81,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereStockMax($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereStockTime($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @mixin Model
  * @property bool $is_permanent
  * @property-read mixed $dota_class
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Recipe[] $recipes
  * @property-write mixed $class
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Stat[] $stats
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Stat[] $stats
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Recipe[] $usedInRecipes
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsPermanent($value)
  */
