@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreItem;
+use App\Http\Requests\StoreItemStat;
 use App\Item;
 use App\Recipe;
 use App\Shop;
@@ -80,26 +81,26 @@ class ItemController extends Controller
         $item->is_consumable = $request->get('consumable_item') ?? 0;
         $item->is_recipe     = $request->get('recipe_item') ?? 0;
 
-        $item->dota_id = $request->get('dota_id');
-        $item->base_class = $request->get('base_class');
-        $item->base_level = $request->get('base_level') ?? 1;
-        $item->max_level = $request->get('max_level') ?? 1;
-        $item->stack_size = $request->get('stack_size') ?? 1;
+        $item->dota_id       = $request->get('dota_id');
+        $item->base_class    = $request->get('base_class');
+        $item->base_level    = $request->get('base_level') ?? 1;
+        $item->max_level     = $request->get('max_level') ?? 1;
+        $item->stack_size    = $request->get('stack_size') ?? 1;
         $item->start_charges = $request->get('start_charges') ?? 0;
-        $item->alert_text = $request->get('alert_text');
-        $item->model = $request->get('model');
-        $item->fight_recap = $request->get('fight_recap') ?? 0;
-        $item->quality = $request->get('quality');
-        $item->share = $request->get('share');
-        $item->is_killable = $request->get('is_killable') ?? 0;
-        $item->is_sellable = $request->get('is_sellable') ?? 0;
-        $item->is_droppable = $request->get('is_droppable') ?? 0;
-        $item->in_backpack = $request->get('is_backpackable') ?? 0;
-        $item->is_permanent = $request->get('is_permanent') ?? 0;
+        $item->alert_text    = $request->get('alert_text');
+        $item->model         = $request->get('model');
+        $item->fight_recap   = $request->get('fight_recap') ?? 0;
+        $item->quality       = $request->get('quality');
+        $item->share         = $request->get('share');
+        $item->is_killable   = $request->get('is_killable') ?? 0;
+        $item->is_sellable   = $request->get('is_sellable') ?? 0;
+        $item->is_droppable  = $request->get('is_droppable') ?? 0;
+        $item->in_backpack   = $request->get('is_backpackable') ?? 0;
+        $item->is_permanent  = $request->get('is_permanent') ?? 0;
         $item->needs_charges = $request->get('needs_charges') ?? 0;
-        $item->show_charges = $request->get('show_charges') ?? 0;
-        $item->is_alertable = $request->get('is_alertable') ?? 0;
-        $item->is_autocast = $request->get('is_autocast') ?? 0;
+        $item->show_charges  = $request->get('show_charges') ?? 0;
+        $item->is_alertable  = $request->get('is_alertable') ?? 0;
+        $item->is_autocast   = $request->get('is_autocast') ?? 0;
 
 
         $item->save();
@@ -213,26 +214,26 @@ class ItemController extends Controller
         $item->is_consumable = $request->get('consumable_item') ?? 0;
         $item->is_recipe     = $request->get('recipe_item') ?? 0;
 
-        $item->dota_id = $request->get('dota_id');
-        $item->base_class = $request->get('base_class');
-        $item->base_level = $request->get('base_level') ?? 1;
-        $item->max_level = $request->get('max_level') ?? 1;
-        $item->stack_size = $request->get('stack_size') ?? 1;
+        $item->dota_id       = $request->get('dota_id');
+        $item->base_class    = $request->get('base_class');
+        $item->base_level    = $request->get('base_level') ?? 1;
+        $item->max_level     = $request->get('max_level') ?? 1;
+        $item->stack_size    = $request->get('stack_size') ?? 1;
         $item->start_charges = $request->get('start_charges') ?? 0;
-        $item->alert_text = $request->get('alert_text');
-        $item->model = $request->get('model');
-        $item->fight_recap = $request->get('fight_recap') ?? 0;
-        $item->quality = $request->get('quality');
-        $item->share = $request->get('share');
-        $item->is_killable = $request->get('is_killable') ?? 0;
-        $item->is_sellable = $request->get('is_sellable') ?? 0;
-        $item->is_droppable = $request->get('is_droppable') ?? 0;
-        $item->in_backpack = $request->get('is_backpackable') ?? 0;
-        $item->is_permanent = $request->get('is_permanent') ?? 0;
+        $item->alert_text    = $request->get('alert_text');
+        $item->model         = $request->get('model');
+        $item->fight_recap   = $request->get('fight_recap') ?? 0;
+        $item->quality       = $request->get('quality');
+        $item->share         = $request->get('share');
+        $item->is_killable   = $request->get('is_killable') ?? 0;
+        $item->is_sellable   = $request->get('is_sellable') ?? 0;
+        $item->is_droppable  = $request->get('is_droppable') ?? 0;
+        $item->in_backpack   = $request->get('is_backpackable') ?? 0;
+        $item->is_permanent  = $request->get('is_permanent') ?? 0;
         $item->needs_charges = $request->get('needs_charges') ?? 0;
-        $item->show_charges = $request->get('show_charges') ?? 0;
-        $item->is_alertable = $request->get('is_alertable') ?? 0;
-        $item->is_autocast = $request->get('is_autocast') ?? 0;
+        $item->show_charges  = $request->get('show_charges') ?? 0;
+        $item->is_alertable  = $request->get('is_alertable') ?? 0;
+        $item->is_autocast   = $request->get('is_autocast') ?? 0;
 
 
         $item->save();
@@ -369,14 +370,39 @@ class ItemController extends Controller
         ]);
     }
 
-    public function updateStats(Request $request, $id)
+    public function updateStats(StoreItemStat $request, $id)
     {
-        $item = Item::find($id);
+        $item = Item::findOrFail($id);
+        $error = "";
+        $statValues = $request->get('new_stat_value') ?? [];
 
-        $item->stats()->attach([
-            $request->get('new_stat') => ['value' => json_encode($request->get('new_stat_value'))]
-        ]);
+        if ( $request->get('new_stat') && !empty($statValues) ) {
+            //the number of stats must be either one or the max_level of the item
+            if ( !(count($statValues) == 1 || count($statValues) == $item->max_level) ) {
+                $error = "The number of stats must be either 1 or {$item->max_level}! You gave ".count($statValues);
 
-        return redirect(route('items.edit.stats', ["id" => $item->id]));
+                return redirect(route('items.edit.stats', ["id" => $item->id]))->withErrors($error);
+            }
+
+            sort($statValues, SORT_NUMERIC);
+
+            $item->stats()->attach([
+                $request->get('new_stat') => ['value' => json_encode($statValues)]
+            ]);
+        }
+
+        if ( !empty($request->get('remove_stat')) ) {
+            foreach( $request->get('remove_stat') as $statId ) {
+                $stat = Stat::findOrFail($statId);
+
+                $item->stats()->detach($stat);
+            }
+        }
+
+        if ( !empty($request->get('remove_stat')) || $request->get('new_stat') ) {
+            return redirect(route('items.edit.stats', ["id" => $item->id]))->with('success', 'Update Successful');
+        }
+
+        return redirect(route('items.edit.stats', ["id" => $item->id]))->with('warning', 'Nothing has changed');
     }
 }

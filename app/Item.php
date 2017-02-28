@@ -149,7 +149,7 @@ class Item extends Model
 
     public function stats()
     {
-        $stats = $this->belongsToMany(Stat::class)->using(StatPivot::class)->withPivot('value');
+        $stats = $this->belongsToMany(Stat::class)->using(StatPivot::class)->withPivot('value')->orderBy('name');
 
         return $stats;
     }
