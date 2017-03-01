@@ -42,7 +42,7 @@
                                     <dl class="dl-horizontal">
                                         <dt>Id</dt><dd>{{ item.id }}</dd>
                                         <dt>Name</dt><dd>{{ item.name }}</dd>
-                                        <dt>Cost</dt><dd>{{ item.totalCost }} g</dd>
+                                        <dt>Cost</dt><dd>{{ item.getTotalCostAttribute(true) }} g</dd>
                                         <dt>Description</dt><dd>{{ item.description|nl2br }}</dd>
                                         <dt>Base item</dt><dd>{{ item.is_base_item ? 'Yes' : 'No' }}</dd>
                                         <dt>Boss item</dt><dd>{{ item.is_boss_item ? 'Yes' : 'No' }}</dd>
@@ -124,7 +124,16 @@
                                             <p>#{{ loop.index }}</p>
                                             <div class="list-group">
                                                 {% for comp in recipe.components %}
-                                                    <a class="list-group-item bg-primary" href="{{ route('items.show', {id: comp.id}) }}">{{ comp.name }}</a>
+                                                    <a class="list-group-item bg-primary"
+                                                       href="{{ route('items.show', {id: comp.id}) }}">
+                                                        {{ comp.name }} -
+                                                        {% if comp.is_boss_item %}
+                                                            <s>{{ comp.getTotalCostAttribute(true) }}</s>
+                                                        {% else %}
+                                                            {{ comp.getTotalCostAttribute(true) }}
+                                                        {% endif %}
+                                                        <small>g</small>
+                                                    </a>
                                                 {% endfor %}
                                             </div>
                                         {% endfor %}
@@ -134,7 +143,8 @@
                                         <div class="panel-footer">
                                             <div class="row">
                                                 <div class="col-lg-2">
-                                                    <a href="{{ route('items.edit.components', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                                                    <a href="{{ route('items.edit.components', {id: item.id}) }}"
+                                                       class="btn btn-primary btn-sm">Edit</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -150,7 +160,16 @@
                                 <div class="panel-body">
                                     <div class="list-group">
                                         {% for recipe in item.usedInRecipes %}
-                                            <a class="list-group-item" href="{{ route('items.show', {id: recipe.for.id}) }}">{{ recipe.for.name }}</a>
+                                            <a class="list-group-item"
+                                               href="{{ route('items.show', {id: recipe.for.id}) }}">
+                                                {{ recipe.for.name }} -
+                                                {% if recipe.for.is_boss_item %}
+                                                    <s>{{ recipe.for.getTotalCostAttribute(true) }}</s>
+                                                {% else %}
+                                                    {{ recipe.for.getTotalCostAttribute(true) }}
+                                                {% endif %}
+                                                <small>g</small>
+                                            </a>
                                         {% else %}
                                             <a class="list-group-item">No related items</a>
                                         {% endfor %}
@@ -187,7 +206,8 @@
                                         <div class="panel-footer">
                                             <div class="row">
                                                 <div class="col-lg-2">
-                                                    <a href="{{ route('items.edit.stats', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                                                    <a href="{{ route('items.edit.stats', {id: item.id}) }}"
+                                                       class="btn btn-primary btn-sm">Edit</a>
                                                 </div>
                                             </div>
                                         </div>

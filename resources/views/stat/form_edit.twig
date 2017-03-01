@@ -1,34 +1,33 @@
-<form class="form-horizontal" action="{{ route('stats.store') }}" method="post">
     <div class="row">
         <div class="col-lg-4">
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="stat_name">Name</label>
                 <div class="col-lg-8">
-                    <input type="text" class="form-control" id="stat_name" placeholder="Bonus true damage" name="name" value="{{ Request.name }}">
+                    <input type="text" class="form-control" id="stat_name"
+                           placeholder="Bonus true damage" name="name"
+                           value="{{ request.name ?? stat.name }}">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="stat_dota_name">Dota class name</label>
                 <div class="col-lg-8">
-                    <input type="text" class="form-control" id="stat_dota_name" placeholder="bonus_true_damage" name="dota_name">
+                    <input type="text" class="form-control" id="stat_dota_name"
+                           placeholder="bonus_true_damage" name="dota_name"
+                           value="{{ request.dota_name ?? stat.dota_name }}">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-lg-4" for="stat_var_type">Value type</label>
                 <div class="col-lg-8">
-                    <select id="stat_var_type" name="stat_type" class="form-control">
+                    <select id="stat_var_type" name="var_type" class="form-control">
                         {% for type in varTypes %}
-                            <option value="{{ type }}">{{ type }}</option>
+                            {% set selected = (request.var_type ?? stat.var_type) == type ? ' selected' : '' %}
+                            <option value="{{ type }}"{{ selected }}>{{ type }}</option>
                         {% endfor %}
                     </select>
                 </div>
             </div>
         </div>
     </div>
-
-    <button type="submit" class="btn btn-primary">Add stat</button>
-
-    {{ csrf_field() }}
-</form>

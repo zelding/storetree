@@ -156,10 +156,10 @@ class Item extends Model
         return $stats;
     }
 
-    public function getTotalCostAttribute()
+    public function getTotalCostAttribute($trueCost = false)
     {
         if( $this->is_boss_item ) {
-            return 0;
+            return $trueCost ? $this->cost : 0;
         }
 
         if ( $this->is_base_item ) {

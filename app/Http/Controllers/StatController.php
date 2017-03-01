@@ -63,30 +63,43 @@ class StatController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect(route('stats.edit', ['id' => $id]));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int     $id
+     * @param Request $request
      * @return Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $stat = Stat::findOrFail($id);
+
+        return view('stat/edit', [
+            'stat'     => $stat,
+            'varTypes' => Constants::$varTypes,
+            'request'  => $request
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param  StoreStat  $request
+     * @param  int        $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreStat $request, $id)
     {
-        //
+        $stat = Stat::findOrFail($id);
+        $stat->name      = $request->get('name');
+        $stat->dota_name = $request->get('dota_name');
+        $stat->var_type  = $request->get('var_type');
+        $stat->save();
+
+        return redirect(route('stats.show', ['id' => $id]))->with('success', 'Updated');
     }
 
     /**

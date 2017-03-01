@@ -6,13 +6,13 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="page-header">
-                <h1>Create a new Stat <small>you can set atach it to Items later</small></h1>
+                <h1>Edit Stat<sub>({{ stat.id }})</sub>: <small>{{ stat.name }} <strong class="text-primary">aka</strong></small> <code>{{ stat.dota_name }}</code></h1>
             </div>
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('storetree') }}">Home</a></li>
                 <li><a href="{{ route('stats.index') }}">Stats</a></li>
-                <li class="active">Create new</li>
+                <li class="active">Edit {{ stat.name }}</li>
             </ol>
 
             <div class="row">
@@ -36,9 +36,12 @@
                                     </div>
                                 </div>
                             {% endif %}
-                            <form class="form-horizontal" action="{{ route('stats.store') }}" method="post">
+                            <form class="form-horizontal" action="{{ route('stats.update', {'id': stat.id}) }}" method="post">
                                 {% include 'stat/form_edit.twig' %}
+
+                                <button type="submit" class="btn btn-primary">Edit stat</button>
                                 {{ csrf_field() }}
+                                {{ method_field('PUT') }}
                             </form>
                         </div>
                     </div>

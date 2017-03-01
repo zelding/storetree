@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Utils\Constants;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StoreStat extends FormRequest
 {
@@ -26,9 +27,9 @@ class StoreStat extends FormRequest
     public function rules()
     {
         return [
-            "name"      => "required|max:255",
-            "dota_name" => "required|unique:stats,dota_name,{$this->id}|max:255",
-            "stat_type" => "required|in:".implode(',', Constants::$varTypes)
+            "name"      => "required|unique:stats,name,id,{$this->id}|max:255",
+            "dota_name" => "required|unique:stats,dota_name,id,{$this->id}|max:255",
+            "var_type"  => "required|in:".implode(',', Constants::$varTypes)
         ];
     }
 }

@@ -28,7 +28,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Class anme</th>
+                                <th>Class name</th>
                                 <th>Type</th>
                                 <th>#</th>
                             </tr>
@@ -41,7 +41,9 @@
                                     <td>{{ stat.name }}</td>
                                     <td>{{ stat.dota_name }}</td>
                                     <td>{{ stat.var_type }}</td>
-                                    <td>&nbsp;</td>
+                                    <td>
+                                        <a href="{{ route('stats.show', {'id': stat.id}) }}" class="btn btn-warning btn-sm btn-block">Edit</a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
