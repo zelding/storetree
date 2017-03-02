@@ -38,6 +38,8 @@
                             {% endif %}
                             <form class="form-horizontal" action="{{ route('stats.store') }}" method="post">
                                 {% include 'stat/form_edit.twig' %}
+
+                                <button type="submit" class="btn btn-primary">Add stat</button>
                                 {{ csrf_field() }}
                             </form>
                         </div>

@@ -47,10 +47,8 @@ class StatController extends Controller
         $stat = new Stat();
         $stat->name      = $request->get('name');
         $stat->dota_name = $request->get('dota_name');
-        $stat->var_type  = $request->get("stat_type");
+        $stat->var_type  = $request->get("var_type");
         $stat->save();
-
-        
 
         return redirect(route('stats.create'), 201);
     }

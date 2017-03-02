@@ -137,18 +137,28 @@ class ItemController extends Controller
         }
 
         if ( $item->base_level > 1 ) {
+            //remove the _# from the name
             $name = preg_replace('~_\d{1,}~', '', $item->base_class);
+
             $lvl1 = Item::with('stats')
-                ->where('base_level', '=', 1)
-                ->where('base_class', $name)
-                ->first();
+                        ->where('base_level', '=', 1)
+                        ->where('base_class', $name)
+                        ->first();
 
             if ( $lvl1 instanceof Item && $lvl1->stats->count() ) {
                 $lvl1->stats->each(function (&$item, $key) {
                     $item->inherited = true;
                 });
 
-                $item->stats = $item->stats->union($lvl1->stats);
+                foreach ($lvl1->stats as $stat) {
+                    $contains = $item->stats->contains(function ($value, $key) use ($stat) {
+                        return $value->id == $stat->id;
+                    });
+
+                    if ( !$contains ) {
+                        $item->stats->add($stat);
+                    }
+                }
             }
         }
 
@@ -310,7 +320,7 @@ class ItemController extends Controller
     /**
      * @param Request $request
      * @param int     $id
-     * @return $this
+     * @return Response|RedirectResponse
      */
     public function updateComponent(Request $request, $id)
     {
@@ -367,7 +377,7 @@ class ItemController extends Controller
     public function editStats(Request $request, $id)
     {
         $item  = Item::with('stats', 'recipes')->find($id);
-        $stats = Stat::all();
+        $componentStats = [];
         $primaryRecipe = $item->recipes()->first();
 
         if ( $primaryRecipe instanceof Recipe ) {
@@ -376,19 +386,68 @@ class ItemController extends Controller
             if ( $components->count() ) {
                 //go through stats
                 //collect new ones
+                foreach( $components as $component ) {
+                    $component->load('stats');
+
+                    foreach( $component->stats as $stat) {
+                        if ( !array_key_exists($stat->id, $componentStats) ) {
+                            $componentStats[ $stat->id ] = $stat;
+                        }
+                    }
+                }
             }
         }
 
+        if ( $item->base_level > 1 ) {
+            //remove the _# from the name
+            $name = preg_replace('~_\d{1,}~', '', $item->base_class);
+
+            $lvl1 = Item::with('stats')
+                        ->where('base_level', '=', 1)
+                        ->where('base_class', $name)
+                        ->first();
+
+            if ( $lvl1 instanceof Item && $lvl1->stats->count() ) {
+                $lvl1->stats->each(function (&$item, $key) {
+                    $item->inherited = true;
+                });
+
+                foreach ($lvl1->stats as $stat) {
+                    $contains = $item->stats->contains(function ($value, $key) use ($stat) {
+                        return $value->id == $stat->id;
+                    });
+
+                    if ( !$contains ) {
+                        $item->stats->add($stat);
+                    }
+                }
+            }
+        }
+
+        //remove used and inherited stats
+        foreach( $item->stats as $stat ) {
+            if ( array_key_exists($stat->id, $componentStats) ) {
+                unset($componentStats[$stat->id ]);
+            }
+        }
+
+        $usedStatsId = array_map(function ($s) {
+            return $s->id;
+        }, $item->stats->all());
+
+        $stats = Stat::whereNotIn('id',$usedStatsId)->get();
+
         return view('Item/edit_stats', [
-            'item'  => $item,
-            'stats' => $stats
+            'item'           => $item,
+            'stats'          => $stats,
+            'componentStats' => $componentStats
         ]);
     }
 
     /**
      * @param StoreItemStat $request
      * @param integer       $id
-     * @return $this|RedirectResponse
+     * @return RedirectResponse
      */
     public function updateStats(StoreItemStat $request, $id)
     {
@@ -403,6 +462,15 @@ class ItemController extends Controller
 
                 return redirect(route('items.edit.stats', ["id" => $item->id]))->withErrors($error);
             }
+
+            //to allow multiple from the same value, javascript prepends values with \d$
+            //they need to be removed
+            $statValues = array_map(function ($x){
+                if ( str_contains($x, '$') ) {
+                    $x = substr($x,strpos($x, '$') + 1);
+                }
+                return $x;
+            },$statValues);
 
             sort($statValues, SORT_NUMERIC);
 

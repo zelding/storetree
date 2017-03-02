@@ -78,6 +78,12 @@
                 html: true
             });
 
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_minimal',
+                radioClass: 'iradio_minimal',
+                increaseArea: '20%'
+            });
+
             $("#item-recipe").on('change', function () {
                $("#base-class-addon").html(
                    $(this).is(':checked') ?
@@ -86,12 +92,20 @@
                );
             });
 
-            $("#base-item").on('change', function () {
+            $("#base-item").on('ifChanged', function () {
                $("#item_cost").attr('disabled', !$(this).is(':checked'));
             });
 
-            $("#is-purchasable").on('change', function () {
+            $("#is-purchasable").on('ifChanged', function () {
                $("#item_shop").attr('disabled', !$(this).is(':checked'));
+            });
+
+            $('#needs-charges').on('ifChanged', function () {
+                $('#item-start-charges').attr('disabled', !$(this).is(':checked'));
+            });
+
+            $("#is-alertable").on('ifChanged', function () {
+                $("#item-alert-text").attr('disabled', !$(this).is(':checked'));
             });
         });
     </script>

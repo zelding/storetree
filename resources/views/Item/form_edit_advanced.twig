@@ -59,7 +59,7 @@
         <div class="form-group">
             <label class="col-lg-4 control-label" for="item_dota_id">Alert text</label>
             <div class="col-lg-8" data-toggle="tooltip" data-placement="bottom" title="This text will be showed when someone alt-clicks on it">
-                <input type="text" class="form-control" id="item-alert-text" placeholder="Dank item dropped here"
+                <input type="text" class="form-control" id="item-alert-text" placeholder="Gather here for memes"
                        name="alert_text" value="{{ request.alert_text ?? item.alert_text }}"
                        {{ item.is_alertable ?: ' disabled' }}>
             </div>
@@ -202,7 +202,7 @@
         <div class="form-group">
             <div class="col-lg-offset-1 col-sm-8">
                 <div class="checkbox">
-                    <label data-toggle="tooltip" data-placement="right" title="You can alt+click to alert allies">
+                    <label data-toggle="tooltip" data-placement="right" title="You can alt+click in inventory to alert allies, like mana-boots">
                         <input type="checkbox" name="is_alertable" id="is-alertable"
                                value="1" {{ (request.is_alertable ?? item.is_alertable) ? 'checked="checked"' }}> Is alertable
                     </label>

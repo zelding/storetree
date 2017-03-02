@@ -42,7 +42,9 @@
                                     <td>{{ stat.dota_name }}</td>
                                     <td>{{ stat.var_type }}</td>
                                     <td>
-                                        <a href="{{ route('stats.show', {'id': stat.id}) }}" class="btn btn-warning btn-sm btn-block">Edit</a>
+                                        <a href="{{ route('stats.show', {'id': stat.id}) }}" class="btn btn-warning btn-sm btn-block">
+                                            <i class="fa fa-window-maximize"></i>&nbsp;Edit
+                                        </a>
                                     </td>
                                 </tr>
                             {% endfor %}

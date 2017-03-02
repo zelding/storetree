@@ -1,5 +1,9 @@
 {% extends 'layouts/storetree.twig' %}
 
+{% block styleSheets %}
+    <link rel="stylesheet" href="{{ asset('css/selectize.bootstrap3.css') }}">
+{% endblock %}
+
 {% block content %}
 <!-- Page Content -->
 
@@ -26,24 +30,31 @@
             <div class="col-lg-12">
                 <form class="form-horizontal" action="{{ route('items.update.stats', {id: item.id}) }}" method="post">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Update stats <small>Mark stats to <span class="text-danger">delete</span></small></div>
+                        <div class="panel-heading">Update stats <span class="pull-right">Add a new stat</span></div>
 
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-
+                            {% if componentStats %}
+                                <div class="row">
+                                    <div class="col-lg-12"><p>Recommended stats based on components</p></div>
+                                    <div class="col-lg-12">
+                                        {% for stat in componentStats %}
+                                            <button class="btn btn-primary btn-sm recommendedStat" data-id="{{ stat.id }}">{{ stat.name }}</button>
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                            </div>
-                            <hr>
+
+                                <hr>
+                            {% endif %}
                             <div class="row">
                                 <div class="col-lg-6">
+                                    <small>Mark stats to <span class="text-danger">delete</span></small>
                                     <dl class="dl-horizontal">
                                         {% for stat in item.stats %}
-                                            <dt><abbr title="{{ stat.dota_name }}">{{ stat.name }}</abbr></dt>
+                                            <dt><abbr class="{{ stat.inherited ? 'bg-warning' }}"  title="{{ stat.dota_name }}">{{ stat.name }}</abbr></dt>
                                             <dd>
                                                 <span class="pull-left checkbox" style="padding-top:0">
                                                     <label data-toggle="tooltip" title="Mark for delete">
-                                                        <input type="checkbox" name="remove_stat[]" value="{{ stat.id }}">
+                                                        <input type="checkbox" name="remove_stat[]" value="{{ stat.id }}"{{ stat.inherited ? " disabled" : "" }}>
                                                         {% for i, v in stat.pivot.value %}
                                                             {% if i == (item.base_level - 1) or loop.length == 1 %}
                                                                 <strong>{{ v }}</strong>
@@ -80,6 +91,10 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                         <p>It is a little confusing, but you can list the same values multiple times, if you dont press <code>ENTER</code> but <code>SPACE</code></p>
+                                    </div>
                                 </div>
                             </div>
 
@@ -100,19 +115,30 @@
     </div>
 {% endblock %}
 
+{% block pageJs %}
+    <script type="application/javascript" src="{{ asset('js/selectize.min.js') }}"></script>
+{% endblock %}
+
 {% block inlineJs %}
     <script type="application/javascript">
+        var statIndex = 0;
         $(function () {
             $('#stat_value').select2({
                 placeholder: "Start typing numbers - the order doesn't matter",
                 theme: "bootstrap",
                 tags: true,
+                tokenSeparators: [',', ' '],
+                allowClear: true,
                 createTag: function (params) {
                     return {
-                        id: params.term,
+                        id:   statIndex +"$"+ params.term,
                         text: params.term,
-                        newOption: true
                     }
+                },
+                insertTag: function (data, tag) {
+                    console.info("i", data, tag);
+                    data.push(tag);
+                    statIndex++;
                 }
             });
 
@@ -126,6 +152,13 @@
                 checkboxClass: 'icheckbox_minimal',
                 radioClass: 'iradio_minimal',
                 increaseArea: '-10%' // optional
+            });
+
+            $(".recommendedStat").on('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                $("#stat_type").val( $(this).data('id') ).trigger('change');
             });
         });
     </script>
