@@ -15,6 +15,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class ItemController extends Controller
 {
@@ -23,7 +24,7 @@ class ItemController extends Controller
      *
      * @param Request $request
      * asd
-     * @return Response
+     * @return View
      */
     public function index(Request $request)
     {
@@ -50,7 +51,7 @@ class ItemController extends Controller
      *
      * @param Request $request
      *
-     * @return Response
+     * @return View
      */
     public function create(Request $request)
     {
@@ -69,7 +70,7 @@ class ItemController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  StoreItem  $request
-     * @return Response
+     * @return RedirectResponse
      */
     public function store(StoreItem $request)
     {
@@ -126,15 +127,11 @@ class ItemController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response|RedirectResponse
+     * @return RedirectResponse|View
      */
     public function show($id)
     {
-        $item = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats')->find($id);
-
-        if ( !($item instanceof Item)) {
-            return redirect(route('items.index'), 404);
-        }
+        $item = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats')->findOrFail($id);
 
         if ( $item->base_level > 1 ) {
             //remove the _# from the name
@@ -167,12 +164,55 @@ class ItemController extends Controller
         ]);
     }
 
+    public function showScript($id)
+    {
+        $item = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats')->find($id);
+
+        if ( !($item instanceof Item)) {
+            return redirect(route('items.index'), 404);
+        }
+
+        if ( $item->base_level > 1 ) {
+            //remove the _# from the name
+            $name = preg_replace('~_\d{1,}~', '', $item->base_class);
+
+            $lvl1 = Item::with('stats')
+                ->where('base_level', '=', 1)
+                ->where('base_class', $name)
+                ->first();
+
+            if ( $lvl1 instanceof Item && $lvl1->stats->count() ) {
+                $lvl1->stats->each(function (&$item, $key) {
+                    $item->inherited = true;
+                });
+
+                foreach ($lvl1->stats as $stat) {
+                    $contains = $item->stats->contains(function ($value, $key) use ($stat) {
+                        return $value->id == $stat->id;
+                    });
+
+                    if ( !$contains ) {
+                        $item->stats->add($stat);
+                    }
+                }
+            }
+        }
+
+        $response = new Response();
+        $response->withHeaders(['Content-type'=>'text/plain']);
+        $response->setContent(View::make('templates/item', [
+            'item'   => $item
+        ]));
+
+        return $response;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  Request $request
      * @param  int     $id
-     * @return Response
+     * @return View
      */
     public function edit(Request $request, $id)
     {
@@ -197,8 +237,8 @@ class ItemController extends Controller
 
         return view('Item/edit', [
             "request"       => $request,
+            "shops"         => $shops,
             "item"          => $item,
-            'shops'         => $shops,
             'currentShops'  => $currentShops,
             'qualityLevels' => Constants::$itemQuality,
             'shareFlags'    => Constants::$shareable
@@ -210,7 +250,7 @@ class ItemController extends Controller
      *
      * @param  StoreItem  $request
      * @param  int  $id
-     * @return Response|RedirectResponse
+     * @return View|RedirectResponse
      */
     public function update(StoreItem $request, $id)
     {
@@ -297,7 +337,7 @@ class ItemController extends Controller
     /**
      * @param int $id ItemId
      *
-     * @return RedirectResponse|Response
+     * @return RedirectResponse|View
      */
     public function editComponent(Request $request, $id)
     {
@@ -320,7 +360,7 @@ class ItemController extends Controller
     /**
      * @param Request $request
      * @param int     $id
-     * @return Response|RedirectResponse
+     * @return RedirectResponse
      */
     public function updateComponent(Request $request, $id)
     {
@@ -374,7 +414,7 @@ class ItemController extends Controller
      * @param Request $request
      * @param int     $id
      *
-     * @return Response
+     * @return View
      */
     public function editStats(Request $request, $id)
     {

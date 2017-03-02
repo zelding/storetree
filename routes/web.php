@@ -30,6 +30,8 @@ Route::group(['prefix' => 'storetree'], function() {
     Route::resource('items', 'ItemController');
     Route::resource('stats', 'StatController');
 
+    Route::get('items/{id}/lua', 'ItemController@showScript')->name('item.lua');
+
     Route::get('items/{id}/edit/components', 'ItemController@editComponent')->name('items.edit.components');
     Route::put('items/{id}/edit/components', 'ItemController@updateComponent')->name('items.update.components');
 

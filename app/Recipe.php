@@ -34,5 +34,19 @@ class Recipe extends Model
     {
         return $this->belongsTo(Item::class, 'item_id');
     }
+
+    /**
+     * @return string[]
+     */
+    public function getComponentsStringAttribute()
+    {
+        $array = [];
+
+        foreach($this->components as $component ) {
+            $array[] = $component->base_class;
+        }
+
+        return implode(';', $array);
+    }
 }
 

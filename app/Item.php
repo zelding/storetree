@@ -131,6 +131,21 @@ class Item extends Model
         return $this->hasMany(Recipe::class);
     }
 
+    public function getRecipeAttribute()
+    {
+        if ($this->is_base_item) {
+            return null;
+        }
+
+        foreach($this->recipes->first()->components as $component) {
+            if ($component->is_recipe) {
+                return $component;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Returns the recipes that include this item
      *

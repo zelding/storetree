@@ -41,6 +41,11 @@ class Stat extends Model
         return $this->pivot->value;
     }
 
+    public function getValueStringAttribute()
+    {
+        return implode(' ', $this->pivot->value);
+    }
+
     public function newPivot(Model $parent, array $attributes, $table, $exists, $using = null)
     {
         return new StatPivot($parent, $attributes, $table, $exists, $using);

@@ -110,6 +110,7 @@ return [
             'TwigBridge\Extension\Laravel\Str',
             'TwigBridge\Extension\Laravel\Translator',
             'TwigBridge\Extension\Laravel\Url',
+            'App\Extensions\Twig\TwigFilters',
             // 'TwigBridge\Extension\Laravel\Gate',
 
             // 'TwigBridge\Extension\Laravel\Form',

@@ -21,7 +21,8 @@
     },
     "autoload": {
         "classmap": [
-            "database"
+            "database",
+            "App/Extensions/Twig"
         ],
         "psr-4": {
             "App\\": "app/"
