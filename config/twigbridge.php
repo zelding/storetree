@@ -154,6 +154,11 @@ return [
                 'is_safe' => [
                     'open'
                 ]
+            ],
+            'Session' => [
+                'is_safe' => [
+                    'open'
+                ]
             ]
         ],
 

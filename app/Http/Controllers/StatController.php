@@ -97,7 +97,7 @@ class StatController extends Controller
         $stat->var_type  = $request->get('var_type');
         $stat->save();
 
-        return redirect(route('stats.show', ['id' => $id]))->with('success', 'Updated');
+        return redirect(route('stats.edit', ['id' => $id]))->with('success', 'Updated');
     }
 
     /**

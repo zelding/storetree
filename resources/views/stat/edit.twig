@@ -38,6 +38,7 @@
                             {% endif %}
                             <form class="form-horizontal" action="{{ route('stats.update', {'id': stat.id}) }}" method="post">
                                 {% include 'stat/form_edit.twig' %}
+                                <input type="hidden" name="id" value="{{ stat.id }}">
 
                                 <button type="submit" class="btn btn-primary">Edit stat</button>
                                 {{ csrf_field() }}

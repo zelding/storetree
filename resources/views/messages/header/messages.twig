@@ -1,8 +1,10 @@
-{% if request.success %}
-    <button class="btn btn-primary" type="button"
+{% set success = Session.get('success') %}
+
+{% if success %}
+    <button class="btn btn-success" type="button"
             data-toggle="popover" data-placement="bottom"
-            title="Here is where you are wrong"
-            data-content="{{ request.success }}">
+            title="All cool"
+            data-content="{{ success }}">
         Success
     </button>
 {% endif %}

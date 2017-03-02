@@ -29,6 +29,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Class name</th>
+                                <th>Group</th>
                                 <th>Type</th>
                                 <th>#</th>
                             </tr>
@@ -40,6 +41,7 @@
                                     <td>{{ stat.id }}</td>
                                     <td>{{ stat.name }}</td>
                                     <td>{{ stat.dota_name }}</td>
+                                    <td>{{ stat.stat_group }}</td>
                                     <td>{{ stat.var_type }}</td>
                                     <td>
                                         <a href="{{ route('stats.show', {'id': stat.id}) }}" class="btn btn-warning btn-sm btn-block">
