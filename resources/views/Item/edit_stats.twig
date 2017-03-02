@@ -87,14 +87,16 @@
                                     <div class="form-group">
                                         <label class="control-label col-lg-2 text-success" for="stat_value">Stat values</label>
                                         <div class="col-lg-10">
-                                            <select id="stat_value" name="new_stat_value[]" multiple class="form-control select2">
+                                            <select id="stat_value" name="new_stat_value[]" {{ item.max_level > 1 ? "multiple" : "" }} class="form-control select2">
                                             </select>
                                         </div>
                                     </div>
 
+                                    {% if item.max_level > 1 %}
                                     <div class="form-group">
                                          <p>It is a little confusing, but you can list the same values multiple times, if you dont press <code>ENTER</code> but <code>SPACE</code></p>
                                     </div>
+                                    {% endif %}
                                 </div>
                             </div>
 
@@ -123,6 +125,7 @@
     <script type="application/javascript">
         var statIndex = 0;
         $(function () {
+            {% if item.max_level > 1 %}
             $('#stat_value').select2({
                 placeholder: "Start typing numbers - the order doesn't matter",
                 theme: "bootstrap",
@@ -141,6 +144,13 @@
                     statIndex++;
                 }
             });
+            {% else %}
+            $('#stat_value').select2({
+                placeholder: "Start typing numbers - the order doesn't matter",
+                theme: "bootstrap",
+                tags: true
+            });
+            {% endif %}
 
             $("#stat_type").select2({
                 placeholder: "Select something",
@@ -149,7 +159,7 @@
             });
 
             $('input').iCheck({
-                checkboxClass: 'icheckbox_minimal',
+                checkboxClass: 'icheckbox_minimal-red',
                 radioClass: 'iradio_minimal',
                 increaseArea: '-10%' // optional
             });

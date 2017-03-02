@@ -361,6 +361,8 @@ class ItemController extends Controller
             }
         }
 
+        $item->touch();
+
         return redirect(route('items.edit.components', ["id" => $item->id]))->withInput();
     }
 
@@ -486,6 +488,8 @@ class ItemController extends Controller
                 $item->stats()->detach($stat);
             }
         }
+
+        $item->touch();
 
         if ( !empty($request->get('remove_stat')) || $request->get('new_stat') ) {
             return redirect(route('items.edit.stats', ["id" => $item->id]))->with('success', 'Update Successful');
