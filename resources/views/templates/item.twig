@@ -4,7 +4,7 @@
 //======================================================================================================================
 "{{ item.recipe.base_class }}"
 {
-    "ID"                "{{ item.recipe.id }}"
+    "ID"                "{{ item.recipe.dota_id }}"
     "Model"             "{{ item.recipe.model }}"
     "ItemCost"          "{{ item.recipe.cost }}"
     "ItemShopTags"      ""
@@ -83,8 +83,8 @@
 
         "{{ loop.index < 10 ? '0'~loop.index : loop.index }}"
         {
-            "var_type"                          "{{ stat.var_type }}"
-            "{{ stat.dota_name }}"{{ generateSpaces(stat.dota_name, 34) }}"{{ stat.valueString }}"
+            "var_type"                                              "{{ stat.var_type }}"
+            "{{ stat.dota_name }}"{{ generateSpaces(stat.dota_name, 54) }}"{{ stat.valueString }}"
         }{{- loop.last ? '' : '\n' -}}
 
         {%- endfor %}

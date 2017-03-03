@@ -200,7 +200,7 @@ class ItemController extends Controller
 
         $response = new Response();
         $response->withHeaders(['Content-type'=>'text/plain']);
-        $response->setContent(View::make('templates/item', [
+        $response->setContent(View::make('templates/tooltip', [
             'item'   => $item
         ]));
 

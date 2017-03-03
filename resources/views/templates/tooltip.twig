@@ -1,0 +1,11 @@
+// Item tooltip: {{ item.base_class }}
+//======================================================================================================================
+"DOTA_Tooltip_Ability_{{ item.base_class }}"                "{{ item.name }}"
+"DOTA_Tooltip_ability_{{ item.base_class }}_Description"    "{{ item.description }}"
+"DOTA_Tooltip_ability_{{ item.base_class }}_Lore"           ""
+
+{% for stat in item.stats -%}
+
+    {%- set text_id = "DOTA_Tooltip_ability_"~item.base_class~"_"~stat.dota_name -%}
+    "{{ text_id }}"{{ generateSpaces(text_id, 80) }}""
+{% endfor -%}
