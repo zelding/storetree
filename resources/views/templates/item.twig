@@ -26,54 +26,67 @@
     // General
     //------------------------------------------------------------------------------------------------------------------
     "ID"                    "{{ item.dota_id }}"
-    "AbilityBehavior"       ""
-    "AbilityTextureName"    "{{ item.base_class }}"
-
     "ItemPermanent"         "{{ item.is_permanent }}"
     "ItemStackable"         "{{ item.max_stacks > 1 ? 1 : 0 }}"
     "FightRecapLevel"       "{{ item.fight_recap }}"
     "ItemDisassembleRule"   ""
 
-    // Stats
+    // Ability
     //------------------------------------------------------------------------------------------------------------------
-    "AbilityCooldown"       ""
-    "AbilityCastRange"      ""
-    "AbilityCastPoint"      ""
+    "AbilityBehavior"                       ""
+    "AbilityTextureName"                    "{{ item.base_class }}"
+    "AbilityUnitTargetTeam"                 ""
+    "AbilityUnitTargetType"                 ""
+    "AbilityUnitTargetFlags"                ""
+    "AbilityCastRange"                      ""
+    "AbilityCastPoint"                      ""
+    "AbilityCooldown"                       ""
+    "AbilityCastRangeBuffer"                ""
+    "AbilityChannelTime"                    ""
+    "AbilityChannelledManaCostPerSecond"    ""
+    "AbilityDuration"                       ""
+    "AoERadius"                             ""
+
+    "AbilityManaCost"                       ""
+    "AbilityGoldCost"                       ""
+    "AbilitySharedCooldown"                 ""
+    "AbilityProcsMagicStick"                "1"
+    "DisplayAdditionalHeroes"               ""
 
     // Upgrades
     //------------------------------------------------------------------------------------------------------------------
-    "MaxUpgradeLevel"       "{{ item.max_level }}"
-    "ItemBaseLevel"         "{{ item.base_level }}"
+    "MaxUpgradeLevel"               "{{ item.max_level }}"
+    "ItemBaseLevel"                 "{{ item.base_level }}"
     {% if item.max_level > 1 -%}
-    "UpgradesItems"         "{{ item.base_class }}"
-    "UpgradeRecipe"         "{{ item.recipe.base_class }}"
+    "UpgradesItems"                 "{{ item.base_class }}"
+    "UpgradeRecipe"                 "{{ item.recipe.base_class }}"
     {% endif %}
 
     // Item Info
     //------------------------------------------------------------------------------------------------------------------
-    "ItemCost"              "{{ item.totalCost }}"
-    "ItemShopTags"          ""
-    "ItemAliases"           ""
-    "ItemQuality"           "{{ item.quality }}"
+    "ItemCost"                      "{{ item.totalCost }}"
+    "ItemShopTags"                  ""
+    "ItemAliases"                   ""
+    "ItemQuality"                   "{{ item.quality }}"
 
-    "SideShop"              "{{ item.shops.where('id', 2).count ? 1 : 0 }}"
-    "SecretShop"            "{{ item.shops.where('id', 3).count ? 1 : 0 }}"
+    "SideShop"                      "{{ item.shops.where('id', 2).count ? 1 : 0 }}"
+    "SecretShop"                    "{{ item.shops.where('id', 3).count ? 1 : 0 }}"
 
     // Charges
     //------------------------------------------------------------------------------------------------------------------
-    "ItemRequiresCharges"   "{{ item.needs_charges ? 1 : 0 }}"
-    "ItemInitialCharges"    "{{ item.start_charges ? 1 : 0 }}"
-    "ItemDisplayCharges"    "{{ item.show_charges  ? 1 : 0 }}"
-    "ItemDeclarations"      ""
+    "ItemRequiresCharges"           "{{ item.needs_charges ? 1 : 0 }}"
+    "ItemInitialCharges"            "{{ item.start_charges ? 1 : 0 }}"
+    "ItemDisplayCharges"            "{{ item.show_charges  ? 1 : 0 }}"
+    "ItemDeclarations"              ""
 
     // Misc
     //------------------------------------------------------------------------------------------------------------------
-    "ItemShareability"      "{{ item.share }}"
-    "ItemKillable"          "{{ item.is_killable    ? 1 : 0 }}"
-    "ItemSellable"          "{{ item.is_sellable    ? 1 : 0 }}"
-    "ItemPurchasable"       "{{ item.is_purchasable ? 1 : 0 }}"
-    "ItemDroppable"         "{{ item.is_droppable   ? 1 : 0 }}"
-    "ItemAlertable"         "{{ item.is_alertable   ? 1 : 0 }}"
+    "ItemShareability"              "{{ item.share }}"
+    "ItemKillable"                  "{{ item.is_killable    ? 1 : 0 }}"
+    "ItemSellable"                  "{{ item.is_sellable    ? 1 : 0 }}"
+    "ItemPurchasable"               "{{ item.is_purchasable ? 1 : 0 }}"
+    "ItemDroppable"                 "{{ item.is_droppable   ? 1 : 0 }}"
+    "ItemAlertable"                 "{{ item.is_alertable   ? 1 : 0 }}"
 
     // Stats
     //------------------------------------------------------------------------------------------------------------------

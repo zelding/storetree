@@ -179,7 +179,10 @@ return [
         //twig
         TwigBridge\ServiceProvider::class,
 
-        Orangehill\Iseed\IseedServiceProvider::class
+        Orangehill\Iseed\IseedServiceProvider::class,
+
+        //my stuff
+        App\Providers\ItemServiceProvider::class
     ],
 
     /*

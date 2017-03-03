@@ -38,6 +38,7 @@ class CreateItemsTable extends Migration
             $table->tinyInteger('fight_recap')->default(0);
             $table->enum('quality', Constants::$itemQuality)->default('component');
             $table->enum('share', Constants::$shareable)->default('ITEM_NOT_SHAREABLE');
+            $table->enum('disassembe', Constants::$disassemble)->default('DOTA_ITEM_DISASSEMBLE_NEVER');
             $table->tinyInteger('stock_max')->default(0);
             $table->mediumInteger('stock_time')->default(0);
             $table->tinyInteger('stock_initial')->default(0);
@@ -49,6 +50,7 @@ class CreateItemsTable extends Migration
             $table->boolean('is_alertable')->default(false);
             $table->string('alert_text')->nullable();
             //shopTags
+            //item aliases
             //Abilities
             $table->timestamps();
         });

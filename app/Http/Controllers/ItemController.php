@@ -16,6 +16,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use App\Service\ItemService;
 
 class ItemController extends Controller
 {
@@ -172,34 +173,9 @@ class ItemController extends Controller
             return redirect(route('items.index'), 404);
         }
 
-        if ( $item->base_level > 1 ) {
-            //remove the _# from the name
-            $name = preg_replace('~_\d{1,}~', '', $item->base_class);
-
-            $lvl1 = Item::with('stats')
-                ->where('base_level', '=', 1)
-                ->where('base_class', $name)
-                ->first();
-
-            if ( $lvl1 instanceof Item && $lvl1->stats->count() ) {
-                $lvl1->stats->each(function (&$item, $key) {
-                    $item->inherited = true;
-                });
-
-                foreach ($lvl1->stats as $stat) {
-                    $contains = $item->stats->contains(function ($value, $key) use ($stat) {
-                        return $value->id == $stat->id;
-                    });
-
-                    if ( !$contains ) {
-                        $item->stats->add($stat);
-                    }
-                }
-            }
-        }
+        app(ItemService::class)->resolveItemInheritedStats($item);
 
         $response = new Response();
-        $response->withHeaders(['Content-type'=>'text/plain']);
         $response->setContent(View::make('templates/previews/item', [
             'item'   => $item
         ]));
@@ -209,40 +185,15 @@ class ItemController extends Controller
 
     public function showTooltip($id)
     {
-        $item = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats')->find($id);
+        $item = Item::with('stats')->find($id);
 
         if ( !($item instanceof Item)) {
             return redirect(route('items.index'), 404);
         }
 
-        if ( $item->base_level > 1 ) {
-            //remove the _# from the name
-            $name = preg_replace('~_\d{1,}~', '', $item->base_class);
-
-            $lvl1 = Item::with('stats')
-                        ->where('base_level', '=', 1)
-                        ->where('base_class', $name)
-                        ->first();
-
-            if ( $lvl1 instanceof Item && $lvl1->stats->count() ) {
-                $lvl1->stats->each(function (&$item, $key) {
-                    $item->inherited = true;
-                });
-
-                foreach ($lvl1->stats as $stat) {
-                    $contains = $item->stats->contains(function ($value, $key) use ($stat) {
-                        return $value->id == $stat->id;
-                    });
-
-                    if ( !$contains ) {
-                        $item->stats->add($stat);
-                    }
-                }
-            }
-        }
+        app(ItemService::class)->resolveItemInheritedStats($item);
 
         $response = new Response();
-        $response->withHeaders(['Content-type'=>'text/plain']);
         $response->setContent(View::make('templates/previews/tooltip', [
             'item'   => $item
         ]));
@@ -483,31 +434,7 @@ class ItemController extends Controller
             }
         }
 
-        if ( $item->base_level > 1 ) {
-            //remove the _# from the name
-            $name = preg_replace('~_\d{1,}~', '', $item->base_class);
-
-            $lvl1 = Item::with('stats')
-                        ->where('base_level', '=', 1)
-                        ->where('base_class', $name)
-                        ->first();
-
-            if ( $lvl1 instanceof Item && $lvl1->stats->count() ) {
-                $lvl1->stats->each(function (&$item, $key) {
-                    $item->inherited = true;
-                });
-
-                foreach ($lvl1->stats as $stat) {
-                    $contains = $item->stats->contains(function ($value, $key) use ($stat) {
-                        return $value->id == $stat->id;
-                    });
-
-                    if ( !$contains ) {
-                        $item->stats->add($stat);
-                    }
-                }
-            }
-        }
+        app(ItemService::class)->resolveItemInheritedStats($item);
 
         //remove used and inherited stats
         foreach( $item->stats as $stat ) {

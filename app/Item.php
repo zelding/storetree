@@ -131,21 +131,6 @@ class Item extends Model
         return $this->hasMany(Recipe::class);
     }
 
-    public function getRecipeAttribute()
-    {
-        if ($this->is_base_item) {
-            return null;
-        }
-
-        foreach($this->recipes->first()->components as $component) {
-            if ($component->is_recipe) {
-                return $component;
-            }
-        }
-
-        return null;
-    }
-
     /**
      * Returns the recipes that include this item
      *
@@ -169,6 +154,26 @@ class Item extends Model
         $stats = $this->belongsToMany(Stat::class)->using(StatPivot::class)->withPivot('value')->orderBy('name');
 
         return $stats;
+    }
+
+    public function getLocaleData($lang_id = 1)
+    {
+        return [];
+    }
+
+    public function getRecipeAttribute()
+    {
+        if ($this->is_base_item) {
+            return null;
+        }
+
+        foreach($this->recipes->first()->components as $component) {
+            if ($component->is_recipe) {
+                return $component;
+            }
+        }
+
+        return null;
     }
 
     public function getTotalCostAttribute($trueCost = false)
