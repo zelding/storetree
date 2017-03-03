@@ -19,9 +19,11 @@ class Utf16
     {
         /** @var Response $response */
         $response    = $next($request);
-        $response->setCharset('UTF-16');
+        $content     = iconv("utf-8", 'utf-16be', $response->getContent());
 
-       // $response->setContent( mb_convert_encoding($response->getContent(), 'UTF-16', 'UTF-8') );
+        $response->header('Content-Type', 'text/html charset=utf-16be')
+                 ->header('Content-Disposition', 'inline')
+                 ->setContent( $content );
 
         return $response;
     }

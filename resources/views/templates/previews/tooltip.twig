@@ -1,0 +1,7 @@
+{% extends 'layouts/layout_utf16.twig' %}
+
+{% block content %}
+    <pre>
+        {%- include "templates/tooltip.twig" with {item: item} -%}
+    </pre>
+{% endblock %}
