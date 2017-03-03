@@ -32,6 +32,7 @@ Route::group(['prefix' => 'storetree'], function() {
 
     Route::group(['middleware' => 'utf16'], function () {
         Route::get('items/{id}/lua', 'ItemController@showScript')->name('item.lua');
+        Route::get('items/{id}/tooltip', 'ItemController@showTooltip')->name('item.tooltip');
     });
 
     Route::get('items/{id}/edit/components', 'ItemController@editComponent')->name('items.edit.components');

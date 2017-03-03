@@ -73,7 +73,13 @@
                                                 <a href="{{ route('items.edit', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
                                             </div>
 
-                                            <div class="col-lg-2 col-lg-offset-8">
+                                            <div class="col-lg-2">
+                                                <a class="btn btn-warning btn-sm pull-right" href="{{ route('item.tooltip', {id: item.id}) }}" target="_blank">
+                                                    tooltip.txt
+                                                </a>
+                                            </div>
+
+                                            <div class="col-lg-2 col-lg-offset-6">
                                                 <a class="btn btn-warning btn-sm pull-right" href="{{ route('item.lua', {id: item.id}) }}" target="_blank">
                                                     {{ item.base_class }}.txt
                                                 </a>

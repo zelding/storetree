@@ -200,6 +200,49 @@ class ItemController extends Controller
 
         $response = new Response();
         $response->withHeaders(['Content-type'=>'text/plain']);
+        $response->setContent(View::make('templates/item', [
+            'item'   => $item
+        ]));
+
+        return $response;
+    }
+
+    public function showTooltip($id)
+    {
+        $item = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats')->find($id);
+
+        if ( !($item instanceof Item)) {
+            return redirect(route('items.index'), 404);
+        }
+
+        if ( $item->base_level > 1 ) {
+            //remove the _# from the name
+            $name = preg_replace('~_\d{1,}~', '', $item->base_class);
+
+            $lvl1 = Item::with('stats')
+                        ->where('base_level', '=', 1)
+                        ->where('base_class', $name)
+                        ->first();
+
+            if ( $lvl1 instanceof Item && $lvl1->stats->count() ) {
+                $lvl1->stats->each(function (&$item, $key) {
+                    $item->inherited = true;
+                });
+
+                foreach ($lvl1->stats as $stat) {
+                    $contains = $item->stats->contains(function ($value, $key) use ($stat) {
+                        return $value->id == $stat->id;
+                    });
+
+                    if ( !$contains ) {
+                        $item->stats->add($stat);
+                    }
+                }
+            }
+        }
+
+        $response = new Response();
+        $response->withHeaders(['Content-type'=>'text/plain']);
         $response->setContent(View::make('templates/tooltip', [
             'item'   => $item
         ]));
