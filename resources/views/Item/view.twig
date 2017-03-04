@@ -31,6 +31,7 @@
 
 
             <div class="row">
+                <!-- Left side -->
                 <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-12">
@@ -74,14 +75,58 @@
                                             </div>
 
                                             <div class="col-lg-2 col-lg-offset-6">
-                                                <a class="btn btn-warning btn-sm pull-right" href="{{ route('item.tooltip', {id: item.id}) }}" target="_blank">
+                                                <a class="btn btn-warning btn-sm" href="{{ route('item.tooltip', {id: item.id}) }}" target="_blank">
                                                     tooltip.txt
                                                 </a>
                                             </div>
 
                                             <div class="col-lg-2">
                                                 <a class="btn btn-warning btn-sm pull-right" href="{{ route('item.lua', {id: item.id}) }}" target="_blank">
-                                                    {{ item.base_class }}.txt
+                                                    item.txt
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">Translations</div>
+
+                                <div class="panel-body">
+                                    <div class="list-group">
+                                        {% for lang in item.locale %}
+                                            <a href="#" class="list-group-item">
+                                                <h4 class="list-group-item-heading">{{ langs[ lang.language_id ] }}</h4>
+                                                <p class="list-group-item-text">
+                                                    <label>
+                                                        <input type="checkbox"{{ lang.name ? " checked" }} disabled>Name
+                                                    </label>
+                                                    <label>
+                                                        <input type="checkbox"{{ lang.description ? " checked" }} disabled>Description
+                                                    </label>
+                                                    <label>
+                                                        <input type="checkbox"{{ lang.lore ? " checked" }} disabled>Lore
+                                                    </label>
+                                                    <label>
+                                                        <input type="checkbox"{{ lang.note ? " checked" }} disabled>Note
+                                                    </label>
+                                                </p>
+                                            </a>
+                                        {% else %}
+                                            <a href="#" class="list-group-item disabled">No translations yet</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                {% if Auth.check() %}
+                                    <div class="panel-footer">
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <a href="{{ route('items.edit.translations', {id: item.id}) }}" class="btn btn-primary">
+                                                    Manage
                                                 </a>
                                             </div>
                                         </div>
@@ -125,6 +170,7 @@
 
                 </div>
 
+                <!-- Right side -->
                 <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-12">
@@ -248,6 +294,12 @@
                 if( confirm('Are you sure?') ) {
                     $("#deleteForm").trigger('submit');
                 }
+            });
+
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_minimal',
+                radioClass: 'iradio_minimal',
+                increaseArea: '20%'
             });
         });
     </script>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreItem;
 use App\Http\Requests\StoreItemStat;
+use App\Http\Requests\StoreItemTranslation;
 use App\Item;
+use App\Locale;
 use App\Recipe;
 use App\Shop;
 use App\Stat;
@@ -29,7 +31,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Item::with('recipes', 'shops');
+        $query = Item::with('recipes', 'shops', 'locale');
 
         if ( !$request->has('all') ) {
             $query->where('is_recipe', 0);
@@ -42,8 +44,9 @@ class ItemController extends Controller
         $shops = Shop::all();
 
         return view('Item/index', [
-            'items'    => $items,
-            'shops'    => $shops
+            'items' => $items,
+            'shops' => $shops,
+            'langs' => Constants::$languages
         ]);
     }
 
@@ -134,37 +137,18 @@ class ItemController extends Controller
     {
         $item = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats')->findOrFail($id);
 
-        if ( $item->base_level > 1 ) {
-            //remove the _# from the name
-            $name = preg_replace('~_\d{1,}~', '', $item->base_class);
-
-            $lvl1 = Item::with('stats')
-                        ->where('base_level', '=', 1)
-                        ->where('base_class', $name)
-                        ->first();
-
-            if ( $lvl1 instanceof Item && $lvl1->stats->count() ) {
-                $lvl1->stats->each(function (&$item, $key) {
-                    $item->inherited = true;
-                });
-
-                foreach ($lvl1->stats as $stat) {
-                    $contains = $item->stats->contains(function ($value, $key) use ($stat) {
-                        return $value->id == $stat->id;
-                    });
-
-                    if ( !$contains ) {
-                        $item->stats->add($stat);
-                    }
-                }
-            }
-        }
+        app(ItemService::class)->resolveItemInheritedStats($item);
 
         return view('Item/view', [
-            "item" => $item
+            "item"  => $item,
+            'langs' => Constants::$languages
         ]);
     }
 
+    /**
+     * @param int $id
+     * @return RedirectResponse|Response|Redirector
+     */
     public function showScript($id)
     {
         $item = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats')->find($id);
@@ -183,6 +167,14 @@ class ItemController extends Controller
         return $response;
     }
 
+    /**
+     * Shows the texts generated for tooltips
+     *
+     * encoded in UTF-16
+     *
+     * @param int $id
+     * @return RedirectResponse|Response|Redirector
+     */
     public function showTooltip($id)
     {
         $item = Item::with('stats')->find($id);
@@ -506,5 +498,60 @@ class ItemController extends Controller
         }
 
         return redirect(route('items.edit.stats', ["id" => $item->id]))->with('warning', 'Nothing has changed');
+    }
+
+    /********************************************************
+     *                 TRANSLATIONS
+     ********************************************************/
+
+    public function editTranslations($id)
+    {
+        $item = Item::with('locale', 'stats')->find($id);
+        $unused = Constants::$languages;
+
+        app(ItemService::class)->resolveItemInheritedStats($item);
+
+        foreach($item->locale as $locale) {
+            unset($unused[ $locale->language_id ]);;
+        }
+
+        return view('Item/edit_translations', [
+            'item'   => $item,
+            'langs'  => Constants::$languages,
+            'unused' => $unused
+        ]);
+    }
+
+
+    public function updateTranslations(StoreItemTranslation $request, $id)
+    {
+        $item = Item::with('locale')->findOrFail($id);
+
+        $names        = $request->get('name');
+        $descriptions = $request->get('description');
+        $notes        = $request->get('note');
+        $lores        = $request->get('lore');
+
+        $names = array_filter($names);
+        $keys  = array_keys($names);
+
+        foreach ($keys as $i => $key) {
+            $locale = Locale::where('item_id', $item->id)
+                ->where('language_id', $key)->first();
+
+            if ( !($locale instanceof Locale) ) {
+                $locale = new Locale();
+                $locale->item_id     = $item->id;
+                $locale->language_id = $key;
+            }
+
+            $locale->name        = $names[ $key ];
+            $locale->description = $descriptions[ $key ];
+            $locale->lore        = $lores[ $key ] ?? "";
+            $locale->note        = $notes[ $key ] ?? "";
+            $locale->save();
+        }
+
+        return redirect(route('items.edit.translations', ["id" => $id]))->with('success', "Updated");
     }
 }

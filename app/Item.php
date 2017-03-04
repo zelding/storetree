@@ -156,9 +156,9 @@ class Item extends Model
         return $stats;
     }
 
-    public function getLocaleData($lang_id = 1)
+    public function locale()
     {
-        return [];
+        return $this->hasMany(Locale::class);
     }
 
     public function getRecipeAttribute()

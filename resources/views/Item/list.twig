@@ -9,6 +9,7 @@
             <th>Level</th>
             <th>Recipes</th>
             <th>Shops</th>
+            <th>Languages</th>
             <th>Modified</th>
             <th>#</th>
         </tr>
@@ -30,6 +31,13 @@
                         {{ shop.name }}<br>
                     {% else %}
                         No shops set
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for lang in item.locale %}
+                        {{ langs[ lang.language_id ] }}<br>
+                    {% else %}
+                        No translations set
                     {% endfor %}
                 </td>
                 <td>{{ item.updated_at.format('m-d H:i:s') }}</td>

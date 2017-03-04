@@ -12,6 +12,8 @@ namespace App\Utils;
 
 final class Constants
 {
+    public static $languages   = [1 => 'English', 2 => 'German', 3 => 'Spanish', 4=> 'Chinese', 5 => 'Portuguese', 6 => 'Russian'];
+
     public static $shareable   = ['ITEM_NOT_SHAREABLE', 'ITEM_PARTIALLY_SHAREABLE', 'ITEM_FULLY_SHAREABLE', 'ITEM_FULLY_SHAREABLE_STACKING'];
 
     public static $itemQuality = ['consumable', 'component', 'common', 'rare', 'epic', 'artifact'];

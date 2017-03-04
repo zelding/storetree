@@ -31,15 +31,19 @@ Route::group(['prefix' => 'storetree'], function() {
     Route::resource('stats', 'StatController');
 
     Route::group(['middleware' => 'utf16'], function () {
-        Route::get('items/{id}/lua', 'ItemController@showScript')->name('item.lua');
         Route::get('items/{id}/tooltip', 'ItemController@showTooltip')->name('item.tooltip');
     });
+
+    Route::get('items/{id}/lua', 'ItemController@showScript')->name('item.lua');
 
     Route::get('items/{id}/edit/components', 'ItemController@editComponent')->name('items.edit.components');
     Route::put('items/{id}/edit/components', 'ItemController@updateComponent')->name('items.update.components');
 
     Route::get('items/{id}/edit/stats', 'ItemController@editStats')->name('items.edit.stats');
     Route::put('items/{id}/edit/stats', 'ItemController@updateStats')->name('items.update.stats');
+
+    Route::get('items/{id}/translations', 'ItemController@editTranslations')->name('items.edit.translations');
+    Route::put('items/{id}/translations', 'ItemController@updateTranslations')->name('items.update.translations');;
 
     Route::group(['prefix' => 'build'], function () {
         Route::get('/', 'BuildController@index')->name('builds.index');
