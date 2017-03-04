@@ -177,7 +177,7 @@ class ItemController extends Controller
      */
     public function showTooltip($id)
     {
-        $item = Item::with('stats')->find($id);
+        $item = Item::with('stats', 'locale')->find($id);
 
         if ( !($item instanceof Item)) {
             return redirect(route('items.index'), 404);

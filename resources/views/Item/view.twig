@@ -101,16 +101,16 @@
                                             <a href="#" class="list-group-item">
                                                 <h4 class="list-group-item-heading">{{ langs[ lang.language_id ] }}</h4>
                                                 <p class="list-group-item-text">
-                                                    <label>
+                                                    <label class="{{ lang.name ?: "text-danger" }}">
                                                         <input type="checkbox"{{ lang.name ? " checked" }} disabled>Name
                                                     </label>
-                                                    <label>
+                                                    <label class="{{ lang.description ?: "text-danger" }}">
                                                         <input type="checkbox"{{ lang.description ? " checked" }} disabled>Description
                                                     </label>
-                                                    <label>
+                                                    <label class="{{ lang.lore ?: "text-danger" }}">
                                                         <input type="checkbox"{{ lang.lore ? " checked" }} disabled>Lore
                                                     </label>
-                                                    <label>
+                                                    <label class="{{ lang.note ?: "text-danger" }}">
                                                         <input type="checkbox"{{ lang.note ? " checked" }} disabled>Note
                                                     </label>
                                                 </p>
@@ -297,7 +297,7 @@
             });
 
             $('input').iCheck({
-                checkboxClass: 'icheckbox_minimal',
+                checkboxClass: 'icheckbox_minimal-green',
                 radioClass: 'iradio_minimal',
                 increaseArea: '20%'
             });

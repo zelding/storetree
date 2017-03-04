@@ -26,126 +26,150 @@
 
                         <div class="panel-body">
                             {% for lang in item.locale %}
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <p>{{ langs[ lang.language_id ] }}</p>
+                                <div class="language-group">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p>{{ langs[ lang.language_id ] }}</p>
+                                        </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12"><p>Insert stats values</p></div>
+                                        <div class="col-lg-12">
+                                            {% for stat in item.stats %}
+                                                <button type="button" class="btn btn-primary btn-sm insertStat"
+                                                        data-id="{{ stat.dota_name }}">{{ stat.name }}</button>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <div class="row formFields">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label" for="item_name_{{ lang.language_id }}">Name</label>
+                                                <div class="col-lg-8" data-toggle="tooltip" title="Nice name of the item">
+                                                    <input type="text" class="form-control" id="item_name_{{ lang.language_id }}"
+                                                           placeholder="Facebreaker - {{ langs[ lang.language_id ] }}"
+                                                           name="name[{{ lang.language_id }}]" value="{{ request.name[ lang.language_id ] ?? lang.name }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label" for="item_lore_{{ lang.language_id }}">Lore</label>
+                                                <div class="col-lg-8" data-toggle="tooltip" title="This is the text on the item footer">
+                                                    <input type="text" class="form-control" id="item_lore_{{ lang.language_id }}"
+                                                           name="lore[{{ lang.language_id }}]" value="{{ request.lore[ lang.language_id ] ?? lang.lore }}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label"
+                                                       for="item_desc_{{ lang.language_id }}"
+                                                       data-toggle="tooltip" title="">Description</label>
+                                                <div class="col-lg-8">
+                                                    <textarea class="form-control description" rows="8" id="item_desc_{{ lang.language_id }}" placeholder=""
+                                                              name="description[{{ lang.language_id }}]">
+                                                        {{- request.description[ lang.language_id ] ?? lang.description -}}
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label"
+                                                       for="item_note_{{ lang.language_id }}"
+                                                       data-toggle="tooltip"
+                                                       title="This will show when you press ALT">Note</label>
+                                                <div class="col-lg-8">
+                                                    <textarea class="form-control" rows="8" id="item_note_{{ lang.language_id }}" placeholder=""
+                                                              name="note[{{ lang.language_id }}]">
+                                                        {{- request.note[ lang.language_id ] ?? lang.note -}}
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-lg-4 control-label" for="item_name_{{ lang.language_id }}">Name</label>
-                                            <div class="col-lg-8" data-toggle="tooltip" title="Nice name of the item">
-                                                <input type="text" class="form-control" id="item_name_{{ lang.language_id }}"
-                                                       placeholder="Facebreaker - {{ langs[ lang.language_id ] }}"
-                                                       name="name[{{ lang.language_id }}]" value="{{ request.name[ lang.language_id ] ?? lang.name }}">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-lg-4 control-label" for="item_lore_{{ lang.language_id }}">Lore</label>
-                                            <div class="col-lg-8" data-toggle="tooltip" title="This is the text on the item footer">
-                                                <input type="text" class="form-control" id="item_lore_{{ lang.language_id }}"
-                                                       name="lore[{{ lang.language_id }}]" value="{{ request.lore[ lang.language_id ] ?? lang.lore }}">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-lg-4 control-label"
-                                                   for="item_desc_{{ lang.language_id }}"
-                                                   data-toggle="tooltip" title="">Description</label>
-                                            <div class="col-lg-8">
-                                                <textarea class="form-control" rows="8" id="item_desc_{{ lang.language_id }}" placeholder=""
-                                                          name="description[{{ lang.language_id }}]">
-                                                    {{- request.description[ lang.language_id ] ?? lang.description -}}
-                                                </textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-lg-4 control-label"
-                                                   for="item_note_{{ lang.language_id }}"
-                                                   data-toggle="tooltip"
-                                                   title="This will show when you press ALT">Note</label>
-                                            <div class="col-lg-8">
-                                                <textarea class="form-control" rows="8" id="item_note_{{ lang.language_id }}" placeholder=""
-                                                          name="note[{{ lang.language_id }}]">
-                                                    {{- request.note[ lang.language_id ] ?? lang.note -}}
-                                                </textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <hr>
                             {% else %}
                                 <p>No translations yet</p>
                                 <hr>
                             {% endfor %}
 
                             {% for id,lang in unused %}
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <p>{{ lang }}</p>
+                                <div class="language-group">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p>{{ lang }}</p>
+                                        </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12"><p>Insert stats values</p></div>
+                                        <div class="col-lg-12">
+                                            {% for stat in item.stats %}
+                                                <button type="button" class="btn btn-primary btn-sm insertStat"
+                                                        data-id="{{ stat.dota_name }}">{{ stat.name }}</button>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <div class="row formFields">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label" for="item_name_{{ id }}">Name</label>
+                                                <div class="col-lg-8" data-toggle="tooltip" title="Nice name of the item">
+                                                    <input type="text" class="form-control" id="item_name_{{ id }}"
+                                                           placeholder="Facebreaker - {{ langs[ id ] }}"
+                                                           name="name[{{ id }}]" value="{{ request.name[ id ] }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label" for="item_lore_{{ id }}">Lore</label>
+                                                <div class="col-lg-8" data-toggle="tooltip" title="This is the text on the item footer">
+                                                    <input type="text" class="form-control" id="item_lore_{{ id }}"
+                                                           name="lore[{{ id }}]" value="{{ request.lore[ id ] }}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label"
+                                                       for="item_desc_{{ id }}"
+                                                       data-toggle="tooltip" title="">Description</label>
+                                                <div class="col-lg-8">
+                                                    <textarea class="form-control description" rows="8" id="item_desc_{{ id }}" placeholder=""
+                                                              name="description[{{ id }}]">
+                                                        {{- request.description[ id ] -}}
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label"
+                                                       for="item_note_{{ id }}"
+                                                       data-toggle="tooltip"
+                                                       title="This will show when you press ALT">Note</label>
+                                                <div class="col-lg-8">
+                                                    <textarea class="form-control" rows="8" id="item_note_{{ id }}" placeholder=""
+                                                              name="note[{{ id }}]">
+                                                        {{- request.note[ id ] -}}
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-lg-4 control-label" for="item_name_{{ id }}">Name</label>
-                                            <div class="col-lg-8" data-toggle="tooltip" title="Nice name of the item">
-                                                <input type="text" class="form-control" id="item_name_{{ id }}"
-                                                       placeholder="Facebreaker - {{ langs[ id ] }}"
-                                                       name="name[{{ id }}]" value="{{ request.name[ id ] }}">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-lg-4 control-label" for="item_lore_{{ id }}">Lore</label>
-                                            <div class="col-lg-8" data-toggle="tooltip" title="This is the text on the item footer">
-                                                <input type="text" class="form-control" id="item_lore_{{ id }}"
-                                                       name="lore[{{ id }}]" value="{{ request.lore[ id ] }}">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-lg-4 control-label"
-                                                   for="item_desc_{{ id }}"
-                                                   data-toggle="tooltip" title="">Description</label>
-                                            <div class="col-lg-8">
-                                                <textarea class="form-control" rows="8" id="item_desc_{{ id }}" placeholder=""
-                                                          name="description[{{ id }}]">
-                                                    {{- request.description[ id ] -}}
-                                                </textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-lg-4 control-label"
-                                                   for="item_note_{{ id }}"
-                                                   data-toggle="tooltip"
-                                                   title="This will show when you press ALT">Note</label>
-                                            <div class="col-lg-8">
-                                                <textarea class="form-control" rows="8" id="item_note_{{ id }}" placeholder=""
-                                                          name="note[{{ id }}]">
-                                                    {{- request.note[ id ] -}}
-                                                </textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <hr>
                             {% endfor %}
                         </div>
 
@@ -174,6 +198,20 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip({
                 html: true
+            });
+
+            $('.insertStat').on("click", function (event){
+                event.preventDefault();
+                event.stopPropagation();
+
+                var text = $(this).data('id'),
+                    $txt = $(this).parent().parent()
+                        .siblings('.formFields')
+                        .first()
+                        .find('.description')
+                        .first();
+
+                $txt.val( $txt.val() + "%"+text );
             });
         });
     </script>
