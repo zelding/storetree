@@ -158,7 +158,7 @@ class Item extends Model
 
     public function locale()
     {
-        return $this->hasMany(Locale::class);
+        return $this->hasMany(ItemLocale::class);
     }
 
     public function getRecipeAttribute()

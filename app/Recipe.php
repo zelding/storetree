@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Recipe whereItemId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Recipe whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read string[] $components_string
  */
 class Recipe extends Model
 {

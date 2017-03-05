@@ -6,7 +6,7 @@ use App\Http\Requests\StoreItem;
 use App\Http\Requests\StoreItemStat;
 use App\Http\Requests\StoreItemTranslation;
 use App\Item;
-use App\Locale;
+use App\ItemLocale;
 use App\Recipe;
 use App\Shop;
 use App\Stat;
@@ -504,6 +504,10 @@ class ItemController extends Controller
      *                 TRANSLATIONS
      ********************************************************/
 
+    /**
+     * @param int $id
+     * @return View
+     */
     public function editTranslations($id)
     {
         $item = Item::with('locale', 'stats')->find($id);
@@ -522,7 +526,11 @@ class ItemController extends Controller
         ]);
     }
 
-
+    /**
+     * @param StoreItemTranslation $request
+     * @param int $id
+     * @return RedirectResponse
+     */
     public function updateTranslations(StoreItemTranslation $request, $id)
     {
         $item = Item::with('locale')->findOrFail($id);
@@ -536,11 +544,11 @@ class ItemController extends Controller
         $keys  = array_keys($names);
 
         foreach ($keys as $i => $key) {
-            $locale = Locale::where('item_id', $item->id)
+            $locale = ItemLocale::where('item_id', $item->id)
                 ->where('language_id', $key)->first();
 
-            if ( !($locale instanceof Locale) ) {
-                $locale = new Locale();
+            if ( !($locale instanceof ItemLocale) ) {
+                $locale = new ItemLocale();
                 $locale->item_id     = $item->id;
                 $locale->language_id = $key;
             }
