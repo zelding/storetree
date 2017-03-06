@@ -278,6 +278,61 @@
                                 </div>
                             {% endif %}
                         </div>
+
+
+                        <div class="col-lg-12">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">Item Ability <small class="pull-right">Only one for now</small></div>
+
+                                <div class="panel-body">
+                                    <div class="list-group">
+                                        {% for ability in item.ability %}
+                                            <a class="list-group-item"
+                                               href="{{ route('abilities.show', {id: ability.id}) }}">{{ ability.name }}</a>
+                                            <br>
+                                            <dl class="dl-horizontal">
+                                                {% for key, value in ability.getAttributes() %}
+                                                    {% set realValue = attribute(ability, key) %}
+                                                    {% if value %}
+                                                        <dt>{{ key }}</dt>
+                                                        <dd>
+                                                            {% if realValue is iterable %}
+                                                                {% if key in stringArrays %}
+                                                                    {{ realValue|join(' <strong>|</strong> ')|raw }}
+                                                                {% else %}
+                                                                    {% for i, v in realValue %}
+                                                                        {% if (i == (item.base_level - 1) or loop.length == 1) %}
+                                                                            <strong>{{ v }}</strong>
+                                                                        {% else %}
+                                                                            {{ v }}
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% else %}
+                                                                {{ realValue }}
+                                                            {% endif %}
+                                                        </dd>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </dl>
+                                        {% else %}
+                                            <a href="#" class="list-group-item disabled">No abilities</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                {% if Auth.check() %}
+                                    <div class="panel-footer">
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <a href="{{ route('items.edit.abilities', {id: item.id}) }}"
+                                                   class="btn btn-primary btn-sm">Edit</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

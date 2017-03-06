@@ -161,6 +161,11 @@ class Item extends Model
         return $this->hasMany(ItemLocale::class);
     }
 
+    public function ability()
+    {
+        return $this->belongsToMany(Ability::class);
+    }
+
     public function getRecipeAttribute()
     {
         if ($this->is_base_item) {

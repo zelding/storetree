@@ -23,35 +23,41 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <table class="dataTable table table-hover table-striped table-condensed">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Class name</th>
-                            <th>Group</th>
-                            <th>Type</th>
-                            <th>#</th>
-                        </tr>
-                        </thead>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">List of abilities</div>
 
-                        <tbody>
-                        {% for ability in abilities %}
-                            <tr>
-                                <td>{{ ability.id }}</td>
-                                <td>{{ ability.name }}</td>
-                                <td>{{ ability.base_class }}</td>
-                                <td>{{ ability.stat_group }}</td>
-                                <td>{{ ability.var_type }}</td>
-                                <td>
-                                    <a href="{{ route('abilities.edit', {'id': ability.id}) }}" class="btn btn-warning btn-sm btn-block">
-                                        <i class="fa fa-window-maximize"></i>&nbsp;Edit
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                        <div class="panel-body">
+                            <table class="dataTable table table-hover table-striped table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Class name</th>
+                                    <th>Items</th>
+                                    <th>Updated</th>
+                                    <th>#</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for ability in abilities %}
+                                    <tr>
+                                        <td>{{ ability.id }}</td>
+                                        <td>{{ ability.name }}</td>
+                                        <td>{{ ability.base_class }}</td>
+                                        <td>{{ ability.items.count }}</td>
+                                        <td>{{ ability.updated_at.format('Y-m-d H:i:s') }}</td>
+                                        <td>
+                                            <a href="{{ route('abilities.edit', {'id': ability.id}) }}" class="btn btn-warning btn-sm btn-block">
+                                                <i class="fa fa-window-maximize"></i>&nbsp;Edit
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
 

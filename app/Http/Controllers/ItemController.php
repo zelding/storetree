@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ability;
 use App\Http\Requests\StoreItem;
 use App\Http\Requests\StoreItemStat;
 use App\Http\Requests\StoreItemTranslation;
@@ -135,13 +136,14 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        $item = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats')->findOrFail($id);
+        $item = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats', 'ability')->findOrFail($id);
 
         app(ItemService::class)->resolveItemInheritedStats($item);
 
         return view('Item/view', [
             "item"  => $item,
-            'langs' => Constants::$languages
+            'langs' => Constants::$languages,
+            'stringArrays' => Constants::$stringArrays
         ]);
     }
 
@@ -552,5 +554,43 @@ class ItemController extends Controller
         }
 
         return redirect(route('items.edit.translations', ["id" => $id]))->with('success', "Updated");
+    }
+
+    /********************************************************
+     *                    ABILITIES
+     ********************************************************/
+
+    public function editAbilities($id)
+    {
+        $item      = Item::with('ability')->findOrFail($id);
+        $abilities = Ability::all();
+
+        return view('Item/edit_ability', [
+            'item'      => $item,
+            'abilities' => $abilities
+        ]);
+    }
+
+    public function updateAbilities(Request $request, $id)
+    {
+        $msg = "";
+        $item = Item::with('ability')->findOrFail($id);
+
+        if ( $request->get('ability_id') ) {
+            $abilityToAdd = Ability::findOrFail($request->get('ability_id'));
+
+            $item->ability()->attach($abilityToAdd);
+            $msg = "Added";
+        }
+
+        if ( $abIds = $request->get('remove_ability') ) {
+            foreach( $abIds as $id ) {
+                $item->ability()->detach($id);
+            }
+
+            $msg = "Removed";
+        }
+
+        return redirect(route('items.edit.abilities', ['id' => $id]))->with('success', $msg);
     }
 }

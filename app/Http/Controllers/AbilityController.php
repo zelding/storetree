@@ -20,7 +20,7 @@ class AbilityController
 {
     public function index()
     {
-        $abilities = Ability::all();
+        $abilities = Ability::with('items')->get();
 
         return view('ability/index', [
             'abilities' => $abilities
@@ -74,7 +74,7 @@ class AbilityController
         $ability->mana_cost         = $request->get('mana_cost') ?? null;
         $ability->gold_cost         = $request->get('gold_cost') ?? null;
         $ability->cooldown          = $request->get('cooldown') ?? [];
-        $ability->cast_range        = $request->get('cast_rage') ?? null;
+        $ability->cast_range        = $request->get('cast_range') ?? null;
         $ability->cast_point        = $request->get('cast_point') ?? null;
         $ability->cast_range_buffer = $request->get('cast_range_buffer') ?? null;
         $ability->channel_time      = $request->get('channel_time') ?? null;
@@ -103,7 +103,7 @@ class AbilityController
         $ability->mana_cost         = $request->get('mana_cost') ?? null;
         $ability->gold_cost         = $request->get('gold_cost') ?? null;
         $ability->cooldown          = $request->get('cooldown') ?? [];
-        $ability->cast_range        = $request->get('cast_rage') ?? null;
+        $ability->cast_range        = $request->get('cast_range') ?? null;
         $ability->cast_point        = $request->get('cast_point') ?? null;
         $ability->cast_range_buffer = $request->get('cast_range_buffer') ?? null;
         $ability->channel_time      = $request->get('channel_time') ?? null;

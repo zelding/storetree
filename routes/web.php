@@ -44,7 +44,10 @@ Route::group(['prefix' => 'storetree'], function() {
     Route::put('items/{id}/edit/stats', 'ItemController@updateStats')->name('items.update.stats');
 
     Route::get('items/{id}/translations', 'ItemController@editTranslations')->name('items.edit.translations');
-    Route::put('items/{id}/translations', 'ItemController@updateTranslations')->name('items.update.translations');;
+    Route::put('items/{id}/translations', 'ItemController@updateTranslations')->name('items.update.translations');
+
+    Route::get('items/{id}/abilities', 'ItemController@editAbilities')->name('items.edit.abilities');
+    Route::put('items/{id}/abilities', 'ItemController@updateAbilities')->name('items.update.abilities');
 
     Route::group(['prefix' => 'build'], function () {
         Route::get('/', 'BuildController@index')->name('builds.index');

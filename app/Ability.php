@@ -86,4 +86,9 @@ class Ability extends Model
         'channel_mana_cost' => 'array',
         'duration'          => 'array',
     ];
+
+    public function items()
+    {
+        return $this->belongsToMany(Item::class);
+    }
 }
