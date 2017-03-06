@@ -12,7 +12,7 @@
             <label class="col-lg-4 control-label" for="item-dota-class">Dota Class</label>
             <div class="col-lg-8" data-toggle="tooltip" title="The class name of the item in dota scripts.<br>The prefixes will be added automatically">
                 <div class="input-group">
-                    <span class="input-group-addon" id="base-class-addon">item_{{ item.is_recipe ? 'recipe_' }}</span>
+                    <span class="input-group-addon" id="base-class-addon">item_{{ (request.is_recipe ?? item.is_recipe) ? 'recipe_' }}</span>
                     {% set value = request.base_class ?? item.base_class %}
                     {% set value = value|replace({'item_': '', 'recipe_': ''}) %}
                     <input type="text" class="form-control" id="item-dota-class" placeholder="something_xy"

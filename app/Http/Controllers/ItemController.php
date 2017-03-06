@@ -18,6 +18,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use App\Service\ItemService;
 
@@ -61,14 +62,29 @@ class ItemController extends Controller
     public function create(Request $request)
     {
         $shops = Shop::all();
+        $item = null;
+
+        //if it comes from a copy route
+        if ( Session::exists('item') ) {
+            $item = Item::findOrFail(Session::get('item')->id);
+            Session::remove('item');
+        }
 
         return view('Item/create', [
+            'item'          => $item,
             'shops'         => $shops,
             'request'       => $request->old(),
             'currentShops'  => [],
             'qualityLevels' => Constants::$itemQuality,
             'shareFlags'    => Constants::$shareable
         ]);
+    }
+
+    public function copy($id)
+    {
+        $item = Item::findOrFail($id);
+
+        return redirect(route('items.create'))->with('item', $item);
     }
 
     /**
@@ -560,6 +576,11 @@ class ItemController extends Controller
      *                    ABILITIES
      ********************************************************/
 
+    /**
+     * @param int $id
+     *
+     * @return View
+     */
     public function editAbilities($id)
     {
         $item      = Item::with('ability')->findOrFail($id);
@@ -571,6 +592,12 @@ class ItemController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param int     $id
+     *
+     * @return RedirectResponse
+     */
     public function updateAbilities(Request $request, $id)
     {
         $msg = "";

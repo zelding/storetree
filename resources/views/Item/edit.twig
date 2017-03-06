@@ -84,20 +84,20 @@
                 increaseArea: '20%'
             });
 
-            $("#item-recipe").on('change', function () {
-               $("#base-class-addon").html(
-                   $(this).is(':checked') ?
-                       'item_recipe_' :
-                       'item_'
-               );
+            $("#item-recipe").on('ifChanged', function () {
+                $("#base-class-addon").html(
+                    $(this).is(':checked') ?
+                        'item_recipe_' :
+                        'item_'
+                );
             });
 
             $("#base-item").on('ifChanged', function () {
-               $("#item_cost").attr('disabled', !$(this).is(':checked'));
+                $("#item_cost").attr('disabled', !$(this).is(':checked'));
             });
 
             $("#is-purchasable").on('ifChanged', function () {
-               $("#item_shop").attr('disabled', !$(this).is(':checked'));
+                $("#item_shop").attr('disabled', !$(this).is(':checked'));
             });
 
             $('#needs-charges').on('ifChanged', function () {

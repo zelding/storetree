@@ -18,7 +18,10 @@
                 <div class="col-lg-12">
                     <h2>
                         This is what we know
-                        {% if Auth.check() %}<button id="deleteButton" class="btn btn-danger btn-sm pull-right">Delete</button>{% endif %}
+                        {% if Auth.check() %}
+                            <button id="deleteButton" class="btn btn-danger btn-sm pull-right">Delete</button>
+                            <a href="{{ route('item.copy', {id: item.id}) }}" class="btn btn-success">Copy</a>
+                        {% endif %}
                     </h2>
                     {% if Auth.check() %}
                     <form id="deleteForm" action="{{ route('items.destroy', {id: item.id}) }}" method="post">
@@ -237,8 +240,8 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-12">
-                            {% if not item.is_recipe %}
+                        {% if not item.is_recipe %}
+                            <div class="col-lg-12">
                                 <div class="panel panel-warning">
                                     <div class="panel-heading">Stats
                                         {% if item.max_level > 1 %}
@@ -276,10 +279,11 @@
                                         </div>
                                     {% endif %}
                                 </div>
-                            {% endif %}
                         </div>
+                        {% endif %}
 
 
+                        {% if not item.is_recipe %}
                         <div class="col-lg-12">
                             <div class="panel panel-danger">
                                 <div class="panel-heading">Item Ability <small class="pull-right">Only one for now</small></div>
@@ -333,6 +337,7 @@
                                 {% endif %}
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
