@@ -169,7 +169,7 @@ class ItemController extends Controller
      */
     public function showScript($id)
     {
-        $item = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats')->find($id);
+        $item = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats', 'ability')->find($id);
 
         if ( !($item instanceof Item)) {
             return redirect(route('items.index'), 404);
@@ -179,7 +179,8 @@ class ItemController extends Controller
 
         $response = new Response();
         $response->setContent(View::make('templates/previews/item', [
-            'item'   => $item
+            'item'   => $item,
+            'ability' => $item->ability->first()
         ]));
 
         return $response;

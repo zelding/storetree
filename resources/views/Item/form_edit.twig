@@ -13,7 +13,7 @@
             <div class="col-lg-8" data-toggle="tooltip" title="Cost in gold<br>Only base items should have costs, the rest is calculated">
                 <input type="number" class="form-control" id="item_cost" placeholder="100 000"
                        name="cost" value="{{ request.cost ?? item.cost }}"
-                       {{ (request.base_item ?? item.base_item) ?: ' disabled' }}>
+                       {{ (request.base_item ?? item.is_base_item) ?: ' disabled' }}>
             </div>
         </div>
 
@@ -46,7 +46,7 @@
                 <div class="checkbox">
                     <label data-toggle="tooltip" title="Base items don't have components, they have prices">
                         <input type="checkbox" name="base_item" id="base-item"
-                               value="1" {{ (request.base_item ?? item.base_item) ? 'checked="checked"' }}> Base item
+                               value="1" {{ (request.base_item ?? item.is_base_item) ? 'checked="checked"' }}> Base item
                     </label>
                 </div>
             </div>

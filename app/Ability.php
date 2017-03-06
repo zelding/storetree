@@ -70,6 +70,7 @@ class Ability extends Model
     protected $casts = [
         'deny_self_cast' => 'boolean',
         'cast_hidden'    => 'boolean',
+        'magic_stick'    => 'boolean',
 
         'behaviour'         => 'array',
         'target_team'       => 'array',

@@ -82,6 +82,8 @@ class AbilityController
         $ability->duration          = $request->get('duration') ?? null;
         $ability->deny_self_cast    = $request->get('deny_self_cast') ?? false;
         $ability->cast_hidden       = $request->get('cast_hidden') ?? false;
+        $ability->magic_stick       = $request->get('magic_stick') ?? false;
+        $ability->cooldown_group    = $request->get('cooldown_group') ?? "";
         $ability->save();
 
         return redirect(route('abilities.show', $ability->id))->with('success', 'Created');
@@ -111,6 +113,8 @@ class AbilityController
         $ability->duration          = $request->get('duration') ?? null;
         $ability->deny_self_cast    = $request->get('deny_self_cast') ?? false;
         $ability->cast_hidden       = $request->get('cast_hidden') ?? false;
+        $ability->magic_stick       = $request->get('magic_stick') ?? false;
+        $ability->cooldown_group    = $request->get('cooldown_group') ?? "";
         $ability->save();
 
         return redirect(route('abilities.show', $ability->id))->with('success', 'Created');

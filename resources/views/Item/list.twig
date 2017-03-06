@@ -42,7 +42,10 @@
                 </td>
                 <td>{{ item.updated_at.format('m-d H:i:s') }}</td>
                 <td>
-                    <a class="btn btn-sm btn-block btn-warning" href="{{ route('items.show', {id: item.id}) }}">
+                    <a class="btn btn-sm col-xs-6 btn-success" href="{{ route('items.copy', {id: item.id}) }}">
+                        <i class="fa fa-files-o"></i>&nbsp;copy
+                    </a>
+                    <a class="btn btn-sm col-xs-6 btn-warning" href="{{ route('items.show', {id: item.id}) }}">
                         <i class="fa fa-window-maximize"></i>&nbsp;view
                     </a>
                 </td>

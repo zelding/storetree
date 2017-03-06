@@ -29,29 +29,33 @@
     "ItemPermanent"         "{{ item.is_permanent }}"
     "ItemStackable"         "{{ item.max_stacks > 1 ? 1 : 0 }}"
     "FightRecapLevel"       "{{ item.fight_recap }}"
-    "ItemDisassembleRule"   ""
+    "ItemDisassembleRule"   "{{ item.disassemble }}"
 
     // Ability
     //------------------------------------------------------------------------------------------------------------------
-    "AbilityBehavior"                       ""
+    "AbilityBehavior"                       "{{ ability.behaviour|join(' | ') }}"
     "AbilityTextureName"                    "{{ item.base_class }}"
-    "AbilityUnitTargetTeam"                 ""
-    "AbilityUnitTargetType"                 ""
-    "AbilityUnitTargetFlags"                ""
-    "AbilityCastRange"                      ""
-    "AbilityCastPoint"                      ""
-    "AbilityCooldown"                       ""
-    "AbilityCastRangeBuffer"                ""
-    "AbilityChannelTime"                    ""
-    "AbilityChannelledManaCostPerSecond"    ""
-    "AbilityDuration"                       ""
-    "AoERadius"                             ""
+    {% if ability.target_team -%}
+    "AbilityUnitTargetTeam"                 "{{ ability.target_team|join(' | ') }}"
+    {% endif -%}
+    {%- if ability.target_type -%}
+    "AbilityUnitTargetType"                 "{{ ability.target_type|join(' | ') }}"
+    {% endif -%}
+    {%- if ability.target_flags -%}
+    "AbilityUnitTargetFlags"                "{{ ability.target_flags|join(' | ') }}"
+    {% endif -%}
+    "AbilityCastRange"                      "{{ ability.cast_range|join(' ') }}"
+    "AbilityCastPoint"                      "{{ ability.cast_point|join(' ') }}"
+    "AbilityCooldown"                       "{{ ability.cooldown|join(' ') }}"
+    "AbilityCastRangeBuffer"                "{{ ability.cast_range_buffer|join(' ') }}"
+    "AbilityChannelTime"                    "{{ ability.channel_time|join(' ') }}"
+    "AbilityChannelledManaCostPerSecond"    "{{ ability.channel_mana_cost|join(' ') }}"
+    "AbilityDuration"                       "{{ ability.duration|join(' ') }}"
 
-    "AbilityManaCost"                       ""
-    "AbilityGoldCost"                       ""
-    "AbilitySharedCooldown"                 ""
-    "AbilityProcsMagicStick"                "1"
-    "DisplayAdditionalHeroes"               ""
+    "AbilityManaCost"                       "{{ ability.mana_cost|join(' ') }}"
+    "AbilityGoldCost"                       "{{ ability.gold_cost|join(' ') }}"
+    "AbilitySharedCooldown"                 "{{ ability.cooldown_group }}"
+    "AbilityProcsMagicStick"                "{{ ability.magic_stick }}"
 
     // Upgrades
     //------------------------------------------------------------------------------------------------------------------

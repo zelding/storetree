@@ -49,6 +49,14 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="ability-tex-name"
+                   data-toggle="tooltip" title="Abilities with the same cd-group name will share cd">Cooldown group</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" id="ability-tex-name" placeholder=""
+                       name="cooldown_group" value="{{ request.cooldown_group ?? ability.cooldown_group }}">
+            </div>
+        </div>
     </div>
 
     <div class="col-lg-8">
@@ -124,6 +132,13 @@
                 <label data-toggle="tooltip" title="if checked, it won't cancel invisibility">
                     <input type="checkbox" name="cast_hidden"
                            value="1" {{ (request.cast_hidden ?? ability.cast_hidden) ? 'checked="checked"' }}> Cast while hidden
+                </label>
+            </div>
+
+            <div class="checkbox checkbox-inline">
+                <label data-toggle="tooltip" title="if checked, it will gice magic stick a charge">
+                    <input type="checkbox" name="magic_stick"
+                           value="1" {{ (request.magic_stick ?? ability.magic_stick) ? 'checked="checked"' }}> Proc magic stick
                 </label>
             </div>
         </div>
