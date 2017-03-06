@@ -223,4 +223,9 @@ class Item extends Model
 
         return $this;
     }
+
+    public function getPrintableDescAttribute()
+    {
+        return str_replace(["\n", "\n\r", "\r"], "\\n", $this->description);
+    }
 }

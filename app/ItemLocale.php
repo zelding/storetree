@@ -36,4 +36,9 @@ class ItemLocale extends Model
     {
         return $this->belongsTo(Item::class);
     }
+
+    public function getPrintableDescAttribute()
+    {
+        return str_replace(["\n", "\n\r", "\r"], "\\n", $this->description);
+    }
 }

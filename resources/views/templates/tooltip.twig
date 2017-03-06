@@ -1,7 +1,7 @@
         // Item tooltip: {{ item.base_class }}
         //======================================================================================================================
         "DOTA_Tooltip_Ability_{{ item.base_class }}"                "{{ locale.name ?? item.name }}"
-        "DOTA_Tooltip_ability_{{ item.base_class }}_Description"    "{{ locale.description ?? item.description }}"
+        "DOTA_Tooltip_ability_{{ item.base_class }}_Description"    "{{ locale.printableDesc ?? item.printableDesc }}"
         {%- if locale.lore -%}
         "DOTA_Tooltip_ability_{{ item.base_class }}_Lore"           "{{ locale.lore }}"
         {%- endif -%}
