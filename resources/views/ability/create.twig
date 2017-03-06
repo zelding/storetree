@@ -1,0 +1,95 @@
+{% extends 'layouts/storetree.twig' %}
+
+{% block content %}
+<!-- Page Content -->
+
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="page-header">
+            <h1>Create a new Ability <small>you can attach it to an item later</small></h1>
+        </div>
+
+        <ol class="breadcrumb">
+            <li><a href="{{ route('storetree') }}">Home</a></li>
+            <li><a href="{{ route('abilities.index') }}">Abilities</a></li>
+            <li class="active">Create new</li>
+        </ol>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="form-horizontal" action="{{ route('abilities.store') }}" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Create a new Ability</div>
+
+                        <div class="panel-body">
+                            {% if errors|length %}
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="alert alert-danger" role="alert">
+                                            <strong>Error</strong>
+                                            <ul>
+                                                {% for error in errors.all %}
+                                                    <li><span>{{ error }}</span></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% include 'ability/form_edit.twig' %}
+                        </div>
+
+                        <div class="panel-footer">
+                            <a class="btn btn-default" href="{{ route('abilities.index') }}">Back</a>
+                            <button type="submit" class="btn btn-primary pull-right">Create ability</button>
+
+                            {{ csrf_field() }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block inlineJs %}
+    <script type="application/javascript">
+        $(function () {
+            var statIndex = 0;
+            $('.select2:not(.tags)').select2({
+                theme: "bootstrap"
+            });
+
+            $('[data-toggle="tooltip"]').tooltip({
+                html: true
+            });
+
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_minimal',
+                radioClass: 'iradio_minimal',
+                increaseArea: '-10%' // optional
+            });
+
+            $('.select2.tags').select2({
+                placeholder: "Start typing numbers - the order matters !",
+                theme: "bootstrap",
+                tags: true,
+                tokenSeparators: [',', ' '],
+                allowClear: true,
+                createTag: function (params) {
+                    return {
+                        id:   statIndex +"$"+ params.term,
+                        text: params.term,
+                    }
+                },
+                insertTag: function (data, tag) {
+                    console.info("i", data, tag);
+                    data.push(tag);
+                    statIndex++;
+                }
+            });
+        });
+    </script>
+{% endblock %}

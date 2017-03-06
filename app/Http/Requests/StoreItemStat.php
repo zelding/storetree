@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Auth;
 
 class StoreItemStat extends FormRequest
 {
+    use SelectCleaner;
+
+    protected $fields = [
+        'new_stat_value'
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,6 +35,8 @@ class StoreItemStat extends FormRequest
      */
     public function rules()
     {
+        $this->request = $this->clean($this->request);
+
         return [
             "new_stat_value" => "required_with:new_stat|distinct",
         ];

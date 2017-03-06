@@ -19,29 +19,29 @@ class CreateAbilitiesTable extends Migration
 
             $table->string('base_class')->unique();
             $table->text('behaviour');
-            $table->string('type');
-            $table->string('texture_name');
+            $table->enum('type', \App\Utils\Constants::$abilityType)->default('DOTA_ABILITY_TYPE_BASIC');
+            $table->string('texture_name')->nullable();
 
-            $table->boolean('deny_self_cast');
-            $table->boolean('cast_hidden');
+            $table->boolean('deny_self_cast')->default(true);
+            $table->boolean('cast_hidden')->default(false);
 
-            $table->text('target_team');
-            $table->text('target_type');
-            $table->text('target_flags');
+            $table->text('target_team')->nullable();
+            $table->text('target_type')->nullable();
+            $table->text('target_flags')->nullable();
 
-            $table->string('damage_type');
-            $table->string('damage');
-            $table->string('mana_cost');
-            $table->string('gold_cost');
+            $table->string('damage_type')->nullable();
+            $table->string('damage')->nullable();
+            $table->string('mana_cost')->nullable();
+            $table->string('gold_cost')->nullable();
             $table->string('cooldown');
-            $table->string('cast_range');
-            $table->string('cast_point');
-            $table->string('cast_range_buffer');
-            $table->string('channel_time');
-            $table->string('channel_mana_cost');
+            $table->string('cast_range')->nullable();
+            $table->string('cast_point')->nullable();
+            $table->string('cast_range_buffer')->nullable();
+            $table->string('channel_time')->nullable();
+            $table->string('channel_mana_cost')->nullable();
             $table->string('duration');
 
-            $table->string('cooldown_group');
+            $table->string('cooldown_group')->nullable();
 
             $table->timestamps();
         });

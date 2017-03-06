@@ -29,6 +29,7 @@ Route::group(['prefix' => 'storetree'], function() {
     Route::resource('shops', 'ShopController');
     Route::resource('items', 'ItemController');
     Route::resource('stats', 'StatController');
+    Route::resource('abilities', 'AbilityController');
 
     Route::group(['middleware' => 'utf16'], function () {
         Route::get('items/{id}/tooltip', 'ItemController@showTooltip')->name('item.tooltip');

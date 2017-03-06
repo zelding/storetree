@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property string $base_class
- * @property string $behaviour
+ * @property array $behaviour
  * @property string $type
  * @property string $texture_name
  * @property bool $deny_self_cast
@@ -69,6 +69,21 @@ class Ability extends Model
 
     protected $casts = [
         'deny_self_cast' => 'boolean',
-        'cast_hidden'    => 'boolean'
+        'cast_hidden'    => 'boolean',
+
+        'behaviour'         => 'array',
+        'target_team'       => 'array',
+        'target_type'       => 'array',
+        'target_flags'      => 'array',
+        'damage'            => 'array',
+        'mana_cost'         => 'array',
+        'gold_cost'         => 'array',
+        'cooldown'          => 'array',
+        'cast_range'        => 'array',
+        'cast_range_buffer' => 'array',
+        'cast_point'        => 'array',
+        'channel_time'      => 'array',
+        'channel_mana_cost' => 'array',
+        'duration'          => 'array',
     ];
 }

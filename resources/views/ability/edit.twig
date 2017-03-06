@@ -6,21 +6,20 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="page-header">
-                <h1>Create a new Item <small>you can set the components later</small></h1>
+                <h1>Edit {{ ability.name }} <small>you can attach it to an item later</small></h1>
             </div>
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('storetree') }}">Home</a></li>
-                <li><a href="{{ route('items.index') }}">Items</a></li>
+                <li><a href="{{ route('abilities.index') }}">Abilities</a></li>
                 <li class="active">Create new</li>
             </ol>
 
             <div class="row">
-
                 <div class="col-lg-12">
-                    <form class="form-horizontal" action="{{ route('items.store') }}" method="post" enctype="application/x-www-form-urlencoded">
+                    <form class="form-horizontal" action="{{ route('abilities.update', {id: ability.id}) }}" method="post" enctype="application/x-www-form-urlencoded">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Add a new Items</div>
+                            <div class="panel-heading">Edit ability</div>
 
                             <div class="panel-body">
                                 {% if errors|length %}
@@ -38,18 +37,15 @@
                                     </div>
                                 {% endif %}
 
-                                {% include 'Item/form_edit.twig' %}
-
-                                <hr>
-
-                                {% include 'Item/form_edit_advanced.twig' %}
+                                {% include 'ability/form_edit.twig' %}
                             </div>
 
                             <div class="panel-footer">
-                                <a class="btn btn-default" href="{{ route('items.index') }}">Back</a>
-                                <button type="submit" class="btn btn-primary pull-right">Create item</button>
+                                <a class="btn btn-default" href="{{ route('abilities.index') }}">Back</a>
+                                <button type="submit" class="btn btn-primary pull-right">Update ability</button>
 
                                 {{ csrf_field() }}
+                                {{ method_field('PUT') }}
                             </div>
                         </div>
                     </form>
@@ -57,19 +53,16 @@
             </div>
         </div>
     </div>
-    <style>
-        .tooltip-inner {
-            display: inline-block;
-            max-width: 350px;
-            min-width: 100px;
-            height: auto;
-        }
-    </style>
 {% endblock %}
 
-{% block pageJs %}
+{% block inlineJs %}
     <script type="application/javascript">
         $(function () {
+            var statIndex = 0;
+            $('.select2:not(.tags)').select2({
+                theme: "bootstrap"
+            });
+
             $('[data-toggle="tooltip"]').tooltip({
                 html: true
             });
@@ -77,31 +70,26 @@
             $('input').iCheck({
                 checkboxClass: 'icheckbox_minimal',
                 radioClass: 'iradio_minimal',
-                increaseArea: '20%'
+                increaseArea: '-10%' // optional
             });
 
-            $("#item-recipe").on('change', function () {
-                $("#base-class-addon").html(
-                    $(this).is(':checked') ?
-                        'item_recipe_' :
-                        'item_'
-                );
-            });
-
-            $("#base-item").on('ifChanged', function () {
-                $("#item_cost").attr('disabled', !$(this).is(':checked'));
-            });
-
-            $("#is-purchasable").on('ifChanged', function () {
-                $("#item_shop").attr('disabled', !$(this).is(':checked'));
-            });
-
-            $('#needs-charges').on('ifChanged', function () {
-                $('#item-start-charges').attr('disabled', !$(this).is(':checked'));
-            });
-
-            $("#is-alertable").on('ifChanged', function () {
-                $("#item-alert-text").attr('disabled', !$(this).is(':checked'));
+            $('.select2.tags').select2({
+                placeholder: "Start typing numbers - the order matters !",
+                theme: "bootstrap",
+                tags: true,
+                tokenSeparators: [',', ' '],
+                allowClear: true,
+                createTag: function (params) {
+                    return {
+                        id:   statIndex +"$"+ params.term,
+                        text: params.term,
+                    }
+                },
+                insertTag: function (data, tag) {
+                    console.info("i", data, tag);
+                    data.push(tag);
+                    statIndex++;
+                }
             });
         });
     </script>

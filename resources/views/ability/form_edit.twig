@@ -1,0 +1,276 @@
+<div class="row">
+    <div class="col-lg-12">
+        <span>For more detailed info on flags and target types check this: <a
+                    href="http://moddota.com/forums/discussion/14/datadriven-ability-breakdown-documentation##target" target="_blank">link</a></span>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="ability-name"
+                   data-toggle="tooltip" title="Nice name of the ability">Name</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" id="ability-name" placeholder="Facebreak"
+                       name="name" value="{{ request.name ?? ability.name }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="ability-base-class"
+                   data-toggle="tooltip" title="Dota id of the ability">Base class</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" id="ability-base-class" placeholder="face_break"
+                       name="base_class" value="{{ request.base_class ?? ability.base_class }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-4" for="ability-type"
+                   data-toggle="tooltip" title="Not sure if items need this">Ability type</label>
+            <div class="col-lg-8">
+                <select id="ability-type" name="type" class="form-control">
+                    {% for t in types %}
+                        {% set selected = (request.type ?? ability.type) == t ? 'selected="selected"' %}
+                        <option value="{{ t }}" {{ selected }}>{{ t }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="ability-tex-name"
+                   data-toggle="tooltip" title="file name of the icon file">Texture name</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" id="ability-tex-name" placeholder=""
+                       name="texture_name" value="{{ request.texture_name ?? ability.texture_name }}">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-8">
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-behaviour"
+                   data-toggle="tooltip" title="This describes how the ability works, the general behavior to perform when it is executed.">Ability behaviour</label>
+            <div class="col-lg-10">
+                <select id="ability-behaviour" name="behaviour[]" multiple class="form-control select2">
+                    {% set values = request.behaviour ?? ability.behaviour %}
+                    {% for beh in behaviour %}
+                        {% set selected = beh in values ? ' selected="selected"' : "" %}
+                        <option value="{{ beh }}"{{ selected }}>{{ beh }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-tt"
+                   data-toggle="tooltip" title="General group of possible targets">Target team</label>
+            <div class="col-lg-10">
+                <select id="ability-tt" name="target_team[]" multiple class="form-control select2">
+                    {% set values = request.target_team ?? ability.target_team %}
+                    {% for tt in targetTeam %}
+                        {% set selected = tt in values == tt ? ' selected="selected"' %}
+                        <option value="{{ tt }}"{{ selected }}>{{ tt }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-ty"
+                   data-toggle="tooltip" title="I'm not sure what to say">Target type</label>
+            <div class="col-lg-10">
+                <select id="ability-ty" name="target_type[]" multiple class="form-control select2">
+                    {% set values = request.target_type ?? ability.target_type %}
+                    {% for tt in targetType %}
+                        {% set selected = tt in values == tt ? ' selected="selected"' %}
+                        <option value="{{ tt }}"{{ selected }}>{{ tt }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-tf"
+                   data-toggle="tooltip" title="Flags allow targeting units that are ignored by default">Target flags</label>
+            <div class="col-lg-10">
+                <select id="ability-behaviour" name="target_flags[]" multiple class="form-control select2">
+                    {% set values = request.target_flags ?? ability.target_flags %}
+                    {% for tf in targetFlags %}
+                        {% set selected = tf in values ? ' selected="selected"' %}
+                        <option value="{{ tf }}"{{ selected }}>{{ tf }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="form-group">
+            <div class="checkbox checkbox-inline">
+                <label data-toggle="tooltip" title="If checked, won't allow casting to self">
+                    <input type="checkbox" name="deny_self_cast"
+                           value="1" {{ (request.deny_self_cast ?? ability.deny_self_cast) ? 'checked="checked"' }}> Deny self-cast
+                </label>
+            </div>
+
+            <div class="checkbox checkbox-inline">
+                <label data-toggle="tooltip" title="if checked, it won't cancel invisibility">
+                    <input type="checkbox" name="cast_hidden"
+                           value="1" {{ (request.cast_hidden ?? ability.cast_hidden) ? 'checked="checked"' }}> Cast while hidden
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="col-lg-11 col-lg-offset-1">
+        <span>It is a little confusing, but you can list the same value multiple times, if you don't press <code>ENTER</code> but <code>SPACE</code></span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-damage"
+                   data-toggle="tooltip" title="Damage of the ability">Damage</label>
+            <div class="col-lg-10">
+                {% set values = (request.damage ?? ability.damage) %}
+                <select id="ability-damage" name="damage[]" multiple class="form-control select2 tags">
+                    {% for value in values %}
+                        <option value="{{ value }}" selected="selected">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-mana-cost"
+                   data-toggle="tooltip" title="Mana cost to activate the ability">Mana cost</label>
+            <div class="col-lg-10">
+                {% set values = (request.mana_cost ?? ability.mana_cost) %}
+                <select id="ability-mana-cost" name="mana_cost[]" multiple class="form-control select2 tags">
+                    {% for value in values %}
+                        <option value="{{ value }}" selected="selected">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-gold-cost"
+                   data-toggle="tooltip" title="Pay to use? Sure!">Gold cost</label>
+            <div class="col-lg-10">
+                {% set values = (request.gold_cost ?? ability.gold_cost) %}
+                <select id="ability-gold-cost" name="gold_cost[]" multiple class="form-control select2 tags">
+                    {% for value in values %}
+                        <option value="{{ value }}" selected="selected">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-cooldown"
+                   data-toggle="tooltip" title="Well it's cooldown">Cooldown</label>
+            <div class="col-lg-10">
+                {% set values = (request.cooldown ?? ability.cooldown) %}
+                <select id="ability-cooldown" name="cooldown[]" multiple class="form-control select2 tags">
+                    {% for value in values %}
+                        <option value="{{ value }}" selected="selected">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-cast-rage"
+                   data-toggle="tooltip" title="Cast range, nuff said?">Cast range</label>
+            <div class="col-lg-10">
+                {% set values = (request.cast_range ?? ability.cast_range) %}
+                <select id="ability-cast-rage" name="cast_range[]" multiple class="form-control select2 tags">
+                    {% for value in values %}
+                        <option value="{{ value }}" selected="selected">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-cast-point"
+                   data-toggle="tooltip" title="Delay on the animation, 0.0 is instant; Ex abyssal blade sun">Cast point</label>
+            <div class="col-lg-10">
+                {% set values = (request.cast_point ?? ability.cast_point) %}
+                <select id="ability-cast-point" name="cast_point[]" multiple class="form-control select2 tags">
+                    {% for value in values %}
+                        <option value="{{ value }}" selected="selected">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-cast-range-buffer"
+                   data-toggle="tooltip" title="Casting will stop if the target moves out of this range; only viable with high cast point; Ex sniper ult">Cast range buffer</label>
+            <div class="col-lg-10">
+                {% set values = (request.cast_range_buffer ?? ability.cast_range_buffer) %}
+                <select id="ability-cast-range-buffer" name="cast_range_buffer[]" multiple class="form-control select2 tags">
+                    {% for value in values %}
+                        <option value="{{ value }}" selected="selected">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-channel-time"
+                   data-toggle="tooltip" title="How long will it last">Channel time</label>
+            <div class="col-lg-10">
+                {% set values = (request.channel_time ?? ability.channel_time) %}
+                <select id="ability-channel-time" name="channel_time[]" multiple class="form-control select2 tags">
+                    {% for value in values %}
+                        <option value="{{ value }}" selected="selected">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-channel-mana-cost"
+                   data-toggle="tooltip" title="Mana cost per tick while channelling">Channel mana cost</label>
+            <div class="col-lg-10">
+                {% set values = (request.channel_mana_cost ?? ability.channel_mana_cost) %}
+                <select id="ability-channel-mana-cost" name="channel_mana_cost[]" multiple class="form-control select2 tags">
+                    {% for value in values %}
+                        <option value="{{ value }}" selected="selected">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ability-duration"
+                   data-toggle="tooltip" title="This duration refers to the secondary effects duration - I'm not sure, but the actual duration is a stat">Duration</label>
+            <div class="col-lg-10">
+                {% set values = (request.duration ?? ability.duration) %}
+                <select id="ability-duration" name="duration[]" multiple class="form-control select2 tags">
+                    {% for value in values %}
+                        <option value="{{ value }}" selected="selected">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -467,15 +467,6 @@ class ItemController extends Controller
                 return redirect(route('items.edit.stats', ["id" => $item->id]))->withErrors($error);
             }
 
-            //to allow multiple from the same value, javascript prepends values with \d$
-            //they need to be removed
-            $statValues = array_map(function ($x){
-                if ( str_contains($x, '$') ) {
-                    $x = substr($x,strpos($x, '$') + 1);
-                }
-                return $x;
-            },$statValues);
-
             sort($statValues, SORT_NUMERIC);
 
             $item->stats()->attach([

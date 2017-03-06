@@ -21,7 +21,7 @@
                 <form class="form-horizontal" action="{{ route('items.update.translations', {id: item.id}) }}" enctype="application/x-www-form-urlencoded" method="post">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Translations
+                            Translations <small class="pull-right">Names and descriptions are <strong>required</strong></small>
                         </div>
 
                         <div class="panel-body">
@@ -99,6 +99,9 @@
                                 <p>No translations yet</p>
                                 <hr>
                             {% endfor %}
+
+                            <h3>Unused languages</h3>
+                            <hr>
 
                             {% for id,lang in unused %}
                                 <div class="language-group">

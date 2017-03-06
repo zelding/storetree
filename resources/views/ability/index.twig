@@ -1,0 +1,68 @@
+{% extends 'layouts/storetree.twig' %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="page-header">
+                <h1>
+                    Abilities <small>list, create, add, modify, update</small>
+                    {% if Auth.check() %}
+                        <a href="{{ route('abilities.create') }}" class="btn btn-success pull-right">
+                            <i class="fa fa-plus"></i>
+                            Add new
+                        </a>
+                    {% endif %}
+                </h1>
+            </div>
+
+            <ol class="breadcrumb">
+                <li><a href="{{ route('storetree') }}">Home</a></li>
+                <li class="active">Abilities</li>
+            </ol>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="dataTable table table-hover table-striped table-condensed">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Class name</th>
+                            <th>Group</th>
+                            <th>Type</th>
+                            <th>#</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for ability in abilities %}
+                            <tr>
+                                <td>{{ ability.id }}</td>
+                                <td>{{ ability.name }}</td>
+                                <td>{{ ability.base_class }}</td>
+                                <td>{{ ability.stat_group }}</td>
+                                <td>{{ ability.var_type }}</td>
+                                <td>
+                                    <a href="{{ route('abilities.edit', {'id': ability.id}) }}" class="btn btn-warning btn-sm btn-block">
+                                        <i class="fa fa-window-maximize"></i>&nbsp;Edit
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block inlineJs %}
+    <script type="application/javascript">
+        $(function () {
+            $('.dataTable').dataTable();
+        });
+    </script>
+{% endblock %}

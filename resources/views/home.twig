@@ -55,6 +55,39 @@
                 </div>
             </div>
 
+            <div class="col-lg-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Abilities overview</div>
+
+                    <div class="panel-body">
+                        <p>Currently there are</p>
+                        <ul>
+                            <li>Abilities: {{ abilities }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Translations overview</div>
+
+                    <div class="panel-body">
+                        <p>Currently there are</p>
+                        <ul>
+                            <li>
+                                Item translations: {{ stats }}
+                                <ul>
+                                    {% for i, lang in languages %}
+                                        <li>{{ lang.name }}: {{ lang.count }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
