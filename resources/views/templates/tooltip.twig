@@ -1,12 +1,16 @@
-// Item tooltip: {{ item.base_class }}
-//======================================================================================================================
-"DOTA_Tooltip_Ability_{{ item.base_class }}"                "{{ item.name }}"
-"DOTA_Tooltip_ability_{{ item.base_class }}_Description"    "{{ item.description }}"
-"DOTA_Tooltip_ability_{{ item.base_class }}_Lore"           ""
-"DOTA_Tooltip_Ability_{{ item.base_class }}_Note0"          ""
+        // Item tooltip: {{ item.base_class }}
+        //======================================================================================================================
+        "DOTA_Tooltip_Ability_{{ item.base_class }}"                "{{ locale.name ?? item.name }}"
+        "DOTA_Tooltip_ability_{{ item.base_class }}_Description"    "{{ locale.description ?? item.description }}"
+        {%- if locale.lore -%}
+        "DOTA_Tooltip_ability_{{ item.base_class }}_Lore"           "{{ locale.lore }}"
+        {%- endif -%}
+        {%- if locale.note -%}
+        "DOTA_Tooltip_Ability_{{ item.base_class }}_Note0"          "{{ locale.note }}"
+        {%- endif %}
 
-{% for stat in item.stats -%}
+{% for stat in item.stats %}
 
-    {%- set text_id = "DOTA_Tooltip_ability_"~item.base_class~"_"~stat.dota_name -%}
-    "{{ text_id }}"{{ generateSpaces(text_id, 80) }}""
-{% endfor -%}
+        {%- set text_id = "DOTA_Tooltip_ability_"~item.base_class~"_"~stat.dota_name %}
+        "{{ text_id }}"{{ generateSpaces(text_id, 80) }}"{{ stat.varString }}"
+{% endfor %}

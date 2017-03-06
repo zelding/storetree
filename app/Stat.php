@@ -31,6 +31,10 @@ class Stat extends Model
         'created_at', 'updated_at'
     ];
 
+    protected $casts = [
+        'is_percent' => 'boolean'
+    ];
+
     public function items()
     {
         return $this->belongsToMany(Item::class);
@@ -41,9 +45,21 @@ class Stat extends Model
         return $this->pivot->value;
     }
 
-    public function getValueStringAttribute()
+    public function getVarStringAttribute()
     {
-        return implode(' ', $this->pivot->value);
+        $perc    = "";
+        $prefix  = "bonus_";
+        $varName = $this->dota_name;
+
+        if (substr($varName, 0, strlen($prefix)) == $prefix) {
+            $varName = substr($varName, strlen($prefix));
+        }
+
+        if ( $this->is_percent ) {
+            $perc = "%";
+        }
+
+        return "{$perc}+$".$varName;
     }
 
     public function newPivot(Model $parent, array $attributes, $table, $exists, $using = null)

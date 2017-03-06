@@ -172,9 +172,11 @@ class Item extends Model
             return null;
         }
 
-        foreach($this->recipes->first()->components as $component) {
-            if ($component->is_recipe) {
-                return $component;
+        if ( $this->recipes->first() ) {
+            foreach ( $this->recipes->first()->components as $component ) {
+                if ( $component->is_recipe ) {
+                    return $component;
+                }
             }
         }
 

@@ -29,7 +29,7 @@ class HomeController extends Controller
         $recipes       = Item::where('is_recipe', 1)->count();
         $consumables   = Item::where('is_consumable', 1)->count();
         $abilities     = Ability::count();
-        $itemTrans     = Db::table('item_locale')->selectRaw('COUNT(id) AS count, language_id')
+        $itemTrans     = DB::table('item_locale')->selectRaw('COUNT(id) AS count, language_id')
             ->groupBy('language_id')->get();
 
         foreach( $itemTrans as $trans ) {

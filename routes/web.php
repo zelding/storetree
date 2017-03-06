@@ -31,24 +31,26 @@ Route::group(['prefix' => 'storetree'], function() {
     Route::resource('stats', 'StatController');
     Route::resource('abilities', 'AbilityController');
 
-    Route::group(['middleware' => 'utf16'], function () {
-        Route::get('items/{id}/tooltip', 'ItemController@showTooltip')->name('item.tooltip');
+    Route::group(['prefix' => 'items/{id}'], function () {
+        Route::group(['middleware' => 'utf16'], function () {
+            Route::get('tooltip', 'ItemController@showTooltip')->name('item.tooltip');
+        });
+
+        Route::get('lua', 'ItemController@showScript')->name('item.lua');
+        Route::get('copy', 'ItemController@copy')->name('items.copy');
+
+        Route::get('edit/components', 'ItemController@editComponent')->name('items.edit.components');
+        Route::put('edit/components', 'ItemController@updateComponent')->name('items.update.components');
+
+        Route::get('edit/stats', 'ItemController@editStats')->name('items.edit.stats');
+        Route::put('edit/stats', 'ItemController@updateStats')->name('items.update.stats');
+
+        Route::get('translations', 'ItemController@editTranslations')->name('items.edit.translations');
+        Route::put('translations', 'ItemController@updateTranslations')->name('items.update.translations');
+
+        Route::get('abilities', 'ItemController@editAbilities')->name('items.edit.abilities');
+        Route::put('abilities', 'ItemController@updateAbilities')->name('items.update.abilities');
     });
-
-    Route::get('items/{id}/lua', 'ItemController@showScript')->name('item.lua');
-    Route::get('items/{id}/copy', 'ItemController@copy')->name('items.copy');
-
-    Route::get('items/{id}/edit/components', 'ItemController@editComponent')->name('items.edit.components');
-    Route::put('items/{id}/edit/components', 'ItemController@updateComponent')->name('items.update.components');
-
-    Route::get('items/{id}/edit/stats', 'ItemController@editStats')->name('items.edit.stats');
-    Route::put('items/{id}/edit/stats', 'ItemController@updateStats')->name('items.update.stats');
-
-    Route::get('items/{id}/translations', 'ItemController@editTranslations')->name('items.edit.translations');
-    Route::put('items/{id}/translations', 'ItemController@updateTranslations')->name('items.update.translations');
-
-    Route::get('items/{id}/abilities', 'ItemController@editAbilities')->name('items.edit.abilities');
-    Route::put('items/{id}/abilities', 'ItemController@updateAbilities')->name('items.update.abilities');
 
     Route::group(['prefix' => 'build'], function () {
         Route::get('/', 'BuildController@index')->name('builds.index');
@@ -57,4 +59,7 @@ Route::group(['prefix' => 'storetree'], function() {
 
         Route::get('related/{id}', 'BuildController@listRelated')->name('builds.related');
     });
+
+    Route::get('export', 'ExportController@index')->name('export.index');
+    Route::post('export', 'ExportController@run')->name('export.run');
 });

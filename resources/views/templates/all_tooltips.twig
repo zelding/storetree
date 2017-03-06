@@ -1,0 +1,11 @@
+"lang"
+{
+    "Language"		"{{ lang_name }}"
+    "Tokens"
+    {
+{% for item in items %}
+
+{% include "templates/tooltip" with {item: item, locale: locale} -%}
+{% endfor %}
+    }
+}

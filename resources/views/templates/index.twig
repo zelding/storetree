@@ -1,0 +1,124 @@
+{% extends 'layouts/storetree.twig' %}
+
+{% block content %}
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="page-header">
+                    <h1>Export <small>want some files?</small></h1>
+                </div>
+
+                <ol class="breadcrumb">
+                    <li><a href="{{ route('storetree') }}">Home</a></li>
+                    <li class="active">Export</li>
+                </ol>
+
+                <div class="col-lg-12">
+                    <form class="form-inline" action="{{ route('export.run') }}" method="post" enctype="application/x-www-form-urlencoded">
+                        <div class="panel panel-primary">
+
+                            <div class="panel-heading">Pick some things <small class="pull-right">recipes are excluded</small></div>
+
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <div class="checkbox checkbox-inline">
+                                            <label>
+                                                <input type="checkbox" name="separate"
+                                                       value="1"> Create separate files
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox checkbox-inline">
+                                            <label>
+                                                <input id="all" type="checkbox"> Select all
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox checkbox-inline">
+                                            <label>
+                                                <input type="checkbox" name="itemData" checked
+                                                       value="1"> Generate items
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox checkbox-inline">
+                                            <label>
+                                                <input type="checkbox" name="trans"
+                                                       value="1"> Generate translations
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-lg-6">
+                                        <div class="row">
+                                            <label class="control-label col-lg-2" for="languages">Languages</label>
+                                            <div class="col-lg-10">
+                                                <select id="languages" name="langs_selected[]" multiple class="form-control col-lg-12 select2">
+                                                    {% for id, lng in languages %}
+                                                        <option value="{{ id }}" selected>{{ lng }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <div class="form-group">
+                                        {% for item in items %}
+                                            <div class="col-lg-2">
+                                                <div class="checkbox checkbox-inline">
+                                                    <label>
+                                                        <input class="item" type="checkbox" name="items[]"
+                                                               value="{{ item.id }}"> {{ item.name }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-footer">
+                                <button type="submit" class="btn btn-primary">Start</button>
+                            </div>
+
+                            {{ csrf_field() }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block inlineJs %}
+    <script type="application/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({
+                html: true
+            });
+
+            $('.select2').select2({
+                theme: "bootstrap"
+            });
+
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_minimal',
+                radioClass: 'iradio_minimal',
+                //increaseArea: '20%'
+            });
+
+            $("#all").on('ifChanged', function () {
+                $(".item").prop('checked', $(this).is(':checked')).iCheck('update');
+            });
+        });
+
+        $(window).load(function () {
+           $("span.select2.select2-container.select2-container--bootstrap").css('width', '');
+        });
+    </script>
+{% endblock %}

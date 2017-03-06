@@ -192,9 +192,10 @@ class ItemController extends Controller
      * encoded in UTF-16
      *
      * @param int $id
+     * @param int $langId
      * @return RedirectResponse|Response|Redirector
      */
-    public function showTooltip($id)
+    public function showTooltip($id, $lang = 1)
     {
         $item = Item::with('stats', 'locale')->find($id);
 
@@ -202,11 +203,17 @@ class ItemController extends Controller
             return redirect(route('items.index'), 404);
         }
 
+        $locale = $item->locale->first(function ($value, $key) use ($lang) {
+            /** @var ItemLocale $value */
+            return $value->language_id ==  $lang;
+        });
+
         app(ItemService::class)->resolveItemInheritedStats($item);
 
         $response = new Response();
         $response->setContent(View::make('templates/previews/tooltip', [
-            'item'   => $item
+            'item'   => $item,
+            'locale' => $locale
         ]));
 
         return $response;
