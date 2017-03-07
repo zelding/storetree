@@ -88,6 +88,9 @@ class Ability extends Model
         'duration'          => 'array',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function items()
     {
         return $this->belongsToMany(Item::class);

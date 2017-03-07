@@ -24,6 +24,9 @@ class Shop extends Model
         'created_at', 'updated_at'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function items()
     {
         return $this->belongsToMany(Item::class);

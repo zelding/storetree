@@ -32,11 +32,17 @@ class ItemLocale extends Model
 {
     protected $table = 'item_locale';
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function item()
     {
         return $this->belongsTo(Item::class);
     }
 
+    /**
+     * @return string
+     */
     public function getPrintableDescAttribute()
     {
         return str_replace(["\n", "\n\r", "\r"], "\\n", $this->description);

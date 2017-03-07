@@ -35,16 +35,25 @@ class Stat extends Model
         'is_percent' => 'boolean'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function items()
     {
         return $this->belongsToMany(Item::class);
     }
 
+    /**
+     * @return string|int|array
+     */
     public function getValueAttribute()
     {
         return $this->pivot->value;
     }
 
+    /**
+     * @return string
+     */
     public function getVarStringAttribute()
     {
         $perc    = "";
@@ -62,6 +71,14 @@ class Stat extends Model
         return "{$perc}+$".$varName;
     }
 
+    /**
+     * @param Model $parent
+     * @param array $attributes
+     * @param string $table
+     * @param bool $exists
+     * @param null $using
+     * @return StatPivot
+     */
     public function newPivot(Model $parent, array $attributes, $table, $exists, $using = null)
     {
         return new StatPivot($parent, $attributes, $table, $exists, $using);

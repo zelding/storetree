@@ -144,11 +144,17 @@ class Item extends Model
         return $this->belongsToMany(Recipe::class)->groupBy('item_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function shops()
     {
         return $this->belongsToMany(Shop::class);
     }
 
+    /**
+     * @return mixed
+     */
     public function stats()
     {
         $stats = $this->belongsToMany(Stat::class)->using(StatPivot::class)->withPivot('value')->orderBy('name');
@@ -156,16 +162,25 @@ class Item extends Model
         return $stats;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function locale()
     {
         return $this->hasMany(ItemLocale::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function ability()
     {
         return $this->belongsToMany(Ability::class);
     }
 
+    /**
+     * @return null|Recipe
+     */
     public function getRecipeAttribute()
     {
         if ($this->is_base_item) {
@@ -183,6 +198,10 @@ class Item extends Model
         return null;
     }
 
+    /**
+     * @param bool $trueCost
+     * @return int
+     */
     public function getTotalCostAttribute($trueCost = false)
     {
         if( $this->is_boss_item ) {
@@ -196,6 +215,9 @@ class Item extends Model
         return $this->getComponentsCostAttribute() + $this->cost;
     }
 
+    /**
+     * @return int
+     */
     public function getComponentsCostAttribute()
     {
         $sum = 0;
@@ -212,11 +234,18 @@ class Item extends Model
         return $sum;
     }
 
+    /**
+     * @return string
+     */
     public function getDotaClassAttribute()
     {
         return $this->is_recipe ?  'item_recipe_'.$this->base_class : 'item_'.$this->base_class;
     }
 
+    /**
+     * @param string $className
+     * @return $this
+     */
     public function setClassAttribute($className = "")
     {
         $this->base_class = $this->is_recipe ?  'item_recipe_'.$this->base_class : 'item_'.$this->base_class;

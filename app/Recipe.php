@@ -26,11 +26,17 @@ class Recipe extends Model
         'created_at', 'updated_at'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function components()
     {
         return $this->belongsToMany(Item::class)->orderBy('name');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function for()
     {
         return $this->belongsTo(Item::class, 'item_id');
@@ -44,7 +50,15 @@ class Recipe extends Model
         $array = [];
 
         foreach($this->components as $component ) {
-            $array[] = $component->base_class;
+            if( $component->is_recipe ) {
+                //only upgradeable items should have their recipes listed in the requirements
+                if( $this->for->max_level > 1 ) {
+                    $array[] = $component->base_class;
+                }
+            }
+            else {
+                $array[] = $component->base_class;
+            }
         }
 
         return implode(';', $array);
