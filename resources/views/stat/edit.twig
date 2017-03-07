@@ -6,7 +6,11 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="page-header">
-                <h1>Edit Stat<sub>({{ stat.id }})</sub>: <small>{{ stat.name }} <strong class="text-primary">aka</strong></small> <code>{{ stat.dota_name }}</code></h1>
+                <h1>
+                    Edit Stat<sub>({{ stat.id }})</sub>: <small>{{ stat.name }}
+                    <strong class="text-primary">aka</strong></small>
+                    <code>{{ stat.dota_name }}</code>
+                </h1>
             </div>
 
             <ol class="breadcrumb">
@@ -50,4 +54,20 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block inlineJs %}
+    <script type="application/javascript">
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_minimal',
+                radioClass: 'iradio_minimal',
+                increaseArea: '20%'
+            });
+
+            $('[data-toggle="tooltip"]').tooltip({
+                html: true
+            });
+        });
+    </script>
 {% endblock %}

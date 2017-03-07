@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $var_type
  * @property string $dota_name
  * @property string $stat_group
+ * @property bool $is_percent
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read mixed $value
