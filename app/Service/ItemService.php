@@ -13,6 +13,11 @@ use App\Item;
 
 class ItemService
 {
+    /**
+     * Resolves inherited stats for the item
+     *
+     * @param Item $item
+     */
     public function resolveItemInheritedStats(Item &$item)
     {
         if ( $item->base_level > 1 ) {

@@ -192,28 +192,23 @@ class ItemController extends Controller
      * encoded in UTF-16
      *
      * @param int $id
-     * @param int $langId
+     * @param int $lang
      * @return RedirectResponse|Response|Redirector
      */
     public function showTooltip($id, $lang = 1)
     {
-        $item = Item::with('stats', 'locale')->find($id);
+        $item = Item::with('stats')->find($id);
 
         if ( !($item instanceof Item)) {
             return redirect(route('items.index'), 404);
         }
 
-        $locale = $item->locale->first(function ($value, $key) use ($lang) {
-            /** @var ItemLocale $value */
-            return $value->language_id ==  $lang;
-        });
-
         app(ItemService::class)->resolveItemInheritedStats($item);
 
         $response = new Response();
         $response->setContent(View::make('templates/previews/tooltip', [
-            'item'   => $item,
-            'locale' => $locale
+            'item'      => $item,
+            'locale_id' => $lang
         ]));
 
         return $response;
@@ -409,6 +404,17 @@ class ItemController extends Controller
 
                         $recipe->components()->attach(Item::findOrFail($i_id));
                     }
+                }
+            }
+        }
+        if (!empty($componentsToRemove)) {
+            foreach ($componentsToRemove as $r_id => $items) {
+
+                /** @var Recipe $recipe */
+                $recipe = Recipe::find($r_id);
+
+                if (!$recipe->components()->count()) {
+                    $recipe->delete();
                 }
             }
         }

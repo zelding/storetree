@@ -5,7 +5,7 @@
     {
 {% for item in items %}
 
-{% include "templates/tooltip" with {item: item, locale: locale} -%}
+{% include "templates/tooltip" with {item: item, locale_id: locale_id} -%}
 {% endfor %}
     }
 }

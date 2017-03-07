@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Item;
 use App\ItemLocale;
+use App\Service\ItemService;
 use App\Utils\Constants;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -47,18 +48,23 @@ class ExportController extends Controller
             return redirect(route('export.index'))->with('warning', 'Pick something');
         }
 
-        $models = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats', 'ability', 'locale')
+        $models = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats', 'ability')
             ->whereIn('id', $items)
             ->orderBy('dota_id')
             ->get();
+
+        foreach( $models as &$item ) {
+            app(ItemService::class)->resolveItemInheritedStats($item);
+        }
 
         if ( $createFiles ) {
             if ( $separate ) {
                 try {
                     foreach ( $models as $item ) {
                         /** @var Item $item */
+
                         $data = view('templates/item', [
-                            'items' => $models
+                            'items' => $item
                         ]);
 
                         file_put_contents($itemPath . "/{$item->base_class}.txt", $data);
@@ -85,31 +91,20 @@ class ExportController extends Controller
         }
 
         if ( $createTrans ) {
-            $langs = $request->get('langs_selected') ?? [];
-            if ( $separate ) {
-                $this->createDirs($transPath);
 
-                foreach( Constants::$languages as $lang => $name ) {
-                    if (in_array($lang, $langs)) {
+            $langs = $request->get('langs_selected') ?? [];
+
+            foreach( Constants::$languages as $lang => $name ) {
+                if (in_array($lang, $langs)) {
+                    if ( $separate ) {
                         $path = $transPath."/".$name;
                         $this->createDirs($path);
 
                         foreach ($models as $item) {
-                            $locale = $item->locale->first(
-                                function ($value, $key) use ($lang) {
-                                    /** @var ItemLocale $value */
-                                    return $value->language_id == $lang;
-                                }
-                            );
-
-                            if (!$locale instanceof ItemLocale) {
-                                $locale = $item->locale->first();
-                            }
-
                             /** @var Item $item */
                             $data = view('templates/tooltip', [
-                                'items'     => $models,
-                                'locale'    => $locale,
+                                'items'     => $item,
+                                'locale_id' => $lang,
                                 'lang_name' => $name
                             ]);
 
@@ -118,11 +113,7 @@ class ExportController extends Controller
                             file_put_contents($path . "/tooltip_" . strtolower($item->base_class) . ".txt", $data);
                         }
                     }
-                }
-            }
-            else {
-                foreach( Constants::$languages as $lang => $name ) {
-                    if ( in_array($lang, $langs) ) {
+                    else {
                         foreach ( $models as $item ) {
                             $locale = $item->locale->first(
                                 function ($value, $key) use ($lang) {
@@ -138,7 +129,7 @@ class ExportController extends Controller
                             /** @var Item $item */
                             $data = view('templates/all_tooltips', [
                                 'items'     => $models,
-                                'locale'    => $locale,
+                                'locale_id' => $lang,
                                 'lang_name' => $name
                             ]);
 

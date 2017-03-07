@@ -81,7 +81,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereStockMax($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereStockTime($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereUpdatedAt($value)
- * @mixin Model
+ * @mixin \Eloquent
  * @property bool $is_permanent
  * @property-read mixed $dota_class
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Recipe[] $recipes
@@ -224,8 +224,37 @@ class Item extends Model
         return $this;
     }
 
+    /**
+     * replaces line breaks with escaped line breaks
+     *
+     * @return string
+     */
     public function getPrintableDescAttribute()
     {
         return str_replace(["\n", "\n\r", "\r"], "\\n", $this->description);
+    }
+
+    /**
+     * Searches for the given translation,
+     * and return it, otherwise it returns english
+     *
+     * @param int $id
+     *
+     * @return ItemLocale
+     */
+    public function getSelectedLocaleAttribute($id = 1)
+    {
+        $locale = $this->locale->first(
+            function ($value, $key) use ($id) {
+                /** @var ItemLocale $value */
+                return $value->language_id == $id;
+            }
+        );
+
+        if (!$locale instanceof ItemLocale) {
+            $locale = $this->locale->first();
+        }
+
+        return $locale;
     }
 }
