@@ -80,6 +80,14 @@ class ItemController extends Controller
         ]);
     }
 
+    /**
+     * Loads an existing items values into the create form
+     * to ease creation
+     *
+     * @param $id
+     *
+     * @return RedirectResponse
+     */
     public function copy($id)
     {
         $item = Item::findOrFail($id);
@@ -229,9 +237,6 @@ class ItemController extends Controller
             return redirect(route('items.index'), 404);
         }
 
-        $items = Item::whereNotIn('id', [$id])
-            ->orderBy('name')
-            ->get();
         $shops = Shop::all();
 
         $currentShops = [];
@@ -328,10 +333,6 @@ class ItemController extends Controller
 
         $item = Item::find($id);
         $item->shops()->detach();
-        if ( !$item->is_base_item ) {
-            $item->components()->detach();
-        }
-
         $item->delete();
 
         return redirect(route('items.index'), 301);
@@ -368,6 +369,7 @@ class ItemController extends Controller
      * @param Request $request
      * @param int     $id
      * @return RedirectResponse
+     * @throws \Exception
      */
     public function updateComponent(Request $request, $id)
     {
@@ -407,13 +409,14 @@ class ItemController extends Controller
                 }
             }
         }
+
         if (!empty($componentsToRemove)) {
             foreach ($componentsToRemove as $r_id => $items) {
 
                 /** @var Recipe $recipe */
                 $recipe = Recipe::find($r_id);
 
-                if (!$recipe->components()->count()) {
+                if (!$recipe->components->count()) {
                     $recipe->delete();
                 }
             }
@@ -429,16 +432,15 @@ class ItemController extends Controller
      ******************************************************/
 
     /**
-     * @param Request $request
      * @param int     $id
      *
      * @return View
      */
-    public function editStats(Request $request, $id)
+    public function editStats($id)
     {
         $item  = Item::with('stats', 'recipes')->find($id);
         $componentStats = [];
-        $primaryRecipe = $item->recipes()->first();
+        $primaryRecipe = $item->recipes->first();
 
         if ( $primaryRecipe instanceof Recipe ) {
             $components = $primaryRecipe->components;
@@ -488,7 +490,6 @@ class ItemController extends Controller
     public function updateStats(StoreItemStat $request, $id)
     {
         $item = Item::findOrFail($id);
-        $error = "";
         $statValues = $request->get('new_stat_value') ?? [];
 
         if ( $request->get('new_stat') && !empty($statValues) ) {

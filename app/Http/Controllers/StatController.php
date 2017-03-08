@@ -45,9 +45,11 @@ class StatController extends Controller
     public function store(StoreStat $request)
     {
         $stat = new Stat();
-        $stat->name      = $request->get('name');
-        $stat->dota_name = $request->get('dota_name');
-        $stat->var_type  = $request->get("var_type");
+        $stat->name       = $request->get('name');
+        $stat->dota_name  = $request->get('dota_name');
+        $stat->var_type   = $request->get("var_type");
+        $stat->stat_group = $request->get('stat_group') ?? null;
+        $stat->var_name   = $request->get('var_name') ?? null;
         $stat->save();
 
         return redirect(route('stats.create'), 201);
@@ -92,9 +94,11 @@ class StatController extends Controller
     public function update(StoreStat $request, $id)
     {
         $stat = Stat::findOrFail($id);
-        $stat->name      = $request->get('name');
-        $stat->dota_name = $request->get('dota_name');
-        $stat->var_type  = $request->get('var_type');
+        $stat->name       = $request->get('name');
+        $stat->dota_name  = $request->get('dota_name');
+        $stat->var_type   = $request->get('var_type');
+        $stat->var_name   = $request->get('var_name') ?? null;
+        $stat->stat_group = $request->get('stat_group') ?? null;
         $stat->save();
 
         return redirect(route('stats.edit', ['id' => $id]))->with('success', 'Updated');
@@ -108,6 +112,6 @@ class StatController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return redirect(route('stats.index'));
     }
 }

@@ -89,6 +89,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Database\Eloquent\Collection|\App\Stat[] $stats
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Recipe[] $usedInRecipes
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsPermanent($value)
+ * @property string $disassemble
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Ability[] $ability
+ * @property-read string $printable_desc
+ * @property-read null|Recipe $recipe
+ * @property-read ItemLocale $selected_locale
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\ItemLocale[] $locale
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereDisassemble($value)
  */
 class Item extends Model
 {

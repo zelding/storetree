@@ -1,27 +1,30 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="stat_name">Name</label>
+                <label class="col-lg-4 control-label" for="stat-name"
+                       data-toggle="tooltip" title="A nice name to recognize">Name</label>
                 <div class="col-lg-8">
-                    <input type="text" class="form-control" id="stat_name"
+                    <input type="text" class="form-control" id="stat-name"
                            placeholder="Bonus true damage" name="name"
                            value="{{ request.name ?? stat.name }}">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="stat_dota_name">Dota class name</label>
+                <label class="col-lg-4 control-label" for="stat-dota-name"
+                       data-toggle="tooltip" title="The name if the stat in Lua">Dota class name</label>
                 <div class="col-lg-8">
-                    <input type="text" class="form-control" id="stat_dota_name"
+                    <input type="text" class="form-control" id="stat-dota-name"
                            placeholder="bonus_true_damage" name="dota_name"
                            value="{{ request.dota_name ?? stat.dota_name }}">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-lg-4" for="stat_var_type">Value type</label>
+                <label class="control-label col-lg-4" for="stat-var-type"
+                       data-toggle="tooltip" title="Does it have decimals?">Value type</label>
                 <div class="col-lg-8">
-                    <select id="stat_var_type" name="var_type" class="form-control">
+                    <select id="stat-var-type" name="var_type" class="form-control">
                         {% for type in varTypes %}
                             {% set selected = (request.var_type ?? stat.var_type) == type ? ' selected' : '' %}
                             <option value="{{ type }}"{{ selected }}>{{ type }}</option>
@@ -33,7 +36,8 @@
 
         <div class="col-lg-4">
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="stat-group">Groupname</label>
+                <label class="col-lg-4 control-label" for="stat-group"
+                       data-toggle="tooltip" title="Used for suggestions in the item stat editor">Group name</label>
                 <div class="col-lg-8">
                     <input type="text" class="form-control" id="stat-group"
                            placeholder="bash" name="stat_group"
@@ -49,6 +53,16 @@
                                    value="1" {{ (request.is_percent ?? item.is_percent) ? 'checked="checked"' }}> Percent
                         </label>
                     </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="stat-var-name"
+                       data-toggle="tooltip" title="The variables name used in tooltips, if omitted the stats class_name will be used without the leading `bonus_`">Variable name</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" id="stat-var-name"
+                           placeholder="true_damage" name="var_name"
+                           value="{{ request.var_name ?? stat.var_namephp  }}">
                 </div>
             </div>
         </div>

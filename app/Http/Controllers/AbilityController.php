@@ -91,6 +91,7 @@ class AbilityController
 
     public function update(StoreAbility $request, $id)
     {
+        /** @var Ability $ability */
         $ability = Ability::findOrFail($id);
 
         $ability->name              = $request->get('name');

@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-02-28.
+    * Generated on 2017-03-08.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -53,6 +53,7 @@ namespace PHPSTORM_META {
             'twig.engine' instanceof \TwigBridge\Engine\Twig,
             'iseed' instanceof \Orangehill\Iseed\Iseed,
             'command.iseed' instanceof \Orangehill\Iseed\IseedCommand,
+            'App\Service\ItemService' instanceof \App\Service\ItemService,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'validation.presence' instanceof \Illuminate\Validation\DatabasePresenceVerifier,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
@@ -184,6 +185,7 @@ namespace PHPSTORM_META {
             'twig.engine' instanceof \TwigBridge\Engine\Twig,
             'iseed' instanceof \Orangehill\Iseed\Iseed,
             'command.iseed' instanceof \Orangehill\Iseed\IseedCommand,
+            'App\Service\ItemService' instanceof \App\Service\ItemService,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'validation.presence' instanceof \Illuminate\Validation\DatabasePresenceVerifier,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
@@ -315,6 +317,7 @@ namespace PHPSTORM_META {
             'twig.engine' instanceof \TwigBridge\Engine\Twig,
             'iseed' instanceof \Orangehill\Iseed\Iseed,
             'command.iseed' instanceof \Orangehill\Iseed\IseedCommand,
+            'App\Service\ItemService' instanceof \App\Service\ItemService,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'validation.presence' instanceof \Illuminate\Validation\DatabasePresenceVerifier,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
@@ -446,6 +449,7 @@ namespace PHPSTORM_META {
             'twig.engine' instanceof \TwigBridge\Engine\Twig,
             'iseed' instanceof \Orangehill\Iseed\Iseed,
             'command.iseed' instanceof \Orangehill\Iseed\IseedCommand,
+            'App\Service\ItemService' instanceof \App\Service\ItemService,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'validation.presence' instanceof \Illuminate\Validation\DatabasePresenceVerifier,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,

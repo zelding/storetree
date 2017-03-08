@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property string $var_type
+ * @property string $var_name
  * @property string $dota_name
  * @property string $stat_group
  * @property bool $is_percent
@@ -25,6 +26,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Stat whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Stat whereVarType($value)
  * @mixin \Eloquent
+ * @property-read string $var_string
+ * @method static \Illuminate\Database\Query\Builder|\App\Stat whereIsPercent($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Stat whereStatGroup($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Stat whereVarName($value)
  */
 class Stat extends Model
 {

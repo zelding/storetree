@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereNote($value)
  * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read string $printable_desc
  */
 class ItemLocale extends Model
 {

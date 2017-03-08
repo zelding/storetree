@@ -58,6 +58,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Ability whereType($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ability whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property bool $magic_stick
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $items
+ * @method static \Illuminate\Database\Query\Builder|\App\Ability whereMagicStick($value)
  */
 class Ability extends Model
 {
