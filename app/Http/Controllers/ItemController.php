@@ -160,13 +160,16 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        $item = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats', 'ability')->findOrFail($id);
+        $item = Item::with(
+            'shops','recipes.components', 'usedInRecipes.for',
+            'stats', 'ability', 'scripts'
+        )->findOrFail($id);
 
         app(ItemService::class)->resolveItemInheritedStats($item);
 
         return view('Item/view', [
-            "item"  => $item,
-            'langs' => Constants::$languages,
+            "item"         => $item,
+            'langs'        => Constants::$languages,
             'stringArrays' => Constants::$stringArrays
         ]);
     }
@@ -635,4 +638,85 @@ class ItemController extends Controller
 
         return redirect(route('items.edit.abilities', ['id' => $id]))->with('success', $msg);
     }
+
+    /********************************************************
+     *                    SCRIPTS
+     ********************************************************/
+
+    public function editScripts($id)
+    {
+        $item = Item::with('scripts')->findOrFail($id);
+
+        return view('script/edit', [
+            'item'   => $item,
+            'result' => []
+        ]);
+    }
+
+    public function updateScripts(Request $request, $id)
+    {
+        $item = Item::with('scripts')->findOrFail($id);
+
+        $input = $request->all();
+        $result = [];
+
+        foreach( $input as $pathString => $value ) {
+            $path = explode('/', $pathString);
+
+            $current = &$result;
+
+            foreach($path as $key) {
+                $currentKey = $key;
+
+                if ( substr_count($key, '|') ) {
+                    list($endName, $type) = explode('|', $key, 2);
+
+                    $currentKey = $endName;
+
+                    if ( $type === 'key' ) {
+
+                    }
+
+                    if ( $type === 'value' ) {
+                        $value = $endName;
+                    }
+                }
+
+                $current = &$current[ $key ];
+            }
+
+            $current = $value;
+        }
+
+        return view('script/edit', [
+            'item'   => $item,
+            'result' => $result,
+            'input'  => $input
+        ]);
+    }
+
+    /**
+     * Sets a value in a nested array based on path
+     * See http://stackoverflow.com/a/9628276/419887
+     *
+     * @param array  $array The array to modify
+     * @param string $path The path in the array
+     * @param mixed  $value The value to set
+     * @param string $delimiter The separator for the path
+     * @return array
+     */
+    private function set_nested_array_value(&$array, $path, &$value, $delimiter = '/') {
+        $pathParts = explode($delimiter, $path);
+
+        $current = &$array;
+        foreach($pathParts as $key) {
+            $current = &$current[$key];
+        }
+
+        $backup = $current;
+        $current = $value;
+
+        return $backup;
+    }
+
 }

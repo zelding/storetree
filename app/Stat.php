@@ -62,16 +62,17 @@ class Stat extends Model
      */
     public function getVarStringAttribute()
     {
-        $perc    = "";
+        $perc = $this->is_percent ? "%": "";
+
+        if ( $this->var_name ) {
+            return "{$perc}+$".$this->var_name;
+        }
+
         $prefix  = "bonus_";
         $varName = $this->dota_name;
 
         if (substr($varName, 0, strlen($prefix)) == $prefix) {
             $varName = substr($varName, strlen($prefix));
-        }
-
-        if ( $this->is_percent ) {
-            $perc = "%";
         }
 
         return "{$perc}+$".$varName;

@@ -4,8 +4,9 @@
         "DOTA_Tooltip_ability_{{ item.base_class }}_Description"    "{{ item.getSelectedLocaleAttribute(locale_id).printableDesc ?? item.printableDesc }}"
         {% if item.getSelectedLocaleAttribute(locale_id).lore -%}
         "DOTA_Tooltip_ability_{{ item.base_class }}_Lore"           "{{ item.getSelectedLocaleAttribute(locale_id).lore }}"
-        {%- endif -%}
-        {%- if item.getSelectedLocaleAttribute(locale_id).note -%}
+        {%- endif %}
+
+        {% if item.getSelectedLocaleAttribute(locale_id).note -%}
         "DOTA_Tooltip_Ability_{{ item.base_class }}_Note0"          "{{ item.getSelectedLocaleAttribute(locale_id).note }}"
         {%- endif %}
 

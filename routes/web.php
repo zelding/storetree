@@ -30,6 +30,7 @@ Route::group(['prefix' => 'storetree'], function() {
     Route::resource('items', 'ItemController');
     Route::resource('stats', 'StatController');
     Route::resource('abilities', 'AbilityController');
+    Route::resource('scripts', 'ScriptController');
 
     Route::group(['prefix' => 'items/{id}'], function () {
         Route::group(['middleware' => 'utf16'], function () {
@@ -50,6 +51,9 @@ Route::group(['prefix' => 'storetree'], function() {
 
         Route::get('abilities', 'ItemController@editAbilities')->name('items.edit.abilities');
         Route::put('abilities', 'ItemController@updateAbilities')->name('items.update.abilities');
+
+        Route::get('scripts', 'ItemController@editScripts')->name('items.edit.scripts');
+        Route::post('scripts', 'ItemController@updateScripts')->name('items.update.scripts');
     });
 
     Route::group(['prefix' => 'build'], function () {

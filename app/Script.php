@@ -23,7 +23,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Script extends Model
 {
+    protected $casts = [
+        'data' => 'array'
+    ];
+
     protected $dates = [
         'updated_at', 'created_at'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo|Item
+     */
+    public function item()
+    {
+        return  $this->belongsTo(Item::class);
+    }
 }

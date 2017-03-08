@@ -17,7 +17,7 @@ class CreateScriptsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('item_id');
             $table->string('name');
-            $table->json('data');
+            $table->json('data')->nullable();
             $table->timestamps();
         });
     }

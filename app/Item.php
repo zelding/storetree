@@ -185,6 +185,11 @@ class Item extends Model
         return $this->belongsToMany(Ability::class);
     }
 
+    public function scripts()
+    {
+        return $this->hasMany(Script::class);
+    }
+
     /**
      * @return null|Recipe
      */
