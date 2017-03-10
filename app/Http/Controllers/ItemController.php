@@ -658,34 +658,23 @@ class ItemController extends Controller
         $item = Item::with('scripts')->findOrFail($id);
 
         $input = $request->all();
+
         $result = [];
 
-        foreach( $input as $pathString => $value ) {
-            $path = explode('/', $pathString);
+        foreach( $input['scriptBlocks'] as $scriptBlocks => $value ) {
+            $result[ $scriptBlocks ] = [];
+            foreach ($value as $key => $data) {
 
-            $current = &$result;
-
-            foreach($path as $key) {
-                $currentKey = $key;
-
-                if ( substr_count($key, '|') ) {
-                    list($endName, $type) = explode('|', $key, 2);
-
-                    $currentKey = $endName;
-
-                    if ( $type === 'key' ) {
-
+                if (!empty($data) && is_array($data) && array_key_exists('key', $data)) {
+                    if (!array_key_exists($data['key'], $result[ $scriptBlocks ])) {
+                        $result[ $scriptBlocks ][ $data['key'] ] = [];
                     }
 
-                    if ( $type === 'value' ) {
-                        $value = $endName;
+                    if (array_key_exists('value', $data)) {
+                        $result[ $scriptBlocks ][ $data['key'] ] = $data['value'];
                     }
                 }
-
-                $current = &$current[ $key ];
             }
-
-            $current = $value;
         }
 
         return view('script/edit', [

@@ -16,6 +16,8 @@ elixir(function(mix) {
         .copy('bower_components/iCheck/icheck.js', 'public/js')
         .copy('bower_components/iCheck/skins/minimal/_all.css', 'public/css')
         .copy('bower_components/iCheck/skins/minimal/**.png', 'public/css')
+        .copy('bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js', 'public/js')
+        .copy('bower_components/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css', 'public/css')
     ;
 
     mix.copy('node_modules/font-awesome/fonts', 'public/fonts');
