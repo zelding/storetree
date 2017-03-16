@@ -44,6 +44,8 @@ class ExportController extends Controller
         $itemPath     = $basePath."items";
         $transPath    = $basePath."trans";
 
+        // TODO: generate separate files always, link them in the main file with #base <path>
+
         if ( empty($items) || (!$createFiles && !$createTrans) ) {
             return redirect(route('export.index'))->with('warning', 'Pick something');
         }
