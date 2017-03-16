@@ -85,4 +85,30 @@
             </div>
         </div>
     </div>
+
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label class="control-label col-lg-1 text-success" for="shop-tags">Shop tags</label>
+            <div class="col-lg-11">
+                <select id="shop-tags" name="shop_tags[]" multiple class="form-control select2">
+                    {% for tag in item.shop_tags %}
+                        <option value="{{ tag }}" selected>{{ tag }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label class="control-label col-lg-1 text-success" for="aliases">Item aliases</label>
+            <div class="col-lg-11">
+                <select id="aliases" name="aliases[]" multiple class="form-control select2">
+                    {% for alias in item.aliases %}
+                        <option value="{{ alias }}">{{ alias }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
 </div>

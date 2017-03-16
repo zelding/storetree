@@ -104,35 +104,8 @@ class ItemController extends Controller
     public function store(StoreItem $request)
     {
         $item = new Item();
-        $item->name          = $request->get('name');
-        $item->description   = $request->get('description');
-        $item->cost          = $request->get('cost') ?? 0;
-        $item->is_base_item  = $request->get('base_item') ?? 0;
-        $item->is_boss_item  = $request->get('boss_item') ?? 0;
-        $item->is_consumable = $request->get('consumable_item') ?? 0;
-        $item->is_recipe     = $request->get('recipe_item') ?? 0;
 
-        $item->dota_id       = $request->get('dota_id');
-        $item->base_class    = $request->get('base_class');
-        $item->base_level    = $request->get('base_level') ?? 1;
-        $item->max_level     = $request->get('max_level') ?? 1;
-        $item->stack_size    = $request->get('stack_size') ?? 1;
-        $item->start_charges = $request->get('start_charges') ?? 0;
-        $item->alert_text    = $request->get('alert_text');
-        $item->model         = $request->get('model');
-        $item->fight_recap   = $request->get('fight_recap') ?? 0;
-        $item->quality       = $request->get('quality');
-        $item->share         = $request->get('share');
-        $item->is_killable   = $request->get('is_killable') ?? 0;
-        $item->is_sellable   = $request->get('is_sellable') ?? 0;
-        $item->is_droppable  = $request->get('is_droppable') ?? 0;
-        $item->in_backpack   = $request->get('is_backpackable') ?? 0;
-        $item->is_permanent  = $request->get('is_permanent') ?? 0;
-        $item->needs_charges = $request->get('needs_charges') ?? 0;
-        $item->show_charges  = $request->get('show_charges') ?? 0;
-        $item->is_alertable  = $request->get('is_alertable') ?? 0;
-        $item->is_autocast   = $request->get('is_autocast') ?? 0;
-
+        $item = app(ItemService::class)->setItemAttributes($item, $request);
 
         $item->save();
 
@@ -162,7 +135,7 @@ class ItemController extends Controller
     {
         $item = Item::with(
             'shops','recipes.components', 'usedInRecipes.for',
-            'stats', 'ability', 'scripts'
+            'stats', 'ability'
         )->findOrFail($id);
 
         app(ItemService::class)->resolveItemInheritedStats($item);
@@ -271,35 +244,7 @@ class ItemController extends Controller
     {
         $item  = Item::find($id);
 
-        $item->name          = $request->get('name');
-        $item->description   = $request->get('description');
-        $item->cost          = $request->get('cost') ?? 0;
-        $item->is_base_item  = $request->get('base_item') ?? 0;
-        $item->is_boss_item  = $request->get('boss_item') ?? 0;
-        $item->is_consumable = $request->get('consumable_item') ?? 0;
-        $item->is_recipe     = $request->get('recipe_item') ?? 0;
-
-        $item->dota_id       = $request->get('dota_id');
-        $item->base_class    = $request->get('base_class');
-        $item->base_level    = $request->get('base_level') ?? 1;
-        $item->max_level     = $request->get('max_level') ?? 1;
-        $item->stack_size    = $request->get('stack_size') ?? 1;
-        $item->start_charges = $request->get('start_charges') ?? 0;
-        $item->alert_text    = $request->get('alert_text');
-        $item->model         = $request->get('model');
-        $item->fight_recap   = $request->get('fight_recap') ?? 0;
-        $item->quality       = $request->get('quality');
-        $item->share         = $request->get('share');
-        $item->is_killable   = $request->get('is_killable') ?? 0;
-        $item->is_sellable   = $request->get('is_sellable') ?? 0;
-        $item->is_droppable  = $request->get('is_droppable') ?? 0;
-        $item->in_backpack   = $request->get('is_backpackable') ?? 0;
-        $item->is_permanent  = $request->get('is_permanent') ?? 0;
-        $item->needs_charges = $request->get('needs_charges') ?? 0;
-        $item->show_charges  = $request->get('show_charges') ?? 0;
-        $item->is_alertable  = $request->get('is_alertable') ?? 0;
-        $item->is_autocast   = $request->get('is_autocast') ?? 0;
-
+        $item = app(ItemService::class)->setItemAttributes($item, $request);
 
         $item->save();
 

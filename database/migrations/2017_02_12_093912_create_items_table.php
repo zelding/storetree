@@ -19,6 +19,7 @@ class CreateItemsTable extends Migration
             $table->increments('id');
             $table->integer('dota_id')->unique()->nullable()->default(null);
             $table->string('base_class')->unique()->nullable()->default(null);
+            $table->string('script')->nullable()->default(null);
             $table->tinyInteger('max_level')->default(1);
             $table->tinyInteger('base_level')->default(1);
             $table->boolean('is_consumable')->default(false);
@@ -49,9 +50,8 @@ class CreateItemsTable extends Migration
             $table->boolean('is_autocast')->default(false);
             $table->boolean('is_alertable')->default(false);
             $table->string('alert_text')->nullable();
-            //shopTags
-            //item aliases
-            //Abilities
+            $table->text('shop_tags')->nullable()->default(null);
+            $table->text('aliases')->nullable()->default(null);
             $table->timestamps();
         });
     }

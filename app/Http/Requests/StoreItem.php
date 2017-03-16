@@ -53,6 +53,9 @@ class StoreItem extends FormRequest
             "fight_recap"   => "required|numeric|min:0",
             "quality"       => "required|in:".implode(',', Constants::$itemQuality),
             "share"         => "required|in:".implode(',', Constants::$shareable),
+            "script"        => "max:255",
+            "shop_tags"     => "distinct",
+            "aliases"       => "distinct"
         ];
     }
 }

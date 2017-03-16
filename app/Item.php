@@ -39,12 +39,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $is_autocast
  * @property bool $is_alertable
  * @property string $alert_text
+ * @property string $script
+ * @property array $shop_tags
+ * @property array $aliases
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $buildsInto
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $components
- * @property-read mixed $components_cost
- * @property-read mixed $total_cost
+ * @property-read int $components_cost
+ * @property-read int $total_cost
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Shop[] $shops
  * @method static \Illuminate\Database\Query\Builder|\App\Item find($id)
  * @method static \Illuminate\Database\Query\Builder|\App\Item findOrFail($id)
@@ -83,7 +86,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property bool $is_permanent
- * @property-read mixed $dota_class
+ * @property-read string $dota_class
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Recipe[] $recipes
  * @property-write mixed $class
  * @property \Illuminate\Database\Eloquent\Collection|\App\Stat[] $stats
@@ -123,7 +126,10 @@ class Item extends Model
         'needs_charges'     => 'boolean',
         'is_autocast'       => 'boolean',
         'is_alertable'      => 'boolean',
-        'is_permanent'      => 'boolean'
+        'is_permanent'      => 'boolean',
+
+        'shop_tags'         => 'array',
+        'aliases'           => 'array'
     ];
 
     /**
@@ -183,11 +189,6 @@ class Item extends Model
     public function ability()
     {
         return $this->belongsToMany(Ability::class);
-    }
-
-    public function scripts()
-    {
-        return $this->hasMany(Script::class);
     }
 
     /**

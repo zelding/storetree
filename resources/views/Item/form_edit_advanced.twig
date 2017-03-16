@@ -68,6 +68,14 @@
 
     <div class="col-lg-4">
         <div class="form-group">
+            <label class="col-lg-4 control-label" for="item-script">Script file</label>
+            <div class="col-lg-8" data-toggle="tooltip" data-placement="right" title="path to the lua file">
+                <input type="text" class="form-control" id="item-script" placeholder="something.lua"
+                       name="script" value="{{ request.script ?? item.script }}">
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-lg-4 control-label" for="item-model-path">Model path</label>
             <div class="col-lg-8" data-toggle="tooltip" data-placement="right" title="path to the model file">
                 <input type="text" class="form-control" id="item-model-path" placeholder="models/props_gameplay/recipe.vmdl"
