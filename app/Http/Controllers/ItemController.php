@@ -135,7 +135,7 @@ class ItemController extends Controller
     {
         $item = Item::with(
             'shops','recipes.components', 'usedInRecipes.for',
-            'stats', 'ability'
+            'stats', 'ability', 'locale'
         )->findOrFail($id);
 
         app(ItemService::class)->resolveItemInheritedStats($item);

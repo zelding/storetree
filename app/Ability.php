@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property array $channel_mana_cost
  * @property array $duration
  * @property string $cooldown_group
+ * @property bool $is_override
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @method static \Illuminate\Database\Query\Builder|\App\Ability whereBaseClass($value)

@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $is_purchasable
  * @property bool $is_droppable
  * @property bool $in_backpack
+ * @property bool $is_override
  * @property string $name
  * @property string $description
  * @property int $cost

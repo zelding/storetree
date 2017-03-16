@@ -21,6 +21,7 @@ class CreateAbilitiesTable extends Migration
             $table->text('behaviour');
             $table->enum('type', \App\Utils\Constants::$abilityType)->default('DOTA_ABILITY_TYPE_BASIC');
             $table->string('texture_name')->nullable();
+            $table->boolean('is_override')->default(false);
 
             $table->boolean('deny_self_cast')->default(true);
             $table->boolean('cast_hidden')->default(false);

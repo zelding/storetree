@@ -53,7 +53,27 @@ class ExportController extends Controller
             ->orderBy('dota_id')
             ->get();
 
+        $overrideModels = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats', 'ability')
+            ->whereIn('id', $items)
+            ->where('is_override', true)
+            ->orderBy('dota_id')
+            ->get();
+
+        $newModels = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats', 'ability')
+            ->whereIn('id', $items)
+            ->where('is_override', false)
+            ->orderBy('dota_id')
+            ->get();
+
         foreach( $models as &$item ) {
+            app(ItemService::class)->resolveItemInheritedStats($item);
+        }
+
+        foreach( $newModels as &$item ) {
+            app(ItemService::class)->resolveItemInheritedStats($item);
+        }
+
+        foreach( $overrideModels as &$item ) {
             app(ItemService::class)->resolveItemInheritedStats($item);
         }
 
@@ -79,10 +99,21 @@ class ExportController extends Controller
 
                 try {
                     $data = view('templates/all_items', [
-                        'items' => $models
+                        'items' => $newModels
                     ]);
 
-                    file_put_contents($basePath . "npc_custom_items.txt", $data);
+                    file_put_contents($basePath . "npc_items_custom.txt", $data);
+                }
+                catch ( \Exception $ex ) {
+                    return redirect(route('export.index'))->withException($ex);
+                }
+
+                try {
+                    $data = view('templates/all_items', [
+                        'items' => $overrideModels
+                    ]);
+
+                    file_put_contents($basePath . "npc_items_override.txt", $data);
                 }
                 catch ( \Exception $ex ) {
                     return redirect(route('export.index'))->withException($ex);
@@ -91,7 +122,6 @@ class ExportController extends Controller
         }
 
         if ( $createTrans ) {
-
             $langs = $request->get('langs_selected') ?? [];
 
             foreach( Constants::$languages as $lang => $name ) {

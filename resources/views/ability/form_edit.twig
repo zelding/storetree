@@ -141,6 +141,13 @@
                            value="1" {{ (request.magic_stick ?? ability.magic_stick) ? 'checked="checked"' }}> Proc magic stick
                 </label>
             </div>
+
+            <div class="checkbox checkbox-inline">
+                <label data-toggle="tooltip" title="is this item override a default Dota ability?">
+                    <input type="checkbox" name="is_override" id="item-override"
+                           value="1" {{ (request.is_override ?? ability.is_override) ? 'checked="checked"' }}> Override ability
+                </label>
+            </div>
         </div>
     </div>
 </div>

@@ -65,6 +65,7 @@ class ItemService
         $item->is_consumable = $request->get('consumable_item') ?? 0;
         $item->is_recipe     = $request->get('recipe_item') ?? 0;
         $item->script        = $request->get('script') ?? null;
+        $item->is_override   = $request->get('is_override') ?? 0;
 
         $item->dota_id       = $request->get('dota_id');
         $item->base_class    = $request->get('base_class');

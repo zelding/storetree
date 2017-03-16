@@ -89,8 +89,8 @@
         // Item Info
         //------------------------------------------------------------------------------------------------------------------
         "ItemCost"                      "{{ item.totalCost }}"
-        "ItemShopTags"                  ""
-        "ItemAliases"                   ""
+        "ItemShopTags"                  "{{ item.shop_tags|join(' ') }}"
+        "ItemAliases"                   "{{ item.aliases|join(' ') }}"
         "ItemQuality"                   "{{ item.quality }}"
 
         "SideShop"                      "{{ item.shops.where('id', 2).count ? 1 : 0 }}"

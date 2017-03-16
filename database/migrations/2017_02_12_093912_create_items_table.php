@@ -31,6 +31,7 @@ class CreateItemsTable extends Migration
             $table->boolean('is_purchasable')->default(true);
             $table->boolean('is_droppable')->default(true);
             $table->boolean('in_backpack')->default(true);
+            $table->boolean('is_override')->default(false);
             $table->string('name');
             $table->text('description')->nullable();
             $table->unsignedInteger('cost')->default(0);
