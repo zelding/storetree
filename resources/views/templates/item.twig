@@ -81,9 +81,9 @@
     //------------------------------------------------------------------------------------------------------------------
     "MaxUpgradeLevel"               "{{ item.max_level }}"
     "ItemBaseLevel"                 "{{ item.base_level }}"
-    {% if item.max_level > 1 -%}
+    {% if item.max_level > 1 and item.base_level < item.max_level -%}
     "UpgradesItems"                 "{{ item.base_class }}"
-    "UpgradeRecipe"                 "{{ item.recipe.base_class }}"
+    "UpgradeRecipe"                 "{{ item.lvl1Recipe.base_class }}"
     {% endif %}
 
     // Item Info

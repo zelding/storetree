@@ -43,6 +43,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $script
  * @property array $shop_tags
  * @property array $aliases
+ * @property null|Item $lvl1Recipe
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $buildsInto
@@ -193,7 +194,7 @@ class Item extends Model
     }
 
     /**
-     * @return null|Recipe
+     * @return null|Item
      */
     public function getRecipeAttribute()
     {
@@ -210,6 +211,29 @@ class Item extends Model
         }
 
         return null;
+    }
+
+    /**
+     * @return null|Item
+     */
+    public function getLvl1RecipeAttribute()
+    {
+         if ( $this->max_level > 1 && $recipe = $this->recipe ) {
+             //remove the _# from the name
+             $name = preg_replace('~_\d{1,}~', '', $recipe->base_class);
+
+             $lvl1Recipe = Item::with('stats')
+                         ->where('base_class', $name)
+                         ->first();
+
+             if ( $lvl1Recipe instanceof Item) {
+                 return $lvl1Recipe;
+             }
+
+             return null;
+         }
+
+         return null;
     }
 
     /**

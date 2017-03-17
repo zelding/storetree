@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>#</th>
+            <th>Dota Id</th>
             <th>Name</th>
             <th>Cost</th>
             <th>Boss Item</th>
@@ -20,6 +21,7 @@
             {# @var Item item #}
             <tr>
                 <td>{{ item.id }}</td>
+                <td>{{ item.dota_id }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.totalCost }}</td>
                 <td>{{ item.is_boss_item ? "Y" : "N" }}</td>
