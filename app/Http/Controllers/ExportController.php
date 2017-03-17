@@ -37,12 +37,14 @@ class ExportController extends Controller
     public function run(Request $request)
     {
         $items        = $request->get('items') ?? [];
-        $separate     = $request->get('separate') ?? false;
         $createTrans  = $request->get('trans') ?? false;
         $createFiles  = $request->get('itemData') ?? false;
         $basePath     = "/tmp/storetree/export/";
         $itemPath     = $basePath."items";
         $transPath    = $basePath."trans";
+
+        $newItems      = [];
+        $overrideItems = [];
 
         // TODO: generate separate files always, link them in the main file with #base <path>
 
@@ -55,72 +57,49 @@ class ExportController extends Controller
             ->orderBy('dota_id')
             ->get();
 
-        $overrideModels = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats', 'ability')
-            ->whereIn('id', $items)
-            ->where('is_override', true)
-            ->orderBy('dota_id')
-            ->get();
-
-        $newModels = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats', 'ability')
-            ->whereIn('id', $items)
-            ->where('is_override', false)
-            ->orderBy('dota_id')
-            ->get();
-
         foreach( $models as &$item ) {
             app(ItemService::class)->resolveItemInheritedStats($item);
         }
 
-        foreach( $newModels as &$item ) {
-            app(ItemService::class)->resolveItemInheritedStats($item);
-        }
-
-        foreach( $overrideModels as &$item ) {
-            app(ItemService::class)->resolveItemInheritedStats($item);
-        }
-
         if ( $createFiles ) {
-            if ( $separate ) {
-                try {
-                    foreach ( $models as $item ) {
-                        /** @var Item $item */
+            $this->createDirs($itemPath);
 
-                        $data = view('templates/item', [
-                            'items' => $item
-                        ]);
+            try {
+                foreach ( $models as $item ) {
+                    /** @var Item $item */
 
-                        file_put_contents($itemPath . "/{$item->base_class}.txt", $data);
+                    $data = view('templates/item', [
+                        'item' => $item
+                    ]);
+
+                    $fileName = $itemPath . "/{$item->base_class}.txt";
+
+                    file_put_contents($fileName, $data);
+
+                    if ( $item->is_override ) {
+                        $overrideItems[] = "items/{$item->base_class}.txt";
+                    }
+                    else {
+                        $newItems[] = "items/{$item->base_class}.txt";
                     }
                 }
-                catch ( \Exception $ex ) {
-                    return redirect(route('export.index'))->withException($ex);
-                }
+
+                $data = view('templates/all_items', [
+                    'items' => $newItems
+                ]);
+
+                file_put_contents($basePath . "npc_items_custom.txt", $data);
+
+                $data = view('templates/all_items', [
+                    'items' => $overrideItems
+                ]);
+
+                file_put_contents($basePath . "npc_items_override.txt", $data);
             }
-            else {
-                $this->createDirs($basePath);
-
-                try {
-                    $data = view('templates/all_items', [
-                        'items' => $newModels
-                    ]);
-
-                    file_put_contents($basePath . "npc_items_custom.txt", $data);
-                }
-                catch ( \Exception $ex ) {
-                    return redirect(route('export.index'))->withException($ex);
-                }
-
-                try {
-                    $data = view('templates/all_items', [
-                        'items' => $overrideModels
-                    ]);
-
-                    file_put_contents($basePath . "npc_items_override.txt", $data);
-                }
-                catch ( \Exception $ex ) {
-                    return redirect(route('export.index'))->withException($ex);
-                }
+            catch ( \Exception $ex ) {
+                return redirect(route('export.index'))->withException($ex);
             }
+
         }
 
         if ( $createTrans ) {
@@ -128,47 +107,28 @@ class ExportController extends Controller
 
             foreach( Constants::$languages as $lang => $name ) {
                 if (in_array($lang, $langs)) {
-                    if ( $separate ) {
-                        $path = $transPath."/".$name;
-                        $this->createDirs($path);
-
-                        foreach ($models as $item) {
-                            /** @var Item $item */
-                            $data = view('templates/tooltip', [
-                                'items'     => $item,
-                                'locale_id' => $lang,
-                                'lang_name' => $name
-                            ]);
-
-                            $data = mb_convert_encoding($data, "UCS-2LE", 'auto');
-
-                            file_put_contents($path . "/tooltip_" . strtolower($item->base_class) . ".txt", $data);
-                        }
-                    }
-                    else {
-                        foreach ( $models as $item ) {
-                            $locale = $item->locale->first(
-                                function ($value, $key) use ($lang) {
-                                    /** @var ItemLocale $value */
-                                    return $value->language_id == $lang;
-                                }
-                            );
-
-                            if ( !$locale instanceof ItemLocale ) {
-                                $locale = $item->locale->first();
+                    foreach ( $models as $item ) {
+                        $locale = $item->locale->first(
+                            function ($value, $key) use ($lang) {
+                                /** @var ItemLocale $value */
+                                return $value->language_id == $lang;
                             }
+                        );
 
-                            /** @var Item $item */
-                            $data = view('templates/all_tooltips', [
-                                'items'     => $models,
-                                'locale_id' => $lang,
-                                'lang_name' => $name
-                            ]);
-
-                            $data = mb_convert_encoding($data, "UCS-2LE", 'auto');
-
-                            file_put_contents($transPath . "/addon_" . strtolower($name) . ".txt", $data);
+                        if ( !$locale instanceof ItemLocale ) {
+                            $locale = $item->locale->first();
                         }
+
+                        /** @var Item $item */
+                        $data = view('templates/all_tooltips', [
+                            'items'     => $models,
+                            'locale_id' => $lang,
+                            'lang_name' => $name
+                        ]);
+
+                        $data = mb_convert_encoding($data, "UCS-2LE", 'auto');
+
+                        file_put_contents($transPath . "/addon_" . strtolower($name) . ".txt", $data);
                     }
                 }
             }
