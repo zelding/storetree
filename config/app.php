@@ -180,6 +180,7 @@ return [
         TwigBridge\ServiceProvider::class,
 
         Orangehill\Iseed\IseedServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
         //my stuff
         App\Providers\ItemServiceProvider::class
@@ -232,7 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Twig' => TwigBridge\Facade\Twig::class,
-
+        'Entrust' => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];

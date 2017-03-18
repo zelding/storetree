@@ -11,7 +11,8 @@
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "orangehill/iseed": "^2.3",
-        "rcrowe/twigbridge": "^0.9.4"
+        "rcrowe/twigbridge": "^0.9.4",
+        "zizaco/entrust": "^1.7"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.2",

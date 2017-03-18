@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.15 on 2017-03-16.
+ * Generated for Laravel 5.4.15 on 2017-03-18.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -9796,14 +9796,14 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param mixed $disk
-         * @return void
-         * @static
+         * @return void 
+         * @static 
          */
         public static function set($name, $disk)
         {
             \Illuminate\Filesystem\FilesystemManager::set($name, $disk);
         }
-
+        
         /**
          * Get the default driver name.
          *
@@ -9843,26 +9843,26 @@ namespace Illuminate\Support\Facades {
          * Assert that the given file exists.
          *
          * @param string $path
-         * @return void
-         * @static
+         * @return void 
+         * @static 
          */
         public static function assertExists($path)
         {
             \Illuminate\Filesystem\FilesystemAdapter::assertExists($path);
         }
-
+        
         /**
          * Assert that the given file does not exist.
          *
          * @param string $path
-         * @return void
-         * @static
+         * @return void 
+         * @static 
          */
         public static function assertMissing($path)
         {
             \Illuminate\Filesystem\FilesystemAdapter::assertMissing($path);
         }
-
+        
         /**
          * Determine if a file exists.
          *
