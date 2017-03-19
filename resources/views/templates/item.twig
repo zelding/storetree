@@ -1,131 +1,131 @@
-    {%- if item.recipe %}
-    //======================================================================================================================
-    // {{ item.recipe.name }}
-    //======================================================================================================================
-    "{{ item.recipe.base_class }}"
+{%- if item.recipe %}
+//======================================================================================================================
+// {{ item.recipe.name }}
+//======================================================================================================================
+"{{ item.recipe.base_class }}"
+{
+    "ID"                "{{ item.recipe.dota_id }}"
+    "Model"             "{{ item.recipe.model }}"
+    "ItemCost"          "{{ item.recipe.cost }}"
+    "ItemShopTags"      ""
+    "ItemRecipe"        "{{ item.recipe.is_recipe }}"
+    "ItemResult"        "{{ item.base_class }}"
+    "ItemRequirements"
     {
-        "ID"                "{{ item.recipe.dota_id }}"
-        "Model"             "{{ item.recipe.model }}"
-        "ItemCost"          "{{ item.recipe.cost }}"
-        "ItemShopTags"      ""
-        "ItemRecipe"        "{{ item.recipe.is_recipe }}"
-        "ItemResult"        "{{ item.base_class }}"
-        "ItemRequirements"
-        {
-        {% for recipe in item.recipes %}
-        "0{{ loop.index }}"    "{{ recipe.componentsString -}}"
-        {% endfor -%}
-        }
+    {% for recipe in item.recipes %}
+    "0{{ loop.index }}"    "{{ recipe.componentsString -}}"
+    {% endfor -%}
     }
+}
+{% endif -%}
+//======================================================================================================================
+// {{ item.name }}
+//======================================================================================================================
+"{{ item.base_class }}"
+{
+    // General
+    //------------------------------------------------------------------------------------------------------------------
+    "ID"                    "{{ item.dota_id }}"
+    "ItemPermanent"         "{{ item.is_permanent }}"
+    "ItemStackable"         "{{ item.max_stacks > 1 ? 1 : 0 }}"
+    "FightRecapLevel"       "{{ item.fight_recap }}"
+    "ItemDisassembleRule"   "{{ item.disassemble }}"
+
+    // Ability
+    //------------------------------------------------------------------------------------------------------------------
+    "AbilityBehavior"                       "{{ ability.behaviour|join(' | ') }}"
+    "AbilityTextureName"                    "{{ item.base_class }}"
+    {% if ability.target_team -%}
+    "AbilityUnitTargetTeam"                 "{{ ability.target_team|join(' | ') }}"
     {% endif -%}
-    //======================================================================================================================
-    // {{ item.name }}
-    //======================================================================================================================
-    "{{ item.base_class }}"
+    {%- if ability.target_type -%}
+    "AbilityUnitTargetType"                 "{{ ability.target_type|join(' | ') }}"
+    {% endif -%}
+    {%- if ability.target_flags -%}
+    "AbilityUnitTargetFlags"                "{{ ability.target_flags|join(' | ') }}"
+    {% endif -%}
+    {%- if ability.cast_range -%}
+    "AbilityCastRange"                      "{{ ability.cast_range|join(' ') }}"
+    {% endif -%}
+    {%- if ability.cast_point -%}
+    "AbilityCastPoint"                      "{{ ability.cast_point|join(' ') }}"
+    {% endif -%}
+    {%- if ability.cooldown -%}
+    "AbilityCooldown"                       "{{ ability.cooldown|join(' ') }}"
+    {% endif -%}
+    {%- if ability.cast_range_buffer -%}
+    "AbilityCastRangeBuffer"                "{{ ability.cast_range_buffer|join(' ') }}"
+    {% endif -%}
+    {%- if ability.channel_time -%}
+    "AbilityChannelTime"                    "{{ ability.channel_time|join(' ') }}"
+    {% endif -%}
+    {%- if ability.channel_mana_cost -%}
+    "AbilityChannelledManaCostPerSecond"    "{{ ability.channel_mana_cost|join(' ') }}"
+    {% endif -%}
+    {%- if ability.duration -%}
+    "AbilityDuration"                       "{{ ability.duration|join(' ') }}"
+    {% endif -%}
+
+    {%- if ability.mana_cost -%}
+    "AbilityManaCost"                       "{{ ability.mana_cost|join(' ') }}"
+    {% endif -%}
+    {%- if ability.gold_cost -%}
+    "AbilityGoldCost"                       "{{ ability.gold_cost|join(' ') }}"
+    {% endif -%}
+    {%- if ability.cooldown_group -%}
+    "AbilitySharedCooldown"                 "{{ ability.cooldown_group }}"
+    {% endif -%}
+    "AbilityProcsMagicStick"                "{{ ability.magic_stick }}"
+
+    // Upgrades
+    //------------------------------------------------------------------------------------------------------------------
+    "MaxUpgradeLevel"               "{{ item.max_level }}"
+    "ItemBaseLevel"                 "{{ item.base_level }}"
+    {% if item.max_level > 1 and item.base_level < item.max_level -%}
+    "UpgradesItems"                 "{{ item.base_class }}"
+    "UpgradeRecipe"                 "{{ item.lvl1Recipe.base_class }}"
+    {% endif %}
+
+    // Item Info
+    //------------------------------------------------------------------------------------------------------------------
+    "ItemCost"                      "{{ item.totalCost }}"
+    "ItemShopTags"                  "{{ item.shop_tags|join(' ') }}"
+    "ItemAliases"                   "{{ item.aliases|join(' ') }}"
+    "ItemQuality"                   "{{ item.quality }}"
+
+    "SideShop"                      "{{ item.shops.where('id', 2).count ? 1 : 0 }}"
+    "SecretShop"                    "{{ item.shops.where('id', 3).count ? 1 : 0 }}"
+
+    // Charges
+    //------------------------------------------------------------------------------------------------------------------
+    "ItemRequiresCharges"           "{{ item.needs_charges ? 1 : 0 }}"
+    "ItemInitialCharges"            "{{ item.start_charges ? 1 : 0 }}"
+    "ItemDisplayCharges"            "{{ item.show_charges  ? 1 : 0 }}"
+    "ItemDeclarations"              ""
+
+    // Misc
+    //------------------------------------------------------------------------------------------------------------------
+    "ItemShareability"              "{{ item.share }}"
+    "ItemKillable"                  "{{ item.is_killable    ? 1 : 0 }}"
+    "ItemSellable"                  "{{ item.is_sellable    ? 1 : 0 }}"
+    "ItemPurchasable"               "{{ item.is_purchasable ? 1 : 0 }}"
+    "ItemDroppable"                 "{{ item.is_droppable   ? 1 : 0 }}"
+    "ItemAlertable"                 "{{ item.is_alertable   ? 1 : 0 }}"
+
+    // Stats
+    //------------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
     {
-        // General
-        //------------------------------------------------------------------------------------------------------------------
-        "ID"                    "{{ item.dota_id }}"
-        "ItemPermanent"         "{{ item.is_permanent }}"
-        "ItemStackable"         "{{ item.max_stacks > 1 ? 1 : 0 }}"
-        "FightRecapLevel"       "{{ item.fight_recap }}"
-        "ItemDisassembleRule"   "{{ item.disassemble }}"
+        {%- for stat in item.stats %}
 
-        // Ability
-        //------------------------------------------------------------------------------------------------------------------
-        "AbilityBehavior"                       "{{ ability.behaviour|join(' | ') }}"
-        "AbilityTextureName"                    "{{ item.base_class }}"
-        {% if ability.target_team -%}
-        "AbilityUnitTargetTeam"                 "{{ ability.target_team|join(' | ') }}"
-        {% endif -%}
-        {%- if ability.target_type -%}
-        "AbilityUnitTargetType"                 "{{ ability.target_type|join(' | ') }}"
-        {% endif -%}
-        {%- if ability.target_flags -%}
-        "AbilityUnitTargetFlags"                "{{ ability.target_flags|join(' | ') }}"
-        {% endif -%}
-        {%- if ability.cast_range -%}
-        "AbilityCastRange"                      "{{ ability.cast_range|join(' ') }}"
-        {% endif -%}
-        {%- if ability.cast_point -%}
-        "AbilityCastPoint"                      "{{ ability.cast_point|join(' ') }}"
-        {% endif -%}
-        {%- if ability.cooldown -%}
-        "AbilityCooldown"                       "{{ ability.cooldown|join(' ') }}"
-        {% endif -%}
-        {%- if ability.cast_range_buffer -%}
-        "AbilityCastRangeBuffer"                "{{ ability.cast_range_buffer|join(' ') }}"
-        {% endif -%}
-        {%- if ability.channel_time -%}
-        "AbilityChannelTime"                    "{{ ability.channel_time|join(' ') }}"
-        {% endif -%}
-        {%- if ability.channel_mana_cost -%}
-        "AbilityChannelledManaCostPerSecond"    "{{ ability.channel_mana_cost|join(' ') }}"
-        {% endif -%}
-        {%- if ability.duration -%}
-        "AbilityDuration"                       "{{ ability.duration|join(' ') }}"
-        {% endif -%}
-
-        {%- if ability.mana_cost -%}
-        "AbilityManaCost"                       "{{ ability.mana_cost|join(' ') }}"
-        {% endif -%}
-        {%- if ability.gold_cost -%}
-        "AbilityGoldCost"                       "{{ ability.gold_cost|join(' ') }}"
-        {% endif -%}
-        {%- if ability.cooldown_group -%}
-        "AbilitySharedCooldown"                 "{{ ability.cooldown_group }}"
-        {% endif -%}
-        "AbilityProcsMagicStick"                "{{ ability.magic_stick }}"
-
-        // Upgrades
-        //------------------------------------------------------------------------------------------------------------------
-        "MaxUpgradeLevel"               "{{ item.max_level }}"
-        "ItemBaseLevel"                 "{{ item.base_level }}"
-        {% if item.max_level > 1 -%}
-        "UpgradesItems"                 "{{ item.base_class }}"
-        "UpgradeRecipe"                 "{{ item.recipe.base_class }}"
-        {% endif %}
-
-        // Item Info
-        //------------------------------------------------------------------------------------------------------------------
-        "ItemCost"                      "{{ item.totalCost }}"
-        "ItemShopTags"                  "{{ item.shop_tags|join(' ') }}"
-        "ItemAliases"                   "{{ item.aliases|join(' ') }}"
-        "ItemQuality"                   "{{ item.quality }}"
-
-        "SideShop"                      "{{ item.shops.where('id', 2).count ? 1 : 0 }}"
-        "SecretShop"                    "{{ item.shops.where('id', 3).count ? 1 : 0 }}"
-
-        // Charges
-        //------------------------------------------------------------------------------------------------------------------
-        "ItemRequiresCharges"           "{{ item.needs_charges ? 1 : 0 }}"
-        "ItemInitialCharges"            "{{ item.start_charges ? 1 : 0 }}"
-        "ItemDisplayCharges"            "{{ item.show_charges  ? 1 : 0 }}"
-        "ItemDeclarations"              ""
-
-        // Misc
-        //------------------------------------------------------------------------------------------------------------------
-        "ItemShareability"              "{{ item.share }}"
-        "ItemKillable"                  "{{ item.is_killable    ? 1 : 0 }}"
-        "ItemSellable"                  "{{ item.is_sellable    ? 1 : 0 }}"
-        "ItemPurchasable"               "{{ item.is_purchasable ? 1 : 0 }}"
-        "ItemDroppable"                 "{{ item.is_droppable   ? 1 : 0 }}"
-        "ItemAlertable"                 "{{ item.is_alertable   ? 1 : 0 }}"
-
-        // Stats
-        //------------------------------------------------------------------------------------------------------------------
-        "AbilitySpecial"
+        "{{ loop.index < 10 ? '0'~loop.index : loop.index }}"
         {
-            {%- for stat in item.stats %}
+            "var_type"                                              "{{ stat.var_type }}"
+            "{{ stat.dota_name }}"{{ generateSpaces(stat.dota_name, 54) }}"{{ stat.value|join(' ') }}"
+        }{{- loop.last ? '' : '\n' -}}
 
-            "{{ loop.index < 10 ? '0'~loop.index : loop.index }}"
-            {
-                "var_type"                                              "{{ stat.var_type }}"
-                "{{ stat.dota_name }}"{{ generateSpaces(stat.dota_name, 54) }}"{{ stat.value|join(' ') }}"
-            }{{- loop.last ? '' : '\n' -}}
+        {%- endfor %}
 
-            {%- endfor %}
-
-        }
     }
+}
 

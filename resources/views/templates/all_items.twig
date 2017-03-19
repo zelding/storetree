@@ -1,6 +1,7 @@
+{% for link in items %}
+#base '{{ link }}'
+{% endfor %}
+
 "DOTAItems"
 {
-{% for item in items %}
-    {% include "templates/item" with {item: item, ability: item.ability.first} -%}
-{% endfor -%}
 }

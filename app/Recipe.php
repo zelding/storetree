@@ -53,7 +53,7 @@ class Recipe extends Model
             if( $component->is_recipe ) {
                 //only upgradeable items should have their recipes listed in the requirements
                 if( $this->for->max_level > 1 ) {
-                    $array[] = $component->base_class;
+                    $array[] = $this->for->lvl1Recipe->base_class;
                 }
             }
             else {
