@@ -35,9 +35,17 @@
                 <a href="{{ route('abilities.index') }}">Abilities</a>
             </li>
 
-            <li class="{{ Route.currentRouteName == 'export.index' ? 'active' : '' }}">
-                <a href="{{ route('export.index') }}">Export</a>
-            </li>
+            {% if Auth.user.can('export') %}
+                <li class="{{ Route.currentRouteName == 'export.index' ? 'active' : '' }}">
+                    <a href="{{ route('export.index') }}">Export</a>
+                </li>
+            {% endif %}
+
+            {% if Auth.user.can('edit_users') %}
+                <li class="{{ Route.currentRouteName == 'users.index' ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}">Users</a>
+                </li>
+            {% endif %}
         </ul>
     </div>
 {% endblock %}

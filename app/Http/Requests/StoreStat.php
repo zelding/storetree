@@ -15,7 +15,7 @@ class StoreStat extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return Auth::user()->can('edit_stats');
     }
 
     /**

@@ -7,7 +7,7 @@
             <div class="page-header">
                 <h1>
                     Stats <small>list, create, add, modify, update</small>
-                    {% if Auth.check() %}
+                    {% if Auth.user.can('edit_stats') %}
                         <a href="{{ route('stats.create') }}" class="btn btn-success pull-right">
                             <i class="fa fa-plus"></i>
                             Add new
@@ -31,7 +31,9 @@
                                 <th>Class name</th>
                                 <th>Group</th>
                                 <th>Type</th>
+                                {% if Auth.user.can('edit_stats') %}
                                 <th>#</th>
+                                {% endif %}
                             </tr>
                         </thead>
 
@@ -43,11 +45,13 @@
                                     <td>{{ stat.dota_name }}</td>
                                     <td>{{ stat.stat_group }}</td>
                                     <td>{{ stat.var_type }}</td>
-                                    <td>
+                                    {% if Auth.user.can('edit_stats') %}
+                                        <td>
                                         <a href="{{ route('stats.show', {'id': stat.id}) }}" class="btn btn-warning btn-sm btn-block">
                                             <i class="fa fa-window-maximize"></i>&nbsp;Edit
                                         </a>
                                     </td>
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
                         </tbody>

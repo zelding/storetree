@@ -31,6 +31,7 @@ Route::group(['prefix' => 'storetree'], function() {
     Route::resource('stats', 'StatController');
     Route::resource('abilities', 'AbilityController');
     Route::resource('scripts', 'ScriptController');
+    Route::resource('users', 'UserController');
 
     Route::group(['prefix' => 'items/{id}'], function () {
         Route::group(['middleware' => 'utf16'], function () {
@@ -61,6 +62,8 @@ Route::group(['prefix' => 'storetree'], function() {
         Route::get('related/{id}', 'BuildController@listRelated')->name('builds.related');
     });
 
-    Route::get('export', 'ExportController@index')->name('export.index');
-    Route::post('export', 'ExportController@run')->name('export.run');
+    Route::group(['middleware' => 'permission:export'], function () {
+        Route::get('export', 'ExportController@index')->name('export.index');
+        Route::post('export', 'ExportController@run')->name('export.run');
+    });
 });

@@ -24,7 +24,7 @@ class StoreAbility extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return Auth::user()->can('edit_abilities');
     }
 
     /**

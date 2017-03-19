@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Ability;
 use App\Item;
-use App\ItemLocale;
+use App\Permission;
 use App\Shop;
 use App\Stat;
 use App\Utils\Constants;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller

@@ -17,12 +17,12 @@
                 <div class="col-lg-12">
                     <h2>
                         This is what we know
-                        {% if Auth.check() %}
+                        {% if Auth.user.can('edit_item_data') %}
                             <button id="deleteButton" class="btn btn-danger btn-sm pull-right">Delete</button>
                             <a href="{{ route('items.copy', {id: item.id}) }}" class="btn btn-success">Copy</a>
                         {% endif %}
                     </h2>
-                    {% if Auth.check() %}
+                    {% if Auth.user.can('delete') %}
                     <form id="deleteForm" action="{{ route('items.destroy', {id: item.id}) }}" method="post">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
@@ -30,7 +30,6 @@
                     {% endif %}
                 </div>
             </div>
-
 
             <div class="row">
                 <!-- Left side -->
@@ -72,27 +71,27 @@
                                     </ul>
                                 </div>
 
-                                {% if Auth.check() %}
-                                    <div class="panel-footer">
-                                        <div class="row">
+                                <div class="panel-footer">
+                                    <div class="row">
+                                        {% if Auth.user.can('edit_items_data') %}
                                             <div class="col-lg-2">
                                                 <a href="{{ route('items.edit', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
                                             </div>
+                                        {% endif %}
 
-                                            <div class="col-lg-2 col-lg-offset-6">
-                                                <a class="btn btn-warning btn-sm" href="{{ route('item.tooltip', {id: item.id}) }}" target="_blank">
-                                                    tooltip.txt
-                                                </a>
-                                            </div>
+                                        <div class="col-lg-2 col-lg-offset-6">
+                                            <a class="btn btn-warning btn-sm" href="{{ route('item.tooltip', {id: item.id}) }}" target="_blank">
+                                                tooltip.txt
+                                            </a>
+                                        </div>
 
-                                            <div class="col-lg-2">
-                                                <a class="btn btn-warning btn-sm pull-right" href="{{ route('item.lua', {id: item.id}) }}" target="_blank">
-                                                    item.txt
-                                                </a>
-                                            </div>
+                                        <div class="col-lg-2">
+                                            <a class="btn btn-warning btn-sm pull-right" href="{{ route('item.lua', {id: item.id}) }}" target="_blank">
+                                                item.txt
+                                            </a>
                                         </div>
                                     </div>
-                                {% endif %}
+                                </div>
                             </div>
                         </div>
 
@@ -126,7 +125,7 @@
                                     </div>
                                 </div>
 
-                                {% if Auth.check() %}
+                                {% if Auth.user.can('edit_item_locale') %}
                                     <div class="panel-footer">
                                         <div class="row">
                                             <div class="col-lg-2">
@@ -204,7 +203,7 @@
                                         {% endfor %}
                                     </div>
 
-                                    {% if Auth.check() %}
+                                    {% if Auth.user.can('edit_item_data') %}
                                         <div class="panel-footer">
                                             <div class="row">
                                                 <div class="col-lg-2">
@@ -271,7 +270,7 @@
                                         </dl>
                                     </div>
 
-                                    {% if Auth.check() %}
+                                    {% if Auth.user.can('edit_item_stats') %}
                                         <div class="panel-footer">
                                             <div class="row">
                                                 <div class="col-lg-2">
@@ -328,7 +327,7 @@
                                     </div>
                                 </div>
 
-                                {% if Auth.check() %}
+                                {% if Auth.user.can('edit_item_abilities') %}
                                     <div class="panel-footer">
                                         <div class="row">
                                             <div class="col-lg-2">

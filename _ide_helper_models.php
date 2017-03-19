@@ -28,6 +28,7 @@ namespace App{
  * @method static \Illuminate\Database\Query\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Role[] $roles
  */
 	class User extends \Eloquent {}
 }
@@ -50,6 +51,27 @@ namespace App{
  * @property-read string[] $components_string
  */
 	class Recipe extends \Eloquent {}
+}
+
+namespace App{
+/**
+ * App\Permission
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $display_name
+ * @property string $description
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Role[] $roles
+ * @method static \Illuminate\Database\Query\Builder|\App\Permission whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Permission whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Permission whereDisplayName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Permission whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Permission whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Permission whereUpdatedAt($value)
+ */
+	class Permission extends \Eloquent {}
 }
 
 namespace App{
@@ -102,35 +124,6 @@ namespace App{
 
 namespace App{
 /**
- * App\ItemLocale
- *
- * @property int $id
- * @property bool $language_id
- * @property int $item_id
- * @property string $name
- * @property string $description
- * @property string $lore
- * @property string $note
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \App\Item $item
- * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereDescription($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereItemId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereLanguageId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereLore($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereNote($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property-read string $printable_desc
- */
-	class ItemLocale extends \Eloquent {}
-}
-
-namespace App{
-/**
  * App\Item
  *
  * @property int $id
@@ -147,6 +140,7 @@ namespace App{
  * @property bool $is_purchasable
  * @property bool $is_droppable
  * @property bool $in_backpack
+ * @property bool $is_override
  * @property string $name
  * @property string $description
  * @property int $cost
@@ -167,6 +161,7 @@ namespace App{
  * @property string $script
  * @property array $shop_tags
  * @property array $aliases
+ * @property null|Item $lvl1Recipe
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $buildsInto
@@ -224,7 +219,9 @@ namespace App{
  * @property-read ItemLocale $selected_locale
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\ItemLocale[] $locale
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereDisassemble($value)
+ * @property-read null|Item $lvl1_recipe
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereAliases($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsOverride($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereScript($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereShopTags($value)
  */
@@ -258,6 +255,7 @@ namespace App{
  * @property array $channel_mana_cost
  * @property array $duration
  * @property string $cooldown_group
+ * @property bool $is_override
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @method static \Illuminate\Database\Query\Builder|\App\Ability whereBaseClass($value)
@@ -289,6 +287,59 @@ namespace App{
  * @property bool $magic_stick
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $items
  * @method static \Illuminate\Database\Query\Builder|\App\Ability whereMagicStick($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ability whereIsOverride($value)
  */
 	class Ability extends \Eloquent {}
 }
+
+namespace App{
+/**
+ * App\Role
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $display_name
+ * @property string $description
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Permission[] $perms
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @method static \Illuminate\Database\Query\Builder|\App\Role whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Role whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Role whereDisplayName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Role whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Role whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Role whereUpdatedAt($value)
+ */
+	class Role extends \Eloquent {}
+}
+
+namespace App{
+/**
+ * App\ItemLocale
+ *
+ * @property int $id
+ * @property bool $language_id
+ * @property int $item_id
+ * @property string $name
+ * @property string $description
+ * @property string $lore
+ * @property string $note
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Item $item
+ * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereItemId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereLanguageId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereLore($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereNote($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ItemLocale whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @property-read string $printable_desc
+ */
+	class ItemLocale extends \Eloquent {}
+}
+
