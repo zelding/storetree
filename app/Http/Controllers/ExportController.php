@@ -46,14 +46,13 @@ class ExportController extends Controller
         $newItems      = [];
         $overrideItems = [];
 
-        // TODO: generate separate files always, link them in the main file with #base <path>
-
         if ( empty($items) || (!$createFiles && !$createTrans) ) {
             return redirect(route('export.index'))->with('warning', 'Pick something');
         }
 
         $models = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats', 'ability')
             ->whereIn('id', $items)
+            ->where('is_override', false)
             ->orderBy('dota_id')
             ->get();
 

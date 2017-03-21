@@ -73,7 +73,7 @@
 
                                 <div class="panel-footer">
                                     <div class="row">
-                                        {% if Auth.user.can('edit_items_data') %}
+                                        {% if Auth.user.can('edit_item_data') %}
                                             <div class="col-lg-2">
                                                 <a href="{{ route('items.edit', {id: item.id}) }}" class="btn btn-primary btn-sm">Edit</a>
                                             </div>
