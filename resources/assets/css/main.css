@@ -6,6 +6,7 @@
 
 body {
     overflow-x: hidden;
+    font-family: 'Raleway', sans-serif;
 }
 
 /* Toggle Styles */
@@ -50,6 +51,10 @@ body {
 #wrapper.toggled #page-content-wrapper {
     position: absolute;
     margin-right: -250px;
+}
+
+#page-content-wrapper > .container-fluid {
+    padding-left: 0;
 }
 
 /* Sidebar Styles */
@@ -98,6 +103,29 @@ body {
 .sidebar-nav > .sidebar-brand a:hover {
     color: #fff;
     background: none;
+}
+
+#top-bar {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(100% - 250px);
+    z-index: 1000;
+}
+
+#top-bar .links a, #top-bar .links button.btn-link {
+    color: #636b6f;
+    padding: 0 25px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+#greeting {
+    padding-left: 5px;
 }
 
 @media(min-width:768px) {

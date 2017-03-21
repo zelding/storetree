@@ -17,6 +17,7 @@
         <link href="{{ asset('css/datatables-bootstrap3.css') }}" rel="stylesheet">
         {#<link href="{{ asset('css/mat.min.css') }}" rel="stylesheet">#}
         <link rel="stylesheet" href="{{ asset('css/_all.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
         {% block styleSheets %}
         {% endblock %}
@@ -35,13 +36,13 @@
             {% endblock %}
 
                 <div class="container-fluid">
-                    <div class="row">
+                    <div id="top-bar" class="row">
                         {% if Auth.check() %}
-                        <div class="col-lg-4">
-                            Hey {{ Auth.user.name }}! you are <strong>{{ Auth.user.roles.first.display_name }}</strong>
+                        <div id="greeting" class="col-lg-4">
+                            Hey {{ Auth.user.name }}! you are <strong>{{ Auth.user.roles.pluck('display_name')|join(', ') }}</strong>
                         </div>
                         {% endif %}
-                        <div class="col-lg-4 col-md-4 col-sm-12 pull-right">
+                        <div class="col-lg-4 col-md-4 col-sm-12 links pull-right">
                             {% if Auth.Check() %}
                                 <form action="{{ route('logout') }}" method="post">
                                     <button type="submit" title="what do you think?" class="btn btn-link pull-right">Getout</button>
@@ -55,10 +56,7 @@
 
                         <div class="col-lg-8">
                             <div class="row">
-                                <div class="col-lg-12">
-                                </div>
-                            </div>
-                            <div class="row">
+                                {% if errors|length or Session.get('success') or Session.get('warning') %}
                                 <div class="col-lg-12">
                                     <div class="alert" role="alert">
                                         {% include 'messages/header/errors.twig' %}
@@ -66,6 +64,7 @@
                                         {% include 'messages/header/messages.twig' %}
                                     </div>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

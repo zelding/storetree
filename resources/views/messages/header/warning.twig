@@ -1,7 +1,7 @@
 {% set warning = Session.get('warning') %}
 
 {% if warning %}
-    <button class="btn btn-warning" type="button"
+    <button class="btn btn-warning pull-right" type="button"
             data-toggle="popover" data-placement="bottom"
             title="Here is where you are wrong"
             data-content="{{ warning }}">

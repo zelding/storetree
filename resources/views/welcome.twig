@@ -1,7 +1,6 @@
 {% extends 'layouts/layout.twig' %}
 
 {% block styleSheets %}
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <style>
         html, body {
             background-color: #fff;
@@ -58,25 +57,13 @@
 
 {% block content %}
     <div class="flex-center position-ref full-height">
-        {% if hasAuth %}
-            <div class="top-right links">
-                {% if Auth.check() %}
-                    <a href="{{ route('home') }}">Home</a>
-                {% else %}
-                    <a href="{{ route('login') }}">Login</a>
-
-                    {#<a href="{{ url('/register') }}">Register</a>#}
-                {% endif %}
-                <a href="{{ route('storetree') }}">StoreTree</a>
-            </div>
-        {% endif %}
-
         <div class="content">
             <div class="title m-b-md">{{ config('app.name') }}</div>
 
             <div class="links">
                 <a title="My Github profile" target="_blank" href="https://github.com/zelding">GitHub</a>
                 <a title="My Stack overflow profile" target="_blank" href="http://stackoverflow.com/users/4308297/zedling">Stack overflow</a>
+                <a href="{{ route('storetree') }}">StoreTree</a>
             </div>
         </div>
     </div>
