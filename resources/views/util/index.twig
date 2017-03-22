@@ -15,20 +15,20 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h4>Free dota ID's in <code>2000..4000</code> range</h4>
-
-                    {% for range in freeIDs %}
-                        <span class="range">
-                        {% if range|length < 2 %}
-                            {{ range|first }}
-                        {% else %}
-                            {{ range|first }}..{{ range|last }}
-                        {% endif %}
-                        </span>
-
-                        {%- if not loop.last -%}
-                            {{- ',&nbsp;' -}}
-                        {%- endif -%}
-                    {% endfor %}
+                    {% spaceless %}
+                        {% for range in freeIDs %}
+                            <span class="range">
+                                {% if range|length < 2 %}
+                                    {{ range|first }}
+                                {% else %}
+                                    {{ range|first }}&hellip;{{ range|last }}
+                                {% endif %}
+                            </span>
+                            {% if not loop.last %}
+                                {{ '|&nbsp;' }}
+                            {% endif %}
+                        {% endfor %}
+                    {% endspaceless %}
                 </div>
             </div>
         </div>
