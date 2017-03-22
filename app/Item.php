@@ -4,6 +4,8 @@ namespace App;
 
 use App\Utils\StatPivot;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * App\Item
@@ -46,62 +48,63 @@ use Illuminate\Database\Eloquent\Model;
  * @property null|Item $lvl1Recipe
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $buildsInto
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $components
+ * @property-read \Illuminate\Database\Eloquent\Collection|Item[] $buildsInto
+ * @property-read \Illuminate\Database\Eloquent\Collection|Item[] $components
  * @property-read int $components_cost
  * @property-read int $total_cost
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Shop[] $shops
- * @method static \Illuminate\Database\Query\Builder|\App\Item find($id)
- * @method static \Illuminate\Database\Query\Builder|\App\Item findOrFail($id)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereAlertText($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereBaseClass($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereBaseLevel($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereCost($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereDescription($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereDotaId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereFightRecap($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereInBackpack($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsAlertable($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsAutocast($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsBaseItem($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsBossItem($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsConsumable($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsDroppable($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsKillable($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsPurchasable($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsRecipe($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsSellable($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereMaxLevel($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereModel($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereNeedsCharges($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereQuality($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereShare($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereShowCharges($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereStackSize($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereStartCharges($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereStockInitial($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereStockMax($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereStockTime($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|Shop[] $shops
+ * @method static Builder|Item find($id)
+ * @method static Builder|Item findOrFail($id)
+ * @method static Builder|Item whereAlertText($value)
+ * @method static Builder|Item whereBaseClass($value)
+ * @method static Builder|Item whereBaseLevel($value)
+ * @method static Builder|Item whereCost($value)
+ * @method static Builder|Item whereCreatedAt($value)
+ * @method static Builder|Item whereDescription($value)
+ * @method static Builder|Item whereDotaId($value)
+ * @method static Builder|Item whereFightRecap($value)
+ * @method static Builder|Item whereId($value)
+ * @method static Builder|Item whereInBackpack($value)
+ * @method static Builder|Item whereIsAlertable($value)
+ * @method static Builder|Item whereIsAutocast($value)
+ * @method static Builder|Item whereIsBaseItem($value)
+ * @method static Builder|Item whereIsBossItem($value)
+ * @method static Builder|Item whereIsConsumable($value)
+ * @method static Builder|Item whereIsDroppable($value)
+ * @method static Builder|Item whereIsKillable($value)
+ * @method static Builder|Item whereIsPurchasable($value)
+ * @method static Builder|Item whereIsRecipe($value)
+ * @method static Builder|Item whereIsSellable($value)
+ * @method static Builder|Item whereMaxLevel($value)
+ * @method static Builder|Item whereModel($value)
+ * @method static Builder|Item whereName($value)
+ * @method static Builder|Item whereNeedsCharges($value)
+ * @method static Builder|Item whereQuality($value)
+ * @method static Builder|Item whereShare($value)
+ * @method static Builder|Item whereShowCharges($value)
+ * @method static Builder|Item whereStackSize($value)
+ * @method static Builder|Item whereStartCharges($value)
+ * @method static Builder|Item whereStockInitial($value)
+ * @method static Builder|Item whereStockMax($value)
+ * @method static Builder|Item whereStockTime($value)
+ * @method static Builder|Item whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property bool $is_permanent
  * @property-read string $dota_class
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Recipe[] $recipes
+ * @property-read \Illuminate\Database\Eloquent\Collection|Recipe[] $recipes
  * @property-write mixed $class
- * @property \Illuminate\Database\Eloquent\Collection|\App\Stat[] $stats
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Recipe[] $usedInRecipes
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsPermanent($value)
+ * @property \Illuminate\Database\Eloquent\Collection|Stat[] $stats
+ * @property-read \Illuminate\Database\Eloquent\Collection|Recipe[] $usedInRecipes
+ * @method static \Illuminate\Database\Query\Builder|Item whereIsPermanent($value)
  * @property string $disassemble
  * @property array $declarations
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Ability[] $ability
+ * @property-read \Illuminate\Database\Eloquent\Collection|Ability[] $ability
  * @property-read string $printable_desc
  * @property-read null|Recipe $recipe
  * @property-read ItemLocale $selected_locale
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\ItemLocale[] $locale
- * @method static \Illuminate\Database\Query\Builder|\App\Item whereDisassemble($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|ItemLocale[] $locale
+ * @method static \Illuminate\Database\Query\Builder|Item whereDisassemble($value)
+ * @method Builder exportRequest(Request $request)
  */
 class Item extends Model
 {
@@ -136,6 +139,7 @@ class Item extends Model
         'declarations'      => 'array'
     ];
 
+    #region Relations
     /**
      * Recipes that build this item;
      *
@@ -194,7 +198,9 @@ class Item extends Model
     {
         return $this->belongsToMany(Ability::class);
     }
+    #endregion
 
+    #region Custom Attributes
     /**
      * @return null|Item
      */
@@ -325,5 +331,21 @@ class Item extends Model
         }
 
         return $locale;
+    }
+    #endregion
+
+    /**
+     * @param Builder $query
+     * @param Request $request
+     *
+     * @return Builder
+     */
+    public function scopeExportRequest($query, Request $request)
+    {
+        $override = $request->get('override') ?? false;
+
+        $query->where('is_override', $override);
+
+        return $query;
     }
 }

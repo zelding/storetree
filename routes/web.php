@@ -66,4 +66,8 @@ Route::group(['prefix' => 'storetree'], function() {
         Route::get('export', 'ExportController@index')->name('export.index');
         Route::post('export', 'ExportController@run')->name('export.run');
     });
+
+    Route::group(['prefix' => 'utils'], function () {
+        Route::get('/', 'UtilsController@index')->name('utils.index');
+    });
 });

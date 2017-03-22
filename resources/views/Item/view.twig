@@ -54,6 +54,8 @@
                                         <dt>Aliases</dt><dd>{{ item.aliases|join(', ') }}</dd>
                                         <dt>Shop tags</dt><dd>{{ item.shop_tags|join(', ') }}</dd>
                                         <dt>Override</dt><dd>{{ item.is_override ? 'Yes' : 'No' }}</dd>
+                                        <dt>Declarations</dt><dd>{{ item.declarations|join(', ') }}</dd>
+                                        <dt>Disassembly</dt><dd>{{ item.disassemble == 'DOTA_ITEM_DISASSEMBLE_ALWAYS' ? 'Yes' : 'No' }}</dd>
                                     </dl>
 
                                     <p>Shops</p>

@@ -46,6 +46,10 @@
                     <a href="{{ route('users.index') }}">Users</a>
                 </li>
             {% endif %}
+
+            <li class="{{ Route.currentRouteName == 'utils.index' ? 'active' : '' }}">
+                <a href="{{ route('utils.index') }}">Utilities</a>
+            </li>
         </ul>
     </div>
 {% endblock %}
