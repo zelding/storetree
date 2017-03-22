@@ -122,4 +122,18 @@
             </div>
         </div>
     </div>
+
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label class="control-label col-lg-1" for="declarations">Item declarations</label>
+            <div class="col-lg-11">
+                <select id="declarations" name="declarations[]" multiple class="form-control select2">
+                    {% for d in declarations %}
+                        {% set selected = (d in item.declarations or d in requlest.declarations) ? ' selected' : '' %}
+                        <option value="{{ d }}"{{ selected }}>{{ d }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
 </div>

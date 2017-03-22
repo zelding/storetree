@@ -10,6 +10,7 @@
 
 namespace App\Service;
 use App\Item;
+use App\Utils\Constants;
 use Illuminate\Http\Request;
 
 class ItemService
@@ -73,11 +74,11 @@ class ItemService
         $item->max_level     = $request->get('max_level') ?? 1;
         $item->stack_size    = $request->get('stack_size') ?? 1;
         $item->start_charges = $request->get('start_charges') ?? 0;
-        $item->alert_text    = $request->get('alert_text');
+        $item->alert_text    = $request->get('alert_text') ?? null;
         $item->model         = $request->get('model');
         $item->fight_recap   = $request->get('fight_recap') ?? 0;
-        $item->quality       = $request->get('quality');
-        $item->share         = $request->get('share');
+        $item->quality       = $request->get('quality') ?? Constants::$itemQuality[2];
+        $item->share         = $request->get('share') ?? Constants::$shareable[0];
         $item->is_killable   = $request->get('is_killable') ?? 0;
         $item->is_sellable   = $request->get('is_sellable') ?? 0;
         $item->is_droppable  = $request->get('is_droppable') ?? 0;
@@ -89,6 +90,8 @@ class ItemService
         $item->is_autocast   = $request->get('is_autocast') ?? 0;
         $item->shop_tags     = $request->get('shop_tags') ?? [];
         $item->aliases       = $request->get('aliases') ?? [];
+        $item->disassemble   = $request->get('disassemble') ?? Constants::$disassemble[0];
+        $item->declarations  = $request->get('declarations') ?? null;
 
         return $item;
     }

@@ -114,6 +114,18 @@
                 </select>
             </div>
         </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-4" for="item-disassembly">Disassembly</label>
+            <div class="col-lg-8" data-toggle="tooltip" title="Can be disassembled any time?">
+                <select id="item-disassembly" name="disassemble" class="form-control">
+                    {% for d in disassembly %}
+                        {% set selected = (request.disassemble ?? item.disassemble) == d ? 'selected="selected"' %}
+                        <option value="{{ d }}" {{ selected }}>{{ d }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
     </div>
 
     <div class="col-lg-4">

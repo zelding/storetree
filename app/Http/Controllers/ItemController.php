@@ -76,7 +76,9 @@ class ItemController extends Controller
             'request'       => $request->old(),
             'currentShops'  => [],
             'qualityLevels' => Constants::$itemQuality,
-            'shareFlags'    => Constants::$shareable
+            'shareFlags'    => Constants::$shareable,
+            'disassembly'   => Constants::$disassemble,
+            'declarations'  => Constants::$declaration
         ]);
     }
 
@@ -229,7 +231,9 @@ class ItemController extends Controller
             "item"          => $item,
             'currentShops'  => $currentShops,
             'qualityLevels' => Constants::$itemQuality,
-            'shareFlags'    => Constants::$shareable
+            'shareFlags'    => Constants::$shareable,
+            'disassembly'   => Constants::$disassemble,
+            'declarations'  => Constants::$declaration
         ]);
     }
 

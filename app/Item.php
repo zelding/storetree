@@ -95,6 +95,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Recipe[] $usedInRecipes
  * @method static \Illuminate\Database\Query\Builder|\App\Item whereIsPermanent($value)
  * @property string $disassemble
+ * @property array $declarations
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Ability[] $ability
  * @property-read string $printable_desc
  * @property-read null|Recipe $recipe
@@ -131,7 +132,8 @@ class Item extends Model
         'is_permanent'      => 'boolean',
 
         'shop_tags'         => 'array',
-        'aliases'           => 'array'
+        'aliases'           => 'array',
+        'declarations'      => 'array'
     ];
 
     /**
