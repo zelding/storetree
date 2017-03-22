@@ -52,7 +52,7 @@ class ExportController extends Controller
 
         $models = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats', 'ability')
             ->whereIn('id', $items)
-            ->exportRequest($request)
+            //->exportRequest($request)
             ->orderBy('dota_id')
             ->get();
 
