@@ -25,6 +25,31 @@ class UtilsController extends Controller
         ]);
     }
 
+    public function csv()
+    {
+        $items = Item::with('recipes', 'stats', 'ability')
+            ->orderBy('is_override', 'DESC')
+            ->orderBy('dota_id')
+            ->get();
+
+        $data = [];
+
+        foreach($items as $item) {
+            $data[] = [
+                'override'    => $item->is_override,
+                'item_id'     => $item->dota_id,
+                'site_id'     => $item->id,
+                'class_name'  => $item->base_class,
+                'name'        => $item->name,
+                'has_recipes' => $item->recipes->count() > 0,
+                'has_stats'   => $item->stats->count() > 0,
+                'has_ability' => $item->ability->count() > 0
+            ];
+        }
+
+        return response()->json($data);
+    }
+
     /**
      * @return int[]
      */

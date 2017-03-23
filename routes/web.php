@@ -69,5 +69,6 @@ Route::group(['prefix' => 'storetree'], function() {
 
     Route::group(['prefix' => 'utils'], function () {
         Route::get('/', 'UtilsController@index')->name('utils.index');
+        Route::get('/csv', 'UtilsController@csv')->name('utils.csv');
     });
 });
