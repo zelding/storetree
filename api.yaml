@@ -1,0 +1,281 @@
+swagger: '2.0'
+info:
+  title: Storetree API
+  description: Site that manages items for dota2
+  version: "0.5.2"
+# the domain of the service
+host: lyozsi.net
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /api/v1
+
+consumes:
+  - application/json
+
+produces:
+  - application/json
+
+parameters:
+  token:
+    name: token
+    type: string
+    in: query
+
+paths:
+  /items:
+    get:
+      summary: Product Types
+      description: get an Item by dota_id
+      parameters:
+        -
+          $ref: '#/parameters/token'
+      responses:
+        200:
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Item'
+        204:
+          description: No results for the query
+    post:
+      summary: create a new item
+      parameters:
+        -
+          $ref: '#/parameters/token'
+        - name: dota_id
+          description: unique dota id
+          in: formData
+          type: integer
+          required: true
+
+        - name: base_class
+          description: unique dota class name
+          in: formData
+          type: string
+          required: true
+
+        - name: name
+          description: unique readable name
+          in: formData
+          type: string
+          required: true
+
+        - name: description
+          description: description for the item
+          in: formData
+          type: string
+
+        - name: cost
+          in:   formData
+          type: integer
+
+        - name: base_level
+          in:   formData
+          type: integer
+
+        - name: max_level
+          in:   formData
+          type: integer
+
+        - name: stack_size
+          in: formData
+          type: integer
+
+        - name: fight_recap
+          in: formData
+          type: integer
+
+        - name: quality
+          in: formData
+          type: string
+          enum:
+            - consumable
+            - component
+            - common
+            - rare
+            - epic
+            - artifact
+
+        - name: share
+          in: formData
+          type: string
+          enum:
+            - ITEM_NOT_SHAREABLE
+            - ITEM_PARTIALLY_SHAREABLE
+            - ITEM_FULLY_SHAREABLE
+            - ITEM_FULLY_SHAREABLE_STACKING
+
+        - name: stock_max
+          in: formData
+          type: integer
+
+        - name: stock_time
+          in: formData
+          type: integer
+
+        - name: stock_initial
+          in: formData
+          type: integer
+
+        - name: is_consumable
+          in:   formData
+          type: boolean
+
+        - name: is_base_item
+          in:   formData
+          type: boolean
+
+        - name: is_boss_item
+          in:   formData
+          type: boolean
+
+        - name: is_recipe
+          in: formData
+          type: boolean
+
+        - name: is_killable
+          in: formData
+          type: boolean
+
+        - name: is_sellable
+          in: formData
+          type: boolean
+
+        - name: is_purchasable
+          in: formData
+          type: boolean
+
+        - name: is_droppable
+          in: formData
+          type: boolean
+
+        - name: in_backpack
+          in: formData
+          type: boolean
+
+        - name: needs_charges
+          in: formData
+          type: boolean
+
+        - name: show_charges
+          in: formData
+          type: boolean
+
+        - name: start_charges
+          in: formData
+          type: integer
+
+        - name: is_autocast
+          in: formData
+          type: boolean
+
+        - name: is_alertable
+          in: formData
+          type: boolean
+
+        - name: is_permanent
+          in: formData
+          type: boolean
+
+        - name: is_override
+          in: formData
+          type: boolean
+
+        - name: alert_text
+          in: formData
+          type: string
+
+        - name: disassemble
+          in: formData
+          type: string
+          enum:
+            - DOTA_ITEM_DISASSEMBLE_NEVER
+            - DOTA_ITEM_DISASSEMBLE_ALWAYS
+        - name: script
+          in: formData
+          type: string
+
+        - name: shop_tags
+          in: formData
+          type: array
+          items:
+            type: string
+
+        - name: aliases
+          in: formData
+          type: array
+          items:
+            type: string
+
+        - name: declarations
+          in: formData
+          type: array
+          items:
+            type: string
+            enum:
+              - DECLARE_PURCHASES_TO_TEAMMATES
+              - DECLARE_PURCHASES_IN_SPEECH
+              - DECLARE_PURCHASES_TO_SPECTATORS
+      responses:
+        201:
+          description: Item created
+          schema:
+            $ref: '#/definitions/Item'
+        406:
+          description: Missing required property
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Some property is not unique
+          schema:
+            $ref: '#/definitions/Error'
+
+  /items/{dota_id}:
+    get:
+      summary: Get Item data
+      parameters:
+        - name: dota_id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Item found
+          schema:
+            $ref: '#/definitions/Item'
+        404:
+          description: Missing required parameter
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Item:
+    type: object
+    properties:
+      product_id:
+        type: string
+        description: Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.
+      description:
+        type: string
+        description: Description of product.
+      display_name:
+        type: string
+        description: Display name of product.
+      capacity:
+        type: string
+        description: Capacity of product. For example, 4 people.
+      image:
+        type: string
+        description: Image URL representing the product.
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
