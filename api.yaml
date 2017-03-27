@@ -44,7 +44,9 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Item'
+              enum:
+              - $ref: '#/definitions/Item'
+              - $ref: '#/definitions/SimpleItem'
         204:
           description: No results for the query
           schema:
@@ -258,7 +260,9 @@ paths:
         200:
           description: Item found
           schema:
-            $ref: '#/definitions/Item'
+            enum:
+              - $ref: '#/definitions/Item'
+              - $ref: '#/definitions/SimpleItem'
         404:
           description: Missing required parameter
           schema:
@@ -830,6 +834,21 @@ definitions:
         items:
           #ref ItemLocale
           type: object
+
+  SimpleItem:
+    type: object
+    required:
+      - dota_id
+      - base_class
+    properties:
+      id:
+        type: integer
+      dota_id:
+        type: integer
+      base_class:
+        type: string
+      name:
+        type: string
 
   Stat:
     type: object
