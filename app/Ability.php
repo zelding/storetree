@@ -75,6 +75,7 @@ class Ability extends Model
         'deny_self_cast' => 'boolean',
         'cast_hidden'    => 'boolean',
         'magic_stick'    => 'boolean',
+        'is_override'    => 'boolean',
 
         'behaviour'         => 'array',
         'target_team'       => 'array',

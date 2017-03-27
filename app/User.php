@@ -14,6 +14,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  * @property string $email
  * @property string $password
  * @property string $remember_token
+ * @property string|null $api_token
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
@@ -49,6 +50,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'api_token'
     ];
+
+    /**
+     * @return string
+     */
+    public function getApiAuthIdentifier()
+    {
+        return $this->api_token;
+    }
 }

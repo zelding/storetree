@@ -89,6 +89,9 @@ class ItemService
         $item->is_alertable  = $request->get('is_alertable') ?? 0;
         $item->is_autocast   = $request->get('is_autocast') ?? 0;
         $item->shop_tags     = $request->get('shop_tags') ?? [];
+        $item->stock_max     = $request->get('stock_max') ?? 0;
+        $item->stock_initial = $request->get('stock_initial') ?? 0;
+        $item->stock_time    = $request->get('stock_time') ?? 0;
         $item->aliases       = $request->get('aliases') ?? [];
         $item->disassemble   = $request->get('disassemble') ?? Constants::$disassemble[0];
         $item->declarations  = $request->get('declarations') ?? null;

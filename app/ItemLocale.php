@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\ItemLocale
  *
  * @property int $id
- * @property bool $language_id
+ * @property int $language_id
  * @property int $item_id
  * @property string $name
  * @property string $description

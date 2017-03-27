@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.15 on 2017-03-18.
+ * Generated for Laravel 5.4.16 on 2017-03-27.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -1082,6 +1082,20 @@ namespace Illuminate\Support\Facades {
         {
             //Method inherited from \Illuminate\Container\Container            
             return \Illuminate\Foundation\Application::factory($abstract);
+        }
+        
+        /**
+         * Resolve the given type with the given parameter overrides.
+         *
+         * @param string $abstract
+         * @param array $parameters
+         * @return mixed 
+         * @static 
+         */
+        public static function makeWith($abstract, $parameters)
+        {
+            //Method inherited from \Illuminate\Container\Container            
+            return \Illuminate\Foundation\Application::makeWith($abstract, $parameters);
         }
         
         /**
@@ -2672,7 +2686,29 @@ namespace Illuminate\Support\Facades {
          */
         public static function flush()
         {
-            return \Illuminate\Cache\ArrayStore::flush();
+            return \Illuminate\Cache\FileStore::flush();
+        }
+        
+        /**
+         * Get the Filesystem instance.
+         *
+         * @return \Illuminate\Filesystem\Filesystem 
+         * @static 
+         */
+        public static function getFilesystem()
+        {
+            return \Illuminate\Cache\FileStore::getFilesystem();
+        }
+        
+        /**
+         * Get the working directory of the cache.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getDirectory()
+        {
+            return \Illuminate\Cache\FileStore::getDirectory();
         }
         
         /**
@@ -2683,7 +2719,7 @@ namespace Illuminate\Support\Facades {
          */
         public static function getPrefix()
         {
-            return \Illuminate\Cache\ArrayStore::getPrefix();
+            return \Illuminate\Cache\FileStore::getPrefix();
         }
         
     }         
@@ -2939,86 +2975,6 @@ namespace Illuminate\Support\Facades {
         public static function getQueuedCookies()
         {
             return \Illuminate\Cookie\CookieJar::getQueuedCookies();
-        }
-        
-    }         
-
-    class Crypt {
-        
-        /**
-         * Determine if the given key and cipher combination is valid.
-         *
-         * @param string $key
-         * @param string $cipher
-         * @return bool 
-         * @static 
-         */
-        public static function supported($key, $cipher)
-        {
-            return \Illuminate\Encryption\Encrypter::supported($key, $cipher);
-        }
-        
-        /**
-         * Encrypt the given value.
-         *
-         * @param mixed $value
-         * @param bool $serialize
-         * @return string 
-         * @throws \Illuminate\Contracts\Encryption\EncryptException
-         * @static 
-         */
-        public static function encrypt($value, $serialize = true)
-        {
-            return \Illuminate\Encryption\Encrypter::encrypt($value, $serialize);
-        }
-        
-        /**
-         * Encrypt a string without serialization.
-         *
-         * @param string $value
-         * @return string 
-         * @static 
-         */
-        public static function encryptString($value)
-        {
-            return \Illuminate\Encryption\Encrypter::encryptString($value);
-        }
-        
-        /**
-         * Decrypt the given value.
-         *
-         * @param mixed $payload
-         * @param bool $unserialize
-         * @return string 
-         * @throws \Illuminate\Contracts\Encryption\DecryptException
-         * @static 
-         */
-        public static function decrypt($payload, $unserialize = true)
-        {
-            return \Illuminate\Encryption\Encrypter::decrypt($payload, $unserialize);
-        }
-        
-        /**
-         * Decrypt the given string without unserialization.
-         *
-         * @param string $payload
-         * @return string 
-         * @static 
-         */
-        public static function decryptString($payload)
-        {
-            return \Illuminate\Encryption\Encrypter::decryptString($payload);
-        }
-        
-        /**
-         * Get the encryption key.
-         *
-         * @return string 
-         * @static 
-         */
-        public static function getKey()
-        {
-            return \Illuminate\Encryption\Encrypter::getKey();
         }
         
     }         
@@ -3564,11 +3520,11 @@ namespace Illuminate\Support\Facades {
         /**
          * Get an option from the configuration options.
          *
-         * @param string $option
+         * @param string|null $option
          * @return mixed 
          * @static 
          */
-        public static function getConfig($option)
+        public static function getConfig($option = null)
         {
             //Method inherited from \Illuminate\Database\Connection            
             return \Illuminate\Database\MySqlConnection::getConfig($option);
@@ -10639,6 +10595,21 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Get the rendered content of the view based on a given condition.
+         *
+         * @param bool $condition
+         * @param string $view
+         * @param array $data
+         * @param array $mergeData
+         * @return string 
+         * @static 
+         */
+        public static function renderWhen($condition, $view, $data = array(), $mergeData = array())
+        {
+            return \Illuminate\View\Factory::renderWhen($condition, $view, $data, $mergeData);
+        }
+        
+        /**
          * Get the rendered contents of a partial from a loop.
          *
          * @param string $view
@@ -12303,59 +12274,59 @@ namespace TwigBridge\Facade {
 namespace Zizaco\Entrust {
 
     class EntrustFacade {
-
+        
         /**
          * Checks if the current user has a role by its name
          *
          * @param string $name Role name.
-         * @return bool
-         * @static
+         * @return bool 
+         * @static 
          */
         public static function hasRole($role, $requireAll = false)
         {
             return \Zizaco\Entrust\Entrust::hasRole($role, $requireAll);
         }
-
+        
         /**
          * Check if the current user has a permission by its name
          *
          * @param string $permission Permission string.
-         * @return bool
-         * @static
+         * @return bool 
+         * @static 
          */
         public static function can($permission, $requireAll = false)
         {
             return \Zizaco\Entrust\Entrust::can($permission, $requireAll);
         }
-
+        
         /**
          * Check if the current user has a role or permission by its name
          *
          * @param array|string $roles The role(s) needed.
          * @param array|string $permissions The permission(s) needed.
          * @param array $options The Options.
-         * @return bool
-         * @static
+         * @return bool 
+         * @static 
          */
         public static function ability($roles, $permissions, $options = array())
         {
             return \Zizaco\Entrust\Entrust::ability($roles, $permissions, $options);
         }
-
+        
         /**
          * Get the currently authenticated user or null.
          *
-         * @return \Zizaco\Entrust\Illuminate\Auth\UserInterface|null
-         * @static
+         * @return \Zizaco\Entrust\Illuminate\Auth\UserInterface|null 
+         * @static 
          */
         public static function user()
         {
             return \Zizaco\Entrust\Entrust::user();
         }
-
+        
         /**
          * Filters a route for a role or set of roles.
-         *
+         * 
          * If the third parameter is null then abort with status code 403.
          * Otherwise the $result is returned.
          *
@@ -12363,17 +12334,17 @@ namespace Zizaco\Entrust {
          * @param array|string $roles The role(s) needed
          * @param mixed $result i.e: Redirect::to('/')
          * @param bool $requireAll User must have all roles
-         * @return mixed
-         * @static
+         * @return mixed 
+         * @static 
          */
         public static function routeNeedsRole($route, $roles, $result = null, $requireAll = true)
         {
             return \Zizaco\Entrust\Entrust::routeNeedsRole($route, $roles, $result, $requireAll);
         }
-
+        
         /**
          * Filters a route for a permission or set of permissions.
-         *
+         * 
          * If the third parameter is null then abort with status code 403.
          * Otherwise the $result is returned.
          *
@@ -12381,17 +12352,17 @@ namespace Zizaco\Entrust {
          * @param array|string $permissions The permission(s) needed
          * @param mixed $result i.e: Redirect::to('/')
          * @param bool $requireAll User must have all permissions
-         * @return mixed
-         * @static
+         * @return mixed 
+         * @static 
          */
         public static function routeNeedsPermission($route, $permissions, $result = null, $requireAll = true)
         {
             return \Zizaco\Entrust\Entrust::routeNeedsPermission($route, $permissions, $result, $requireAll);
         }
-
+        
         /**
          * Filters a route for role(s) and/or permission(s).
-         *
+         * 
          * If the third parameter is null then abort with status code 403.
          * Otherwise the $result is returned.
          *
@@ -12400,17 +12371,17 @@ namespace Zizaco\Entrust {
          * @param array|string $permissions The permission(s) needed
          * @param mixed $result i.e: Redirect::to('/')
          * @param bool $requireAll User must have all roles and permissions
-         * @return void
-         * @static
+         * @return void 
+         * @static 
          */
         public static function routeNeedsRoleOrPermission($route, $roles, $permissions, $result = null, $requireAll = false)
         {
             \Zizaco\Entrust\Entrust::routeNeedsRoleOrPermission($route, $roles, $permissions, $result, $requireAll);
         }
-
-    }
+        
+    }         
 }
-
+    
 namespace Orangehill\Iseed\Facades {
 
     class Iseed {
@@ -12884,7 +12855,7 @@ if (! function_exists('array_wrap')) {
      */
     function array_wrap($value)
     {
-        return ! is_array($value) ? [$value] : $value;
+        return Arr::wrap($value);
     }
 }
 
@@ -13542,8 +13513,6 @@ if (! function_exists('with')) {
     
     class Cookie extends \Illuminate\Support\Facades\Cookie {}
     
-    class Crypt extends \Illuminate\Support\Facades\Crypt {}
-    
     class DB extends \Illuminate\Support\Facades\DB {}
     
     class Event extends \Illuminate\Support\Facades\Event {}
@@ -13633,20 +13602,6 @@ if (! function_exists('with')) {
         public static function removedScopes()
         {
             return \Illuminate\Database\Eloquent\Builder::removedScopes();
-        }
-        
-        /**
-         * Apply the callback's query changes if the given "value" is true.
-         *
-         * @param bool $value
-         * @param \Closure $callback
-         * @param \Closure $default
-         * @return $this 
-         * @static 
-         */
-        public static function when($value, $callback, $default = null)
-        {
-            return \Illuminate\Database\Eloquent\Builder::when($value, $callback, $default);
         }
         
         /**
@@ -13808,18 +13763,6 @@ if (! function_exists('with')) {
         }
         
         /**
-         * Execute the query and get the first result.
-         *
-         * @param array $columns
-         * @return \Illuminate\Database\Eloquent\Model|static|null 
-         * @static 
-         */
-        public static function first($columns = array())
-        {
-            return \Illuminate\Database\Eloquent\Builder::first($columns);
-        }
-        
-        /**
          * Execute the query and get the first result or throw an exception.
          *
          * @param array $columns
@@ -13905,19 +13848,6 @@ if (! function_exists('with')) {
         }
         
         /**
-         * Chunk the results of the query.
-         *
-         * @param int $count
-         * @param callable $callback
-         * @return bool 
-         * @static 
-         */
-        public static function chunk($count, $callback)
-        {
-            return \Illuminate\Database\Eloquent\Builder::chunk($count, $callback);
-        }
-        
-        /**
          * Chunk the results of a query by comparing numeric IDs.
          *
          * @param int $count
@@ -13930,19 +13860,6 @@ if (! function_exists('with')) {
         public static function chunkById($count, $callback, $column = null, $alias = null)
         {
             return \Illuminate\Database\Eloquent\Builder::chunkById($count, $callback, $column, $alias);
-        }
-        
-        /**
-         * Execute a callback over each item while chunking.
-         *
-         * @param callable $callback
-         * @param int $count
-         * @return bool 
-         * @static 
-         */
-        public static function each($callback, $count = 1000)
-        {
-            return \Illuminate\Database\Eloquent\Builder::each($callback, $count);
         }
         
         /**
@@ -14153,6 +14070,58 @@ if (! function_exists('with')) {
         }
         
         /**
+         * Chunk the results of the query.
+         *
+         * @param int $count
+         * @param callable $callback
+         * @return bool 
+         * @static 
+         */
+        public static function chunk($count, $callback)
+        {
+            return \Illuminate\Database\Eloquent\Builder::chunk($count, $callback);
+        }
+        
+        /**
+         * Execute a callback over each item while chunking.
+         *
+         * @param callable $callback
+         * @param int $count
+         * @return bool 
+         * @static 
+         */
+        public static function each($callback, $count = 1000)
+        {
+            return \Illuminate\Database\Eloquent\Builder::each($callback, $count);
+        }
+        
+        /**
+         * Execute the query and get the first result.
+         *
+         * @param array $columns
+         * @return mixed 
+         * @static 
+         */
+        public static function first($columns = array())
+        {
+            return \Illuminate\Database\Eloquent\Builder::first($columns);
+        }
+        
+        /**
+         * Apply the callback's query changes if the given "value" is true.
+         *
+         * @param mixed $value
+         * @param \Closure $callback
+         * @param \Closure $default
+         * @return mixed 
+         * @static 
+         */
+        public static function when($value, $callback, $default = null)
+        {
+            return \Illuminate\Database\Eloquent\Builder::when($value, $callback, $default);
+        }
+        
+        /**
          * Add a relationship count / exists condition to the query.
          *
          * @param string $relation
@@ -14221,7 +14190,7 @@ if (! function_exists('with')) {
          * @return \Illuminate\Database\Eloquent\Builder|static 
          * @static 
          */
-        public static function orWhereHas($relation, $callback, $operator = '>=', $count = 1)
+        public static function orWhereHas($relation, $callback = null, $operator = '>=', $count = 1)
         {
             return \Illuminate\Database\Eloquent\Builder::orWhereHas($relation, $callback, $operator, $count);
         }
@@ -14443,6 +14412,18 @@ if (! function_exists('with')) {
         public static function crossJoin($table, $first = null, $operator = null, $second = null)
         {
             return \Illuminate\Database\Query\Builder::crossJoin($table, $first, $operator, $second);
+        }
+        
+        /**
+         * Pass the query to a given callback.
+         *
+         * @param \Closure $callback
+         * @return \Illuminate\Database\Query\Builder 
+         * @static 
+         */
+        public static function tap($callback)
+        {
+            return \Illuminate\Database\Query\Builder::tap($callback);
         }
         
         /**
@@ -14973,6 +14954,18 @@ if (! function_exists('with')) {
         public static function orderBy($column, $direction = 'asc')
         {
             return \Illuminate\Database\Query\Builder::orderBy($column, $direction);
+        }
+        
+        /**
+         * Add a descending "order by" clause to the query.
+         *
+         * @param string $column
+         * @return $this 
+         * @static 
+         */
+        public static function orderByDesc($column)
+        {
+            return \Illuminate\Database\Query\Builder::orderByDesc($column);
         }
         
         /**
@@ -15526,7 +15519,7 @@ if (! function_exists('with')) {
     class Twig extends \TwigBridge\Facade\Twig {}
     
     class Entrust extends \Zizaco\Entrust\EntrustFacade {}
-
+    
     class Iseed extends \Orangehill\Iseed\Facades\Iseed {}
     
 }

@@ -30,7 +30,6 @@ Route::group(['prefix' => 'storetree'], function() {
     Route::resource('items', 'ItemController');
     Route::resource('stats', 'StatController');
     Route::resource('abilities', 'AbilityController');
-    Route::resource('scripts', 'ScriptController');
     Route::resource('users', 'UserController');
 
     Route::group(['prefix' => 'items/{id}'], function () {

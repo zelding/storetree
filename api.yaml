@@ -2,14 +2,14 @@ swagger: '2.0'
 info:
   title: Storetree API
   description: Site that manages items for dota2
-  version: "0.5.2"
+  version: "0.5.3"
 # the domain of the service
 host: lyozsi.net
 # array of all schemes that your API supports
 schemes:
-  - http
+  - https
 # will be prefixed to all paths
-basePath: /api/v1
+basePath: /api/external/v1
 
 consumes:
   - application/json
@@ -19,27 +19,29 @@ produces:
 
 parameters:
   token:
-    name: token
+    name: api_token
     type: string
     in: query
 
 paths:
   /items:
     get:
-      summary: Product Types
+      summary: get a list of items
       description: get an Item by dota_id
       parameters:
         -
           $ref: '#/parameters/token'
       responses:
         200:
-          description: An array of products
+          description: An array items
           schema:
             type: array
             items:
               $ref: '#/definitions/Item'
         204:
           description: No results for the query
+          schema:
+            $ref: '#/definitions/Error'
     post:
       summary: create a new item
       parameters:
@@ -237,6 +239,8 @@ paths:
     get:
       summary: Get Item data
       parameters:
+        -
+          $ref: '#/parameters/token'
         - name: dota_id
           in: path
           type: integer
@@ -250,25 +254,816 @@ paths:
           description: Missing required parameter
           schema:
             $ref: '#/definitions/Error'
+    put:
+      parameters:
+        -
+          $ref: '#/parameters/token'
+        - name: dota_id
+          description: unique dota id
+          in: path
+          type: integer
+          required: true
+
+        - name: base_class
+          description: unique dota class name
+          in: formData
+          type: string
+          required: true
+
+        - name: name
+          description: unique readable name
+          in: formData
+          type: string
+          required: true
+
+        - name: description
+          description: description for the item
+          in: formData
+          type: string
+
+        - name: cost
+          in:   formData
+          type: integer
+
+        - name: base_level
+          in:   formData
+          type: integer
+
+        - name: max_level
+          in:   formData
+          type: integer
+
+        - name: stack_size
+          in: formData
+          type: integer
+
+        - name: fight_recap
+          in: formData
+          type: integer
+
+        - name: quality
+          in: formData
+          type: string
+          enum:
+            - consumable
+            - component
+            - common
+            - rare
+            - epic
+            - artifact
+
+        - name: share
+          in: formData
+          type: string
+          enum:
+            - ITEM_NOT_SHAREABLE
+            - ITEM_PARTIALLY_SHAREABLE
+            - ITEM_FULLY_SHAREABLE
+            - ITEM_FULLY_SHAREABLE_STACKING
+
+        - name: stock_max
+          in: formData
+          type: integer
+
+        - name: stock_time
+          in: formData
+          type: integer
+
+        - name: stock_initial
+          in: formData
+          type: integer
+
+        - name: is_consumable
+          in:   formData
+          type: boolean
+
+        - name: is_base_item
+          in:   formData
+          type: boolean
+
+        - name: is_boss_item
+          in:   formData
+          type: boolean
+
+        - name: is_recipe
+          in: formData
+          type: boolean
+
+        - name: is_killable
+          in: formData
+          type: boolean
+
+        - name: is_sellable
+          in: formData
+          type: boolean
+
+        - name: is_purchasable
+          in: formData
+          type: boolean
+
+        - name: is_droppable
+          in: formData
+          type: boolean
+
+        - name: in_backpack
+          in: formData
+          type: boolean
+
+        - name: needs_charges
+          in: formData
+          type: boolean
+
+        - name: show_charges
+          in: formData
+          type: boolean
+
+        - name: start_charges
+          in: formData
+          type: integer
+
+        - name: is_autocast
+          in: formData
+          type: boolean
+
+        - name: is_alertable
+          in: formData
+          type: boolean
+
+        - name: is_permanent
+          in: formData
+          type: boolean
+
+        - name: is_override
+          in: formData
+          type: boolean
+
+        - name: alert_text
+          in: formData
+          type: string
+
+        - name: disassemble
+          in: formData
+          type: string
+          enum:
+            - DOTA_ITEM_DISASSEMBLE_NEVER
+            - DOTA_ITEM_DISASSEMBLE_ALWAYS
+        - name: script
+          in: formData
+          type: string
+
+        - name: shop_tags
+          in: formData
+          type: array
+          items:
+            type: string
+
+        - name: aliases
+          in: formData
+          type: array
+          items:
+            type: string
+
+        - name: declarations
+          in: formData
+          type: array
+          items:
+            type: string
+            enum:
+              - DECLARE_PURCHASES_TO_TEAMMATES
+              - DECLARE_PURCHASES_IN_SPEECH
+              - DECLARE_PURCHASES_TO_SPECTATORS
+      responses:
+        200:
+          description: Item found
+          schema:
+            $ref: '#/definitions/Item'
+        404:
+          description: Missing required parameter
+          schema:
+            $ref: '#/definitions/Error'
+        406:
+          description: Missing required property
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Some property is not unique
+          schema:
+            $ref: '#/definitions/Error'
+
+  /items/{dota_id}/recipes:
+    get:
+      summary: get all recipes for an item
+      parameters:
+        -
+          $ref: '#/parameters/token'
+        - name: dota_id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: found things
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Recipe'
+        204:
+          description: No results for the query
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: create new recipe
+      parameters:
+        -
+          $ref: '#/parameters/token'
+        - name: dota_id
+          type: integer
+          in: path
+          required: true
+        - name: items
+          description: item_id list
+          in: formData
+          type: array
+          items:
+            type: integer
+      responses:
+        201:
+          description: created
+          schema:
+            $ref: '#/definitions/Recipe'
+        406:
+          description: Missing required property
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Some property is not unique
+          schema:
+            $ref: '#/definitions/Error'
+
+  /items/{dota_id}/recipes/{recipe_id}:
+    get:
+      description: get recipe
+      parameters:
+        -
+          $ref: '#/parameters/token'
+        - name: dota_id
+          in: path
+          type: integer
+          required: true
+        - name: recipe_id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: A recipe
+          schema:
+            $ref: '#/definitions/Recipe'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      description: udpate a recipe
+      parameters:
+        -
+          $ref: '#/parameters/token'
+        - name: dota_id
+          in: path
+          type: integer
+          required: true
+        - name: recipe_id
+          in: path
+          type: integer
+          required: true
+        - name: items_to_add
+          description: item_id list
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: items_to_remove
+          description: item_id list
+          in: formData
+          type: array
+          items:
+            type: integer
+      responses:
+        200:
+          description: updated
+          schema:
+            $ref: '#/definitions/Recipe'
+        404:
+          description: No t found
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      description: delete a recipe
+      parameters:
+        -
+          $ref: '#/parameters/token'
+        - name: dota_id
+          in: path
+          type: integer
+          required: true
+        - name: recipe_id
+          in: path
+          type: integer
+          required: true
+      responses:
+        204:
+          description: deleted
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+
+  /items/{dota_id}/stats:
+    get:
+      summary: get all stats for an item
+      parameters:
+        -
+          $ref: '#/parameters/token'
+        - name: dota_id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: found things
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Stat'
+        404:
+          description: Item does not exists
+          schema:
+            $ref: '#/definitions/Error'
+        204:
+          description: No results for the query
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: attach stat for an item
+      parameters:
+        -
+          $ref: '#/parameters/token'
+        - name: dota_id
+          type: integer
+          in: path
+          required: true
+        - name: stat_id
+          in: formData
+          type: integer
+          required: true
+        - name: value
+          description: values for the stat
+          in: formData
+          type: array
+          items:
+            type: integer
+          required: true
+      responses:
+        200:
+          description: attached
+          schema:
+            $ref: '#/definitions/Stat'
+        404:
+          description: Item or stat not exists
+          schema:
+            $ref: '#/definitions/Error'
+        406:
+          description: Missing required property
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: detach stat for an item
+      parameters:
+        -
+          $ref: '#/parameters/token'
+        - name: dota_id
+          type: integer
+          in: path
+          required: true
+        - name: stat_id
+          in: formData
+          type: integer
+          required: true
+      responses:
+        204:
+          description: detached
+          schema:
+            $ref: '#/definitions/Stat'
+        404:
+          description: Item or stat not exists
+          schema:
+            $ref: '#/definitions/Error'
+        406:
+          description: Missing required property
+          schema:
+            $ref: '#/definitions/Error'
+  /stats:
+    post:
+      summary: create new stat for an item
+      parameters:
+        -
+          $ref: '#/parameters/token'
+      responses:
+         201:
+          description: created
+          schema:
+            $ref: '#/definitions/Stat'
+         406:
+          description: Missing required property
+          schema:
+            $ref: '#/definitions/Error'
+         409:
+          description: Some property is not unique
+          schema:
+            $ref: '#/definitions/Error'
+
 definitions:
   Item:
     type: object
+    required:
+      - dota_id
+      - base_class
     properties:
-      product_id:
+      id:
+        type: integer
+      dota_id:
+        type: integer
+      base_class:
         type: string
-        description: Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.
+      max_level:
+        type: integer
+      base_level:
+        type: integer
+      is_consumable:
+        type: boolean
+      is_base_item:
+        type: boolean
+      is_boss_item:
+        type: boolean
+      is_recipe:
+        type: boolean
+      is_killable:
+        type: boolean
+      is_sellable:
+        type: boolean
+      is_purchasable:
+        type: boolean
+      is_droppable:
+        type: boolean
+      in_backpack:
+        type: boolean
+      name:
+        type: string
       description:
         type: string
-        description: Description of product.
-      display_name:
+      cost:
+        type: integer
+      stack_size:
+        type: integer
+      model:
         type: string
-        description: Display name of product.
-      capacity:
+      fight_recap:
+        type: integer
+      quality:
+         type: string
+         enum:
+           - consumable
+           - component
+           - common
+           - rare
+           - epic
+           - artifact
+      share:
         type: string
-        description: Capacity of product. For example, 4 people.
-      image:
+        enum:
+          - ITEM_NOT_SHAREABLE
+          - ITEM_PARTIALLY_SHAREABLE
+          - ITEM_FULLY_SHAREABLE
+          - ITEM_FULLY_SHAREABLE_STACKING
+      stock_max:
+        type: integer
+      stock_time:
+        type: integer
+      stock_initial:
+        type: integer
+      start_charges:
+        type: integer
+      show_charges:
+        type: boolean
+      needs_charges:
+        type: boolean
+      is_autocast:
+        type: boolean
+      is_alertable:
+        type: boolean
+      alert_text:
         type: string
-        description: Image URL representing the product.
+      created_at:
+        type: string
+        format: date-time
+      updated_at:
+        type: string
+        format: date-time
+      is_permanent:
+        type: boolean
+      disassemble:
+        type: string
+        enum:
+          - DOTA_ITEM_DISASSEMBLE_NEVER
+          - DOTA_ITEM_DISASSEMBLE_ALWAYS
+      script:
+        type: string
+      shop_tags:
+        type: array
+        items:
+          type: string
+      aliases:
+        type: array
+        items:
+          type: string
+      is_override:
+        type: boolean
+      declarations:
+        type: array
+        items:
+          type: string
+          enum:
+            - DECLARE_PURCHASES_TO_TEAMMATES
+            - DECLARE_PURCHASES_IN_SPEECH
+            - DECLARE_PURCHASES_TO_SPECTATORS
+
+      recipes:
+        type: array
+        items:
+          #ref Recipe
+          type: object
+      stats:
+        type: array
+        items:
+          #ref stat
+          type: object
+      shops:
+        type: array
+        items:
+          #ref shop
+          type: object
+      ability:
+        #ref ability
+        type: object
+
+      locales:
+        type: array
+        items:
+          #ref ItemLocale
+          type: object
+
+  Stat:
+    type: object
+    required:
+      - id
+      - var_type
+      - dota_name
+    properties:
+      id:
+        type: integer
+      var_type:
+        type: string
+        enum:
+          - FIELD_INTEGER
+          - FIELD_FLOAT
+      name:
+        type: string
+      dota_name:
+        type: string
+      stat_group:
+        type: string
+      var_name:
+        type: string
+      is_percent:
+        type: boolean
+      created_at:
+        type: string
+        format: 'date-time'
+      updated_at:
+        type: string
+        format: 'date-time'
+
+      value:
+        type: array
+        items:
+          type: integer
+
+  Recipe:
+    type: object
+    required:
+      - id
+      - item_id
+    properties:
+      id:
+        type: integer
+      item_id:
+        type: integer
+      for:
+        description: Parent item
+        type: object
+      components:
+        type: array
+        description: component items
+        items:
+          type: object
+      created_at:
+        type: string
+        format: 'date-time'
+      updated_at:
+        type: string
+        format: 'date-time'
+
+  Ability:
+    type: object
+    required:
+      - id
+      - name
+      - base_class
+      - behaviour
+      - texture_name
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      base_class:
+        type: string
+      behaviour:
+        type: array
+        items:
+          type: string
+          enum:
+            - DOTA_ABILITY_BEHAVIOR_NO_TARGET
+            - DOTA_ABILITY_BEHAVIOR_IMMEDIATE
+            - DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
+            - DOTA_ABILITY_BEHAVIOR_POINT
+            - DOTA_ABILITY_BEHAVIOR_PASSIVE
+            - DOTA_ABILITY_BEHAVIOR_CHANNELLED
+            - DOTA_ABILITY_BEHAVIOR_TOGGLE
+            - DOTA_ABILITY_BEHAVIOR_AURA
+            - DOTA_ABILITY_BEHAVIOR_AUTOCAST
+            - DOTA_ABILITY_BEHAVIOR_HIDDEN
+            - DOTA_ABILITY_BEHAVIOR_AOE
+            - DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE
+            - DOTA_ABILITY_BEHAVIOR_ITEM
+            - DOTA_ABILITY_BEHAVIOR_DIRECTIONAL
+            - DOTA_ABILITY_BEHAVIOR_NOASSIST
+            - DOTA_ABILITY_BEHAVIOR_ATTACK
+            - DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES
+            - DOTA_ABILITY_BEHAVIOR_UNRESTRICTED
+            - DOTA_ABILITY_BEHAVIOR_DONT_ALERT_TARGET
+            - DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT
+            - DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK
+            - DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN
+            - DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING
+            - DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE
+            - DOTA_ABILITY_BEHAVIOR_RUNE_TARGET
+            - DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL
+            - DOTA_ABILITY_BEHAVIOR_OPTIONAL_UNIT_TARGET
+            - DOTA_ABILITY_BEHAVIOR_OPTIONAL_NO_TARGET
+      type:
+        type: string
+        enum:
+          - DOTA_ABILITY_TYPE_BASIC
+          - DOTA_ABILITY_TYPE_ULTIMATE
+          - DOTA_ABILITY_TYPE_ATTRIBUTES
+          - DOTA_ABILITY_TYPE_HIDDEN
+      texture_name:
+        type: string
+      deny_self_cast:
+        type: boolean
+      cast_hidden:
+        type: boolean
+      target_team:
+        type: array
+        items:
+          type: string
+      target_type:
+        type: array
+        items:
+          type: string
+      target_flags:
+        type: array
+        items:
+          type: string
+      damage_type:
+        type: string
+        enum:
+          -
+          - DAMAGE_TYPE_MAGICAL
+          - DAMAGE_TYPE_PHYSICAL
+          - DAMAGE_TYPE_PURE
+      damage:
+        type: array
+        items:
+          type: integer
+      mana_cost:
+        type: array
+        items:
+          type: integer
+      gold_cost:
+        type: array
+        items:
+          type: integer
+      cooldown:
+        type: array
+        items:
+          type: integer
+      cast_range:
+        type: array
+        items:
+          type: integer
+      cast_point:
+        type: array
+        items:
+          type: integer
+      cast_range_buffer:
+        type: array
+        items:
+          type: integer
+      channel_time:
+        type: array
+        items:
+          type: integer
+      channel_mana_cost:
+        type: array
+        items:
+          type: integer
+      duration:
+        type: array
+        items:
+          type: integer
+      cooldown_group:
+        type: string
+      created_at:
+        type: string
+        format: date-time
+      updated_at:
+        type: string
+        format: date-time
+      magic_stick:
+        description: procs magic stick?
+        type: boolean
+      is_override:
+        type: boolean
+
+  Shop:
+    type: object
+    required:
+      - id
+      - name
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      created_at:
+        type: string
+        format: 'date-time'
+      updated_at:
+        type: string
+        format: 'date-time'
+
+  ItemLocale:
+    type: object
+    required:
+      - id
+      - item_id
+      - language_id
+      - name
+      - description
+    properties:
+      id:
+        type: integer
+      item_id:
+        type: integer
+      language_id:
+        type: integer
+      name:
+        type: string
+      description:
+        type: string
+      lore:
+        type: string
+      note0:
+        type: string
+      created_at:
+        type: string
+        format: 'date-time'
+      updated_at:
+        type: string
+        format: 'date-time'
+
   Error:
     type: object
     properties:

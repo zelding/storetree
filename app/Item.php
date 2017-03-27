@@ -33,9 +33,9 @@ use Illuminate\Database\Eloquent\Builder;
  * @property bool $fight_recap
  * @property string $quality
  * @property string $share
- * @property bool $stock_max
+ * @property int $stock_max
  * @property int $stock_time
- * @property bool $stock_initial
+ * @property int $stock_initial
  * @property bool $start_charges
  * @property bool $show_charges
  * @property bool $needs_charges
@@ -133,6 +133,8 @@ class Item extends Model
         'is_autocast'       => 'boolean',
         'is_alertable'      => 'boolean',
         'is_permanent'      => 'boolean',
+        'is_recipe'         => 'boolean',
+        'is_override'       => 'boolean',
 
         'shop_tags'         => 'array',
         'aliases'           => 'array',

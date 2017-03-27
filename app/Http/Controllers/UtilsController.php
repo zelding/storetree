@@ -21,7 +21,8 @@ class UtilsController extends Controller
     {
 
         return view('util/index', [
-            "freeIDs" => $this->getFreeDotaIDs()
+            "freeIDs" => $this->getFreeDotaIDs(),
+            'hash'    => hash('whirlpool', "0a25f55d7308eca6b9567a7ed3bd1b46327f0f1ffdc804dd8bb")
         ]);
     }
 
