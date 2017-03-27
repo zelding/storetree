@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,6 +13,7 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'auth:api'], function () {
 
+    //In time, all tables and updates will go through here
     Route::group(['prefix' => 'external', 'namespace' => 'Api\\External'], function () {
 
         Route::group(['prefix' => 'v1'], function () {
@@ -23,10 +22,21 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     });
 
+    /** External API mostly for people who live in jars */
     Route::group(['prefix' => 'internal', 'namespace' => 'Api\\Internal'], function () {
 
         Route::group(['prefix' => 'v1'], function () {
             Route::get('test', 'Controller@test');
+
+            Route::group(['prefix' => 'items'], function () {
+                Route::get('/', 'ItemController@index');
+
+                Route::post('/', 'ItemController@store');
+            });
+
+            Route::group(['prefix' => 'items'], function () {
+                Route::get('{dota_id}', 'ItemController@show');
+            });
         });
 
     });

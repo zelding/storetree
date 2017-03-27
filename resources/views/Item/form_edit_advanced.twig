@@ -27,13 +27,13 @@
 
             <div class="col-lg-2" data-toggle="tooltip" title="The current level in the upgrade line">
                 <input type="number" class="form-control" id="item-base-level" placeholder="1"
-                       name="base_level" value="{{ request.base_level ?? item.base_level }}" min="1" max="10">
+                       name="base_level" value="{{ request.base_level ?? item.base_level ?? 1 }}" min="1" max="10">
             </div>
 
             <label class="col-lg-3 col-lg-offset-1 control-label" for="item-max-level">Max level</label>
             <div class="col-lg-2" data-toggle="tooltip" title="How many upgrades it have?<br>It has nothing to do with combining it with other items, just linear upgrades like Dagon.">
                 <input type="number" class="form-control" id="item-max-level" placeholder="1"
-                       name="max_level" value="{{ request.max_level ?? item.max_level }}" min="1" max="10">
+                       name="max_level" value="{{ request.max_level ?? item.max_level ?? 1 }}" min="1" max="10">
             </div>
         </div>
 
@@ -41,7 +41,7 @@
             <label class="col-lg-4 control-label" for="item-stack-size">Stack size</label>
             <div class="col-lg-8" data-toggle="tooltip" title="How many can you stack in one slot (Tango has charges)">
                 <input type="number" class="form-control" id="item-stack-size" placeholder="1" min="1"
-                       name="stack_size" value="{{ request.stack_size ?? item.stack_size }}">
+                       name="stack_size" value="{{ request.stack_size ?? item.stack_size ?? 1 }}">
             </div>
         </div>
 
@@ -87,7 +87,7 @@
             <label class="col-lg-4 control-label" for="item-fight-recap">Fight recap level</label>
             <div class="col-lg-8" data-toggle="tooltip" data-placement="right" title="how much stats should be in the battle-log">
                 <input type="number" class="form-control" id="item-fight-recap" placeholder="0" min="0"
-                       name="fight_recap" value="{{ request.fight_recap ?? item.fight_recap }}">
+                       name="fight_recap" value="{{ request.fight_recap ?? item.fight_recap ?? 0 }}">
             </div>
         </div>
 

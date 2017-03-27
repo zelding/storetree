@@ -25,7 +25,7 @@ class Controller
 {
     public function test(Request $request)
     {
-        $item = Item::find(310);
+        $item = Item::find(262);
 
         $manager = new Manager();
         $manager->setSerializer(new BaseSerializer());

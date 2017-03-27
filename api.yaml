@@ -22,6 +22,11 @@ parameters:
     name: api_token
     type: string
     in: query
+  simple:
+    description: if true, the result objects will be simplified
+    name: simple
+    type: boolean
+    in: query
 
 paths:
   /items:
@@ -31,6 +36,8 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/simple'
       responses:
         200:
           description: An array items
@@ -241,6 +248,8 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/simple'
         - name: dota_id
           in: path
           type: integer
