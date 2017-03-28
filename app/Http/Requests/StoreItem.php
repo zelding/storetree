@@ -3,12 +3,21 @@
 namespace App\Http\Requests;
 
 use App\Utils\Constants;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
-class StoreItem extends FormRequest
+class StoreItem extends JsonRequest
 {
+    protected $errorTypes = [
+        406 => [
+            'description', 'cost', 'base_item', 'boss_item', 'base_level', 'max_level',
+            'stack_size', 'start_charges', 'alert_text', 'model', 'fight_recap',
+            'quality', 'share', 'script', 'shop_tags', 'aliases'
+        ],
+        409 => [
+            'name', 'base_class', 'dota_id'
+        ]
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -58,16 +67,5 @@ class StoreItem extends FormRequest
             "shop_tags"     => "distinct",
             "aliases"       => "distinct"
         ];
-    }
-
-    public function response(array $errors)
-    {
-        if ($this->expectsJson()) {
-            return new JsonResponse($errors, 422);
-        }
-
-        return $this->redirector->to($this->getRedirectUrl())
-                                ->withInput($this->except($this->dontFlash))
-                                ->withErrors($errors, $this->errorBag);
     }
 }

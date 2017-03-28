@@ -18,18 +18,19 @@ use App\Utils\Transformers\SimpleItemTransformer;
 use App\Utils\BaseSerializer;
 use App\Http\Requests\StoreItem;
 
-use League\Fractal\Manager;
 use League\Fractal\Resource\Item as ResourceItem;
 use League\Fractal\Resource\Collection as ResourceCollection;
 
-class ItemController
+class ItemController extends Controller
 {
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(Request $request)
     {
         $item = Item::all();
-
-        $manager = new Manager();
-        $manager->setSerializer(new BaseSerializer());
 
         if( $request->get('simple') ) {
             $data = new ResourceCollection($item, new SimpleItemTransformer());
@@ -38,22 +39,23 @@ class ItemController
             $data = new ResourceCollection($item, new ItemTransformer());
         }
 
-        //$manager->parseIncludes('recipes.components');
-
         return response()->json(
-            $manager->createData($data)->toArray(),
+            $this->fractal->createData($data)->toArray(),
             $item->count() ? 200 : 204,
             [],
             480
         );
     }
 
+    /**
+     * @param Request $request
+     * @param         $dota_id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(Request $request, $dota_id)
     {
         $item = Item::whereDotaId($dota_id)->first();
-
-        $manager = new Manager();
-        $manager->setSerializer(new BaseSerializer());
 
         if( $request->get('simple') ) {
             $data = new ResourceItem($item, new SimpleItemTransformer());
@@ -62,28 +64,53 @@ class ItemController
             $data = new ResourceItem($item, new ItemTransformer());
         }
 
-        $manager->parseIncludes('recipes.components');
+        $this->fractal->parseIncludes('recipes.components');
 
         return response()->json(
-            $manager->createData($data)->toArray(),
+            $this->fractal->createData($data)->toArray(),
             200,
             [],
             480
         );
     }
 
+    /**
+     * @param StoreItem $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(StoreItem $request)
     {
         $item = new Item();
-
         $item = app(ItemService::class)->setItemAttributes($item, $request);
 
         $item->save();
 
-        $manager = new Manager();
-        $manager->setSerializer(new BaseSerializer());
         $data = new ResourceItem($item, new ItemTransformer());
 
-        return response()->json($manager->createData($data)->toArray(), 201);
+        return response()->json($this->fractal->createData($data)->toArray(), 201);
+    }
+
+    /**
+     * @param StoreItem $request
+     * @param           $dota_id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(StoreItem $request, $dota_id)
+    {
+        $item = Item::whereDotaId($dota_id)->first();
+        $item = app(ItemService::class)->setPresentItemAttributes($item, $request);
+
+        $item->save();
+
+        $data = new ResourceItem($item, new ItemTransformer());
+
+        return response()->json(
+            $this->fractal->createData($data)->toArray(),
+            200,
+            [],
+            480
+        );
     }
 }
