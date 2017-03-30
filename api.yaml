@@ -751,6 +751,148 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        - name: name
+          type: string
+          in: formData
+          required: true
+        - name: base_class
+          type: string
+          in: formData
+          required: true
+        - name: behaviour
+          type: array
+          in: formData
+          items:
+            type: string
+            enum:
+              - DOTA_ABILITY_BEHAVIOR_NO_TARGET
+              - DOTA_ABILITY_BEHAVIOR_IMMEDIATE
+              - DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
+              - DOTA_ABILITY_BEHAVIOR_POINT
+              - DOTA_ABILITY_BEHAVIOR_PASSIVE
+              - DOTA_ABILITY_BEHAVIOR_CHANNELLED
+              - DOTA_ABILITY_BEHAVIOR_TOGGLE
+              - DOTA_ABILITY_BEHAVIOR_AURA
+              - DOTA_ABILITY_BEHAVIOR_AUTOCAST
+              - DOTA_ABILITY_BEHAVIOR_HIDDEN
+              - DOTA_ABILITY_BEHAVIOR_AOE
+              - DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE
+              - DOTA_ABILITY_BEHAVIOR_ITEM
+              - DOTA_ABILITY_BEHAVIOR_DIRECTIONAL
+              - DOTA_ABILITY_BEHAVIOR_NOASSIST
+              - DOTA_ABILITY_BEHAVIOR_ATTACK
+              - DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES
+              - DOTA_ABILITY_BEHAVIOR_UNRESTRICTED
+              - DOTA_ABILITY_BEHAVIOR_DONT_ALERT_TARGET
+              - DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT
+              - DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK
+              - DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN
+              - DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING
+              - DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE
+              - DOTA_ABILITY_BEHAVIOR_RUNE_TARGET
+              - DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL
+              - DOTA_ABILITY_BEHAVIOR_OPTIONAL_UNIT_TARGET
+              - DOTA_ABILITY_BEHAVIOR_OPTIONAL_NO_TARGET
+        - name: type
+          type: string
+          in: formData
+          enum:
+            - DOTA_ABILITY_TYPE_BASIC
+            - DOTA_ABILITY_TYPE_ULTIMATE
+            - DOTA_ABILITY_TYPE_ATTRIBUTES
+            - DOTA_ABILITY_TYPE_HIDDEN
+        - name: texture_name
+          in: formData
+          type: string
+        - name: deny_self_cast
+          in: formData
+          type: boolean
+        - name: cast_hidden
+          in: formData
+          type: boolean
+        - name: target_team
+          in: formData
+          type: array
+          items:
+            type: string
+        - name: target_type
+          in: formData
+          type: array
+          items:
+            type: string
+        - name: target_flags
+          in: formData
+          type: array
+          items:
+            type: string
+        - name: damage_type
+          in: formData
+          type: string
+          enum:
+            -
+            - DAMAGE_TYPE_MAGICAL
+            - DAMAGE_TYPE_PHYSICAL
+            - DAMAGE_TYPE_PURE
+        - name: damage
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: mana_cost
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: gold_cost
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: cooldown
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: cast_range
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: cast_point
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: cast_range_buffer
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: channel_time
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: channel_mana_cost
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: duration
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: cooldown_group
+          in: formData
+          type: string
+        - name: magic_stick
+          in: formData
+          description: procs magic stick?
+          type: boolean
+        - name: is_override
+          in: formData
+          type: boolean
       responses:
          201:
           description: created
@@ -765,6 +907,170 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
+  /abilities/{ability_id}:
+    put:
+      parameters:
+        -
+          $ref: '#/parameters/token'
+        - name: ability_id
+          type: integer
+          in: path
+          required: true
+        - name: name
+          type: string
+          in: formData
+          required: true
+        - name: base_class
+          type: string
+          in: formData
+          required: true
+        - name: behaviour
+          type: array
+          in: formData
+          items:
+            type: string
+            enum:
+              - DOTA_ABILITY_BEHAVIOR_NO_TARGET
+              - DOTA_ABILITY_BEHAVIOR_IMMEDIATE
+              - DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
+              - DOTA_ABILITY_BEHAVIOR_POINT
+              - DOTA_ABILITY_BEHAVIOR_PASSIVE
+              - DOTA_ABILITY_BEHAVIOR_CHANNELLED
+              - DOTA_ABILITY_BEHAVIOR_TOGGLE
+              - DOTA_ABILITY_BEHAVIOR_AURA
+              - DOTA_ABILITY_BEHAVIOR_AUTOCAST
+              - DOTA_ABILITY_BEHAVIOR_HIDDEN
+              - DOTA_ABILITY_BEHAVIOR_AOE
+              - DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE
+              - DOTA_ABILITY_BEHAVIOR_ITEM
+              - DOTA_ABILITY_BEHAVIOR_DIRECTIONAL
+              - DOTA_ABILITY_BEHAVIOR_NOASSIST
+              - DOTA_ABILITY_BEHAVIOR_ATTACK
+              - DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES
+              - DOTA_ABILITY_BEHAVIOR_UNRESTRICTED
+              - DOTA_ABILITY_BEHAVIOR_DONT_ALERT_TARGET
+              - DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT
+              - DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK
+              - DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN
+              - DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING
+              - DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE
+              - DOTA_ABILITY_BEHAVIOR_RUNE_TARGET
+              - DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL
+              - DOTA_ABILITY_BEHAVIOR_OPTIONAL_UNIT_TARGET
+              - DOTA_ABILITY_BEHAVIOR_OPTIONAL_NO_TARGET
+        - name: type
+          type: string
+          in: formData
+          enum:
+            - DOTA_ABILITY_TYPE_BASIC
+            - DOTA_ABILITY_TYPE_ULTIMATE
+            - DOTA_ABILITY_TYPE_ATTRIBUTES
+            - DOTA_ABILITY_TYPE_HIDDEN
+        - name: texture_name
+          in: formData
+          type: string
+        - name: deny_self_cast
+          in: formData
+          type: boolean
+        - name: cast_hidden
+          in: formData
+          type: boolean
+        - name: target_team
+          in: formData
+          type: array
+          items:
+            type: string
+        - name: target_type
+          in: formData
+          type: array
+          items:
+            type: string
+        - name: target_flags
+          in: formData
+          type: array
+          items:
+            type: string
+        - name: damage_type
+          in: formData
+          type: string
+          enum:
+            -
+            - DAMAGE_TYPE_MAGICAL
+            - DAMAGE_TYPE_PHYSICAL
+            - DAMAGE_TYPE_PURE
+        - name: damage
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: mana_cost
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: gold_cost
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: cooldown
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: cast_range
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: cast_point
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: cast_range_buffer
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: channel_time
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: channel_mana_cost
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: duration
+          in: formData
+          type: array
+          items:
+            type: integer
+        - name: cooldown_group
+          in: formData
+          type: string
+        - name: magic_stick
+          in: formData
+          description: procs magic stick?
+          type: boolean
+        - name: is_override
+          in: formData
+          type: boolean
+      responses:
+        200:
+          description: updated
+          schema:
+            $ref: '#/definitions/Ability'
+        404:
+          description: Item or ability not exists
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Item already has an ability
+          schema:
+            $ref: '#/definitions/Error'
 
 definitions:
   Item:

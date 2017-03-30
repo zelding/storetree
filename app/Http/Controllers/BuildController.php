@@ -37,12 +37,12 @@ class BuildController extends Controller
         $buildsInto = [];
         $components = [];
 
-        foreach($item->recipes->first as $component) {
-            $components[] = $component->id;
+        if ($item->recipes->first instanceof Item) {
+            $components = $item->recipes->first()->pluck('id')->toArray();
         }
 
-        foreach($item->usedInRecipes as $component) {
-            $buildsInto[] = $component->for->id;
+        if ($item->usedInRecipes->count()) {
+            $buildsInto = $item->usedInRecipes->pluck('id')->toArray();
         }
 
         return view("build/item", [

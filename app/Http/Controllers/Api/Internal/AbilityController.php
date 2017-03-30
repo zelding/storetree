@@ -40,6 +40,11 @@ class AbilityController extends Controller
         );
     }
 
+    /**
+     * @param StoreAbility $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(StoreAbility $request)
     {
         $ability = new Ability();
