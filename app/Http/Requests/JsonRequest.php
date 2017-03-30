@@ -11,7 +11,6 @@
 namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 class JsonRequest extends FormRequest
 {
@@ -42,7 +41,16 @@ class JsonRequest extends FormRequest
                 $status = 406;
             }
 
-            return new JsonResponse($errors, $status, [], 480);
+            return new JsonResponse(
+                [
+                    'code'    => $status,
+                    'message' => array_collapse(array_values($errors)),
+                    'fields'  => array_keys($errors)
+                ],
+                $status,
+                [],
+                480
+            );
         }
 
         return $this->redirector->to($this->getRedirectUrl())

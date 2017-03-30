@@ -1103,8 +1103,11 @@ definitions:
     properties:
       code:
         type: integer
-        format: int32
       message:
-        type: string
+        type: array
+        items:
+          type: string
       fields:
-        type: string
+        type: array
+        items:
+          type: string

@@ -62,6 +62,10 @@ class StatController extends Controller
                     ->where('dota_id', $dota_id)
                     ->first();
 
+        if ( !$item instanceof Item) {
+            return $this->errorResponse(404, "Item not found", ['dota_id']);
+        }
+
         app(ItemService::class)->resolveItemInheritedStats($item);
 
         $data = new ResourceItem($item, new SimpleItemTransformer());
@@ -87,6 +91,10 @@ class StatController extends Controller
         $item = Item::with('stats')
                     ->where('dota_id', $dota_id)
                     ->first();
+
+        if ( !$item instanceof Item) {
+            return $this->errorResponse(404, "Item not found", ['dota_id']);
+        }
 
         $statValues = $request->get('new_stat_value') ?? [];
 

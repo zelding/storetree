@@ -57,6 +57,10 @@ class ItemController extends Controller
     {
         $item = Item::whereDotaId($dota_id)->first();
 
+        if ( !$item instanceof Item) {
+            return $this->errorResponse(404, "Item not found", ['dota_id']);
+        }
+
         if( $request->get('simple') ) {
             $data = new ResourceItem($item, new SimpleItemTransformer());
         }
@@ -100,6 +104,11 @@ class ItemController extends Controller
     public function update(StoreItem $request, $dota_id)
     {
         $item = Item::whereDotaId($dota_id)->first();
+
+        if ( !$item instanceof Item) {
+            return $this->errorResponse(404, "Item not found", ['dota_id']);
+        }
+
         $item = app(ItemService::class)->setPresentItemAttributes($item, $request);
 
         $item->save();

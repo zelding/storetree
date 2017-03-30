@@ -57,4 +57,18 @@ class Controller
             480
         );
     }
+
+    public function errorResponse($code = 404, $message = "", $fields = [])
+    {
+        return response()->json(
+            [
+                'code'    => $code,
+                'message' => [$message],
+                'fields'  => $fields
+            ],
+            $code,
+            [],
+            480
+        );
+    }
 }

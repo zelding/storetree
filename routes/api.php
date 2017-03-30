@@ -14,7 +14,7 @@
 Route::group(['middleware' => 'auth:api'], function () {
 
     //In time, all tables and updates will go through here
-    Route::group(['prefix' => 'external', 'namespace' => 'Api\\External'], function () {
+    Route::group(['prefix' => 'internal', 'namespace' => 'Api\\External'], function () {
 
         Route::group(['prefix' => 'v1'], function () {
 
@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
 
     /** External API mostly for people who live in jars */
-    Route::group(['prefix' => 'internal', 'namespace' => 'Api\\Internal'], function () {
+    Route::group(['prefix' => 'external', 'namespace' => 'Api\\Internal'], function () {
 
         Route::group(['prefix' => 'v1'], function () {
             Route::get('test', 'Controller@test');
