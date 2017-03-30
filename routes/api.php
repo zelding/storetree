@@ -40,7 +40,21 @@ Route::group(['middleware' => 'auth:api'], function () {
                     Route::put('stats', 'StatController@updateItemStat');
                     Route::delete('stats', 'StatController@updateItemStat');
 
+                    Route::group(['prefix' => 'recipes'], function () {
+                        Route::get('/', 'RecipeController@index');
+                        Route::post('/', 'RecipeController@create');
+                    });
+
                 });
+
+            });
+
+            Route::group(['prefix' => 'recipes/{recipe_id}'], function () {
+                Route::get('/', 'RecipeController@show');
+                Route::put('/', 'RecipeController@update');
+            });
+
+            Route::group(['prefix' => 'stats'], function () {
 
             });
 

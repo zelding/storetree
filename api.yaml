@@ -513,16 +513,12 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
-  /items/{dota_id}/recipes/{recipe_id}:
+  /recipes/{recipe_id}:
     get:
       description: get recipe
       parameters:
         -
           $ref: '#/parameters/token'
-        - name: dota_id
-          in: path
-          type: integer
-          required: true
         - name: recipe_id
           in: path
           type: integer
@@ -541,10 +537,6 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
-        - name: dota_id
-          in: path
-          type: integer
-          required: true
         - name: recipe_id
           in: path
           type: integer
@@ -568,26 +560,6 @@ paths:
             $ref: '#/definitions/Recipe'
         404:
           description: No t found
-          schema:
-            $ref: '#/definitions/Error'
-    delete:
-      description: delete a recipe
-      parameters:
-        -
-          $ref: '#/parameters/token'
-        - name: dota_id
-          in: path
-          type: integer
-          required: true
-        - name: recipe_id
-          in: path
-          type: integer
-          required: true
-      responses:
-        204:
-          description: deleted
-        404:
-          description: Not found
           schema:
             $ref: '#/definitions/Error'
 

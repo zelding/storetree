@@ -374,7 +374,9 @@ class ItemController extends Controller
             }
         }
 
-        $item->touch();
+        if (!(empty($componentsToRemove) && empty($componentsToAdd)) ) {
+            $item->touch();
+        }
 
         return redirect(route('items.edit.components', ["id" => $item->id]))->withInput();
     }
