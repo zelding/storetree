@@ -35,13 +35,20 @@ Route::group(['middleware' => 'auth:api'], function () {
                     Route::get('/', 'ItemController@show');
                     Route::put('/', 'ItemController@update');
 
-                    Route::get('stats', 'StatController@showItemStats');
-                    Route::put('stats', 'StatController@updateItemStat');
-                    Route::delete('stats', 'StatController@updateItemStat');
+                    Route::group(['prefix' => 'stats'], function () {
+                        Route::get('/', 'StatController@showItemStats');
+                        Route::put('/', 'StatController@updateItemStat');
+                        Route::delete('/', 'StatController@updateItemStat');
+                    });
 
                     Route::group(['prefix' => 'recipes'], function () {
                         Route::get('/', 'RecipeController@index');
                         Route::post('/', 'RecipeController@create');
+                    });
+
+                    Route::group(['prefix' => 'abilities'], function () {
+                        Route::put('{ability_id}', 'AbilityController@attachToItem');
+                        Route::delete('{ability_id}', 'AbilityController@detachFromItem');
                     });
                 });
             });

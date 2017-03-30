@@ -654,6 +654,63 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
+  /items/{dota_id}/abilities/{ability_id}:
+    put:
+      summary: attach an ability to an item
+      parameters:
+        -
+          $ref: '#/parameters/token'
+        - name: dota_id
+          type: integer
+          in: path
+          required: true
+        - name: ability_id
+          type: integer
+          in: path
+          required: true
+      responses:
+        200:
+          description: attached
+          schema:
+            $ref: '#/definitions/SimpleItem'
+        404:
+          description: Item or ability not exists
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Item already has an ability
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: detach an ability to an item
+      parameters:
+        -
+          $ref: '#/parameters/token'
+        - name: dota_id
+          type: integer
+          in: path
+          required: true
+        - name: ability_id
+          type: integer
+          in: path
+          required: true
+      responses:
+        200:
+          description: detached
+          schema:
+            $ref: '#/definitions/SimpleItem'
+        404:
+          description: Item or ability not exists
+          schema:
+            $ref: '#/definitions/Error'
+        406:
+          description: Ability doesn't belong to this item
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Item does not have an ability
+          schema:
+            $ref: '#/definitions/Error'
   /stats:
     post:
       summary: create new stat for an item
