@@ -9,13 +9,13 @@
  */
 
 namespace App\Http\Controllers\Api\Internal;
+
 use App\Service\ItemService;
 use Illuminate\Http\Request;
 
 use App\Item;
 use App\Utils\Transformers\ItemTransformer;
 use App\Utils\Transformers\SimpleItemTransformer;
-use App\Utils\BaseSerializer;
 use App\Http\Requests\StoreItem;
 
 use League\Fractal\Resource\Item as ResourceItem;
@@ -49,7 +49,7 @@ class ItemController extends Controller
 
     /**
      * @param Request $request
-     * @param         $dota_id
+     * @param integer $dota_id
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -93,7 +93,7 @@ class ItemController extends Controller
 
     /**
      * @param StoreItem $request
-     * @param           $dota_id
+     * @param integer   $dota_id
      *
      * @return \Illuminate\Http\JsonResponse
      */

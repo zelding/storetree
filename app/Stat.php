@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $is_percent
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property-read mixed $value
+ * @property-read array $value
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $items
  * @method static \Illuminate\Database\Query\Builder|\App\Stat whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Stat whereDotaName($value)

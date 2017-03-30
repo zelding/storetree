@@ -50,7 +50,7 @@
                     <div class="checkbox">
                         <label data-toggle="tooltip" title="If true, an % wil be added to the stats description">
                             <input type="checkbox" name="is_percent"
-                                   value="1" {{ (request.is_percent ?? item.is_percent) ? 'checked="checked"' }}> Percent
+                                   value="1" {{ (request.is_percent ?? stat.is_percent) ? 'checked="checked"' }}> Percent
                         </label>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                 <div class="col-lg-8">
                     <input type="text" class="form-control" id="stat-var-name"
                            placeholder="true_damage" name="var_name"
-                           value="{{ request.var_name ?? stat.var_namephp  }}">
+                           value="{{ request.var_name ?? stat.var_name  }}">
                 </div>
             </div>
         </div>

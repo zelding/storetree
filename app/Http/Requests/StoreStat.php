@@ -3,11 +3,19 @@
 namespace App\Http\Requests;
 
 use App\Utils\Constants;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StoreStat extends FormRequest
+class StoreStat extends JsonRequest
 {
+    protected $errorTypes = [
+        406 => [
+            'var_type', 'stat_group'
+        ],
+        409 => [
+            'name', 'dota_name'
+        ]
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      *

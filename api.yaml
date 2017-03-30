@@ -625,11 +625,14 @@ paths:
           type: integer
           in: path
           required: true
-        - name: stat_id
+        - name: new_stat
+          description: |
+            stat id to attach to item
+            new_stat_value is required for it
           in: formData
           type: integer
           required: true
-        - name: value
+        - name: new_stat_value
           description: values for the stat
           in: formData
           type: array
@@ -640,7 +643,7 @@ paths:
         200:
           description: attached
           schema:
-            $ref: '#/definitions/Stat'
+            $ref: '#/definitions/SimpleItem'
         404:
           description: Item or stat not exists
           schema:
@@ -650,7 +653,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: detach stat for an item
+      summary: detach stats for an item
       parameters:
         -
           $ref: '#/parameters/token'
@@ -658,9 +661,12 @@ paths:
           type: integer
           in: path
           required: true
-        - name: stat_id
+        - name: remove_stat
+          description: stat ids to detach from the item
           in: formData
-          type: integer
+          type: array
+          items:
+            type: integer
           required: true
       responses:
         204:

@@ -50,6 +50,8 @@ class StatController extends Controller
         $stat->var_type   = $request->get("var_type");
         $stat->stat_group = $request->get('stat_group') ?? null;
         $stat->var_name   = $request->get('var_name') ?? null;
+        $stat->stat_group = $request->get('stat_group') ?? null;
+        $stat->is_percent  = $request->get('is_percent') ?? false;
         $stat->save();
 
         return redirect(route('stats.create'), 201);
@@ -99,6 +101,7 @@ class StatController extends Controller
         $stat->var_type   = $request->get('var_type');
         $stat->var_name   = $request->get('var_name') ?? null;
         $stat->stat_group = $request->get('stat_group') ?? null;
+        $stat->is_percent  = $request->get('is_percent') ?? false;
         $stat->save();
 
         return redirect(route('stats.edit', ['id' => $id]))->with('success', 'Updated');

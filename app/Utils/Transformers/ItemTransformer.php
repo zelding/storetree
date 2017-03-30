@@ -73,4 +73,9 @@ class ItemTransformer extends Fractal\TransformerAbstract
     {
         return $this->collection($item->recipes, new RecipeTransformer());
     }
+
+    public function includeStats(Item $item)
+    {
+        return $this->collection($item->stats, new StatTransformer());
+    }
 }

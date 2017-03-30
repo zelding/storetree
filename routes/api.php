@@ -30,15 +30,20 @@ Route::group(['middleware' => 'auth:api'], function () {
 
             Route::group(['prefix' => 'items'], function () {
                 Route::get('/', 'ItemController@index');
-
                 Route::post('/', 'ItemController@store');
-                Route::get('/create', 'ItemController@store');
+
+                Route::group(['prefix' => '{dota_id}'], function () {
+                    Route::get('/', 'ItemController@show');
+                    Route::put('/', 'ItemController@update');
+
+                    Route::get('stats', 'StatController@showItemStats');
+                    Route::put('stats', 'StatController@updateItemStat');
+                    Route::delete('stats', 'StatController@updateItemStat');
+
+                });
 
             });
 
-            Route::group(['prefix' => 'items'], function () {
-                Route::get('{dota_id}', 'ItemController@show');
-            });
         });
 
     });
