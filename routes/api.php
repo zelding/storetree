@@ -19,7 +19,6 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'v1'], function () {
 
         });
-
     });
 
     /** External API mostly for people who live in jars */
@@ -44,9 +43,7 @@ Route::group(['middleware' => 'auth:api'], function () {
                         Route::get('/', 'RecipeController@index');
                         Route::post('/', 'RecipeController@create');
                     });
-
                 });
-
             });
 
             Route::group(['prefix' => 'recipes/{recipe_id}'], function () {
@@ -58,8 +55,13 @@ Route::group(['middleware' => 'auth:api'], function () {
                 Route::post('/', 'StatController@store');
             });
 
+            Route::group(['prefix' => 'abilities'], function () {
+                Route::get('/', 'AbilityController@index');
+                Route::post('/', 'AbilityController@create');
+
+                Route::get('{ability_id}', 'AbilityController@show');
+                Route::put('{ability_id}', 'AbilityController@update');
+            });
         });
-
     });
-
 });

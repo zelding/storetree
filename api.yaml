@@ -653,6 +653,7 @@ paths:
           description: Missing required property
           schema:
             $ref: '#/definitions/Error'
+
   /stats:
     post:
       summary: create new stat for an item
@@ -672,6 +673,41 @@ paths:
           description: Some property is not unique
           schema:
             $ref: '#/definitions/Error'
+
+  /abilities:
+    get:
+      parameters:
+        -
+          $ref: '#/parameters/token'
+      responses:
+        200:
+          description: An array ibilities
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Ability'
+        204:
+          description: No results for the query
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      parameters:
+        -
+          $ref: '#/parameters/token'
+      responses:
+         201:
+          description: created
+          schema:
+            $ref: '#/definitions/Ability'
+         406:
+          description: Missing required property
+          schema:
+            $ref: '#/definitions/Error'
+         409:
+          description: Some property is not unique
+          schema:
+            $ref: '#/definitions/Error'
+
 
 definitions:
   Item:

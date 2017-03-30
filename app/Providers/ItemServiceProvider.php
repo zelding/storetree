@@ -18,6 +18,4 @@ class ItemServiceProvider extends ServiceProvider
             return new ItemService();
         });
     }
-
-
 }

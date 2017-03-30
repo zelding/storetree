@@ -183,7 +183,8 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
 
         //my stuff
-        App\Providers\ItemServiceProvider::class
+        App\Providers\ItemServiceProvider::class,
+        App\Providers\AbilityServiceProvider::class
     ],
 
     /*
