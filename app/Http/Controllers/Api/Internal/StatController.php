@@ -127,6 +127,15 @@ class StatController extends Controller
 
                 $item->stats()->detach($stat);
             }
+
+            $item->touch();
+
+            return response()->json(
+                [],
+                204,
+                [],
+                480
+            );
         }
 
         $item->touch();

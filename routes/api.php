@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth:api'], function () {
             });
 
             Route::group(['prefix' => 'stats'], function () {
-
+                Route::post('/', 'StatController@store');
             });
 
         });
