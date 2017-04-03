@@ -22,10 +22,8 @@ trait PagerScopeTrait
      */
     public function scopePager($query, Request $request)
     {
-        $page = 0;
-        $step = 25;
-
         if ( $request->exists('page') ) {
+            $step = 25;
             $page = $request->get('page');
 
             if ( $request->exists('step') ) {
