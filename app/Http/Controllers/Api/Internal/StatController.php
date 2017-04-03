@@ -18,10 +18,32 @@ use App\Http\Requests\StoreItemStat;
 use App\Utils\Transformers\StatTransformer;
 use App\Utils\Transformers\SimpleItemTransformer;
 use League\Fractal\Resource\Item as ResourceItem;
+use League\Fractal\Resource\Collection as ResourceCollection;
 use Illuminate\Http\Request;
 
 class StatController extends Controller
 {
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index(Request $request)
+    {
+        $stats = Stat::pager($request)->get();
+
+        $data = new ResourceCollection($stats, new StatTransformer());
+
+        $this->fractal->parseIncludes('stats');
+
+        return response()->json(
+            $this->fractal->createData($data)->toArray(),
+            $stats->count() ? 200 : 204,
+            [],
+            480
+        );
+    }
+
     /**
      * @param StoreStat $request
      *

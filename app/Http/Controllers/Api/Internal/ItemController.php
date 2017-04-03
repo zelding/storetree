@@ -30,7 +30,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        $item = Item::all();
+        $item = Item::pager($request)->get();
 
         if( $request->get('simple') ) {
             $data = new ResourceCollection($item, new SimpleItemTransformer());

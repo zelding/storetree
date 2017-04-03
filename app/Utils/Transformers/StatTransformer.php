@@ -17,7 +17,7 @@ class StatTransformer extends Fractal\TransformerAbstract
 {
     public function transform(Stat $stat)
     {
-        return [
+        $data = [
             'id'         => $stat->id,
             'name'       => $stat->name,
             'var_name'   => $stat->var_name,
@@ -25,7 +25,12 @@ class StatTransformer extends Fractal\TransformerAbstract
             'dota_name'  => $stat->dota_name,
             'stat_group' => $stat->stat_group,
             'is_percent' => $stat->is_percent,
-            'value'      => $stat->value,
         ];
+
+        if( isset($stat->value) ) {
+            $data['value'] = $stat->value;
+        }
+
+        return $data;
     }
 }

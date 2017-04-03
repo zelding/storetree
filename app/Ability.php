@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 /**
  * App\Ability
  *
@@ -33,38 +35,41 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $is_override
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereBaseClass($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereBehaviour($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereCastHidden($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereCastPoint($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereCastRange($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereCastRangeBuffer($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereChannelManaCost($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereChannelTime($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereCooldown($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereCooldownGroup($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereDamage($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereDamageType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereDenySelfCast($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereDuration($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereGoldCost($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereManaCost($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereTargetFlags($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereTargetTeam($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereTargetType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereTextureName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereUpdatedAt($value)
+ * @method static Builder|Ability whereBaseClass($value)
+ * @method static Builder|Ability whereBehaviour($value)
+ * @method static Builder|Ability whereCastHidden($value)
+ * @method static Builder|Ability whereCastPoint($value)
+ * @method static Builder|Ability whereCastRange($value)
+ * @method static Builder|Ability whereCastRangeBuffer($value)
+ * @method static Builder|Ability whereChannelManaCost($value)
+ * @method static Builder|Ability whereChannelTime($value)
+ * @method static Builder|Ability whereCooldown($value)
+ * @method static Builder|Ability whereCooldownGroup($value)
+ * @method static Builder|Ability whereCreatedAt($value)
+ * @method static Builder|Ability whereDamage($value)
+ * @method static Builder|Ability whereDamageType($value)
+ * @method static Builder|Ability whereDenySelfCast($value)
+ * @method static Builder|Ability whereDuration($value)
+ * @method static Builder|Ability whereGoldCost($value)
+ * @method static Builder|Ability whereId($value)
+ * @method static Builder|Ability whereManaCost($value)
+ * @method static Builder|Ability whereName($value)
+ * @method static Builder|Ability whereTargetFlags($value)
+ * @method static Builder|Ability whereTargetTeam($value)
+ * @method static Builder|Ability whereTargetType($value)
+ * @method static Builder|Ability whereTextureName($value)
+ * @method static Builder|Ability whereType($value)
+ * @method static Builder|Ability whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property bool $magic_stick
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Item[] $items
- * @method static \Illuminate\Database\Query\Builder|\App\Ability whereMagicStick($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|Item[] $items
+ * @method static |Ability whereMagicStick($value)
+ * @method static Builder pager(Request $request)
  */
 class Ability extends Model
 {
+    use Utils\PagerScopeTrait;
+
     protected $table = "abilities";
 
     protected $dates = [

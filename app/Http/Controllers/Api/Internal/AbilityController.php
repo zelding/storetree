@@ -16,17 +16,22 @@ use App\Service\AbilityService;
 use App\Utils\Transformers\AbilityTransformer;
 use App\Item;
 use App\Utils\Transformers\SimpleItemTransformer;
+use Illuminate\Http\Request;
 use League\Fractal\Resource\Item as ResourceItem;
 use League\Fractal\Resource\Collection as ResourceCollection;
 
 class AbilityController extends Controller
 {
     /**
+     * @param Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $abilities = Ability::with('items')->get();
+        $abilities = Ability::with('items')
+            ->pager($request)
+            ->get();
 
         $data = new ResourceCollection($abilities, new AbilityTransformer());
 

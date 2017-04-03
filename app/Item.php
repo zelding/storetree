@@ -104,10 +104,12 @@ use Illuminate\Database\Eloquent\Builder;
  * @property-read ItemLocale $selected_locale
  * @property-read \Illuminate\Database\Eloquent\Collection|ItemLocale[] $locale
  * @method static \Illuminate\Database\Query\Builder|Item whereDisassemble($value)
- * @method Builder exportRequest(Request $request)
+ * @method static Builder exportRequest(Request $request)
+ * @method static Builder pager(Request $request)
  */
 class Item extends Model
 {
+    use Utils\PagerScopeTrait;
     /**
      * The attributes that should be mutated to dates.
      *

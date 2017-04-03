@@ -30,9 +30,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Stat whereIsPercent($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Stat whereStatGroup($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Stat whereVarName($value)
+ * @method static \Illuminate\Database\Query\Builder pager(\Illuminate\Http\Request $request)
  */
 class Stat extends Model
 {
+    use Utils\PagerScopeTrait;
+
     protected $dates = [
         'created_at', 'updated_at'
     ];
@@ -50,11 +53,15 @@ class Stat extends Model
     }
 
     /**
-     * @return string|int|array
+     * @return string|int|array|null
      */
     public function getValueAttribute()
     {
-        return $this->pivot->value;
+        if ( isset($this->pivot) ) {
+            return $this->pivot->value;
+        }
+
+        return null;
     }
 
     /**

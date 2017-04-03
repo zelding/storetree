@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: Storetree API
   description: Site that manages items for dota2
-  version: "0.5.3"
+  version: "0.5.5"
 # the domain of the service
 host: lyozsi.net
 # array of all schemes that your API supports
@@ -27,6 +27,17 @@ parameters:
     name: simple
     type: boolean
     in: query
+  page:
+    description: if provided results will be paged
+    name: page
+    type: integer
+    in: query
+  step:
+    name: step
+    description: number of results if page provided
+    type: integer
+    in: query
+    default: 25
 
 paths:
   /items:
@@ -38,6 +49,10 @@ paths:
           $ref: '#/parameters/token'
         -
           $ref: '#/parameters/simple'
+        -
+          $ref: '#/parameters/page'
+        -
+          $ref: '#/parameters/step'
       responses:
         200:
           description: An array items
@@ -712,6 +727,22 @@ paths:
           schema:
             $ref: '#/definitions/Error'
   /stats:
+    get:
+      summary: get the list of available stats
+      parameters:
+        -
+          $ref: '#/parameters/token'
+      responses:
+        200:
+          description: list of stats
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Stat'
+        204:
+          description: zero results
+          schema:
+            $ref: '#/definitions/Error'
     post:
       summary: create new stat for an item
       parameters:
@@ -736,6 +767,10 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/page'
+        -
+          $ref: '#/parameters/step'
       responses:
         200:
           description: An array ibilities
