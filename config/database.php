@@ -50,7 +50,7 @@ return [
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'strict' => false,
-            'engine' => 'InnoDb',
+            'engine' => 'InnoDb ROW_FORMAT=DYNAMIC',
         ],
 
         'pgsql' => [
