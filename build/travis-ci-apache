@@ -1,5 +1,7 @@
 <VirtualHost *:80>
   # [...]
+
+  ServerAdmin asd@asd.com
   ServerName localhost
   DocumentRoot %TRAVIS_BUILD_DIR%
 
