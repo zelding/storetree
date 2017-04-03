@@ -3,8 +3,6 @@
 namespace Tests\Rest;
 
 use Tests\ApiTest;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class getItems extends ApiTest
 {
