@@ -2,4 +2,37 @@ language: php
 php:
   - '7.0'
   - '7.1'
-before_script: composer install --no-scripts
+
+sudo: false
+
+services:
+  - mysql
+  - apache2
+
+install:
+  - composer install
+  - npm install
+  - npm install gulp
+  - npm install bower
+  - bower install
+
+cache:
+  directories:
+    - node_modules
+    - vendor
+    - $HOME/.composer/cache
+
+before_script:
+  - mysql -e 'create database stroretree;'
+  - php artisan db:seed --force
+  - php artisan migrate --seed --force
+  - php artisan key:generate
+
+script:
+    - gulp
+    - phpunit --configuration phpunit.xml --coverage-text
+
+branches:
+  only:
+    - master
+    - laravel

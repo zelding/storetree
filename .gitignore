@@ -18,3 +18,4 @@ Homestead.yaml
 /composer.lock
 /resources/views/vendor/
 resources/assets/less/
+/phpunit.phar
