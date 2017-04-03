@@ -30,6 +30,8 @@ before_script:
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   - sudo service apache2 restart
 
+  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('asd123ASD') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
+
   - mysql -e 'create database storetree;'
   - php artisan db:seed --force
   - php artisan migrate --seed --force
