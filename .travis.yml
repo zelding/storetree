@@ -20,6 +20,7 @@ cache:
     - $HOME/.composer/cache
 
 before_script:
+  - bash /build/.travis.install-mysql-5.7.sh
   - sudo apt-get update
   - sudo apt-get install apache2 libapache2-mod-fastcgi
   # enable php-fpm
