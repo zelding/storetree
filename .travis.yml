@@ -31,7 +31,6 @@ before_script:
   - sudo service apache2 restart
 
   - mysql -e 'create database storetree;'
-  - php artisan db:seed --force
   - php artisan migrate --seed --force
   - php artisan key:generate
 
