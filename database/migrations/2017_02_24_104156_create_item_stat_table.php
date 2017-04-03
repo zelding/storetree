@@ -14,8 +14,6 @@ class CreateItemStatTable extends Migration
     public function up()
     {
         Schema::create('item_stat', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-
             $table->increments('id');
             $table->unsignedInteger('item_id');
             $table->unsignedInteger('stat_id');

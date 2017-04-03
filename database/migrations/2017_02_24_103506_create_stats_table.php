@@ -15,8 +15,6 @@ class CreateStatsTable extends Migration
     public function up()
     {
         Schema::create('stats', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-
             $table->increments('id');
             $table->string('name');
             $table->enum('var_type', Constants::$varTypes)->default('FIELD_INTEGER');

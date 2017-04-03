@@ -14,8 +14,6 @@ class CreateItemRecipe extends Migration
     public function up()
     {
         Schema::create('item_recipe', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-
             $table->increments('id');
             $table->unsignedInteger('item_id');
             $table->unsignedInteger('recipe_id');

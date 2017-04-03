@@ -14,8 +14,6 @@ class CreateRecipesTable extends Migration
     public function up()
     {
         Schema::create('recipes', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-
             $table->increments('id');
             $table->unsignedInteger('item_id');
             $table->timestamps();
