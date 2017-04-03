@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->seedShops();
         $this->call(UsersTableSeeder::class);
-        $this->seedItemsFromWeb();
+        //$this->seedItemsFromWeb();
         $this->call(ItemsTableSeeder::class);
         $this->call(ItemShopTableSeeder::class);
         $this->call(RecipesTableSeeder::class);
