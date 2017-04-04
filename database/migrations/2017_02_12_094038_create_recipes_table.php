@@ -17,6 +17,9 @@ class CreateRecipesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('item_id');
             $table->timestamps();
+
+            $table->foreign('item_id')->references('id')->on('items')
+                  ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -16,10 +16,16 @@ class CreateAbilityItemTable extends Migration
         Schema::create('ability_item', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('item_id');
-            $table->unsignedInteger('ability_id');
+            $table->unsignedInteger('item_id')->index();
+            $table->unsignedInteger('ability_id')->index();
 
             $table->timestamps();
+
+            $table->foreign('item_id')->references('id')->on('items')
+                  ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('ability_id')->references('id')->on('abilities')
+                  ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

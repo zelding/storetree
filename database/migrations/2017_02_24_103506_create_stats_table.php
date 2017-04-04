@@ -21,6 +21,7 @@ class CreateStatsTable extends Migration
             $table->string('var_name')->default(null);
             $table->string('dota_name')->unique();
             $table->boolean('is_percent')->default(false);
+            $table->string('stat_group')->nullable()->default(null);
             $table->timestamps();
         });
     }

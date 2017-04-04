@@ -18,6 +18,13 @@ class CreateItemShopTable extends Migration
             $table->unsignedInteger('item_id');
             $table->unsignedInteger('shop_id');
             $table->timestamps();
+
+
+            $table->foreign('item_id')->references('id')->on('items')
+                  ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('shop_id')->references('id')->on('shops')
+                  ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -19,6 +19,12 @@ class CreateItemStatTable extends Migration
             $table->unsignedInteger('stat_id');
             $table->string('value');
             $table->timestamps();
+
+            $table->foreign('item_id')->references('id')->on('items')
+                  ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('stat_id')->references('id')->on('stats')
+                  ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

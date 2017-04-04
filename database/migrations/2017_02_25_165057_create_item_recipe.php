@@ -18,6 +18,12 @@ class CreateItemRecipe extends Migration
             $table->unsignedInteger('item_id');
             $table->unsignedInteger('recipe_id');
             $table->timestamps();
+
+            $table->foreign('item_id')->references('id')->on('items')
+                  ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('recipe_id')->references('id')->on('recipes')
+                  ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
