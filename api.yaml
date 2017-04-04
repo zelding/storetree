@@ -732,6 +732,10 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/page'
+        -
+          $ref: '#/parameters/step'
       responses:
         200:
           description: list of stats

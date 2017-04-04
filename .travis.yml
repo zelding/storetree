@@ -43,7 +43,6 @@ before_script:
   - php artisan key:generate
 
 script:
-  - phpdbg -qrr phpunit
   - phpunit --configuration phpunit.xml --coverage-text
 
 branches:

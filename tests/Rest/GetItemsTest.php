@@ -58,6 +58,8 @@ class getItems extends ApiTest
         );
 
         $response->assertStatus(200);
+
+
     }
 
     /**
@@ -77,5 +79,48 @@ class getItems extends ApiTest
         );
 
         $response->assertStatus(204);
+    }
+
+    /**
+     * Butterfly 2
+     *
+     * @return void
+     */
+    public function testItemShow()
+    {
+        $response = $this->get(
+            $this->baseExternalUrl . "/items/3136?".
+            http_build_query(
+                [
+                    'api_token' => $this->testApiKey,
+                    'page'      => 1,
+                    'step'      => 67
+                ]
+            )
+        );
+
+        $response->assertStatus(200);
+    }
+
+    /**
+     * Butterfly 2
+     *
+     * @return void
+     */
+    public function testSimpleItemShow()
+    {
+        $response = $this->get(
+            $this->baseExternalUrl . "/items/3136?".
+            http_build_query(
+                [
+                    'api_token' => $this->testApiKey,
+                    'simple'    => true,
+                    'page'      => 1,
+                    'step'      => 67
+                ]
+            )
+        );
+
+        $response->assertStatus(200);
     }
 }
