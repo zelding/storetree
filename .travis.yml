@@ -21,6 +21,7 @@ cache:
 
 before_script:
   - sudo chmod +x travis.install-mysql-5.7.sh
+  - sudo chmod +x create_env.sh
   - ./travis.install-mysql-5.7.sh
   - sudo apt-get update
   - sudo apt-get install apache2 libapache2-mod-fastcgi
@@ -34,6 +35,8 @@ before_script:
   - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/default
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   - sudo service apache2 restart
+
+  - ./create_env.sh
 
   - mysql -e 'create database storetree;'
   - php artisan migrate --seed --force
