@@ -1,7 +1,7 @@
 A site that manages custom items for dota 2
 -------------------------------------------
 
-[![Build Status](https://travis-ci.org/zelding/storetree.svg?branch=master)](https://travis-ci.org/zelding/storetree)
+[![Build Status](https://travis-ci.org/zelding/storetree.svg?branch=laravel)](https://travis-ci.org/zelding/storetree)
 
 ## Features include:
 
