@@ -39,7 +39,7 @@ class CreateItemsTable extends Migration
             $table->tinyInteger('fight_recap')->default(0);
             $table->enum('quality', Constants::$itemQuality)->default('component');
             $table->enum('share', Constants::$shareable)->default('ITEM_NOT_SHAREABLE');
-            $table->enum('disassembe', Constants::$disassemble)->default('DOTA_ITEM_DISASSEMBLE_NEVER');
+            $table->enum('disassemble', Constants::$disassemble)->default('DOTA_ITEM_DISASSEMBLE_NEVER');
             $table->text('declarations')->nullable()->default(null);
             $table->tinyInteger('stock_max')->default(0);
             $table->mediumInteger('stock_time')->default(0);
