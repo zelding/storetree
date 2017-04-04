@@ -17,7 +17,7 @@ class CreateAbilitiesTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
 
-            $table->string('base_class')->unique();
+            $table->string('base_class')->unique()->nullable();
             $table->text('behaviour');
             $table->enum('type', \App\Utils\Constants::$abilityType)->default('DOTA_ABILITY_TYPE_BASIC');
             $table->string('texture_name')->nullable();
