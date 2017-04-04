@@ -13,42 +13,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->seedShops();
         $this->call(UsersTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
         //$this->seedItemsFromWeb();
         $this->call(ItemsTableSeeder::class);
-        $this->call(ItemShopTableSeeder::class);
-        $this->call(RecipesTableSeeder::class);
+        $this->call(StatsTableSeeder::class);
         $this->call(ShopsTableSeeder::class);
         $this->call(AbilitiesTableSeeder::class);
+
+        $this->call(ItemShopTableSeeder::class);
+        $this->call(RecipesTableSeeder::class);
         $this->call(AbilityItemTableSeeder::class);
         $this->call(ItemLocaleTableSeeder::class);
         $this->call(ItemRecipeTableSeeder::class);
         $this->call(ItemStatTableSeeder::class);
         $this->call(PermissionRoleTableSeeder::class);
-        $this->call(PermissionsTableSeeder::class);
         $this->call(RoleUserTableSeeder::class);
-        $this->call(RolesTableSeeder::class);
-        $this->call(StatsTableSeeder::class);
-    }
-
-    protected function seedShops()
-    {
-        DB::table('shops')->insert([
-            "name" => "Basic shop"
-        ]);
-
-        DB::table('shops')->insert([
-            "name" => "Side shop"
-        ]);
-
-        DB::table('shops')->insert([
-            "name" => "Secret shop"
-        ]);
-
-        DB::table('shops')->insert([
-            "name" => "Azazel"
-        ]);
     }
 
     protected function seedItemsFromWeb()
