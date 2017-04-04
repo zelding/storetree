@@ -25,6 +25,7 @@ class CreateAbilitiesTable extends Migration
 
             $table->boolean('deny_self_cast')->default(true);
             $table->boolean('cast_hidden')->default(false);
+            $table->boolean('magic_stick')->default(false);
 
             $table->text('target_team')->nullable();
             $table->text('target_type')->nullable();
