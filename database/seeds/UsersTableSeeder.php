@@ -103,7 +103,7 @@ class UsersTableSeeder extends Seeder
                 'remember_token' => 'RWiy5PC5gl0AF4TO0a0mLSBh8wnuyqQR3p2jPDiodDEStDG92MnZDsqlvUsd',
                 'created_at' => '2017-03-23 15:55:42',
                 'updated_at' => '2017-03-23 15:55:42',
-                'api_token' => NULL,
+                'api_token' => '454d90c7b5267176c77aadb0a407a40d0249525f9dd490de1ac4ba06df839ee72a3503dd2e602a8e171b286a67defa9876a60f38911aca43b74e811edc22d031',
             ),
         ));
         

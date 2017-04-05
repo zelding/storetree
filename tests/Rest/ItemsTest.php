@@ -156,6 +156,8 @@ class getItems extends ApiTest
             $postData
         );
 
+        $this->printToCli($response->baseResponse->getContent());
+
         $response->assertStatus(201);
     }
 
@@ -210,6 +212,8 @@ class getItems extends ApiTest
             $postData
         );
 
+        $this->printToCli($response->baseResponse->getContent());
+
         $response->assertStatus(201);
     }
 
@@ -234,6 +238,8 @@ class getItems extends ApiTest
             http_build_query($this->queryParams),
             $postData
         );
+
+        $this->printToCli($response->baseResponse->getContent());
 
         $response->assertStatus(406);
     }
@@ -301,6 +307,8 @@ class getItems extends ApiTest
                 http_build_query($this->queryParams),
             $postData
         );
+
+        $this->printToCli($response->baseResponse->getContent());
 
         $response->assertStatus(403);
     }
