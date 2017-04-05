@@ -45,14 +45,12 @@ class TestTransactions
      * @param Request  $request
      * @param Response $response
      *
-     * @return Response
+     * @return Void
      */
     public function terminate(Request $request, Response $response)
     {
         if ( $request->exists('test') && $request->get('test') ) {
             DB::rollBack();
         }
-
-        return $response;
     }
 }
