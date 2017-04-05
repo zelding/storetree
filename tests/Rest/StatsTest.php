@@ -5,14 +5,14 @@
  * @author    lyozsi (kristof.dekany@apex-it-services.eu)
  * @copyright internal usage
  *
- * Date: 4/4/17 3:32 PM
+ * Date: 4/4/17 3:24 PM
  */
 
 namespace Tests\Rest;
 
 use Tests\ApiTest;
 
-class GetAbilitiesTest extends ApiTest
+class StatsTest extends ApiTest
 {
     /**
      * @return void
@@ -20,7 +20,22 @@ class GetAbilitiesTest extends ApiTest
     public function testStatsIndex()
     {
         $response = $this->get(
-            $this->baseExternalUrl . "/abilities?".
+            $this->baseExternalUrl . "/stats?".
+            http_build_query($this->queryParams)
+        );
+
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @return void
+     */
+    public function testStatsIndexPaged()
+    {
+        $this->setPagerParams(2);
+
+        $response = $this->get(
+            $this->baseExternalUrl . "/stats?".
             http_build_query($this->queryParams)
         );
 
@@ -32,10 +47,10 @@ class GetAbilitiesTest extends ApiTest
      */
     public function testStatsIndexPagedWithStep()
     {
-        $this->setPagerParams(1, 2);
+        $this->setPagerParams(2,20);
 
         $response = $this->get(
-            $this->baseExternalUrl . "/abilities?".
+            $this->baseExternalUrl . "/stats?".
             http_build_query($this->queryParams)
         );
 
@@ -50,7 +65,7 @@ class GetAbilitiesTest extends ApiTest
         $this->setPagerParams(150, 55);
 
         $response = $this->get(
-            $this->baseExternalUrl . "/abilities?".
+            $this->baseExternalUrl . "/stats?".
             http_build_query($this->queryParams)
         );
 

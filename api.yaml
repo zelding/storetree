@@ -259,6 +259,14 @@ paths:
           description: Item created
           schema:
             $ref: '#/definitions/Item'
+        401:
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: isufficient privileges
+          schema:
+            $ref: '#/definitions/Error'
         406:
           description: Missing required property
           schema:
@@ -476,6 +484,14 @@ paths:
           description: Item found
           schema:
             $ref: '#/definitions/Item'
+        401:
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: isufficient privileges
+          schema:
+            $ref: '#/definitions/Error'
         404:
           description: Missing required parameter
           schema:
@@ -532,6 +548,14 @@ paths:
           description: created
           schema:
             $ref: '#/definitions/Recipe'
+        401:
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: isufficient privileges
+          schema:
+            $ref: '#/definitions/Error'
         406:
           description: Missing required property
           schema:
@@ -588,6 +612,14 @@ paths:
           description: updated
           schema:
             $ref: '#/definitions/Recipe'
+        401:
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: isufficient privileges
+          schema:
+            $ref: '#/definitions/Error'
         404:
           description: No t found
           schema:
@@ -648,6 +680,14 @@ paths:
           description: attached
           schema:
             $ref: '#/definitions/SimpleItem'
+        401:
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: isufficient privileges
+          schema:
+            $ref: '#/definitions/Error'
         404:
           description: Item or stat not exists
           schema:
@@ -679,6 +719,14 @@ paths:
           description: detached
           schema:
             $ref: '#/definitions/Stat'
+        401:
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: isufficient privileges
+          schema:
+            $ref: '#/definitions/Error'
         404:
           description: Item or stat not exists
           schema:
@@ -709,6 +757,14 @@ paths:
           description: attached
           schema:
             $ref: '#/definitions/SimpleItem'
+        401:
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: isufficient privileges
+          schema:
+            $ref: '#/definitions/Error'
         404:
           description: Item or ability not exists
           schema:
@@ -737,6 +793,14 @@ paths:
           description: detached
           schema:
             $ref: '#/definitions/SimpleItem'
+        401:
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: isufficient privileges
+          schema:
+            $ref: '#/definitions/Error'
         404:
           description: Item or ability not exists
           schema:
@@ -778,15 +842,23 @@ paths:
         -
           $ref: '#/parameters/test'
       responses:
-         201:
+        201:
           description: created
           schema:
             $ref: '#/definitions/Stat'
-         406:
+        401:
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: isufficient privileges
+          schema:
+            $ref: '#/definitions/Error'
+        406:
           description: Missing required property
           schema:
             $ref: '#/definitions/Error'
-         409:
+        409:
           description: Some property is not unique
           schema:
             $ref: '#/definitions/Error'
@@ -960,15 +1032,23 @@ paths:
           in: formData
           type: boolean
       responses:
-         201:
+        201:
           description: created
           schema:
             $ref: '#/definitions/Ability'
-         406:
+        401:
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: isufficient privileges
+          schema:
+            $ref: '#/definitions/Error'
+        406:
           description: Missing required property
           schema:
             $ref: '#/definitions/Error'
-         409:
+        409:
           description: Some property is not unique
           schema:
             $ref: '#/definitions/Error'
@@ -1131,6 +1211,14 @@ paths:
           description: updated
           schema:
             $ref: '#/definitions/Ability'
+        401:
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: isufficient privileges
+          schema:
+            $ref: '#/definitions/Error'
         404:
           description: Item or ability not exists
           schema:

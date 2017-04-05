@@ -10,6 +10,8 @@ abstract class ApiTest extends BaseTestCase
 
     protected $testApiKey = "554d90c7b5267176c77aadb0a407a40d0249525f9dd490de1ac4ba06df839ee72a3503dd2e602a8e171b286a67defa9876a60f38911aca43b74e811edc22d030";
 
+    protected $badApiKey = "454d90c7b5267176c77aadb0a407a40d0249525f9dd490de1ac4ba06df839ee72a3503dd2e602a8e171b286a67defa9876a60f38911aca43b74e811edc22d031";
+
     protected $baseExternalUrl = "/api/external/v1";
 
     protected $queryParams = [];
@@ -19,7 +21,8 @@ abstract class ApiTest extends BaseTestCase
         parent::__construct($name, $data, $dataName);
 
         $this->queryParams = [
-            'api_token' => $this->testApiKey
+            'api_token' => $this->testApiKey,
+            'test'      => 1
         ];
     }
 
@@ -38,5 +41,17 @@ abstract class ApiTest extends BaseTestCase
         $this->queryParams[ $name ] = $value;
 
         return $this;
+    }
+
+    /**
+     * Outputs data to CLI
+     *
+     * @param $data
+     *
+     * @return void
+     */
+    public function printToCli($data)
+    {
+        fwrite(STDERR, print_r($data, true));
     }
 }

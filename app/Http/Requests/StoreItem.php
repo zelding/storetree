@@ -50,7 +50,9 @@ class StoreItem extends JsonRequest
             "cost"        => "required_if:base_item,1",
             "base_item"   => "required_with:recipe_item",
             "boss_item"   => "denied_with:recipe_item",
-            "item_shops"  => "required_with:is_purchasable|required_without:boss_item|distinct|exists:shops,id",
+
+            // this might not be required
+            //"item_shops"  => "required_with:is_purchasable|required_without:boss_item|distinct|exists:shops,id",
 
             "dota_id"       => "required|numeric|unique:items,dota_id,{$this->id}",
             "base_class"    => "required|string|unique:items,base_class,{$this->id}",
