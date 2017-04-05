@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: Storetree API
   description: Site that manages items for dota2
-  version: "0.5.5"
+  version: "0.6.0"
 # the domain of the service
 host: lyozsi.net
 # array of all schemes that your API supports
@@ -22,6 +22,7 @@ parameters:
     name: api_token
     type: string
     in: query
+    required: true
   simple:
     description: if true, the result objects will be simplified
     name: simple
@@ -38,6 +39,12 @@ parameters:
     type: integer
     in: query
     default: 25
+  test:
+    name: test
+    type: boolean
+    description: if true, all db modifications will be rolled back
+    in: query
+    default: false
 
 paths:
   /items:
@@ -71,6 +78,8 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/test'
         - name: dota_id
           description: unique dota id
           in: formData
@@ -286,6 +295,8 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/test'
         - name: dota_id
           description: unique dota id
           in: path
@@ -504,6 +515,8 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/test'
         - name: dota_id
           type: integer
           in: path
@@ -552,6 +565,8 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/test'
         - name: recipe_id
           in: path
           type: integer
@@ -608,6 +623,8 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/test'
         - name: dota_id
           type: integer
           in: path
@@ -644,6 +661,8 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/test'
         - name: dota_id
           type: integer
           in: path
@@ -675,6 +694,8 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/test'
         - name: dota_id
           type: integer
           in: path
@@ -701,6 +722,8 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/test'
         - name: dota_id
           type: integer
           in: path
@@ -752,6 +775,8 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/test'
       responses:
          201:
           description: created
@@ -790,6 +815,8 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/test'
         - name: name
           type: string
           in: formData
@@ -951,6 +978,8 @@ paths:
       parameters:
         -
           $ref: '#/parameters/token'
+        -
+          $ref: '#/parameters/test'
         - name: ability_id
           type: integer
           in: path

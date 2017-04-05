@@ -21,11 +21,7 @@ class GetAbilitiesTest extends ApiTest
     {
         $response = $this->get(
             $this->baseExternalUrl . "/abilities?".
-            http_build_query(
-                [
-                    'api_token' => $this->testApiKey
-                ]
-            )
+            http_build_query($this->queryParams)
         );
 
         $response->assertStatus(200);
@@ -36,15 +32,11 @@ class GetAbilitiesTest extends ApiTest
      */
     public function testStatsIndexPagedWithStep()
     {
+        $this->setPagerParams(1, 2);
+
         $response = $this->get(
             $this->baseExternalUrl . "/abilities?".
-            http_build_query(
-                [
-                    'api_token' => $this->testApiKey,
-                    'page'      => 1,
-                    'step'      => 2
-                ]
-            )
+            http_build_query($this->queryParams)
         );
 
         $response->assertStatus(200);
@@ -55,15 +47,11 @@ class GetAbilitiesTest extends ApiTest
      */
     public function testStatsIndexNoResult()
     {
+        $this->setPagerParams(150, 55);
+
         $response = $this->get(
             $this->baseExternalUrl . "/abilities?".
-            http_build_query(
-                [
-                    'api_token' => $this->testApiKey,
-                    'page'      => 150,
-                    'step'      => 55
-                ]
-            )
+            http_build_query($this->queryParams)
         );
 
         $response->assertStatus(204);

@@ -13,11 +13,7 @@ class getItems extends ApiTest
     {
         $response = $this->get(
             $this->baseExternalUrl . "/items?".
-            http_build_query(
-                [
-                    'api_token' => $this->testApiKey
-                ]
-            )
+            http_build_query($this->queryParams)
         );
 
         $response->assertStatus(200);
@@ -28,14 +24,11 @@ class getItems extends ApiTest
      */
     public function testItemsIndexPaged()
     {
+        $this->setPagerParams(2);
+
         $response = $this->get(
             $this->baseExternalUrl . "/items?".
-            http_build_query(
-                [
-                    'api_token' => $this->testApiKey,
-                    'page'      => 2
-                ]
-            )
+            http_build_query($this->queryParams)
         );
 
         $response->assertStatus(200);
@@ -46,15 +39,11 @@ class getItems extends ApiTest
      */
     public function testItemsIndexPagedWithStep()
     {
+        $this->setPagerParams(1, 67);
+
         $response = $this->get(
             $this->baseExternalUrl . "/items?".
-            http_build_query(
-                [
-                    'api_token' => $this->testApiKey,
-                    'page'      => 1,
-                    'step'      => 67
-                ]
-            )
+            http_build_query($this->queryParams)
         );
 
         $response->assertStatus(200);
@@ -67,15 +56,11 @@ class getItems extends ApiTest
      */
     public function testItemsIndexNoResult()
     {
+        $this->setPagerParams(150, 55);
+
         $response = $this->get(
             $this->baseExternalUrl . "/items?".
-            http_build_query(
-                [
-                    'api_token' => $this->testApiKey,
-                    'page'      => 150,
-                    'step'      => 55
-                ]
-            )
+            http_build_query($this->queryParams)
         );
 
         $response->assertStatus(204);
@@ -88,15 +73,11 @@ class getItems extends ApiTest
      */
     public function testItemShow()
     {
+        $this->setPagerParams(1, 67);
+
         $response = $this->get(
             $this->baseExternalUrl . "/items/3136?".
-            http_build_query(
-                [
-                    'api_token' => $this->testApiKey,
-                    'page'      => 1,
-                    'step'      => 67
-                ]
-            )
+            http_build_query($this->queryParams)
         );
 
         $response->assertStatus(200);
@@ -109,16 +90,12 @@ class getItems extends ApiTest
      */
     public function testSimpleItemShow()
     {
+        $this->setPagerParams(1, 67)
+            ->addQueryParam('simple', true);
+
         $response = $this->get(
             $this->baseExternalUrl . "/items/3136?".
-            http_build_query(
-                [
-                    'api_token' => $this->testApiKey,
-                    'simple'    => true,
-                    'page'      => 1,
-                    'step'      => 67
-                ]
-            )
+            http_build_query($this->queryParams)
         );
 
         $response->assertStatus(200);
