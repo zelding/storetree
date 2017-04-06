@@ -156,7 +156,7 @@ class getItems extends ApiTest
             $postData
         );
 
-        $this->printToCli($response->baseResponse->getContent());
+        //$this->printToCli($response->baseResponse->getContent());
 
         $response->assertStatus(201);
     }
@@ -212,7 +212,7 @@ class getItems extends ApiTest
             $postData
         );
 
-        $this->printToCli($response->baseResponse->getContent());
+        //$this->printToCli($response->baseResponse->getContent());
 
         $response->assertStatus(201);
     }
@@ -239,7 +239,7 @@ class getItems extends ApiTest
             $postData
         );
 
-        $this->printToCli($response->baseResponse->getContent());
+        //$this->printToCli($response->baseResponse->getContent());
 
         $response->assertStatus(406);
     }
@@ -282,9 +282,12 @@ class getItems extends ApiTest
         ];
 
         $response = $this->postJson(
-            $this->baseExternalUrl . '/items',
+            $this->baseExternalUrl . '/items?'.
+                http_build_query(['api_token' => '']),
             $postData
         );
+
+        //$this->printToCli($response->baseResponse->getContent());
 
         $response->assertStatus(401);
     }
@@ -308,7 +311,7 @@ class getItems extends ApiTest
             $postData
         );
 
-        $this->printToCli($response->baseResponse->getContent());
+       //$this->printToCli($response->baseResponse->getContent());
 
         $response->assertStatus(403);
     }

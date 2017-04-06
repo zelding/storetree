@@ -181,6 +181,7 @@ return [
 
         Orangehill\Iseed\IseedServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
+        GrahamCampbell\Exceptions\ExceptionsServiceProvider::class,
 
         //my stuff
         App\Providers\ItemServiceProvider::class,
