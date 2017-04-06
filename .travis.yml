@@ -43,7 +43,7 @@ before_script:
   - php artisan key:generate
 
 script:
-  - phpunit --configuration phpunit.xml --coverage-text
+  - php phpunit.phar --configuration phpunit.xml --coverage-text
 
 branches:
   only:
