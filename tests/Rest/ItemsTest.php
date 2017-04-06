@@ -4,9 +4,14 @@ namespace Tests\Rest;
 
 use Tests\ApiTest;
 use App\Utils\Constants;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 
 class getItems extends ApiTest
 {
+    //reroll after each test
+    use DatabaseTransactions;
+
     #region Get requests
     /**
      * @return void
@@ -156,8 +161,6 @@ class getItems extends ApiTest
             $postData
         );
 
-        //$this->printToCli($response->baseResponse->getContent());
-
         $response->assertStatus(201);
     }
 
@@ -212,8 +215,6 @@ class getItems extends ApiTest
             $postData
         );
 
-        //$this->printToCli($response->baseResponse->getContent());
-
         $response->assertStatus(201);
     }
 
@@ -238,8 +239,6 @@ class getItems extends ApiTest
             http_build_query($this->queryParams),
             $postData
         );
-
-        //$this->printToCli($response->baseResponse->getContent());
 
         $response->assertStatus(406);
     }
@@ -287,8 +286,6 @@ class getItems extends ApiTest
             $postData
         );
 
-        //$this->printToCli($response->baseResponse->getContent());
-
         $response->assertStatus(401);
     }
 
@@ -310,8 +307,6 @@ class getItems extends ApiTest
                 http_build_query($this->queryParams),
             $postData
         );
-
-       //$this->printToCli($response->baseResponse->getContent());
 
         $response->assertStatus(403);
     }

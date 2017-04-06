@@ -22,7 +22,7 @@ abstract class ApiTest extends BaseTestCase
 
         $this->queryParams = [
             'api_token' => $this->testApiKey,
-            'test'      => 1
+            //'test'      => 1
         ];
     }
 
