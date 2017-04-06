@@ -276,9 +276,9 @@ class getItems extends ApiTest
     public function testItemCreate401()
     {
         $postData = [
-            'dota_id' => 12345,
+            'dota_id'    => 12345,
             'base_class' => "salkdjhaslkjdhsakld",
-            'name' => 'asdkahsdkljhsad'
+            'name'       => 'asdkahsdkljhsad'
         ];
 
         $response = $this->postJson(
@@ -295,9 +295,9 @@ class getItems extends ApiTest
     public function testItemCreate403()
     {
         $postData = [
-            'dota_id' => 12345,
+            'dota_id'    => 12345,
             'base_class' => "salkdjhaslkjdhsakld",
-            'name' => 'asdkahsdkljhsad'
+            'name'       => 'asdkahsdkljhsad'
         ];
 
         $this->addQueryParam('api_token', $this->badApiKey);
