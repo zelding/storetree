@@ -13,14 +13,6 @@ class getItems extends ApiTest
     //reroll after each test
     use DatabaseTransactions;
 
-    public function testDbStatus()
-    {
-        $res = DB::select(DB::raw('SHOW TABLE STATUS FROM storetree'));
-
-        $data = print_r($res, 1);
-
-        $this->assertSame("lol", $data);
-    }
     #region Get requests
     /**
      * @return void
@@ -125,7 +117,7 @@ class getItems extends ApiTest
     public function testItemCreateMinimal()
     {
         $postData = [
-            'dota_id'        => 10001,
+            'dota_id'        => mt_rand(10002, 20000),
             'base_class'     => "item_test_01",
             //'max_level'      => 1,
             //'base_level'     => 1,
@@ -179,7 +171,7 @@ class getItems extends ApiTest
     public function testItemCreateFull()
     {
         $postData = [
-            'dota_id'        => 10001,
+            'dota_id'        => mt_rand(10002, 20000),
             'base_class'     => "item_test_01",
             'max_level'      => 1,
             'base_level'     => 1,
@@ -233,8 +225,8 @@ class getItems extends ApiTest
     public function testItemCreate406()
     {
         $postData = [
-            'dota_id'        => 10001,
-            'base_class'     => "item_test_01",
+            'dota_id'        => mt_rand(10002, 20000),
+            'base_class'     => "item_test_".mt_rand(2, 22),
             'name'           => "Test item 01",
             'description'    => "just some test stuff",
             'cost'           => 1967,
