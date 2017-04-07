@@ -118,7 +118,7 @@ class getItems extends ApiTest
     {
         $postData = [
             'dota_id'        => mt_rand(10002, 20000),
-            'base_class'     => "item_test_01",
+            'base_class'     => "item_test_".mt_rand(10002, 20000),
             //'max_level'      => 1,
             //'base_level'     => 1,
             //'is_consumable'  => 0,
@@ -130,7 +130,7 @@ class getItems extends ApiTest
             //'is_purchasable' => 1,
             //'is_droppable'   => 1,
             //'in_backpack'    => 1,
-            'name'           => "Test item 01",
+            'name'           => "Test item ".mt_rand(10002, 20000),
             'description'    => "just some test stuff",
             'cost'           => 1967,
             //'stack_size'     => 1,
@@ -172,7 +172,7 @@ class getItems extends ApiTest
     {
         $postData = [
             'dota_id'        => mt_rand(10002, 20000),
-            'base_class'     => "item_test_01",
+            'base_class'     => "item_test_".mt_rand(10002, 20000),
             'max_level'      => 1,
             'base_level'     => 1,
             'is_consumable'  => 0,
@@ -184,7 +184,7 @@ class getItems extends ApiTest
             'is_purchasable' => 1,
             'is_droppable'   => 1,
             'in_backpack'    => 1,
-            'name'           => "Test item 01",
+            'name'           => "Test item ".mt_rand(10002, 20000),
             'description'    => "just some test stuff",
             'cost'           => 1967,
             'stack_size'     => 1,
@@ -227,7 +227,7 @@ class getItems extends ApiTest
         $postData = [
             'dota_id'        => mt_rand(10002, 20000),
             'base_class'     => "item_test_".mt_rand(2, 22),
-            'name'           => "Test item 01",
+            'name'           => "Test item ".mt_rand(22, 42),
             'description'    => "just some test stuff",
             'cost'           => 1967,
             'model'          => "models/test/test.mld",
