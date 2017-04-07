@@ -2,6 +2,7 @@
 
 namespace Tests\Rest;
 
+use Illuminate\Support\Facades\DB;
 use Tests\ApiTest;
 use App\Utils\Constants;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -12,6 +13,14 @@ class getItems extends ApiTest
     //reroll after each test
     use DatabaseTransactions;
 
+    public function testDbStatus()
+    {
+        $res = DB::select(DB::raw('SHOW TABLE STATUS FROM storetree'));
+
+        $data = print_r($res, 1);
+
+        $this->assertSame("lol", $data);
+    }
     #region Get requests
     /**
      * @return void
