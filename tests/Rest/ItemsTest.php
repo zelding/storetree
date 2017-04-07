@@ -2,11 +2,9 @@
 
 namespace Tests\Rest;
 
-use Illuminate\Support\Facades\DB;
 use Tests\ApiTest;
 use App\Utils\Constants;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 
 class getItems extends ApiTest
 {

@@ -182,6 +182,7 @@ return [
         Orangehill\Iseed\IseedServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         GrahamCampbell\Exceptions\ExceptionsServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
 
         //my stuff
         App\Providers\ItemServiceProvider::class,
