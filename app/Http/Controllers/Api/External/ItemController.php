@@ -8,7 +8,7 @@
  * Date: 3/27/17 4:41 PM
  */
 
-namespace App\Http\Controllers\Api\Internal;
+namespace App\Http\Controllers\Api\External;
 
 use App\Service\ItemService;
 use Illuminate\Http\Request;

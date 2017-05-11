@@ -8,7 +8,7 @@
  * Date: 3/30/17 10:29 AM
  */
 
-namespace App\Http\Controllers\Api\Internal;
+namespace App\Http\Controllers\Api\External;
 
 use App\Item;
 use App\Recipe;

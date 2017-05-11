@@ -8,7 +8,7 @@
  * Date: 3/27/17 8:45 AM
  */
 
-namespace App\Http\Controllers\Api\Internal;
+namespace App\Http\Controllers\Api\External;
 use App\Ability;
 use App\Item;
 use App\ItemLocale;

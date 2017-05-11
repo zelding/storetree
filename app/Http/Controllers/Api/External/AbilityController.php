@@ -8,7 +8,7 @@
  * Date: 3/30/17 2:48 PM
  */
 
-namespace App\Http\Controllers\Api\Internal;
+namespace App\Http\Controllers\Api\External;
 
 use App\Ability;
 use App\Http\Requests\StoreAbility;
