@@ -11,18 +11,23 @@
 namespace App\Http\Controllers;
 
 use App\Item;
-use App\Service\ItemService;
-use App\Utils\Constants;
 use Illuminate\Http\Request;
+use Zedling\DotaKV\Parser;
 
 class UtilsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if ( $request->exists('kvString') ) {
+            $parser = new Parser();
+
+            $kvData = $parser->load($request->request->get('kvString', ''));
+        }
 
         return view('util/index', [
             "freeIDs" => $this->getFreeDotaIDs(),
-            'hash'    => hash('whirlpool', "0a25f55d7308eca6b9567a7ed3bd1b46327f0f1ffdc804dd8bb")
+            'hash'    => hash('whirlpool', "0a25f55d7308eca6b9567a7ed3bd1b46327f0f1ffdc804dd8bb"),
+            "kvData"  => $kvData ?? []
         ]);
     }
 

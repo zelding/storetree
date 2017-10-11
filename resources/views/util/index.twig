@@ -12,6 +12,21 @@
                 <li class="active">Utils</li>
             </ol>
 
+            {% if kvData %}
+                <div class="row">
+                    <div class="col-md-12">{{ dump(kvData) }}</div>
+                </div>
+            {% else %}
+                <div class="row">
+                    <form>
+                        <div class="col-md-12">
+                            <textarea class="form-control" name="kvString"></textarea>
+                            <button>send</button>
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
+
             <div class="row">
                 <div class="col-lg-12">
                     <h4>Free dota ID's in <code>2000..4000</code> range</h4>

@@ -4,6 +4,12 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/zelding/php-parse-kv"
+        }
+    ],
     "require": {
         "php": ">=5.6.4",
         "doctrine/dbal": "^2.5",
@@ -15,6 +21,7 @@
         "orangehill/iseed": "^2.3",
         "rcrowe/twigbridge": "^0.9.4",
         "yajra/laravel-datatables-oracle": "^7.2",
+        "zedling/php-parse-kv": "^2.1",
         "zizaco/entrust": "^1.7"
     },
     "require-dev": {
