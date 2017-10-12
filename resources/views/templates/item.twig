@@ -1,6 +1,6 @@
 "DOTAItems"
 {
-    {% if item.recipe %}
+    {% if item.recipe -%}
     //======================================================================================================================
     // {{ item.recipe.name }}
     //======================================================================================================================
@@ -95,7 +95,7 @@
         "UpgradesItems"                 "{{ item.base_class }}"
         "UpgradeRecipe"                 "{{ item.lvl1Recipe.base_class }}"
         {% endif %}
-        {% endif -%}
+        {% endif %}
 
         // Item Info
         //------------------------------------------------------------------------------------------------------------------
@@ -108,8 +108,13 @@
         {% endif -%}
         "ItemQuality"                   "{{ item.quality }}"
 
+        // Shop things
+        //------------------------------------------------------------------------------------------------------------------
         "SideShop"                      "{{ item.shops.where('id', 2).count ? 1 : 0 }}"
         "SecretShop"                    "{{ item.shops.where('id', 3).count ? 1 : 0 }}"
+        "ItemStockMax"                  "{{ item.stock_max     ?? 0 }}"
+        "ItemStockTime"                 "{{ item.stock_time    ?? 0 }}"
+        "ItemStockInitial"              "{{ item.stock_initial ?? 0 }}"
 
         // Charges
         //------------------------------------------------------------------------------------------------------------------
@@ -125,6 +130,9 @@
         "ItemPurchasable"               "{{ item.is_purchasable ? 1 : 0 }}"
         "ItemDroppable"                 "{{ item.is_droppable   ? 1 : 0 }}"
         "ItemAlertable"                 "{{ item.is_alertable   ? 1 : 0 }}"
+        "PingOverrideText"              "{{ item.alert_text    ??    '' }}"
+        "ItemCastOnPickup"              "{{ item.is_autocast    ? 1 : 0 }}"
+        "AllowedInBackpack"             "{{ item.in_backpack    ? 1 : 0 }}"
 
         {% if item.stats.count -%}
         // Stats

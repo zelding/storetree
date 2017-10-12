@@ -41,6 +41,12 @@
                 </li>
             {% endif %}
 
+            {% if Auth.user.can('import') %}
+                <li class="{{ Route.currentRouteName == 'import.index' ? 'active' : '' }}">
+                    <a href="{{ route('import.index') }}">Import</a>
+                </li>
+            {% endif %}
+
             {% if Auth.user.can('edit_users') %}
                 <li class="{{ Route.currentRouteName == 'users.index' ? 'active' : '' }}">
                     <a href="{{ route('users.index') }}">Users</a>

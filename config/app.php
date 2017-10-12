@@ -186,7 +186,8 @@ return [
 
         //my stuff
         App\Providers\ItemServiceProvider::class,
-        App\Providers\AbilityServiceProvider::class
+        App\Providers\AbilityServiceProvider::class,
+        App\Providers\ImportServiceProvider::class
     ],
 
     /*
@@ -236,7 +237,7 @@ return [
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
         'Twig'         => TwigBridge\Facade\Twig::class,
-        'Entrust'      => Zizaco\Entrust\EntrustFacade::class,
+        'Entrust'      => Zizaco\Entrust\EntrustFacade::class
     ],
 
 ];

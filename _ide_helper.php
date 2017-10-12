@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.36 on 2017-10-11.
+ * Generated for Laravel 5.4.36 on 2017-10-12.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -12661,7 +12661,375 @@ namespace Zizaco\Entrust {
  
 }
 
-namespace Yajra\Datatables\Facades { 
+namespace Sukohi\Surpass\Facades {
+
+    class Surpass {
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function path($path)
+        {
+            return \Sukohi\Surpass\Surpass::path($path);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function dir($dir)
+        {
+            return \Sukohi\Surpass\Surpass::dir($dir);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function id($mode, $id)
+        {
+            return \Sukohi\Surpass\Surpass::id($mode, $id);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function ids($ids)
+        {
+            return \Sukohi\Surpass\Surpass::ids($ids);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function renderId($mode)
+        {
+            return \Sukohi\Surpass\Surpass::renderId($mode);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function maxFiles($max_files)
+        {
+            return \Sukohi\Surpass\Surpass::maxFiles($max_files);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function alert($alert)
+        {
+            return \Sukohi\Surpass\Surpass::alert($alert);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function formData($form_data)
+        {
+            return \Sukohi\Surpass\Surpass::formData($form_data);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function button($label)
+        {
+            return \Sukohi\Surpass\Surpass::button($label);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function preview($params)
+        {
+            return \Sukohi\Surpass\Surpass::preview($params);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function resize($size, $force_crop = true)
+        {
+            return \Sukohi\Surpass\Surpass::resize($size, $force_crop);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function timeout($milliseconds)
+        {
+            return \Sukohi\Surpass\Surpass::timeout($milliseconds);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function overwrite($bool = false)
+        {
+            return \Sukohi\Surpass\Surpass::overwrite($bool);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function css($css)
+        {
+            return \Sukohi\Surpass\Surpass::css($css);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function progress($content)
+        {
+            return \Sukohi\Surpass\Surpass::progress($content);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function callback($callbacks)
+        {
+            return \Sukohi\Surpass\Surpass::callback($callbacks);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function dropZone($id)
+        {
+            return \Sukohi\Surpass\Surpass::dropZone($id);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function renameFiles($bool = true)
+        {
+            return \Sukohi\Surpass\Surpass::renameFiles($bool);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function renderCss($mode)
+        {
+            return \Sukohi\Surpass\Surpass::renderCss($mode);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function html($mode)
+        {
+            return \Sukohi\Surpass\Surpass::html($mode);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function filenameLength($length)
+        {
+            return \Sukohi\Surpass\Surpass::filenameLength($length);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function insert($file_path, $attributes = array())
+        {
+            return \Sukohi\Surpass\Surpass::insert($file_path, $attributes);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function save($attributes = array())
+        {
+            return \Sukohi\Surpass\Surpass::save($attributes);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function saveAttributes($id, $attributes)
+        {
+            return \Sukohi\Surpass\Surpass::saveAttributes($id, $attributes);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function saveDir()
+        {
+            return \Sukohi\Surpass\Surpass::saveDir();
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function remove()
+        {
+            return \Sukohi\Surpass\Surpass::remove();
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function removeById($ids = '')
+        {
+            return \Sukohi\Surpass\Surpass::removeById($ids);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function result()
+        {
+            return \Sukohi\Surpass\Surpass::result();
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function refresh()
+        {
+            return \Sukohi\Surpass\Surpass::refresh();
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function load($ids = array(), $old_flag = true)
+        {
+            return \Sukohi\Surpass\Surpass::load($ids, $old_flag);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function loadSaved()
+        {
+            return \Sukohi\Surpass\Surpass::loadSaved();
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function loadData()
+        {
+            return \Sukohi\Surpass\Surpass::loadData();
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function imageFileId($dir)
+        {
+            return \Sukohi\Surpass\Surpass::imageFileId($dir);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function imageFileIds($dir)
+        {
+            return \Sukohi\Surpass\Surpass::imageFileIds($dir);
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function getTable()
+        {
+            return \Sukohi\Surpass\Surpass::getTable();
+        }
+
+        /**
+         *
+         *
+         * @static
+         */
+        public static function getDefaultTable()
+        {
+            return \Sukohi\Surpass\Surpass::getDefaultTable();
+        }
+
+    }
+
+}
+
+namespace Yajra\Datatables\Facades {
 
     class Datatables {
         

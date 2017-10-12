@@ -66,6 +66,11 @@ Route::group(['prefix' => 'storetree'], function() {
         Route::post('export', 'ExportController@run')->name('export.run');
     });
 
+    Route::group(['middleware' => 'permission:import'], function () {
+        Route::get('import', 'ImportController@index')->name('import.index');
+        Route::post('import', 'ImportController@upload')->name('import.upload');
+    });
+
     Route::group(['prefix' => 'utils'], function () {
         Route::get('/', 'UtilsController@index')->name('utils.index');
         Route::get('/csv', 'UtilsController@csv')->name('utils.csv');

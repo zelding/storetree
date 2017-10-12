@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-10-11.
+    * Generated on 2017-10-12.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -148,6 +148,7 @@ namespace PHPSTORM_META {
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
+        'surpass' => \Sukohi\Surpass\Surpass::class,
     ]));
     override(\Illuminate\Contracts\Container\Container::make(0), map([
         '' => '@',
@@ -289,6 +290,7 @@ namespace PHPSTORM_META {
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
+        'surpass' => \Sukohi\Surpass\Surpass::class,
     ]));
     override(\Illuminate\Contracts\Container\Container::makeWith(0), map([
         '' => '@',
@@ -430,6 +432,7 @@ namespace PHPSTORM_META {
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
+        'surpass' => \Sukohi\Surpass\Surpass::class,
     ]));
     override(\App::make(0), map([
         '' => '@',
@@ -571,6 +574,7 @@ namespace PHPSTORM_META {
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
+        'surpass' => \Sukohi\Surpass\Surpass::class,
     ]));
     override(\App::makeWith(0), map([
         '' => '@',
@@ -712,6 +716,7 @@ namespace PHPSTORM_META {
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
+        'surpass' => \Sukohi\Surpass\Surpass::class,
     ]));
     override(\app(0), map([
         '' => '@',
@@ -853,6 +858,7 @@ namespace PHPSTORM_META {
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
+        'surpass' => \Sukohi\Surpass\Surpass::class,
     ]));
     override(\resolve(0), map([
         '' => '@',
@@ -994,6 +1000,7 @@ namespace PHPSTORM_META {
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
+        'surpass' => \Sukohi\Surpass\Surpass::class,
     ]));
 
     override(\Illuminate\Support\Arr::add(0), type(0));

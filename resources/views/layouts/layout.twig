@@ -87,7 +87,6 @@
         <!-- /#wrapper -->
         {% endif %}
 
-        {#<script src="{{ asset('js/tether.js') }}" type="application/javascript"></script>#}
         <script src="{{ asset('js/app.js') }}" type="application/javascript"></script>
 
         {% block pageJs %}{% endblock %}
@@ -95,25 +94,16 @@
 
         {% block debug %}
             <script src="{{ asset('js/icheck.js')}}"></script>
-            {#<script type="application/javascript" src="{{ asset('js/mat.min.js') }}"></script>#}
-            {#{{ dump() }}#}
         {% endblock %}
 
         <script type="application/javascript">
             $(function () {
-               /* $('input').iCheck({
-                    checkboxClass: 'icheckbox_minimal',
-                    radioClass: 'iradio_minimal',
-                    increaseArea: '-10%' // optional
-                });*/
                 $('[data-toggle="popover"]').popover({
                     html: true
                 });
             });
-
-            $(window).on('load', function() {
-                //$.material.init();
-            });
         </script>
+
+        {% block modals %}{% endblock %}
     </body>
 </html>

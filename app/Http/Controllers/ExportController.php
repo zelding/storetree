@@ -7,9 +7,6 @@ use App\ItemLocale;
 use App\Service\ItemService;
 use App\Utils\Constants;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Storage;
 
 class ExportController extends Controller
 {
@@ -52,6 +49,7 @@ class ExportController extends Controller
 
         $models = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats', 'ability')
             ->whereIn('id', $items)
+            ->where('is_recipe', 0)
             //->exportRequest($request)
             ->orderBy('dota_id')
             ->get();
@@ -68,7 +66,8 @@ class ExportController extends Controller
                     /** @var Item $item */
 
                     $data = view('templates/item', [
-                        'item' => $item
+                        //'recipes' => $item->recipes,
+                        'item'    => $item
                     ]);
 
                     $fileName = $itemPath . "/{$item->base_class}.txt";

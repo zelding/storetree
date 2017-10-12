@@ -1,6 +1,6 @@
 const elixir = require('laravel-elixir');
 
-var paths = {
+let paths = {
     'js_prv': "resources/assets/js/",
     'css_prv': "resources/assets/css/",
     'select2': "bower_components/select2/",

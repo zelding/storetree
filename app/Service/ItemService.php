@@ -11,7 +11,9 @@
 namespace App\Service;
 use App\Item;
 use App\Utils\Constants;
+use Doctrine\Common\Collections\ArrayCollection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class ItemService
 {
@@ -56,7 +58,7 @@ class ItemService
      * @param Request $request
      * @return Item
      */
-    public function setItemAttributes(Item $item, Request $request)
+    public function setItemAttributes(Item $item, Request $request) : Item
     {
         $item->name          = $request->get('name');
         $item->description   = $request->get('description');
@@ -253,5 +255,173 @@ class ItemService
         }
 
         return $item;
+    }
+
+    /**
+     * @param Item $item
+     *
+     * @return $this
+     */
+    public function setDefaults(Item &$item)
+    {
+        $item->cost          = 0;
+        $item->is_base_item  = 0;
+        $item->is_boss_item  = 0;
+        $item->is_consumable = 0;
+        $item->is_recipe     = 0;
+        $item->script        = null;
+        $item->is_override   = 0;
+
+        $item->base_level    = 1;
+        $item->max_level     = 1;
+        $item->stack_size    = 1;
+        $item->start_charges = 0;
+        $item->alert_text    = null;
+        $item->fight_recap   = 0;
+        $item->quality       = Constants::$itemQuality[2];
+        $item->share         = Constants::$shareable[0];
+        $item->is_killable   = 1;
+        $item->is_sellable   = 1;
+        $item->is_droppable  = 1;
+        $item->in_backpack   = 1;
+        $item->is_permanent  = 0;
+        $item->needs_charges = 0;
+        $item->show_charges  = 0;
+        $item->is_alertable  = 1;
+        $item->is_autocast   = 0;
+        $item->shop_tags     = [];
+        $item->stock_max     = 0;
+        $item->stock_initial = 0;
+        $item->stock_time    = 0;
+        $item->aliases       = [];
+        $item->disassemble   = Constants::$disassemble[0];
+        $item->declarations  = null;
+
+        return $this;
+    }
+
+    /**
+     * Sets/Updates item properties from request only if they are provided
+     *
+     * @param Item       $item
+     * @param Collection $data
+     *
+     * @return $this
+     */
+    public function setPresentItemAttributesFromImport(Item &$item, Collection $data)
+    {
+        if ($data->has('ID')) {
+            $item->dota_id = $data->get('ID') ?? 0;
+        }
+
+        if ($data->has('ItemCost')) {
+            $item->cost = $data->get('ItemCost') ?? 0;
+        }
+
+        if ($data->has('ScriptFile')) {
+            $item->script = $data->get('ScriptFile') ?? null;
+        }
+
+        if ($data->has('ItemBaseLevel')) {
+            $item->base_level = $data->get('ItemBaseLevel') ?? 1;
+        }
+
+        if ($data->has('MaxUpgradeLevel')) {
+            $item->max_level = $data->get('MaxUpgradeLevel') ?? 1;
+        }
+
+        if ($data->has('ItemStackable')) {
+            $item->stack_size = $data->get('ItemStackable') ?? 1;
+        }
+
+        if ($data->has('Model')) {
+            $item->model = $data->get('Model');
+        }
+
+        if ($data->has('FightRecapLevel')) {
+            $item->fight_recap = $data->get('FightRecapLevel') ?? 0;
+        }
+
+        if ($data->has('ItemQuality')) {
+            $item->quality = $data->get('ItemQuality') ?? Constants::$itemQuality[2];
+        }
+
+        if ($data->has('ItemShareability')) {
+            $item->share = $data->get('ItemShareability') ?? Constants::$shareable[0];
+        }
+
+        if ($data->has('ItemKillable')) {
+            $item->is_killable = $data->get('ItemKillable') ?? 0;
+        }
+
+        if ($data->has('ItemSellable')) {
+            $item->is_sellable = $data->get('ItemSellable') ?? 0;
+        }
+
+        if ($data->has('ItemDroppable')) {
+            $item->is_droppable = $data->get('ItemDroppable') ?? 0;
+        }
+
+        if ($data->has('AllowedInBackpack')) {
+            $item->in_backpack = $data->get('AllowedInBackpack') ?? 0;
+        }
+
+        if ($data->has('ItemPermanent')) {
+            $item->is_permanent = $data->get('ItemPermanent') ?? 0;
+        }
+
+        if ($data->has('ItemRequiresCharges')) {
+            $item->needs_charges = $data->get('ItemRequiresCharges') ?? 0;
+        }
+
+        if ($data->has('ItemDisplayCharges')) {
+            $item->show_charges = $data->get('ItemDisplayCharges') ?? 0;
+        }
+
+        if ($data->has('ItemInitialCharges')) {
+            $item->start_charges = $data->get('ItemInitialCharges') ?? 0;
+        }
+
+        if ($data->has('ItemAlertable')) {
+            $item->is_alertable = $data->get('ItemAlertable') ?? 0;
+        }
+
+        if ($data->has('PingOverrideText')) {
+            $item->alert_text = $data->get('PingOverrideText') ?? null;
+        }
+
+        if ($data->has('ItemCastOnPickup')) {
+            $item->is_autocast = $data->get('ItemCastOnPickup') ?? 0;
+        }
+
+        if ($data->has('ItemShopTags')) {
+            $item->shop_tags = $data->get('ItemShopTags') ?? [];
+        }
+
+        if ($data->has('ItemStockMax')) {
+            $item->stock_max = $data->get('ItemStockMax') ?? 1;
+        }
+
+        if ($data->has('ItemStockInitial')) {
+            $item->stock_initial = $data->get('ItemStockInitial') ?? 0;
+        }
+
+        if ($data->has('ItemStockTime')) {
+            $item->stock_time = $data->get('ItemStockTime') ?? 0;
+        }
+
+        if ($data->has('ItemAliases')) {
+            $item->aliases = $data->get('ItemAliases') ?? [];
+        }
+
+        if ($data->has('ItemDisassembleRule')) {
+            $item->disassemble = $data->get('ItemDisassembleRule') ?? Constants::$disassemble[0];
+        }
+
+        if ($data->has('ItemDeclarations')) {
+            $item->declarations = $data->get('ItemDeclarations') ?? null;
+        }
+
+        return $this;
     }
 }
