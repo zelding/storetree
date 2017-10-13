@@ -32,26 +32,30 @@ class ImportController extends Controller
     public function index(Request $request)
     {
         $files = Storage::disk('local')->allFiles("import/" . Auth::getUser()->id);
-        $file  = Storage::get( reset($files) );
 
-        $kvData = $this->parser->load($file);
+        $kvData = [];
+
+        foreach( $files as $file ) {
+            $fileData  = Storage::get( $file );
+
+            $kvData += $this->parser->load($fileData);
+        }
 
         $grouped = app( ImportService::class )->groupEntities($kvData);
         $parsed  = app( ImportService::class )->loadParsedKvArray($grouped);
 
-        $preview = "";
+        /*$preview = "";
         if ( !empty($parsed) ) {
             foreach($parsed as $item) {
                 $preview .= View::make('templates/previews/item', [
                     'item'   => $item
                 ])->render();
             }
-        }
+        }*/
 
         return view('import/index', [
             "kvData"  => $kvData ?? [],
-            "grouped" => $grouped,
-            "preview" => $preview
+            "grouped" => $parsed
         ]);
     }
 

@@ -22,8 +22,7 @@
         "rcrowe/twigbridge": "^0.9.4",
         "yajra/laravel-datatables-oracle": "^7.2",
         "zedling/php-parse-kv": "^2.1",
-        "zizaco/entrust": "^1.7",
-        "sukohi/surpass": "2.*"
+        "zizaco/entrust": "^1.7"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.2",

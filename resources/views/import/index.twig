@@ -29,7 +29,7 @@
                             </div>
                         </div>
 
-                        <button type="submit">Send</button>
+                        <button type="submit">Upload</button>
 
                         {{ csrf_field() }}
                     </form>
@@ -46,10 +46,12 @@
                 </div>
             </div>
 
+            <hr>
+
             <div class="row">
                 <div class="col-md-12">
                     <form>
-                        <textarea name="kvString"></textarea>
+                        <textarea title="kv-string" class="form-control" name="kvString"></textarea>
 
                         {{ csrf_field() }}
 
@@ -58,10 +60,11 @@
                 </div>
             </div>
 
-            {{ dump(kvData) }}
-            {{ dump(grouped) }}
+            <hr>
 
-            <pre>{{ preview|striptags }}</pre>
+            {{ dump(kvData) }}
+            <hr>
+            {{ dump(grouped) }}
         </div>
     </div>
 {% endblock %}

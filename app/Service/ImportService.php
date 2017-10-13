@@ -13,7 +13,6 @@ namespace App\Service;
 
 use App\Item;
 use App\Recipe;
-use App\Utils\Constants;
 use Illuminate\Support\Collection;
 
 class ImportService
@@ -23,26 +22,106 @@ class ImportService
      *
      * @return array
      */
-    public function loadParsedKvArray(array $data)
+    public function loadParsedKvArray(array $data) : array
     {
-        $itemList = [];
+        $itemList = [
+            "good"                => [],
+            "base_class_mismatch" => [],
+            "dota_id_in_use"      => [],
+            "new"                 => [],
+            "unusable"            => []
+        ];
 
-        foreach( $data as $key => $value ) {
+        foreach($data as $key => $value) {
 
-            $item   = $this->createItem(new Collection($value), $key);
+            $result = $this->resolveItem($key, $value['ID']);
+
+            switch($result) {
+                case 1:
+                    $itemList['good'][ $key ] = $value;
+                break;
+
+                case 0:
+                    $itemList['dota_id_in_use'][ $key ] = $value;
+                break;
+
+                case -1:
+                    $itemList['base_class_mismatch'][ $key ] = $value;
+                break;
+
+                case -2:
+                    $itemList['new'][ $key ] = $value;
+                break;
+            }
+
+            if ( !empty($value['_recipe']) ) {
+                $recipeBaseClass = str_replace("item_", "item_recipe_", $key);
+
+                $result = $this->resolveItem($recipeBaseClass, $value['_recipe']['ID']);
+
+                switch($result) {
+                    case 1:
+                        $itemList['good'][ $recipeBaseClass ] = $value['_recipe'];
+                    break;
+
+                    case 0:
+                        $itemList['dota_id_in_use'][ $recipeBaseClass ] = $value['_recipe'];
+                    break;
+
+                    case -1:
+                        $itemList['base_class_mismatch'][ $recipeBaseClass ] = $value['_recipe'];
+                    break;
+
+                    case -2:
+                        $itemList['new'][ $recipeBaseClass ] = $value['_recipe'];
+                    break;
+                }
+            }
+
+        }
+
+        return $itemList;
+    }
+
+    /*
+     $itemList = [];
+
+    foreach( $data as $key => $value ) {
+
+        if ( empty($value['ID']) ) {
+            continue;
+        }
+
+        $item = $this->createItem(new Collection($value), $key);
+
+        if ( !empty($value["_recipe"]) ) {
             $recipe = $this->createRecipe(
                 $item,
                 new Collection($value["_recipe"]),
                 substr_replace("item_recipe_", "item_", $key)
             );
-
-
-
-            $itemList[] = $item;
+        }
+        else {
+            $item->is_base_item = true;
         }
 
-        return $itemList;
+        $item->is_boss_item = empty($data['SideShop']) && empty($data['SecretShop']);
+
+        if ( !$item->is_boss_item ) {
+            $item->shops()->attach(1);
+        }
+
+        if ( !empty($data['SideShop']) ) {
+            $item->shops()->attach(2);
+        }
+
+        if (  !empty($data['SecretShop']) ) {
+            $item->shops()->attach(3);
+        }
+
+        $itemList[] = $item;
     }
+     */
 
     public function groupEntities(array $data) : array
     {
@@ -71,16 +150,26 @@ class ImportService
 
     protected function createItem(Collection $data, string $base_class) : Item
     {
-        $item = new Item();
+        $dotaId = $data->get('ID');
 
-        app(ItemService::class)
-            ->setDefaults($item)
-            ->setPresentItemAttributesFromImport($item, $data);
+        $item = $this->resolveItem($base_class, $dotaId);
 
-        $item->base_class  = $base_class;
+        if ($item instanceof Item) {
+            app(ItemService::class)
+                ->setPresentItemAttributesFromImport($item, $data);
+        }
+        else {
+            $item = new Item();
 
-        $item->is_override = $item-> dota_id < 2000;
-        $item->is_recipe = false;
+            app(ItemService::class)
+                ->setDefaults($item)
+                ->setPresentItemAttributesFromImport($item, $data);
+
+            $item->is_override = $item-> dota_id < 2000;
+            $item->is_recipe   = false;
+        }
+
+        $item->save();
 
         return $item;
     }
@@ -106,6 +195,36 @@ class ImportService
         return $recipe;
     }
 
+    /**
+     * @param string $base_class
+     * @param int    $dotaId
+     *
+     * @return int
+     */
+    protected function resolveItem(string $base_class, int $dotaId)
+    {
+        $perfectMatch = Item::whereBaseClass($base_class)
+                            ->whereDotaId($dotaId)
+                            ->first();
+
+        if ( $perfectMatch instanceof Item ) {
+            return 1;
+        }
+
+        $baseClassMatch = Item::whereBaseClass($base_class)->first();
+
+        if ( $baseClassMatch instanceof Item) {
+            return 0;
+        }
+
+        $dotaIdMatch = Item::whereDotaId($dotaId)->first();
+
+        if ( $dotaIdMatch instanceof Item) {
+            return -1;
+        }
+
+        return -2;
+    }
 
     protected function isItemNameKey(string $key) : bool
     {

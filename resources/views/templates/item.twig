@@ -28,7 +28,7 @@
         // General
         //------------------------------------------------------------------------------------------------------------------
         "ID"                    "{{ item.dota_id }}"
-        "ItemPermanent"         "{{ item.is_permanent }}"
+        "ItemPermanent"         "{{ item.is_permanent ? 1 : 0 }}"
         "ItemStackable"         "{{ item.max_stacks > 1 ? 1 : 0 }}"
         "FightRecapLevel"       "{{ item.fight_recap }}"
         "ItemDisassembleRule"   "{{ item.disassemble }}"
@@ -101,10 +101,10 @@
         //------------------------------------------------------------------------------------------------------------------
         "ItemCost"                      "{{ item.totalCost }}"
         {% if item.shop_tags -%}
-        "ItemShopTags"                  "{{ item.shop_tags|join(' ') }}"
+        "ItemShopTags"                  "{{ item.shop_tags|join(';') }}"
         {% endif -%}
         {% if item.aliases -%}
-        "ItemAliases"                   "{{ item.aliases|join(' ') }}"
+        "ItemAliases"                   "{{ item.aliases|join(';') }}"
         {% endif -%}
         "ItemQuality"                   "{{ item.quality }}"
 
