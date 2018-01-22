@@ -32,6 +32,7 @@ class Utf16
         if (headers_sent() || ob_get_contents() != '') return $response;
 
         //$content     = iconv("utf-8", 'utf-16be', $response->getContent()); // - not sure if needed
+        //$content     = mb_convert_encoding($content, "UTF-16BE");           // - same thing
         $content     = $response->getContent();
 
         $contentLength = mb_strlen($content) * 16;
