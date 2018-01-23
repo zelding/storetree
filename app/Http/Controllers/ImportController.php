@@ -10,14 +10,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Item;
 use App\Service\ImportService;
-use App\Utils\Constants;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\View;
 use Zedling\DotaKV\Parser;
 
 class ImportController extends Controller
@@ -43,6 +39,7 @@ class ImportController extends Controller
 
         $grouped = app( ImportService::class )->groupEntities($kvData);
         $parsed  = app( ImportService::class )->loadParsedKvArray($grouped);
+        app(ImportService::class)->createEntities($parsed);
 
         /*$preview = "";
         if ( !empty($parsed) ) {
@@ -55,7 +52,8 @@ class ImportController extends Controller
 
         return view('import/index', [
             "kvData"  => $kvData ?? [],
-            "grouped" => $parsed
+            "grouped" => $grouped,
+            "parsed"  => $parsed
         ]);
     }
 

@@ -161,7 +161,7 @@ class Item extends Model
      *
      *
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function usedInRecipes()
     {
@@ -178,7 +178,7 @@ class Item extends Model
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function stats()
     {

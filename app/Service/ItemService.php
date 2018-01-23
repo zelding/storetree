@@ -17,6 +17,17 @@ use Illuminate\Support\Collection;
 
 class ItemService
 {
+    public static $bossItems = [
+        "item_reflex_core",
+        "item_farming_core",
+        "item_cheese",
+        "item_aegis",
+        "item_upgrade_core_4",
+        "item_upgrade_core_3",
+        "item_upgrade_core_2",
+        "item_upgrade_core"
+    ];
+
     /**
      * Resolves inherited stats for the item
      *
@@ -24,7 +35,7 @@ class ItemService
      */
     public function resolveItemInheritedStats(Item &$item)
     {
-        if ( $item->base_level > 1 ) {
+        if ($item->base_level > 1) {
             //remove the _# from the name
             $name = preg_replace('~_\d{1,}~', '', $item->base_class);
 
@@ -33,17 +44,21 @@ class ItemService
                         ->where('base_class', $name)
                         ->first();
 
-            if ( $lvl1 instanceof Item && $lvl1->stats->count() ) {
-                $lvl1->stats->each(function (&$item, $key) {
-                    $item->inherited = true;
-                });
+            if ($lvl1 instanceof Item && $lvl1->stats->count()) {
+                $lvl1->stats->each(
+                    function (&$item, $key) {
+                        $item->inherited = true;
+                    }
+                );
 
                 foreach ($lvl1->stats as $stat) {
-                    $contains = $item->stats->contains(function ($value, $key) use ($stat) {
-                        return $value->id == $stat->id;
-                    });
+                    $contains = $item->stats->contains(
+                        function ($value, $key) use ($stat) {
+                            return $value->id == $stat->id;
+                        }
+                    );
 
-                    if ( !$contains ) {
+                    if (!$contains) {
                         $item->stats->add($stat);
                     }
                 }
@@ -56,9 +71,10 @@ class ItemService
      *
      * @param Item    $item
      * @param Request $request
+     *
      * @return Item
      */
-    public function setItemAttributes(Item $item, Request $request) : Item
+    public function setItemAttributes(Item $item, Request $request): Item
     {
         $item->name          = $request->get('name');
         $item->description   = $request->get('description');
@@ -106,6 +122,7 @@ class ItemService
      *
      * @param Item    $item
      * @param Request $request
+     *
      * @return Item
      */
     public function setPresentItemAttributes(Item $item, Request $request)
@@ -325,6 +342,18 @@ class ItemService
         if ($data->has('ItemBaseLevel')) {
             $item->base_level = $data->get('ItemBaseLevel') ?? 1;
         }
+        else { //try to resolve the base_level from the base_class (last digit)
+            $c = [];
+            preg_match("~_\d{1}$~", $item->base_class, $c);
+
+            if (!empty($c)) {
+                $level = reset($c);
+
+                if (is_numeric($level)) {
+                    $item->base_level = (int) $level;
+                }
+            }
+        }
 
         if ($data->has('MaxUpgradeLevel')) {
             $item->max_level = $data->get('MaxUpgradeLevel') ?? 1;
@@ -424,4 +453,75 @@ class ItemService
 
         return $this;
     }
+
+    public function generateNameFromBaseClass(string $baseClass)
+    {
+        if ( $this->isRecipeBaseClass($baseClass) ) {
+            $name = "Recipe: ";
+        }
+        else {
+            $name = "";
+        }
+
+        $baseClass = str_replace(
+            ["item_", "recipe_"],
+            ["", ""],
+            $baseClass
+        );
+
+        $name .= str_replace("_", " ", $baseClass);
+
+        $name = ucwords($name);
+
+        return $name;
+    }
+
+    /**
+     * Finds the Recipe Item for an Item
+     *
+     * @param Item $item
+     *
+     * @return null|Item
+     */
+    public function findItemRecipeItem(Item $item)
+    {
+        $recipeBaseClass = $this->itemNameToRecipeItemName($item->base_class);
+
+        return Item::whereBaseClass($recipeBaseClass)->first();
+    }
+
+    /**
+     * Find the Item for an RecipeItem
+     *
+     * @param Item $item
+     *
+     * @return null|Item
+     */
+    public function findRecipeItemItem(Item $item)
+    {
+        $recipeBaseClass = $this->recipeItemNameToItemName($item->base_class);
+
+        return Item::whereBaseClass($recipeBaseClass)->first();
+    }
+
+    public function itemNameToRecipeItemName(string $baseClass)
+    {
+        return str_replace("item_", "item_recipe_", $baseClass);
+    }
+
+    public function recipeItemNameToItemName(string $baseClass)
+    {
+        return str_replace("item_recipe_", "item_", $baseClass);
+    }
+
+    public function isRecipeBaseClass(string $baseClass)
+    {
+        return substr_count($baseClass, "item_recipe") > 0;
+    }
+
+    public function shouldBeBossItem(string $baseClass)
+    {
+        return in_array($baseClass, static::$bossItems);
+    }
+
 }
