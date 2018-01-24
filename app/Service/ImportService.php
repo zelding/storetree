@@ -11,6 +11,7 @@
 namespace App\Service;
 
 
+use App\Ability;
 use App\Item;
 use App\Recipe;
 use App\Shop;
@@ -39,6 +40,8 @@ class ImportService
         ];
 
         foreach($data as $baseClass => $value) {
+
+            $baseClass = str_replace("_1", "", $baseClass);
 
             $result = $this->resolveItem($baseClass, $value['ID']);
 
@@ -136,48 +139,56 @@ class ImportService
         $list = [];
 
         foreach($data as $key => $entry) {
-            $itemName = str_replace("recipe_", "", $key);
+            if ( !empty($entry) && is_array($entry) ) {
 
-            if ( !array_key_exists($itemName, $list) ) {
-                $list[ $itemName ] = [];
-            }
+                $itemName = str_replace("recipe_", "", $key);
 
-            if ( $this->isRecipeNameKey($key) ) {
-                $list[ $itemName ]["_recipe"] = $entry;
-            }
-            elseif($this->isItemNameKey($key) ) {
-                $list[ $itemName ] = array_merge_recursive([], $list[ $itemName ], $entry);
-            }
-            else {
-                continue;
+                if (!array_key_exists($itemName, $list)) {
+                    $list[ $itemName ] = [];
+                }
+
+                if ($this->isRecipeNameKey($key)) {
+                    $list[ $itemName ]["_recipe"] = $entry;
+                }
+                elseif ($this->isItemNameKey($key)) {
+                    $list[ $itemName ] = array_merge_recursive([], $list[ $itemName ], $entry);
+                }
+                else {
+                    continue;
+                }
             }
         }
 
         return $list;
     }
 
-    public function createEntities(array $groupedData)
+    public function createEntities(array &$groupedData)
     {
         foreach($groupedData as $type => $dataCollection) {
 
             if( !empty($dataCollection) ) {
-                foreach ($dataCollection as $baseClass => $itemData) {
+                try {
+                    foreach ($dataCollection as $baseClass => $itemData) {
 
-                    switch ($type) {
-                        case "good":
-                            //$this->updateItem($itemData, $baseClass);
-                        break;
+                        switch ($type) {
+                            case "good":
+                                $this->updateItem($itemData, $baseClass);
+                            break;
 
-                        case "base_class_mismatch":
-                        break;
+                            case "base_class_mismatch":
+                            break;
 
-                        case "dota_id_in_use":
-                        break;
+                            case "dota_id_in_use":
+                            break;
 
-                        case "new":
-                            $this->createItem($itemData, $baseClass);
-                        break;
+                            case "new":
+                                $this->createItem($itemData, $baseClass);
+                            break;
+                        }
                     }
+                }
+                catch(\Illuminate\Database\QueryException $exception) {
+                    $groupedData["unusable"][] = $baseClass;
                 }
 
                 $this->resolveMissingComponents();
@@ -185,6 +196,12 @@ class ImportService
         }
     }
 
+    /**
+     * @param array  $itemData
+     * @param string $baseClass
+     *
+     * @throws \Illuminate\Database\QueryException
+     */
     protected function updateItem(array $itemData, string $baseClass)
     {
         $item = Item::whereDotaId($itemData["ID"])->first();
@@ -195,17 +212,37 @@ class ImportService
             app(ItemService::class)
                 ->setPresentItemAttributesFromImport($item, new Collection($itemData));
 
+            $item->is_recipe    = app(ItemService::class)->isRecipeBaseClass($baseClass);
+            $item->is_boss_item = app(ItemService::class)->shouldBeBossItem($baseClass);
+            $item->is_base_item = $item->is_boss_item ? 1 : $item->is_base_item;
+
+            if ( !app(ItemService::class)->isRecipeBaseClass($item->base_class) && !$item->is_boss_item ) {
+                $item->cost = 0;
+            }
+
             $item->save();
 
+            if ( !$item->is_recipe ) {
+                $this->updateAbility($item, $itemData);
+            }
+
             //the rest will inherit it
-            if ( $item->base_level === 1 && !empty($itemData["AbilitySpecial"]) ) {
+            if ( (int)$item->base_level === 1 && !empty($itemData["AbilitySpecial"]) ) {
                 $this->updateStats($item, $itemData["AbilitySpecial"]);
             }
         }
     }
 
+    /**
+     * @param Item  $item
+     * @param array $statsData
+     *
+     * @throws \Illuminate\Database\QueryException
+     */
     protected function updateStats(Item $item, array $statsData)
     {
+        $statIds = [];
+
         foreach( $statsData as $rn => $data ) {
             $varType       = $data["var_type"];
             $keys          = array_keys($data);
@@ -219,37 +256,37 @@ class ImportService
             if ( count($value) == 1 || count($value) == $item->max_level ) {
                 $stat = Stat::whereDotaName($statBaseClass)->first();
 
-                if ($stat instanceof Stat) {
-                    $item->stats()->attach($stat, [
-                        "value"      => json_encode($value),
-                        "created_at" => new \DateTime(),
-                        "updated_at" => new \DateTime()
-                    ]);
-                    $item->touch();
-                }
-                else {
+                if ( !$stat instanceof Stat ) {
                     $stat = new Stat();
-                    $stat->name       = ucfirst(str_replace("_", "", $statBaseClass));
+                    $stat->name       = $this->baseClassToName($statBaseClass);
                     $stat->dota_name  = $statBaseClass;
                     $stat->var_type   = $varType;
                     $stat->is_percent = false;
                     $stat->created_at = new \DateTime();
 
                     $stat->save();
-
-                    $item->stats()->attach($stat, [
-                        "value"      => json_encode($value),
-                        "created_at" => new \DateTime(),
-                        "updated_at" => new \DateTime()
-                    ]);
-                    $item->touch();
                 }
 
+                $statIds[ $stat->id ] = [
+                    "value"      => json_encode($value),
+                    "created_at" => new \DateTime(),
+                    "updated_at" => new \DateTime()
+                ];
+
+                $item->stats()->sync($statIds);
+
+                $item->touch();
                 $item->save();
             }
         }
     }
 
+    /**
+     * @param array  $itemData
+     * @param string $baseClass
+     *
+     * @throws \Illuminate\Database\QueryException
+     */
     protected function createItem(array $itemData, string $baseClass)
     {
         $item = new Item();
@@ -266,7 +303,7 @@ class ImportService
         $item->is_base_item = $item->is_boss_item ? 1 : $item->is_base_item;
         $item->name         = app(ItemService::class)->generateNameFromBaseClass($baseClass);
 
-        if ( !app(ItemService::class)->isRecipeBaseClass($item->base_class) ) {
+        if ( !app(ItemService::class)->isRecipeBaseClass($item->base_class) && !$item->is_boss_item ) {
             $item->cost = 0;
         }
 
@@ -280,7 +317,11 @@ class ImportService
             $item->shops()->attach(Shop::find(4));
         }
 
-        if ( $item->base_level === 1 && !empty($itemData["AbilitySpecial"]) ) {
+        if ( !$item->is_recipe ) {
+            $this->updateAbility($item, $itemData);
+        }
+
+        if ( (int)$item->base_level === 1 && !empty($itemData["AbilitySpecial"]) ) {
             $this->updateStats($item, $itemData["AbilitySpecial"]);
         }
 
@@ -288,9 +329,11 @@ class ImportService
         if ( empty($itemData["_recipe"]) ) {
             $baseItem = app(ItemService::class)->findRecipeItemItem($item);
 
-            $this->createRecipes($baseItem, $this->recipeDataBuffer[ $baseItem->base_class ]);
+            if ( $baseItem instanceof Item && !empty($this->recipeDataBuffer[ $baseItem->base_class ]) ) { //aeon didn't had recipes
+                $this->createRecipes($baseItem, $this->recipeDataBuffer[ $baseItem->base_class ]);
 
-            unset($this->recipeDataBuffer[ $baseItem->base_class ]);
+                unset($this->recipeDataBuffer[ $baseItem->base_class ]);
+            }
         }
         //it is an item, we put the recipe data away for later
         else {
@@ -298,35 +341,44 @@ class ImportService
         }
     }
 
+    /**
+     * @param Item  $item
+     * @param array $recipeData
+     *
+     * @throws \Illuminate\Database\QueryException
+     */
     protected function createRecipes(Item $item, array $recipeData)
     {
         if ( !empty($recipeData["ItemRequirements"]) ) {
             foreach( $recipeData["ItemRequirements"] as $row => $recipeItemsData ) {
-                $recipe = new Recipe();
-                $recipe->for()->associate($item);
-                $recipe->created_at = new \DateTime();
-                $recipe->updated_at = new \DateTime();
 
-                $recipe->save();
+                if ( !empty($recipeItemsData) && is_array($recipeItemsData)) {
+                    $recipe = new Recipe();
+                    $recipe->for()->associate($item);
+                    $recipe->created_at = new \DateTime();
+                    $recipe->updated_at = new \DateTime();
 
-                $recipeItem = app(ItemService::class)->findItemRecipeItem($item);
+                    $recipe->save();
 
-                if ( $recipeItem instanceof Item) {
-                    $recipe->components()->attach($recipeItem);
-                }
+                    $recipeItem = app(ItemService::class)->findItemRecipeItem($item);
 
-                foreach($recipeItemsData as $baseClass) {
-                    $component = Item::whereBaseClass($baseClass)->first();
-
-                    if ($component instanceof Item) {
-                        $recipe->components()->attach($component);
+                    if ($recipeItem instanceof Item) {
+                        $recipe->components()->attach($recipeItem);
                     }
-                    else {
-                        if ( !array_key_exists($baseClass, $this->missingItems) ) {
-                            $this->missingItems[ $baseClass ] = [$item->base_class];
+
+                    foreach ($recipeItemsData as $baseClass) {
+                        $component = Item::whereBaseClass($baseClass)->first();
+
+                        if ($component instanceof Item) {
+                            $recipe->components()->attach($component);
                         }
                         else {
-                            $this->missingItems[ $baseClass ][] = $item->base_class;
+                            if (!array_key_exists($baseClass, $this->missingItems)) {
+                                $this->missingItems[ $baseClass ] = [$item->base_class];
+                            }
+                            else {
+                                $this->missingItems[ $baseClass ][] = $item->base_class;
+                            }
                         }
                     }
                 }
@@ -335,7 +387,42 @@ class ImportService
     }
 
     /**
+     * @param Item  $item
+     * @param array $itemData
      *
+     * @throws \Illuminate\Database\QueryException
+     */
+    protected function updateAbility(Item $item, array $itemData)
+    {
+        if ( !empty($itemData["AbilityTextureName"]) ) {
+            $abilityName = $item->lvl1Recipe ?
+                $this->baseClassToName(
+                    app(ItemService::class)
+                        ->recipeItemNameToItemName($item->lvl1Recipe->base_class)
+                ) :
+                $this->baseClassToName($item->base_class);
+
+            $ability = Ability::whereName($abilityName)->first();
+
+            if ( !$ability instanceof Ability ) {
+                $ability = new Ability();
+                $ability->name = $abilityName;
+            }
+
+            app(AbilityService::class)
+                ->setPresentAbilityAttributesFromImport($ability, new Collection($itemData));
+
+            if ( $ability->script ) {
+                $ability->base_class = "item_lua";
+            }
+
+            $ability->save();
+            $item->ability()->attach($ability);
+        }
+    }
+
+    /**
+     * @throws \Illuminate\Database\QueryException
      */
     protected function resolveMissingComponents()
     {
@@ -380,19 +467,30 @@ class ImportService
             return 1;
         }
 
-        $baseClassMatch = Item::whereBaseClass($base_class)->first();
-
-        if ( $baseClassMatch instanceof Item) {
-            return 0;
-        }
-
         $dotaIdMatch = Item::whereDotaId($dotaId)->first();
 
         if ( $dotaIdMatch instanceof Item) {
             return -1;
         }
 
+        $baseClassMatch = Item::whereBaseClass($base_class)->first();
+
+        if ( $baseClassMatch instanceof Item) {
+            return 0;
+        }
+
         return -2;
+    }
+
+    public function flagListToArray(string $flagList, $default = null)
+    {
+        if ( substr_count($flagList, "|") ) {
+            $declarations = str_replace(" ", "", $flagList);
+            return explode("|", $declarations);
+        }
+        else {
+            return [$flagList] ?? $default;
+        }
     }
 
     protected function isItemNameKey(string $key) : bool
@@ -403,5 +501,10 @@ class ImportService
     protected function isRecipeNameKey(string $key) : bool
     {
         return strncmp($key, "item_recipe_",12 ) === 0;
+    }
+
+    protected function baseClassToName(string $baseClass)
+    {
+        return str_replace(" ","", ucwords(str_replace("_", " ", $baseClass)));
     }
 }

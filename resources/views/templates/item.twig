@@ -50,6 +50,9 @@
         {%- if ability.target_flags -%}
         "AbilityUnitTargetFlags"                "{{ ability.target_flags|join(' | ') }}"
         {% endif -%}
+        {%- if ability.damage -%}
+        "AbilityUnitDamageType"                 "{{ ability.damage }}"
+        {% endif -%}
         {%- if ability.cast_range -%}
         "AbilityCastRange"                      "{{ ability.cast_range|join(' ') }}"
         {% endif -%}

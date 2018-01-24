@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property array $duration
  * @property string $cooldown_group
  * @property bool $is_override
+ * @property string $script
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @method static Builder|Ability whereBaseClass($value)

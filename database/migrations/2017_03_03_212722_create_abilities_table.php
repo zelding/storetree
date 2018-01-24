@@ -44,6 +44,7 @@ class CreateAbilitiesTable extends Migration
             $table->string('duration');
 
             $table->string('cooldown_group')->nullable();
+            $table->string("script")->nullable();
 
             $table->timestamps();
         });

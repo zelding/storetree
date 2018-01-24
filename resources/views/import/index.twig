@@ -23,7 +23,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="exampleInputFile">File input</label>
-                                    <input type="file" id="exampleInputFile" name="uploadedFile">
+                                    <input type="file" id="exampleInputFile" name="uploadedFile[]" multiple="multiple" />
                                     <p class="help-block">Example block-level help text here.</p>
                                 </div>
                             </div>
@@ -66,6 +66,8 @@
             {{ dump(grouped) }}
             <hr>
             {{ dump(parsed) }}
+            <hr>
+            {{ dump(counts) }}
         </div>
     </div>
 {% endblock %}

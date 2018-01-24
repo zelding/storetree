@@ -27,9 +27,11 @@ class ImportController extends Controller
 
     public function index(Request $request)
     {
+        // wtf am i doing here with disks
         $files = Storage::disk('local')->allFiles("import/" . Auth::getUser()->id);
 
         $kvData = [];
+        $wordCounts = [];
 
         foreach( $files as $file ) {
             $fileData  = Storage::get( $file );
@@ -41,37 +43,49 @@ class ImportController extends Controller
         $parsed  = app( ImportService::class )->loadParsedKvArray($grouped);
         app(ImportService::class)->createEntities($parsed);
 
-        /*$preview = "";
-        if ( !empty($parsed) ) {
-            foreach($parsed as $item) {
-                $preview .= View::make('templates/previews/item', [
-                    'item'   => $item
-                ])->render();
-            }
-        }*/
+        foreach( $files as $file ) {
+            Storage::delete( $file );
+        }
 
         return view('import/index', [
             "kvData"  => $kvData ?? [],
             "grouped" => $grouped,
-            "parsed"  => $parsed
+            "parsed"  => $parsed,
+            "counts"  => $wordCounts
         ]);
     }
 
     public function upload(Request $request)
     {
-        if ( $request->hasFile('uploadedFile') )
+        if ( $request->files->get('uploadedFile') )
         {
-            $file = $request->file('uploadedFile');
+            $files = $request->files->get('uploadedFile');
 
-            $new = Storage::disk('local')->putFileAs(
-                "import/" . Auth::getUser()->id,
-                $file,
-                $file->getClientOriginalName()
-            );
+            if ( is_array($files) ) {
+                $data = "";
+                foreach($files as $file) {
+                    $new = Storage::disk('local')->putFileAs(
+                        "import/".Auth::getUser()->id,
+                        $file,
+                        $file->getClientOriginalName()
+                    );
 
-            $kvFileC = Storage::get($new);
+                    $data .= Storage::get($new);
+                }
 
-            $kvData = $this->parser->load($kvFileC);
+                $kvData = $this->parser->load($data);
+            }
+            else {
+                $new = Storage::disk('local')->putFileAs(
+                    "import/".Auth::getUser()->id,
+                    $files,
+                    $files->getClientOriginalName()
+                );
+
+                $kvFileC = Storage::get($new);
+
+                $kvData = $this->parser->load($kvFileC);
+            }
         }
 
         return view('import/index', [

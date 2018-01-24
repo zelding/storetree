@@ -448,7 +448,8 @@ class ItemService
         }
 
         if ($data->has('ItemDeclarations')) {
-            $item->declarations = $data->get('ItemDeclarations') ?? null;
+            $item->declarations =  app(ImportService::class)
+                ->flagListToArray($data->get('ItemDeclarations'));
         }
 
         return $this;
