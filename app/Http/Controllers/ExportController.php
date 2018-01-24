@@ -7,6 +7,8 @@ use App\ItemLocale;
 use App\Service\ItemService;
 use App\Utils\Constants;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\Debug\Exception\FatalErrorException;
 
 class ExportController extends Controller
 {
@@ -63,18 +65,19 @@ class ExportController extends Controller
 
             try {
                 foreach ( $models as $item ) {
-                    /** @var Item $item */
+                    //Log::info("exporting: {$item->base_class}");
 
+                    /** @var Item $item */
                     $data = view('templates/item', [
-                        //'recipes' => $item->recipes,
-                        'item'    => $item
+                        'recipes' => $item->recipes,
+                        'item' => $item
                     ]);
 
-                    $fileName = $itemPath . "/{$item->base_class}.txt";
+                    $fileName = $itemPath."/{$item->base_class}.txt";
 
                     file_put_contents($fileName, $data);
 
-                    if ( $item->is_override ) {
+                    if ($item->is_override) {
                         $overrideItems[] = "items/{$item->base_class}.txt";
                     }
                     else {

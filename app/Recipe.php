@@ -43,25 +43,35 @@ class Recipe extends Model
     }
 
     /**
-     * @return string[]
+     * @return string
      */
     public function getComponentsStringAttribute()
     {
         $array = [];
 
-        foreach($this->components as $component ) {
-            if( $component->is_recipe ) {
-                //only upgradeable items should have their recipes listed in the requirements
-                if( $this->for->max_level > 1 ) {
-                    $array[] = $this->for->lvl1Recipe->base_class;
+        if ( $this->components->count() ) {
+
+            foreach ($this->components as $component) {
+                /*if ( $component->is_recipe ) {
+                    //only upgradeable items should have their recipes listed in the requirements
+                    if ($this->for->max_level > 1 && null !== $this->for->lvl1Recipe ) {
+                        $array[] = $this->for->lvl1Recipe->base_class;
+                    }
+                }
+                else {
+                    $array[] = $component->base_class;
+                }*/
+                if ( !$component->is_recipe ) {
+                    $array[] = $component->base_class;
                 }
             }
-            else {
-                $array[] = $component->base_class;
+
+            if ( !empty($array) ) {
+                return implode(';', $array);
             }
         }
 
-        return implode(';', $array);
+        return "";
     }
 }
 
