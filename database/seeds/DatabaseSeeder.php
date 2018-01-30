@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Dota2Api\Api;
 use App\Item;
+use Dota2Api\Api;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -39,10 +39,10 @@ class DatabaseSeeder extends Seeder
         Api::init('354765AC2104244D57B1F434CBB8B4F7', []);
 
         $itemMapper = new \Dota2Api\Mappers\ItemsMapperWeb();
-        $itemInfo = $itemMapper->load();
+        $itemInfo   = $itemMapper->load();
 
-        foreach ( $itemInfo as $item ) {
-            $newItem = new Item();
+        foreach ($itemInfo as $item) {
+            $newItem             = new Item();
             $newItem->dota_id    = $item->get('id');
             $newItem->name       = $item->get('localized_name');
             $newItem->base_class = $item->get('name');
@@ -50,11 +50,11 @@ class DatabaseSeeder extends Seeder
             $newItem->is_recipe  = $item->get('recipe');
             $newItem->save();
 
-            if ( $item->get('side_shop') ) {
+            if ($item->get('side_shop')) {
                 $newItem->shops()->attach(2);
             }
 
-            if ( $item->get('secret_shop') ) {
+            if ($item->get('secret_shop')) {
                 $newItem->shops()->attach(3);
             }
             else {

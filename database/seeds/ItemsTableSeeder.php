@@ -16,9 +16,10 @@ class ItemsTableSeeder extends Seeder
 
         \DB::table('items')->delete();
         
-        \DB::table('items')->insert(array (
+        \DB::table('items')->insert(
+            [
             0 => 
-            array (
+            [
                 'id' => 1,
                 'dota_id' => 1,
                 'base_class' => 'item_blink',
@@ -59,9 +60,9 @@ class ItemsTableSeeder extends Seeder
                 'aliases' => '["blink","blinkdagger","dagger"]',
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             1 => 
-            array (
+            [
                 'id' => 2,
                 'dota_id' => 2,
                 'base_class' => 'item_blades_of_attack',
@@ -102,9 +103,9 @@ class ItemsTableSeeder extends Seeder
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             2 => 
-            array (
+            [
                 'id' => 3,
                 'dota_id' => 3,
                 'base_class' => 'item_broadsword',
@@ -145,9 +146,9 @@ class ItemsTableSeeder extends Seeder
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             3 => 
-            array (
+            [
                 'id' => 4,
                 'dota_id' => 4,
                 'base_class' => 'item_chainmail',
@@ -188,9 +189,9 @@ class ItemsTableSeeder extends Seeder
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             4 => 
-            array (
+            [
                 'id' => 5,
                 'dota_id' => 5,
                 'base_class' => 'item_claymore',
@@ -231,9 +232,9 @@ class ItemsTableSeeder extends Seeder
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             5 => 
-            array (
+            [
                 'id' => 6,
                 'dota_id' => 6,
                 'base_class' => 'item_helm_of_iron_will',
@@ -275,9 +276,9 @@ class ItemsTableSeeder extends Seeder
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             6 => 
-            array (
+            [
                 'id' => 7,
                 'dota_id' => 7,
                 'base_class' => 'item_javelin',
@@ -318,9 +319,9 @@ class ItemsTableSeeder extends Seeder
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             7 => 
-            array (
+            [
                 'id' => 8,
                 'dota_id' => 8,
                 'base_class' => 'item_mithril_hammer',
@@ -361,9 +362,9 @@ class ItemsTableSeeder extends Seeder
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             8 => 
-            array (
+            [
                 'id' => 9,
                 'dota_id' => 9,
                 'base_class' => 'item_platemail',
@@ -406,9 +407,9 @@ aksjhdkjsahdkjsahd',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             9 => 
-            array (
+            [
                 'id' => 10,
                 'dota_id' => 10,
                 'base_class' => 'item_quarterstaff',
@@ -450,9 +451,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             10 => 
-            array (
+            [
                 'id' => 11,
                 'dota_id' => 11,
                 'base_class' => 'item_quelling_blade',
@@ -493,9 +494,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             11 => 
-            array (
+            [
                 'id' => 12,
                 'dota_id' => 237,
                 'base_class' => 'item_faerie_fire',
@@ -536,9 +537,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             12 => 
-            array (
+            [
                 'id' => 13,
                 'dota_id' => 265,
                 'base_class' => 'item_infused_raindrop',
@@ -579,9 +580,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             13 => 
-            array (
+            [
                 'id' => 14,
                 'dota_id' => 244,
                 'base_class' => 'item_wind_lace',
@@ -622,9 +623,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             14 => 
-            array (
+            [
                 'id' => 15,
                 'dota_id' => 12,
                 'base_class' => 'item_ring_of_protection',
@@ -665,9 +666,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             15 => 
-            array (
+            [
                 'id' => 16,
                 'dota_id' => 182,
                 'base_class' => 'item_stout_shield',
@@ -708,9 +709,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             16 => 
-            array (
+            [
                 'id' => 17,
                 'dota_id' => 246,
                 'base_class' => 'item_recipe_moon_shard',
@@ -751,9 +752,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             17 => 
-            array (
+            [
                 'id' => 18,
                 'dota_id' => 247,
                 'base_class' => 'item_moon_shard',
@@ -794,9 +795,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             18 => 
-            array (
+            [
                 'id' => 19,
                 'dota_id' => 13,
                 'base_class' => 'item_gauntlets',
@@ -837,9 +838,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             19 => 
-            array (
+            [
                 'id' => 20,
                 'dota_id' => 14,
                 'base_class' => 'item_slippers',
@@ -880,9 +881,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             20 => 
-            array (
+            [
                 'id' => 21,
                 'dota_id' => 15,
                 'base_class' => 'item_mantle',
@@ -923,9 +924,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             21 => 
-            array (
+            [
                 'id' => 22,
                 'dota_id' => 16,
                 'base_class' => 'item_branches',
@@ -966,9 +967,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             22 => 
-            array (
+            [
                 'id' => 23,
                 'dota_id' => 17,
                 'base_class' => 'item_belt_of_strength',
@@ -1009,9 +1010,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             23 => 
-            array (
+            [
                 'id' => 24,
                 'dota_id' => 18,
                 'base_class' => 'item_boots_of_elves',
@@ -1052,9 +1053,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             24 => 
-            array (
+            [
                 'id' => 25,
                 'dota_id' => 19,
                 'base_class' => 'item_robe',
@@ -1095,9 +1096,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             25 => 
-            array (
+            [
                 'id' => 26,
                 'dota_id' => 20,
                 'base_class' => 'item_circlet',
@@ -1138,9 +1139,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             26 => 
-            array (
+            [
                 'id' => 27,
                 'dota_id' => 21,
                 'base_class' => 'item_ogre_axe',
@@ -1181,9 +1182,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             27 => 
-            array (
+            [
                 'id' => 28,
                 'dota_id' => 22,
                 'base_class' => 'item_blade_of_alacrity',
@@ -1224,9 +1225,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             28 => 
-            array (
+            [
                 'id' => 29,
                 'dota_id' => 23,
                 'base_class' => 'item_staff_of_wizardry',
@@ -1267,9 +1268,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             29 => 
-            array (
+            [
                 'id' => 30,
                 'dota_id' => 24,
                 'base_class' => 'item_ultimate_orb',
@@ -1310,9 +1311,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             30 => 
-            array (
+            [
                 'id' => 31,
                 'dota_id' => 25,
                 'base_class' => 'item_gloves',
@@ -1353,9 +1354,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             31 => 
-            array (
+            [
                 'id' => 32,
                 'dota_id' => 26,
                 'base_class' => 'item_lifesteal',
@@ -1396,9 +1397,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             32 => 
-            array (
+            [
                 'id' => 33,
                 'dota_id' => 27,
                 'base_class' => 'item_ring_of_regen',
@@ -1439,9 +1440,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             33 => 
-            array (
+            [
                 'id' => 34,
                 'dota_id' => 28,
                 'base_class' => 'item_sobi_mask',
@@ -1482,9 +1483,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             34 => 
-            array (
+            [
                 'id' => 35,
                 'dota_id' => 29,
                 'base_class' => 'item_boots',
@@ -1525,9 +1526,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             35 => 
-            array (
+            [
                 'id' => 36,
                 'dota_id' => 30,
                 'base_class' => 'item_gem',
@@ -1568,9 +1569,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             36 => 
-            array (
+            [
                 'id' => 37,
                 'dota_id' => 31,
                 'base_class' => 'item_cloak',
@@ -1611,9 +1612,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             37 => 
-            array (
+            [
                 'id' => 38,
                 'dota_id' => 32,
                 'base_class' => 'item_talisman_of_evasion',
@@ -1654,9 +1655,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             38 => 
-            array (
+            [
                 'id' => 39,
                 'dota_id' => 33,
                 'base_class' => 'item_cheese',
@@ -1697,9 +1698,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             39 => 
-            array (
+            [
                 'id' => 40,
                 'dota_id' => 34,
                 'base_class' => 'item_magic_stick',
@@ -1740,9 +1741,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             40 => 
-            array (
+            [
                 'id' => 41,
                 'dota_id' => 35,
                 'base_class' => 'item_recipe_magic_wand',
@@ -1783,9 +1784,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             41 => 
-            array (
+            [
                 'id' => 42,
                 'dota_id' => 36,
                 'base_class' => 'item_magic_wand',
@@ -1826,9 +1827,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             42 => 
-            array (
+            [
                 'id' => 43,
                 'dota_id' => 37,
                 'base_class' => 'item_ghost',
@@ -1870,9 +1871,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             43 => 
-            array (
+            [
                 'id' => 44,
                 'dota_id' => 38,
                 'base_class' => 'item_clarity',
@@ -1913,9 +1914,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             44 => 
-            array (
+            [
                 'id' => 45,
                 'dota_id' => 216,
                 'base_class' => 'item_enchanted_mango',
@@ -1956,9 +1957,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             45 => 
-            array (
+            [
                 'id' => 46,
                 'dota_id' => 39,
                 'base_class' => 'item_flask',
@@ -1999,9 +2000,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             46 => 
-            array (
+            [
                 'id' => 47,
                 'dota_id' => 40,
                 'base_class' => 'item_dust',
@@ -2042,9 +2043,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             47 => 
-            array (
+            [
                 'id' => 48,
                 'dota_id' => 41,
                 'base_class' => 'item_bottle',
@@ -2085,9 +2086,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             48 => 
-            array (
+            [
                 'id' => 49,
                 'dota_id' => 42,
                 'base_class' => 'item_ward_observer',
@@ -2128,9 +2129,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             49 => 
-            array (
+            [
                 'id' => 50,
                 'dota_id' => 43,
                 'base_class' => 'item_ward_sentry',
@@ -2171,9 +2172,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             50 => 
-            array (
+            [
                 'id' => 51,
                 'dota_id' => 217,
                 'base_class' => 'item_recipe_ward_dispenser',
@@ -2214,9 +2215,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             51 => 
-            array (
+            [
                 'id' => 52,
                 'dota_id' => 218,
                 'base_class' => 'item_ward_dispenser',
@@ -2257,9 +2258,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             52 => 
-            array (
+            [
                 'id' => 53,
                 'dota_id' => 44,
                 'base_class' => 'item_tango',
@@ -2300,9 +2301,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             53 => 
-            array (
+            [
                 'id' => 54,
                 'dota_id' => 241,
                 'base_class' => 'item_tango_single',
@@ -2343,9 +2344,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             54 => 
-            array (
+            [
                 'id' => 55,
                 'dota_id' => 45,
                 'base_class' => 'item_courier',
@@ -2386,9 +2387,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             55 => 
-            array (
+            [
                 'id' => 56,
                 'dota_id' => 46,
                 'base_class' => 'item_tpscroll',
@@ -2429,9 +2430,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             56 => 
-            array (
+            [
                 'id' => 57,
                 'dota_id' => 47,
                 'base_class' => 'item_recipe_travel_boots',
@@ -2472,9 +2473,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             57 => 
-            array (
+            [
                 'id' => 58,
                 'dota_id' => 219,
                 'base_class' => 'item_recipe_travel_boots_2',
@@ -2515,9 +2516,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             58 => 
-            array (
+            [
                 'id' => 59,
                 'dota_id' => 48,
                 'base_class' => 'item_travel_boots',
@@ -2558,9 +2559,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             59 => 
-            array (
+            [
                 'id' => 60,
                 'dota_id' => 220,
                 'base_class' => 'item_travel_boots_2',
@@ -2601,9 +2602,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             60 => 
-            array (
+            [
                 'id' => 61,
                 'dota_id' => 49,
                 'base_class' => 'item_recipe_phase_boots',
@@ -2644,9 +2645,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             61 => 
-            array (
+            [
                 'id' => 62,
                 'dota_id' => 50,
                 'base_class' => 'item_phase_boots',
@@ -2688,9 +2689,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             62 => 
-            array (
+            [
                 'id' => 63,
                 'dota_id' => 51,
                 'base_class' => 'item_demon_edge',
@@ -2731,9 +2732,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             63 => 
-            array (
+            [
                 'id' => 64,
                 'dota_id' => 52,
                 'base_class' => 'item_eagle',
@@ -2774,9 +2775,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             64 => 
-            array (
+            [
                 'id' => 65,
                 'dota_id' => 53,
                 'base_class' => 'item_reaver',
@@ -2817,9 +2818,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             65 => 
-            array (
+            [
                 'id' => 66,
                 'dota_id' => 54,
                 'base_class' => 'item_relic',
@@ -2860,9 +2861,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             66 => 
-            array (
+            [
                 'id' => 67,
                 'dota_id' => 55,
                 'base_class' => 'item_hyperstone',
@@ -2903,9 +2904,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             67 => 
-            array (
+            [
                 'id' => 68,
                 'dota_id' => 56,
                 'base_class' => 'item_ring_of_health',
@@ -2946,9 +2947,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             68 => 
-            array (
+            [
                 'id' => 69,
                 'dota_id' => 57,
                 'base_class' => 'item_void_stone',
@@ -2989,9 +2990,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             69 => 
-            array (
+            [
                 'id' => 70,
                 'dota_id' => 58,
                 'base_class' => 'item_mystic_staff',
@@ -3032,9 +3033,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             70 => 
-            array (
+            [
                 'id' => 71,
                 'dota_id' => 59,
                 'base_class' => 'item_energy_booster',
@@ -3075,9 +3076,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             71 => 
-            array (
+            [
                 'id' => 72,
                 'dota_id' => 60,
                 'base_class' => 'item_point_booster',
@@ -3118,9 +3119,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             72 => 
-            array (
+            [
                 'id' => 73,
                 'dota_id' => 61,
                 'base_class' => 'item_vitality_booster',
@@ -3161,9 +3162,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             73 => 
-            array (
+            [
                 'id' => 74,
                 'dota_id' => 62,
                 'base_class' => 'item_recipe_power_treads',
@@ -3204,9 +3205,9 @@ dmg',
                 'aliases' => '[]',
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             74 => 
-            array (
+            [
                 'id' => 75,
                 'dota_id' => 63,
                 'base_class' => 'item_power_treads',
@@ -3247,9 +3248,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             75 => 
-            array (
+            [
                 'id' => 76,
                 'dota_id' => 64,
                 'base_class' => 'item_recipe_hand_of_midas',
@@ -3290,9 +3291,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             76 => 
-            array (
+            [
                 'id' => 77,
                 'dota_id' => 65,
                 'base_class' => 'item_hand_of_midas',
@@ -3333,9 +3334,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             77 => 
-            array (
+            [
                 'id' => 78,
                 'dota_id' => 66,
                 'base_class' => 'item_recipe_oblivion_staff',
@@ -3376,9 +3377,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             78 => 
-            array (
+            [
                 'id' => 79,
                 'dota_id' => 67,
                 'base_class' => 'item_oblivion_staff',
@@ -3419,9 +3420,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             79 => 
-            array (
+            [
                 'id' => 80,
                 'dota_id' => 68,
                 'base_class' => 'item_recipe_pers',
@@ -3462,9 +3463,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             80 => 
-            array (
+            [
                 'id' => 81,
                 'dota_id' => 69,
                 'base_class' => 'item_pers',
@@ -3506,9 +3507,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             81 => 
-            array (
+            [
                 'id' => 82,
                 'dota_id' => 70,
                 'base_class' => 'item_recipe_poor_mans_shield',
@@ -3549,9 +3550,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             82 => 
-            array (
+            [
                 'id' => 83,
                 'dota_id' => 71,
                 'base_class' => 'item_poor_mans_shield',
@@ -3593,9 +3594,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             83 => 
-            array (
+            [
                 'id' => 84,
                 'dota_id' => 72,
                 'base_class' => 'item_recipe_bracer',
@@ -3636,9 +3637,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             84 => 
-            array (
+            [
                 'id' => 85,
                 'dota_id' => 73,
                 'base_class' => 'item_bracer',
@@ -3681,9 +3682,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             85 => 
-            array (
+            [
                 'id' => 86,
                 'dota_id' => 74,
                 'base_class' => 'item_recipe_wraith_band',
@@ -3724,9 +3725,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             86 => 
-            array (
+            [
                 'id' => 87,
                 'dota_id' => 75,
                 'base_class' => 'item_wraith_band',
@@ -3769,9 +3770,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             87 => 
-            array (
+            [
                 'id' => 88,
                 'dota_id' => 76,
                 'base_class' => 'item_recipe_null_talisman',
@@ -3812,9 +3813,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             88 => 
-            array (
+            [
                 'id' => 89,
                 'dota_id' => 77,
                 'base_class' => 'item_null_talisman',
@@ -3857,9 +3858,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             89 => 
-            array (
+            [
                 'id' => 90,
                 'dota_id' => 78,
                 'base_class' => 'item_recipe_mekansm',
@@ -3900,9 +3901,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             90 => 
-            array (
+            [
                 'id' => 91,
                 'dota_id' => 79,
                 'base_class' => 'item_mekansm',
@@ -3943,9 +3944,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             91 => 
-            array (
+            [
                 'id' => 92,
                 'dota_id' => 80,
                 'base_class' => 'item_recipe_vladmir',
@@ -3986,9 +3987,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             92 => 
-            array (
+            [
                 'id' => 93,
                 'dota_id' => 81,
                 'base_class' => 'item_vladmir',
@@ -4029,9 +4030,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             93 => 
-            array (
+            [
                 'id' => 94,
                 'dota_id' => 84,
                 'base_class' => 'item_flying_courier',
@@ -4072,9 +4073,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             94 => 
-            array (
+            [
                 'id' => 95,
                 'dota_id' => 85,
                 'base_class' => 'item_recipe_buckler',
@@ -4115,9 +4116,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             95 => 
-            array (
+            [
                 'id' => 96,
                 'dota_id' => 86,
                 'base_class' => 'item_buckler',
@@ -4158,9 +4159,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             96 => 
-            array (
+            [
                 'id' => 97,
                 'dota_id' => 87,
                 'base_class' => 'item_recipe_ring_of_basilius',
@@ -4201,9 +4202,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             97 => 
-            array (
+            [
                 'id' => 98,
                 'dota_id' => 88,
                 'base_class' => 'item_ring_of_basilius',
@@ -4244,9 +4245,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             98 => 
-            array (
+            [
                 'id' => 99,
                 'dota_id' => 89,
                 'base_class' => 'item_recipe_pipe',
@@ -4287,9 +4288,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             99 => 
-            array (
+            [
                 'id' => 100,
                 'dota_id' => 90,
                 'base_class' => 'item_pipe',
@@ -4330,9 +4331,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             100 => 
-            array (
+            [
                 'id' => 101,
                 'dota_id' => 91,
                 'base_class' => 'item_recipe_urn_of_shadows',
@@ -4373,9 +4374,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             101 => 
-            array (
+            [
                 'id' => 102,
                 'dota_id' => 92,
                 'base_class' => 'item_urn_of_shadows',
@@ -4416,9 +4417,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             102 => 
-            array (
+            [
                 'id' => 103,
                 'dota_id' => 93,
                 'base_class' => 'item_recipe_headdress',
@@ -4459,9 +4460,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             103 => 
-            array (
+            [
                 'id' => 104,
                 'dota_id' => 94,
                 'base_class' => 'item_headdress',
@@ -4502,9 +4503,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             104 => 
-            array (
+            [
                 'id' => 105,
                 'dota_id' => 95,
                 'base_class' => 'item_recipe_sheepstick',
@@ -4545,9 +4546,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             105 => 
-            array (
+            [
                 'id' => 106,
                 'dota_id' => 96,
                 'base_class' => 'item_sheepstick',
@@ -4588,9 +4589,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             106 => 
-            array (
+            [
                 'id' => 107,
                 'dota_id' => 97,
                 'base_class' => 'item_recipe_orchid',
@@ -4631,9 +4632,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             107 => 
-            array (
+            [
                 'id' => 108,
                 'dota_id' => 98,
                 'base_class' => 'item_orchid',
@@ -4674,9 +4675,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             108 => 
-            array (
+            [
                 'id' => 109,
                 'dota_id' => 245,
                 'base_class' => 'item_recipe_bloodthorn',
@@ -4717,9 +4718,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             109 => 
-            array (
+            [
                 'id' => 110,
                 'dota_id' => 250,
                 'base_class' => 'item_bloodthorn',
@@ -4760,9 +4761,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             110 => 
-            array (
+            [
                 'id' => 111,
                 'dota_id' => 251,
                 'base_class' => 'item_recipe_echo_sabre',
@@ -4803,9 +4804,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             111 => 
-            array (
+            [
                 'id' => 112,
                 'dota_id' => 252,
                 'base_class' => 'item_echo_sabre',
@@ -4846,9 +4847,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             112 => 
-            array (
+            [
                 'id' => 113,
                 'dota_id' => 99,
                 'base_class' => 'item_recipe_cyclone',
@@ -4889,9 +4890,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             113 => 
-            array (
+            [
                 'id' => 114,
                 'dota_id' => 100,
                 'base_class' => 'item_cyclone',
@@ -4932,9 +4933,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             114 => 
-            array (
+            [
                 'id' => 115,
                 'dota_id' => 233,
                 'base_class' => 'item_recipe_aether_lens',
@@ -4975,9 +4976,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             115 => 
-            array (
+            [
                 'id' => 116,
                 'dota_id' => 232,
                 'base_class' => 'item_aether_lens',
@@ -5018,9 +5019,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             116 => 
-            array (
+            [
                 'id' => 117,
                 'dota_id' => 101,
                 'base_class' => 'item_recipe_force_staff',
@@ -5061,9 +5062,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             117 => 
-            array (
+            [
                 'id' => 118,
                 'dota_id' => 102,
                 'base_class' => 'item_force_staff',
@@ -5104,9 +5105,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             118 => 
-            array (
+            [
                 'id' => 119,
                 'dota_id' => 262,
                 'base_class' => 'item_recipe_hurricane_pike',
@@ -5147,9 +5148,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             119 => 
-            array (
+            [
                 'id' => 120,
                 'dota_id' => 263,
                 'base_class' => 'item_hurricane_pike',
@@ -5190,9 +5191,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             120 => 
-            array (
+            [
                 'id' => 121,
                 'dota_id' => 103,
                 'base_class' => 'item_recipe_dagon',
@@ -5233,9 +5234,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             121 => 
-            array (
+            [
                 'id' => 122,
                 'dota_id' => 197,
                 'base_class' => 'item_recipe_dagon_2',
@@ -5276,9 +5277,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             122 => 
-            array (
+            [
                 'id' => 123,
                 'dota_id' => 198,
                 'base_class' => 'item_recipe_dagon_3',
@@ -5319,9 +5320,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             123 => 
-            array (
+            [
                 'id' => 124,
                 'dota_id' => 199,
                 'base_class' => 'item_recipe_dagon_4',
@@ -5362,9 +5363,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             124 => 
-            array (
+            [
                 'id' => 125,
                 'dota_id' => 200,
                 'base_class' => 'item_recipe_dagon_5',
@@ -5405,9 +5406,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             125 => 
-            array (
+            [
                 'id' => 126,
                 'dota_id' => 104,
                 'base_class' => 'item_dagon',
@@ -5448,9 +5449,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             126 => 
-            array (
+            [
                 'id' => 127,
                 'dota_id' => 201,
                 'base_class' => 'item_dagon_2',
@@ -5491,9 +5492,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             127 => 
-            array (
+            [
                 'id' => 128,
                 'dota_id' => 202,
                 'base_class' => 'item_dagon_3',
@@ -5534,9 +5535,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             128 => 
-            array (
+            [
                 'id' => 129,
                 'dota_id' => 203,
                 'base_class' => 'item_dagon_4',
@@ -5577,9 +5578,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             129 => 
-            array (
+            [
                 'id' => 130,
                 'dota_id' => 204,
                 'base_class' => 'item_dagon_5',
@@ -5620,9 +5621,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             130 => 
-            array (
+            [
                 'id' => 131,
                 'dota_id' => 105,
                 'base_class' => 'item_recipe_necronomicon',
@@ -5663,9 +5664,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             131 => 
-            array (
+            [
                 'id' => 132,
                 'dota_id' => 191,
                 'base_class' => 'item_recipe_necronomicon_2',
@@ -5706,9 +5707,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             132 => 
-            array (
+            [
                 'id' => 133,
                 'dota_id' => 192,
                 'base_class' => 'item_recipe_necronomicon_3',
@@ -5749,9 +5750,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             133 => 
-            array (
+            [
                 'id' => 134,
                 'dota_id' => 106,
                 'base_class' => 'item_necronomicon',
@@ -5792,9 +5793,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             134 => 
-            array (
+            [
                 'id' => 135,
                 'dota_id' => 193,
                 'base_class' => 'item_necronomicon_2',
@@ -5835,9 +5836,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             135 => 
-            array (
+            [
                 'id' => 136,
                 'dota_id' => 194,
                 'base_class' => 'item_necronomicon_3',
@@ -5878,9 +5879,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             136 => 
-            array (
+            [
                 'id' => 137,
                 'dota_id' => 107,
                 'base_class' => 'item_recipe_ultimate_scepter',
@@ -5921,9 +5922,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             137 => 
-            array (
+            [
                 'id' => 138,
                 'dota_id' => 108,
                 'base_class' => 'item_ultimate_scepter',
@@ -5964,9 +5965,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             138 => 
-            array (
+            [
                 'id' => 139,
                 'dota_id' => 109,
                 'base_class' => 'item_recipe_refresher',
@@ -6007,9 +6008,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             139 => 
-            array (
+            [
                 'id' => 140,
                 'dota_id' => 110,
                 'base_class' => 'item_refresher',
@@ -6050,9 +6051,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             140 => 
-            array (
+            [
                 'id' => 141,
                 'dota_id' => 111,
                 'base_class' => 'item_recipe_assault',
@@ -6093,9 +6094,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             141 => 
-            array (
+            [
                 'id' => 142,
                 'dota_id' => 112,
                 'base_class' => 'item_assault',
@@ -6136,9 +6137,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             142 => 
-            array (
+            [
                 'id' => 143,
                 'dota_id' => 113,
                 'base_class' => 'item_recipe_heart',
@@ -6179,9 +6180,9 @@ dmg',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             143 => 
-            array (
+            [
                 'id' => 144,
                 'dota_id' => 114,
                 'base_class' => 'item_heart',
@@ -6223,9 +6224,9 @@ regen',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             144 => 
-            array (
+            [
                 'id' => 145,
                 'dota_id' => 115,
                 'base_class' => 'item_recipe_black_king_bar',
@@ -6266,9 +6267,9 @@ regen',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             145 => 
-            array (
+            [
                 'id' => 146,
                 'dota_id' => 116,
                 'base_class' => 'item_black_king_bar',
@@ -6309,9 +6310,9 @@ regen',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             146 => 
-            array (
+            [
                 'id' => 147,
                 'dota_id' => 117,
                 'base_class' => 'item_aegis',
@@ -6352,9 +6353,9 @@ regen',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             147 => 
-            array (
+            [
                 'id' => 148,
                 'dota_id' => 118,
                 'base_class' => 'item_recipe_shivas_guard',
@@ -6395,9 +6396,9 @@ regen',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             148 => 
-            array (
+            [
                 'id' => 149,
                 'dota_id' => 119,
                 'base_class' => 'item_shivas_guard',
@@ -6438,9 +6439,9 @@ regen',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             149 => 
-            array (
+            [
                 'id' => 150,
                 'dota_id' => 120,
                 'base_class' => 'item_recipe_bloodstone',
@@ -6481,9 +6482,9 @@ regen',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             150 => 
-            array (
+            [
                 'id' => 151,
                 'dota_id' => 121,
                 'base_class' => 'item_bloodstone',
@@ -6526,9 +6527,9 @@ fast respawn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             151 => 
-            array (
+            [
                 'id' => 152,
                 'dota_id' => 122,
                 'base_class' => 'item_recipe_sphere',
@@ -6569,9 +6570,9 @@ fast respawn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             152 => 
-            array (
+            [
                 'id' => 153,
                 'dota_id' => 123,
                 'base_class' => 'item_sphere',
@@ -6612,9 +6613,9 @@ fast respawn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             153 => 
-            array (
+            [
                 'id' => 154,
                 'dota_id' => 221,
                 'base_class' => 'item_recipe_lotus_orb',
@@ -6655,9 +6656,9 @@ fast respawn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             154 => 
-            array (
+            [
                 'id' => 155,
                 'dota_id' => 226,
                 'base_class' => 'item_lotus_orb',
@@ -6698,9 +6699,9 @@ fast respawn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             155 => 
-            array (
+            [
                 'id' => 156,
                 'dota_id' => 124,
                 'base_class' => 'item_recipe_vanguard',
@@ -6741,9 +6742,9 @@ fast respawn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             156 => 
-            array (
+            [
                 'id' => 157,
                 'dota_id' => 125,
                 'base_class' => 'item_vanguard',
@@ -6784,9 +6785,9 @@ fast respawn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             157 => 
-            array (
+            [
                 'id' => 158,
                 'dota_id' => 243,
                 'base_class' => 'item_recipe_crimson_guard',
@@ -6827,9 +6828,9 @@ fast respawn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             158 => 
-            array (
+            [
                 'id' => 159,
                 'dota_id' => 242,
                 'base_class' => 'item_crimson_guard',
@@ -6870,9 +6871,9 @@ fast respawn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             159 => 
-            array (
+            [
                 'id' => 160,
                 'dota_id' => 126,
                 'base_class' => 'item_recipe_blade_mail',
@@ -6913,9 +6914,9 @@ fast respawn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             160 => 
-            array (
+            [
                 'id' => 161,
                 'dota_id' => 127,
                 'base_class' => 'item_blade_mail',
@@ -6956,9 +6957,9 @@ fast respawn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             161 => 
-            array (
+            [
                 'id' => 162,
                 'dota_id' => 128,
                 'base_class' => 'item_recipe_soul_booster',
@@ -6999,9 +7000,9 @@ fast respawn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             162 => 
-            array (
+            [
                 'id' => 163,
                 'dota_id' => 129,
                 'base_class' => 'item_soul_booster',
@@ -7043,9 +7044,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             163 => 
-            array (
+            [
                 'id' => 164,
                 'dota_id' => 130,
                 'base_class' => 'item_recipe_hood_of_defiance',
@@ -7086,9 +7087,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             164 => 
-            array (
+            [
                 'id' => 165,
                 'dota_id' => 131,
                 'base_class' => 'item_hood_of_defiance',
@@ -7129,9 +7130,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             165 => 
-            array (
+            [
                 'id' => 166,
                 'dota_id' => 132,
                 'base_class' => 'item_recipe_rapier',
@@ -7172,9 +7173,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             166 => 
-            array (
+            [
                 'id' => 167,
                 'dota_id' => 133,
                 'base_class' => 'item_rapier',
@@ -7215,9 +7216,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             167 => 
-            array (
+            [
                 'id' => 168,
                 'dota_id' => 134,
                 'base_class' => 'item_recipe_monkey_king_bar',
@@ -7258,9 +7259,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             168 => 
-            array (
+            [
                 'id' => 169,
                 'dota_id' => 135,
                 'base_class' => 'item_monkey_king_bar',
@@ -7301,9 +7302,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             169 => 
-            array (
+            [
                 'id' => 170,
                 'dota_id' => 136,
                 'base_class' => 'item_recipe_radiance',
@@ -7344,9 +7345,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             170 => 
-            array (
+            [
                 'id' => 171,
                 'dota_id' => 137,
                 'base_class' => 'item_radiance',
@@ -7387,9 +7388,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             171 => 
-            array (
+            [
                 'id' => 172,
                 'dota_id' => 138,
                 'base_class' => 'item_recipe_butterfly',
@@ -7430,9 +7431,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             172 => 
-            array (
+            [
                 'id' => 173,
                 'dota_id' => 139,
                 'base_class' => 'item_butterfly',
@@ -7473,9 +7474,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             173 => 
-            array (
+            [
                 'id' => 174,
                 'dota_id' => 140,
                 'base_class' => 'item_recipe_greater_crit',
@@ -7516,9 +7517,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             174 => 
-            array (
+            [
                 'id' => 175,
                 'dota_id' => 141,
                 'base_class' => 'item_greater_crit',
@@ -7559,9 +7560,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             175 => 
-            array (
+            [
                 'id' => 176,
                 'dota_id' => 142,
                 'base_class' => 'item_recipe_basher',
@@ -7602,9 +7603,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             176 => 
-            array (
+            [
                 'id' => 177,
                 'dota_id' => 143,
                 'base_class' => 'item_basher',
@@ -7647,9 +7648,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             177 => 
-            array (
+            [
                 'id' => 178,
                 'dota_id' => 144,
                 'base_class' => 'item_recipe_bfury',
@@ -7690,9 +7691,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             178 => 
-            array (
+            [
                 'id' => 179,
                 'dota_id' => 145,
                 'base_class' => 'item_bfury',
@@ -7733,9 +7734,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             179 => 
-            array (
+            [
                 'id' => 180,
                 'dota_id' => 146,
                 'base_class' => 'item_recipe_manta',
@@ -7776,9 +7777,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             180 => 
-            array (
+            [
                 'id' => 181,
                 'dota_id' => 147,
                 'base_class' => 'item_manta',
@@ -7819,9 +7820,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             181 => 
-            array (
+            [
                 'id' => 182,
                 'dota_id' => 148,
                 'base_class' => 'item_recipe_lesser_crit',
@@ -7862,9 +7863,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             182 => 
-            array (
+            [
                 'id' => 183,
                 'dota_id' => 149,
                 'base_class' => 'item_lesser_crit',
@@ -7905,9 +7906,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             183 => 
-            array (
+            [
                 'id' => 184,
                 'dota_id' => 234,
                 'base_class' => 'item_recipe_dragon_lance',
@@ -7948,9 +7949,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             184 => 
-            array (
+            [
                 'id' => 185,
                 'dota_id' => 236,
                 'base_class' => 'item_dragon_lance',
@@ -7991,9 +7992,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             185 => 
-            array (
+            [
                 'id' => 186,
                 'dota_id' => 150,
                 'base_class' => 'item_recipe_armlet',
@@ -8034,9 +8035,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             186 => 
-            array (
+            [
                 'id' => 187,
                 'dota_id' => 151,
                 'base_class' => 'item_armlet',
@@ -8077,9 +8078,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             187 => 
-            array (
+            [
                 'id' => 188,
                 'dota_id' => 183,
                 'base_class' => 'item_recipe_invis_sword',
@@ -8120,9 +8121,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             188 => 
-            array (
+            [
                 'id' => 189,
                 'dota_id' => 152,
                 'base_class' => 'item_invis_sword',
@@ -8163,9 +8164,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             189 => 
-            array (
+            [
                 'id' => 190,
                 'dota_id' => 248,
                 'base_class' => 'item_recipe_silver_edge',
@@ -8206,9 +8207,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             190 => 
-            array (
+            [
                 'id' => 191,
                 'dota_id' => 249,
                 'base_class' => 'item_silver_edge',
@@ -8249,9 +8250,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             191 => 
-            array (
+            [
                 'id' => 192,
                 'dota_id' => 153,
                 'base_class' => 'item_recipe_sange_and_yasha',
@@ -8292,9 +8293,9 @@ mana',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             192 => 
-            array (
+            [
                 'id' => 193,
                 'dota_id' => 154,
                 'base_class' => 'item_sange_and_yasha',
@@ -8336,9 +8337,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             193 => 
-            array (
+            [
                 'id' => 194,
                 'dota_id' => 155,
                 'base_class' => 'item_recipe_satanic',
@@ -8379,9 +8380,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             194 => 
-            array (
+            [
                 'id' => 195,
                 'dota_id' => 156,
                 'base_class' => 'item_satanic',
@@ -8422,9 +8423,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             195 => 
-            array (
+            [
                 'id' => 196,
                 'dota_id' => 157,
                 'base_class' => 'item_recipe_mjollnir',
@@ -8465,9 +8466,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             196 => 
-            array (
+            [
                 'id' => 197,
                 'dota_id' => 158,
                 'base_class' => 'item_mjollnir',
@@ -8508,9 +8509,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             197 => 
-            array (
+            [
                 'id' => 198,
                 'dota_id' => 159,
                 'base_class' => 'item_recipe_skadi',
@@ -8551,9 +8552,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             198 => 
-            array (
+            [
                 'id' => 199,
                 'dota_id' => 160,
                 'base_class' => 'item_skadi',
@@ -8594,9 +8595,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             199 => 
-            array (
+            [
                 'id' => 200,
                 'dota_id' => 161,
                 'base_class' => 'item_recipe_sange',
@@ -8637,9 +8638,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             200 => 
-            array (
+            [
                 'id' => 201,
                 'dota_id' => 162,
                 'base_class' => 'item_sange',
@@ -8680,9 +8681,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             201 => 
-            array (
+            [
                 'id' => 202,
                 'dota_id' => 163,
                 'base_class' => 'item_recipe_helm_of_the_dominator',
@@ -8723,9 +8724,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             202 => 
-            array (
+            [
                 'id' => 203,
                 'dota_id' => 164,
                 'base_class' => 'item_helm_of_the_dominator',
@@ -8766,9 +8767,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             203 => 
-            array (
+            [
                 'id' => 204,
                 'dota_id' => 165,
                 'base_class' => 'item_recipe_maelstrom',
@@ -8809,9 +8810,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             204 => 
-            array (
+            [
                 'id' => 205,
                 'dota_id' => 166,
                 'base_class' => 'item_maelstrom',
@@ -8852,9 +8853,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             205 => 
-            array (
+            [
                 'id' => 206,
                 'dota_id' => 167,
                 'base_class' => 'item_recipe_desolator',
@@ -8895,9 +8896,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             206 => 
-            array (
+            [
                 'id' => 207,
                 'dota_id' => 168,
                 'base_class' => 'item_desolator',
@@ -8938,9 +8939,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             207 => 
-            array (
+            [
                 'id' => 208,
                 'dota_id' => 169,
                 'base_class' => 'item_recipe_yasha',
@@ -8981,9 +8982,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             208 => 
-            array (
+            [
                 'id' => 209,
                 'dota_id' => 170,
                 'base_class' => 'item_yasha',
@@ -9024,9 +9025,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             209 => 
-            array (
+            [
                 'id' => 210,
                 'dota_id' => 171,
                 'base_class' => 'item_recipe_mask_of_madness',
@@ -9067,9 +9068,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             210 => 
-            array (
+            [
                 'id' => 211,
                 'dota_id' => 172,
                 'base_class' => 'item_mask_of_madness',
@@ -9110,9 +9111,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             211 => 
-            array (
+            [
                 'id' => 212,
                 'dota_id' => 173,
                 'base_class' => 'item_recipe_diffusal_blade',
@@ -9153,9 +9154,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             212 => 
-            array (
+            [
                 'id' => 213,
                 'dota_id' => 195,
                 'base_class' => 'item_recipe_diffusal_blade_2',
@@ -9196,9 +9197,9 @@ agi',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             213 => 
-            array (
+            [
                 'id' => 214,
                 'dota_id' => 174,
                 'base_class' => 'item_diffusal_blade',
@@ -9240,9 +9241,9 @@ mana burn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             214 => 
-            array (
+            [
                 'id' => 215,
                 'dota_id' => 196,
                 'base_class' => 'item_diffusal_blade_2',
@@ -9284,9 +9285,9 @@ mana burn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             215 => 
-            array (
+            [
                 'id' => 216,
                 'dota_id' => 175,
                 'base_class' => 'item_recipe_ethereal_blade',
@@ -9327,9 +9328,9 @@ mana burn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             216 => 
-            array (
+            [
                 'id' => 217,
                 'dota_id' => 176,
                 'base_class' => 'item_ethereal_blade',
@@ -9370,9 +9371,9 @@ mana burn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             217 => 
-            array (
+            [
                 'id' => 218,
                 'dota_id' => 177,
                 'base_class' => 'item_recipe_soul_ring',
@@ -9413,9 +9414,9 @@ mana burn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             218 => 
-            array (
+            [
                 'id' => 219,
                 'dota_id' => 178,
                 'base_class' => 'item_soul_ring',
@@ -9456,9 +9457,9 @@ mana burn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             219 => 
-            array (
+            [
                 'id' => 220,
                 'dota_id' => 179,
                 'base_class' => 'item_recipe_arcane_boots',
@@ -9499,9 +9500,9 @@ mana burn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             220 => 
-            array (
+            [
                 'id' => 221,
                 'dota_id' => 180,
                 'base_class' => 'item_arcane_boots',
@@ -9542,9 +9543,9 @@ mana burn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             221 => 
-            array (
+            [
                 'id' => 222,
                 'dota_id' => 228,
                 'base_class' => 'item_recipe_octarine_core',
@@ -9585,9 +9586,9 @@ mana burn',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             222 => 
-            array (
+            [
                 'id' => 223,
                 'dota_id' => 235,
                 'base_class' => 'item_octarine_core',
@@ -9629,9 +9630,9 @@ spellvamp',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             223 => 
-            array (
+            [
                 'id' => 224,
                 'dota_id' => 181,
                 'base_class' => 'item_orb_of_venom',
@@ -9672,9 +9673,9 @@ spellvamp',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             224 => 
-            array (
+            [
                 'id' => 225,
                 'dota_id' => 240,
                 'base_class' => 'item_blight_stone',
@@ -9715,9 +9716,9 @@ spellvamp',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             225 => 
-            array (
+            [
                 'id' => 226,
                 'dota_id' => 184,
                 'base_class' => 'item_recipe_ancient_janggo',
@@ -9758,9 +9759,9 @@ spellvamp',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             226 => 
-            array (
+            [
                 'id' => 227,
                 'dota_id' => 185,
                 'base_class' => 'item_ancient_janggo',
@@ -9801,9 +9802,9 @@ spellvamp',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             227 => 
-            array (
+            [
                 'id' => 228,
                 'dota_id' => 186,
                 'base_class' => 'item_recipe_medallion_of_courage',
@@ -9844,9 +9845,9 @@ spellvamp',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             228 => 
-            array (
+            [
                 'id' => 229,
                 'dota_id' => 187,
                 'base_class' => 'item_medallion_of_courage',
@@ -9887,9 +9888,9 @@ spellvamp',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             229 => 
-            array (
+            [
                 'id' => 230,
                 'dota_id' => 227,
                 'base_class' => 'item_recipe_solar_crest',
@@ -9930,9 +9931,9 @@ spellvamp',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             230 => 
-            array (
+            [
                 'id' => 231,
                 'dota_id' => 229,
                 'base_class' => 'item_solar_crest',
@@ -9974,9 +9975,9 @@ armor',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             231 => 
-            array (
+            [
                 'id' => 232,
                 'dota_id' => 188,
                 'base_class' => 'item_smoke_of_deceit',
@@ -10017,9 +10018,9 @@ armor',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             232 => 
-            array (
+            [
                 'id' => 233,
                 'dota_id' => 257,
                 'base_class' => 'item_tome_of_knowledge',
@@ -10060,9 +10061,9 @@ armor',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             233 => 
-            array (
+            [
                 'id' => 234,
                 'dota_id' => 189,
                 'base_class' => 'item_recipe_veil_of_discord',
@@ -10103,9 +10104,9 @@ armor',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             234 => 
-            array (
+            [
                 'id' => 235,
                 'dota_id' => 190,
                 'base_class' => 'item_veil_of_discord',
@@ -10147,9 +10148,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             235 => 
-            array (
+            [
                 'id' => 236,
                 'dota_id' => 230,
                 'base_class' => 'item_recipe_guardian_greaves',
@@ -10190,9 +10191,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             236 => 
-            array (
+            [
                 'id' => 237,
                 'dota_id' => 231,
                 'base_class' => 'item_guardian_greaves',
@@ -10233,9 +10234,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             237 => 
-            array (
+            [
                 'id' => 238,
                 'dota_id' => 205,
                 'base_class' => 'item_recipe_rod_of_atos',
@@ -10276,9 +10277,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             238 => 
-            array (
+            [
                 'id' => 239,
                 'dota_id' => 206,
                 'base_class' => 'item_rod_of_atos',
@@ -10319,9 +10320,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             239 => 
-            array (
+            [
                 'id' => 240,
                 'dota_id' => 238,
                 'base_class' => 'item_recipe_iron_talon',
@@ -10362,9 +10363,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             240 => 
-            array (
+            [
                 'id' => 241,
                 'dota_id' => 239,
                 'base_class' => 'item_iron_talon',
@@ -10405,9 +10406,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             241 => 
-            array (
+            [
                 'id' => 242,
                 'dota_id' => 207,
                 'base_class' => 'item_recipe_abyssal_blade',
@@ -10448,9 +10449,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             242 => 
-            array (
+            [
                 'id' => 243,
                 'dota_id' => 208,
                 'base_class' => 'item_abyssal_blade',
@@ -10491,9 +10492,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             243 => 
-            array (
+            [
                 'id' => 244,
                 'dota_id' => 209,
                 'base_class' => 'item_recipe_heavens_halberd',
@@ -10534,9 +10535,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             244 => 
-            array (
+            [
                 'id' => 245,
                 'dota_id' => 210,
                 'base_class' => 'item_heavens_halberd',
@@ -10577,9 +10578,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             245 => 
-            array (
+            [
                 'id' => 246,
                 'dota_id' => 211,
                 'base_class' => 'item_recipe_ring_of_aquila',
@@ -10620,9 +10621,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             246 => 
-            array (
+            [
                 'id' => 247,
                 'dota_id' => 212,
                 'base_class' => 'item_ring_of_aquila',
@@ -10663,9 +10664,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             247 => 
-            array (
+            [
                 'id' => 248,
                 'dota_id' => 213,
                 'base_class' => 'item_recipe_tranquil_boots',
@@ -10706,9 +10707,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             248 => 
-            array (
+            [
                 'id' => 249,
                 'dota_id' => 214,
                 'base_class' => 'item_tranquil_boots',
@@ -10749,9 +10750,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             249 => 
-            array (
+            [
                 'id' => 250,
                 'dota_id' => 215,
                 'base_class' => 'item_shadow_amulet',
@@ -10792,9 +10793,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             250 => 
-            array (
+            [
                 'id' => 251,
                 'dota_id' => 253,
                 'base_class' => 'item_recipe_glimmer_cape',
@@ -10835,9 +10836,9 @@ resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             251 => 
-            array (
+            [
                 'id' => 252,
                 'dota_id' => 254,
                 'base_class' => 'item_glimmer_cape',
@@ -10879,9 +10880,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             252 => 
-            array (
+            [
                 'id' => 253,
                 'dota_id' => 1021,
                 'base_class' => 'item_river_painter',
@@ -10922,9 +10923,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             253 => 
-            array (
+            [
                 'id' => 254,
                 'dota_id' => 1022,
                 'base_class' => 'item_river_painter2',
@@ -10965,9 +10966,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             254 => 
-            array (
+            [
                 'id' => 255,
                 'dota_id' => 1023,
                 'base_class' => 'item_river_painter3',
@@ -11008,9 +11009,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             255 => 
-            array (
+            [
                 'id' => 256,
                 'dota_id' => 1024,
                 'base_class' => 'item_river_painter4',
@@ -11051,9 +11052,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             256 => 
-            array (
+            [
                 'id' => 257,
                 'dota_id' => 1025,
                 'base_class' => 'item_river_painter5',
@@ -11094,9 +11095,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             257 => 
-            array (
+            [
                 'id' => 258,
                 'dota_id' => 1026,
                 'base_class' => 'item_river_painter6',
@@ -11137,9 +11138,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             258 => 
-            array (
+            [
                 'id' => 259,
                 'dota_id' => 1027,
                 'base_class' => 'item_river_painter7',
@@ -11180,9 +11181,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 1,
                 'declarations' => NULL,
-            ),
+            ],
             259 => 
-            array (
+            [
                 'id' => 260,
                 'dota_id' => 3120,
                 'base_class' => 'item_recipe_armlet_2',
@@ -11223,9 +11224,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             260 => 
-            array (
+            [
                 'id' => 261,
                 'dota_id' => 3122,
                 'base_class' => 'item_armlet_2',
@@ -11266,9 +11267,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             261 => 
-            array (
+            [
                 'id' => 262,
                 'dota_id' => 3136,
                 'base_class' => 'item_butterfly_2',
@@ -11309,9 +11310,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             262 => 
-            array (
+            [
                 'id' => 263,
                 'dota_id' => 3530,
                 'base_class' => 'item_upgrade_core',
@@ -11352,9 +11353,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             263 => 
-            array (
+            [
                 'id' => 266,
                 'dota_id' => 3132,
                 'base_class' => 'item_recipe_butterfly_2',
@@ -11395,9 +11396,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             264 => 
-            array (
+            [
                 'id' => 267,
                 'dota_id' => 3313,
                 'base_class' => 'item_butterfly_3',
@@ -11438,9 +11439,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             265 => 
-            array (
+            [
                 'id' => 269,
                 'dota_id' => 3510,
                 'base_class' => 'item_farming_core',
@@ -11481,9 +11482,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             266 => 
-            array (
+            [
                 'id' => 270,
                 'dota_id' => 3015,
                 'base_class' => 'item_greater_power_treads',
@@ -11524,9 +11525,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             267 => 
-            array (
+            [
                 'id' => 271,
                 'dota_id' => 3010,
                 'base_class' => 'item_recipe_greater_power_treads',
@@ -11567,9 +11568,9 @@ magic resist',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             268 => 
-            array (
+            [
                 'id' => 272,
                 'dota_id' => 4020,
                 'base_class' => 'item_dagon_6',
@@ -11610,9 +11611,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             269 => 
-            array (
+            [
                 'id' => 273,
                 'dota_id' => 4016,
                 'base_class' => 'item_recipe_dagon_6',
@@ -11653,9 +11654,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             270 => 
-            array (
+            [
                 'id' => 274,
                 'dota_id' => 3531,
                 'base_class' => 'item_upgrade_core_2',
@@ -11696,9 +11697,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             271 => 
-            array (
+            [
                 'id' => 275,
                 'dota_id' => 3532,
                 'base_class' => 'item_upgrade_core_3',
@@ -11739,9 +11740,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             272 => 
-            array (
+            [
                 'id' => 276,
                 'dota_id' => 3533,
                 'base_class' => 'item_upgrade_core_4',
@@ -11782,9 +11783,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             273 => 
-            array (
+            [
                 'id' => 277,
                 'dota_id' => 4021,
                 'base_class' => 'item_dagon_7',
@@ -11825,9 +11826,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             274 => 
-            array (
+            [
                 'id' => 278,
                 'dota_id' => 4017,
                 'base_class' => 'item_recipe_dagon_7',
@@ -11868,9 +11869,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             275 => 
-            array (
+            [
                 'id' => 279,
                 'dota_id' => 4018,
                 'base_class' => 'item_recipe_dagon_8',
@@ -11911,9 +11912,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             276 => 
-            array (
+            [
                 'id' => 280,
                 'dota_id' => 4022,
                 'base_class' => 'item_dagon_8',
@@ -11954,9 +11955,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             277 => 
-            array (
+            [
                 'id' => 282,
                 'dota_id' => 4019,
                 'base_class' => 'item_recipe_dagon_9',
@@ -11997,9 +11998,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             278 => 
-            array (
+            [
                 'id' => 283,
                 'dota_id' => 4023,
                 'base_class' => 'item_dagon_9',
@@ -12040,9 +12041,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             279 => 
-            array (
+            [
                 'id' => 285,
                 'dota_id' => 3138,
                 'base_class' => 'item_butterfly_4',
@@ -12083,9 +12084,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             280 => 
-            array (
+            [
                 'id' => 286,
                 'dota_id' => 3139,
                 'base_class' => 'item_butterfly_5',
@@ -12126,9 +12127,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             281 => 
-            array (
+            [
                 'id' => 287,
                 'dota_id' => 3133,
                 'base_class' => 'item_recipe_butterfly_3',
@@ -12169,9 +12170,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             282 => 
-            array (
+            [
                 'id' => 288,
                 'dota_id' => 3134,
                 'base_class' => 'item_recipe_butterfly_4',
@@ -12212,9 +12213,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             283 => 
-            array (
+            [
                 'id' => 289,
                 'dota_id' => 3135,
                 'base_class' => 'item_recipe_butterfly_5',
@@ -12255,9 +12256,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             284 => 
-            array (
+            [
                 'id' => 290,
                 'dota_id' => 3309,
                 'base_class' => 'item_charge_bkb',
@@ -12298,9 +12299,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             285 => 
-            array (
+            [
                 'id' => 291,
                 'dota_id' => 3308,
                 'base_class' => 'item_recipe_charge_bkb',
@@ -12341,9 +12342,9 @@ magic resist',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             286 => 
-            array (
+            [
                 'id' => 292,
                 'dota_id' => 3030,
                 'base_class' => 'item_greater_guardian_greaves',
@@ -12385,9 +12386,9 @@ mana on creep kill',
                 'aliases' => NULL,
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             287 => 
-            array (
+            [
                 'id' => 293,
                 'dota_id' => 3016,
                 'base_class' => 'item_greater_power_treads_2',
@@ -12428,9 +12429,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             288 => 
-            array (
+            [
                 'id' => 294,
                 'dota_id' => 3011,
                 'base_class' => 'item_recipe_greater_power_treads_2',
@@ -12471,9 +12472,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             289 => 
-            array (
+            [
                 'id' => 295,
                 'dota_id' => 3012,
                 'base_class' => 'item_recipe_greater_power_treads_3',
@@ -12514,9 +12515,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             290 => 
-            array (
+            [
                 'id' => 296,
                 'dota_id' => 3013,
                 'base_class' => 'item_recipe_greater_power_treads_4',
@@ -12557,9 +12558,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             291 => 
-            array (
+            [
                 'id' => 297,
                 'dota_id' => 3014,
                 'base_class' => 'item_recipe_greater_power_treads_5',
@@ -12600,9 +12601,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             292 => 
-            array (
+            [
                 'id' => 298,
                 'dota_id' => 3017,
                 'base_class' => 'item_greater_power_treads_3',
@@ -12643,9 +12644,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             293 => 
-            array (
+            [
                 'id' => 299,
                 'dota_id' => 3018,
                 'base_class' => 'item_greater_power_treads_4',
@@ -12686,9 +12687,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             294 => 
-            array (
+            [
                 'id' => 300,
                 'dota_id' => 3019,
                 'base_class' => 'item_greater_power_treads_5',
@@ -12729,9 +12730,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             295 => 
-            array (
+            [
                 'id' => 301,
                 'dota_id' => 3520,
                 'base_class' => 'item_reflex_core',
@@ -12772,9 +12773,9 @@ mana on creep kill',
                 'aliases' => '["rc","reflex"]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             296 => 
-            array (
+            [
                 'id' => 302,
                 'dota_id' => 3802,
                 'base_class' => 'item_preempt',
@@ -12815,9 +12816,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             297 => 
-            array (
+            [
                 'id' => 303,
                 'dota_id' => 3801,
                 'base_class' => 'item_recipe_preempt',
@@ -12858,9 +12859,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             298 => 
-            array (
+            [
                 'id' => 304,
                 'dota_id' => 3804,
                 'base_class' => 'item_preempt_2',
@@ -12901,9 +12902,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             299 => 
-            array (
+            [
                 'id' => 305,
                 'dota_id' => 3803,
                 'base_class' => 'item_recipe_preempt_2',
@@ -12944,9 +12945,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             300 => 
-            array (
+            [
                 'id' => 306,
                 'dota_id' => 3806,
                 'base_class' => 'item_preempt_2b',
@@ -12987,9 +12988,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             301 => 
-            array (
+            [
                 'id' => 307,
                 'dota_id' => 3805,
                 'base_class' => 'item_recipe_preempt_2b',
@@ -13030,9 +13031,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             302 => 
-            array (
+            [
                 'id' => 308,
                 'dota_id' => 3808,
                 'base_class' => 'item_preempt_3',
@@ -13073,9 +13074,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             303 => 
-            array (
+            [
                 'id' => 309,
                 'dota_id' => 3807,
                 'base_class' => 'item_recipe_preempt_3',
@@ -13116,9 +13117,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             304 => 
-            array (
+            [
                 'id' => 310,
                 'dota_id' => 3810,
                 'base_class' => 'item_preempt_3b',
@@ -13159,9 +13160,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             305 => 
-            array (
+            [
                 'id' => 311,
                 'dota_id' => 3809,
                 'base_class' => 'item_recipe_preempt_3b',
@@ -13202,9 +13203,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             306 => 
-            array (
+            [
                 'id' => 312,
                 'dota_id' => 3812,
                 'base_class' => 'item_preempt_3c',
@@ -13245,9 +13246,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             307 => 
-            array (
+            [
                 'id' => 313,
                 'dota_id' => 3811,
                 'base_class' => 'item_recipe_preempt_3c',
@@ -13288,9 +13289,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             308 => 
-            array (
+            [
                 'id' => 314,
                 'dota_id' => 3814,
                 'base_class' => 'item_react',
@@ -13331,9 +13332,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             309 => 
-            array (
+            [
                 'id' => 315,
                 'dota_id' => 3813,
                 'base_class' => 'item_recipe_react',
@@ -13374,9 +13375,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             310 => 
-            array (
+            [
                 'id' => 316,
                 'dota_id' => 3816,
                 'base_class' => 'item_react_2',
@@ -13417,9 +13418,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             311 => 
-            array (
+            [
                 'id' => 317,
                 'dota_id' => 3815,
                 'base_class' => 'item_recipe_react_2',
@@ -13460,9 +13461,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             312 => 
-            array (
+            [
                 'id' => 318,
                 'dota_id' => 3519,
                 'base_class' => 'item_recipe_reflex_core',
@@ -13503,9 +13504,9 @@ mana on creep kill',
                 'aliases' => '["rc","reflex"]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             313 => 
-            array (
+            [
                 'id' => 319,
                 'dota_id' => 3818,
                 'base_class' => 'item_react_2b',
@@ -13546,9 +13547,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             314 => 
-            array (
+            [
                 'id' => 320,
                 'dota_id' => 3817,
                 'base_class' => 'item_recipe_react_2b',
@@ -13589,9 +13590,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             315 => 
-            array (
+            [
                 'id' => 321,
                 'dota_id' => 3820,
                 'base_class' => 'item_react_3',
@@ -13632,9 +13633,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             316 => 
-            array (
+            [
                 'id' => 322,
                 'dota_id' => 3819,
                 'base_class' => 'item_recipe_react_3',
@@ -13675,9 +13676,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             317 => 
-            array (
+            [
                 'id' => 323,
                 'dota_id' => 3822,
                 'base_class' => 'item_react_3b',
@@ -13718,9 +13719,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             318 => 
-            array (
+            [
                 'id' => 324,
                 'dota_id' => 3821,
                 'base_class' => 'item_recipe_react_3b',
@@ -13761,9 +13762,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             319 => 
-            array (
+            [
                 'id' => 325,
                 'dota_id' => 3824,
                 'base_class' => 'item_react_3c',
@@ -13804,9 +13805,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             320 => 
-            array (
+            [
                 'id' => 326,
                 'dota_id' => 3823,
                 'base_class' => 'item_recipe_react_3c',
@@ -13847,9 +13848,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             321 => 
-            array (
+            [
                 'id' => 328,
                 'dota_id' => 10001,
                 'base_class' => 'item_recipe_loop_1',
@@ -13890,9 +13891,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             322 => 
-            array (
+            [
                 'id' => 331,
                 'dota_id' => 10003,
                 'base_class' => 'item_recipe_loop_2',
@@ -13933,9 +13934,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             323 => 
-            array (
+            [
                 'id' => 332,
                 'dota_id' => 3826,
                 'base_class' => 'item_postact',
@@ -13976,9 +13977,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             324 => 
-            array (
+            [
                 'id' => 333,
                 'dota_id' => 3825,
                 'base_class' => 'item_recipe_postact',
@@ -14019,9 +14020,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             325 => 
-            array (
+            [
                 'id' => 334,
                 'dota_id' => 3828,
                 'base_class' => 'item_postact_2',
@@ -14062,9 +14063,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             326 => 
-            array (
+            [
                 'id' => 335,
                 'dota_id' => 3827,
                 'base_class' => 'item_recipe_postact_2',
@@ -14105,9 +14106,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             327 => 
-            array (
+            [
                 'id' => 336,
                 'dota_id' => 3830,
                 'base_class' => 'item_postact_2b',
@@ -14148,9 +14149,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             328 => 
-            array (
+            [
                 'id' => 337,
                 'dota_id' => 3829,
                 'base_class' => 'item_recipe_postact_2b',
@@ -14191,9 +14192,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             329 => 
-            array (
+            [
                 'id' => 338,
                 'dota_id' => 3832,
                 'base_class' => 'item_postact_3',
@@ -14234,9 +14235,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             330 => 
-            array (
+            [
                 'id' => 339,
                 'dota_id' => 3831,
                 'base_class' => 'item_recipe_postact_3',
@@ -14277,9 +14278,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             331 => 
-            array (
+            [
                 'id' => 340,
                 'dota_id' => 3834,
                 'base_class' => 'item_postact_3b',
@@ -14320,9 +14321,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             332 => 
-            array (
+            [
                 'id' => 341,
                 'dota_id' => 3833,
                 'base_class' => 'item_recipe_postact_3b',
@@ -14363,9 +14364,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
+            ],
             333 => 
-            array (
+            [
                 'id' => 343,
                 'dota_id' => 3836,
                 'base_class' => 'item_postact_3c',
@@ -14406,9 +14407,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => '["DECLARE_PURCHASES_TO_TEAMMATES","DECLARE_PURCHASES_IN_SPEECH","DECLARE_PURCHASES_TO_SPECTATORS"]',
-            ),
+            ],
             334 => 
-            array (
+            [
                 'id' => 344,
                 'dota_id' => 3835,
                 'base_class' => 'item_recipe_postact_3c',
@@ -14449,8 +14450,9 @@ mana on creep kill',
                 'aliases' => '[]',
                 'is_override' => 0,
                 'declarations' => NULL,
-            ),
-        ));
+            ],
+            ]
+        );
         
         
     }
