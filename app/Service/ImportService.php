@@ -17,6 +17,7 @@ use App\Recipe;
 use App\Shop;
 use App\Stat;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class ImportService
 {
@@ -212,11 +213,12 @@ class ImportService
             app(ItemService::class)
                 ->setPresentItemAttributesFromImport($item, new Collection($itemData));
 
-            $item->is_recipe    = app(ItemService::class)->isRecipeBaseClass($baseClass);
-            $item->is_boss_item = app(ItemService::class)->shouldBeBossItem($baseClass);
-            $item->is_base_item = $item->is_boss_item ? 1 : $item->is_base_item;
+            $item->is_recipe      = app(ItemService::class)->isRecipeBaseClass($baseClass);
+            $item->is_boss_item   = app(ItemService::class)->shouldBeBossItem($baseClass);
+            $item->is_base_item   = $item->is_boss_item ? true  : $item->is_base_item;
+            $item->is_purchasable = $item->is_boss_item ? false : $item->is_purchasable;
 
-            if ( !app(ItemService::class)->isRecipeBaseClass($item->base_class) && !$item->is_boss_item ) {
+            if ( !app(ItemService::class)->isRecipeBaseClass($item->base_class) && !$item->is_base_item ) {
                 $item->cost = 0;
             }
 
@@ -244,6 +246,11 @@ class ImportService
         $statIds = [];
 
         foreach( $statsData as $rn => $data ) {
+            if ( empty($data["var_type"]) ) {
+                Log::alert("{$item->base_class} is missing stat var type");
+                continue;
+            }
+
             $varType       = $data["var_type"];
             $keys          = array_keys($data);
             $statBaseClass = end($keys);
@@ -298,12 +305,13 @@ class ImportService
         app(ItemService::class)
             ->setPresentItemAttributesFromImport($item, new Collection($itemData));
 
-        $item->is_recipe    = app(ItemService::class)->isRecipeBaseClass($baseClass);
-        $item->is_boss_item = app(ItemService::class)->shouldBeBossItem($baseClass);
-        $item->is_base_item = $item->is_boss_item ? 1 : $item->is_base_item;
-        $item->name         = app(ItemService::class)->generateNameFromBaseClass($baseClass);
+        $item->is_recipe      = app(ItemService::class)->isRecipeBaseClass($baseClass);
+        $item->is_boss_item   = app(ItemService::class)->shouldBeBossItem($baseClass);
+        $item->is_base_item   = $item->is_boss_item ? true  : $item->is_base_item;
+        $item->is_purchasable = $item->is_boss_item ? false : $item->is_purchasable;
+        $item->name           = app(ItemService::class)->generateNameFromBaseClass($baseClass);
 
-        if ( !app(ItemService::class)->isRecipeBaseClass($item->base_class) && !$item->is_boss_item ) {
+        if ( !app(ItemService::class)->isRecipeBaseClass($item->base_class) && !$item->is_base_item ) {
             $item->cost = 0;
         }
 

@@ -7,6 +7,7 @@
     "{{ item.recipe.base_class }}"
     {
         "ID"                "{{ item.recipe.dota_id }}"
+        "BaseClass"         "item_datadriven"
         "Model"             "{{ item.recipe.model }}"
         "ItemCost"          "{{ item.recipe.cost }}"
         "ItemShopTags"      ""
@@ -28,6 +29,7 @@
         // General
         //------------------------------------------------------------------------------------------------------------------
         "ID"                    "{{ item.dota_id }}"
+        "BaseClass"             "{{ item.base_class }}"
         "ItemPermanent"         "{{ item.is_permanent ? 1 : 0 }}"
         "ItemStackable"         "{{ item.max_stacks > 1 ? 1 : 0 }}"
         "FightRecapLevel"       "{{ item.fight_recap }}"
@@ -121,9 +123,9 @@
 
         // Charges
         //------------------------------------------------------------------------------------------------------------------
-        "ItemRequiresCharges"           "{{ item.needs_charges ? 1 : 0 }}"
-        "ItemInitialCharges"            "{{ item.start_charges ? 1 : 0 }}"
-        "ItemDisplayCharges"            "{{ item.show_charges  ? 1 : 0 }}"
+        "ItemRequiresCharges"           "{{ item.needs_charges ? 1 : '' }}"
+        "ItemInitialCharges"            "{{ item.start_charges ? 1 : '' }}"
+        "ItemDisplayCharges"            "{{ item.show_charges  ? 1 : '' }}"
 
         // Misc
         //------------------------------------------------------------------------------------------------------------------
