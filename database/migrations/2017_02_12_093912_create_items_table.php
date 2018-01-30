@@ -31,6 +31,11 @@ class CreateItemsTable extends Migration
             $table->boolean('is_droppable')->default(true);
             $table->boolean('in_backpack')->default(true);
             $table->boolean('is_override')->default(false);
+            $table->boolean('is_tempest_cloneable')->default(true);
+            $table->boolean('inc_net_on_drop')->default(true);
+            $table->boolean('should_suggest')->default(false);
+            $table->boolean('should_init_suggest')->default(false);
+            $table->boolean('is_support_item')->default(false);
             $table->string('name');
             $table->text('description')->nullable();
             $table->unsignedInteger('cost')->default(0);
@@ -51,6 +56,9 @@ class CreateItemsTable extends Migration
             $table->boolean('is_autocast')->default(false);
             $table->boolean('is_alertable')->default(false);
             $table->string('alert_text')->nullable();
+            $table->string('sound_pickup')->nullable()->default(null);
+            $table->string('sound_drop')->nullable()->default(null);
+            $table->string('sound_drop_world')->nullable()->default(null);
             $table->text('shop_tags')->nullable()->default(null);
             $table->text('aliases')->nullable()->default(null);
             $table->timestamps();
