@@ -11,6 +11,9 @@
 // Font awesome
 @import "node_modules/font-awesome/scss/font-awesome.scss";
 
+//sortable
+@import "node_modules/jquery-sortable/source/css/jquery-sortable.css.sass";
+
 #page-content-wrapper .page-header {
   margin: 0 0 22px;
 }

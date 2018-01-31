@@ -44,27 +44,40 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <small>Mark stats to <span class="text-danger">delete</span></small>
-                                    <dl class="dl-horizontal">
+                                    <ul class="sort-list list-unstyled">
                                         {% for stat in item.stats %}
-                                            <dt><abbr class="{{ stat.inherited ? 'bg-warning' }}"  title="{{ stat.dota_name }}">{{ stat.name }}</abbr></dt>
-                                            <dd>
-                                                <span class="pull-left checkbox" style="padding-top:0">
-                                                    <label data-toggle="tooltip" title="Mark for delete">
-                                                        <input type="checkbox" name="remove_stat[]" value="{{ stat.id }}"{{ stat.inherited ? " disabled" : "" }}>
-                                                        {% for i, v in stat.pivot.value %}
-                                                            {% if i == (item.base_level - 1) or loop.length == 1 %}
-                                                                <strong>{{ v }}</strong>
-                                                            {% else %}
-                                                                {{ v }}
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    </label>
-                                                </span>
-                                            </dd>
+                                            <li>
+                                                <dl class="dl-horizontal" style="margin-bottom: 0">
+                                                    <dt><abbr class="{{ stat.inherited ? 'bg-warning' }}"  title="{{ stat.dota_name }}">{{ stat.name }}</abbr></dt>
+                                                    <dd>
+                                                        <span class="sort-handle pull-left">
+                                                            <i class="fa fa-fw fa-arrows-v"></i>
+                                                        </span>
+
+                                                        <span class="pull-left checkbox" style="padding-top:0">
+                                                            <label data-toggle="tooltip" title="Mark for delete">
+                                                                <input type="checkbox" name="remove_stat[]" value="{{ stat.id }}"{{ stat.inherited ? " disabled" : "" }}>
+                                                                {% for i, v in stat.pivot.value %}
+                                                                    {% if i == (item.base_level - 1) or loop.length == 1 %}
+                                                                        <strong>{{ v }}</strong>
+                                                                    {% else %}
+                                                                        {{ v }}
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </label>
+                                                        </span>
+                                                    </dd>
+                                                </dl>
+                                            </li>
                                         {% else %}
-                                            <dt>No</dt><dd>stats available</dd>
+                                            <li>
+                                                <dl class="dl-horizontal" style="margin-bottom: 0">
+                                                    <dt>No</dt><dd>stats available</dd>
+                                                </dl>
+                                            </li>
                                         {% endfor %}
-                                    </dl>
+
+                                    </ul>
                                 </div>
 
                                 <div class="col-lg-6">
@@ -118,6 +131,10 @@
 </div>
 {% endblock %}
 
+{% block pageJs %}
+    <script src="{{ asset('js/jquery-sortable-min.js') }}" type="application/javascript"></script>
+{% endblock %}
+
 {% block inlineJs %}
     <script type="application/javascript">
         var statIndex = 0;
@@ -165,6 +182,12 @@
                 e.stopPropagation();
 
                 $("#stat_type").val( $(this).data('id') ).trigger('change');
+            });
+
+            $('.sort-list').sortable({
+                axis: 'y',
+                handle: '.sort-handle',
+                helper: 'clone'
             });
         });
     </script>
