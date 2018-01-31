@@ -187,7 +187,11 @@
             $('.sort-list').sortable({
                 axis: 'y',
                 handle: '.sort-handle',
-                helper: 'clone'
+                helper: 'clone',
+
+                update: function( event, ui ) {
+                    console.log("sort-end:", ui.item);
+                }
             });
         });
     </script>

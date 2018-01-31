@@ -12,6 +12,7 @@ use App\Recipe;
 use App\Shop;
 use App\Stat;
 use App\Utils\Constants;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -392,7 +393,11 @@ class ItemController extends Controller
      */
     public function editStats($id)
     {
-        $item  = Item::with('stats', 'recipes')->find($id);
+        $item  = Item::with(['stats' => function ($query) {
+            /** @var Builder $query */
+            $query->orderBy('order', 'asc');
+        }], 'recipes')->find($id);
+
         $componentStats = [];
         $primaryRecipe = $item->recipes->first();
 

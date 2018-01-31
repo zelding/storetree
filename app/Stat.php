@@ -95,6 +95,6 @@ class Stat extends Model
      */
     public function newPivot(Model $parent, array $attributes, $table, $exists, $using = null)
     {
-        return new StatPivot($parent, $attributes, $table, $exists, $using);
+        return new StatPivot($parent, $attributes, $table, $exists);
     }
 }

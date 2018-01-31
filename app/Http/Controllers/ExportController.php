@@ -6,6 +6,7 @@ use App\Item;
 use App\ItemLocale;
 use App\Service\ItemService;
 use App\Utils\Constants;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\Debug\Exception\FatalErrorException;
@@ -49,12 +50,19 @@ class ExportController extends Controller
             return redirect(route('export.index'))->with('warning', 'Pick something');
         }
 
-        $models = Item::with('shops','recipes.components', 'usedInRecipes.for', 'stats', 'ability')
-            ->whereIn('id', $items)
-            ->where('is_recipe', 0)
-            //->exportRequest($request)
-            ->orderBy('dota_id')
-            ->get();
+        $models = Item::with(
+            'shops',
+            'recipes.components',
+            'usedInRecipes.for',
+            ['stats' => function ($query) {
+                /** @var Builder $query */
+                $query->orderBy('order', 'asc');
+            }], 'ability')
+                ->whereIn('id', $items)
+                ->where('is_recipe', 0)
+                //->exportRequest($request)
+                ->orderBy('dota_id')
+                ->get();
 
         foreach( $models as &$item ) {
             app(ItemService::class)->resolveItemInheritedStats($item);

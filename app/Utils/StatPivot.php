@@ -13,6 +13,16 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class StatPivot extends Pivot
 {
+    public function getOrderAttribute()
+    {
+        return $this->order;
+    }
+
+    public function setOrderAttribute($order)
+    {
+        $this->order = $order;
+    }
+
     public function getValueAttribute()
     {
         return json_decode(json_decode($this->attributes['value']));
