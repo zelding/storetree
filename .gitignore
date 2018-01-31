@@ -18,3 +18,8 @@ Homestead.yaml
 /composer.lock
 /resources/views/vendor/
 resources/assets/less/
+/resources/assets/css/_all.css
+/resources/assets/css/datatables-bootstrap3.css
+/resources/assets/js/jquery-sortable.js
+/resources/assets/js/icheck.js
+/resources/assets/css/datatables-bootstrap3.css.map

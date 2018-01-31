@@ -17,8 +17,7 @@ require('./bootstrap');
     el: '#app'
 });*/
 
-
-let dt = require( 'datatables.net' )();
+require( 'datatables' )();
 require('datatables-bootstrap3-plugin');
 
 $(function () {
