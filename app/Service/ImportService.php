@@ -44,51 +44,55 @@ class ImportService
 
             $baseClass = str_replace("_1", "", $baseClass);
 
-            $result = $this->resolveItem($baseClass, $value['ID']);
+            if ( !empty($value['ID']) ) {
+                $result = $this->resolveItem($baseClass, $value['ID']);
 
-            switch($result) {
-                case 1:
-                    $itemList['good'][ $baseClass ] = $value;
-
-                break;
-
-                case 0:
-                    $itemList['dota_id_in_use'][ $baseClass ] = $value;
-                break;
-
-                case -1:
-                    $itemList['base_class_mismatch'][ $baseClass ] = $value;
-                break;
-
-                case -2:
-                    $itemList['new'][ $baseClass ] = $value;
-                    //$this->createItem(new Collection($value), $baseClass);
-                break;
-            }
-
-            if ( !empty($value['_recipe']) ) {
-                $recipeBaseClass = str_replace("item_", "item_recipe_", $baseClass);
-
-                $result = $this->resolveItem($recipeBaseClass, $value['_recipe']['ID']);
-
-                switch($result) {
+                switch ($result) {
                     case 1:
-                        $itemList['good'][ $recipeBaseClass ] = $value['_recipe'];
+                        $itemList['good'][ $baseClass ] = $value;
                     break;
 
                     case 0:
-                        $itemList['dota_id_in_use'][ $recipeBaseClass ] = $value['_recipe'];
+                        $itemList['dota_id_in_use'][ $baseClass ] = $value;
                     break;
 
                     case -1:
-                        $itemList['base_class_mismatch'][ $recipeBaseClass ] = $value['_recipe'];
+                        $itemList['base_class_mismatch'][ $baseClass ] = $value;
                     break;
 
                     case -2:
-                        $itemList['new'][ $recipeBaseClass ] = $value['_recipe'];
-                        //$this->createRecipe(new Collection($value['_recipe']), $recipeBaseClass);
+                        $itemList['new'][ $baseClass ] = $value;
+                        //$this->createItem(new Collection($value), $baseClass);
                     break;
                 }
+
+                if (!empty($value['_recipe'])) {
+                    $recipeBaseClass = str_replace("item_", "item_recipe_", $baseClass);
+
+                    $result = $this->resolveItem($recipeBaseClass, $value['_recipe']['ID']);
+
+                    switch ($result) {
+                        case 1:
+                            $itemList['good'][ $recipeBaseClass ] = $value['_recipe'];
+                        break;
+
+                        case 0:
+                            $itemList['dota_id_in_use'][ $recipeBaseClass ] = $value['_recipe'];
+                        break;
+
+                        case -1:
+                            $itemList['base_class_mismatch'][ $recipeBaseClass ] = $value['_recipe'];
+                        break;
+
+                        case -2:
+                            $itemList['new'][ $recipeBaseClass ] = $value['_recipe'];
+                            //$this->createRecipe(new Collection($value['_recipe']), $recipeBaseClass);
+                        break;
+                    }
+                }
+            }
+            else {
+                $itemList['unusable'][ $baseClass ] = $value;
             }
         }
 

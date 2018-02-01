@@ -9,7 +9,7 @@
         "ID"                        "{{ item.recipe.dota_id }}"
         "BaseClass"                 "item_datadriven"
         "Model"                     "{{ item.recipe.model }}"
-        "AbilityTextureName"        ""
+        "AbilityTextureName"        "custom/recipe/recipe_{{ item.base_level }}"
 
         "ItemCost"                  "{{ item.recipe.cost }}"
         "ItemShopTags"              ""
@@ -19,7 +19,7 @@
         "ItemRequirements"
         {
         {% for recipe in item.recipes %}
-        "0{{ loop.index }}"    "{{ recipe.componentsString -}}"
+    "0{{ loop.index }}"                    "{{ recipe.componentsString -}}"
         {% endfor -%}
         }
     }
@@ -31,67 +31,67 @@
     {
         // General
         //------------------------------------------------------------------------------------------------------------------
-        "ID"                    "{{ item.dota_id }}"
-        "BaseClass"             "{{ item.base_class }}"
-        "ItemPermanent"         "{{ item.is_permanent ? 1 : 0 }}"
-        "ItemStackable"         "{{ item.max_stacks > 1 ? 1 : 0 }}"
-        "FightRecapLevel"       "{{ item.fight_recap }}"
-        "ItemDisassembleRule"   "{{ item.disassemble }}"
-        "ItemDeclarations"      "{{ item.declarations|join(' | ') }}"
+        "ID"                                                 "{{ item.dota_id }}"
+        "BaseClass"                                          "{{ item.base_class }}"
+        "ItemPermanent"                                      "{{ item.is_permanent ? 1 : 0 }}"
+        "ItemStackable"                                      "{{ item.max_stacks > 1 ? 1 : 0 }}"
+        "FightRecapLevel"                                    "{{ item.fight_recap }}"
+        "ItemDisassembleRule"                                "{{ item.disassemble }}"
+        "ItemDeclarations"                                   "{{ item.declarations|join(' | ') }}"
 
         {% if ability -%}
         // Ability
         //------------------------------------------------------------------------------------------------------------------
         {% if ability.behaviour -%}
-        "AbilityBehavior"                       "{{ ability.behaviour|join(' | ') }}"
+        "AbilityBehavior"                                    "{{ ability.behaviour|join(' | ') }}"
         {% endif -%}
-        "AbilityTextureName"                    "{{ item.base_class }}"
+        "AbilityTextureName"                                 "custom/{{ item.base_class|replace({'item_': ''}) }}"
         {% if ability.target_team -%}
-        "AbilityUnitTargetTeam"                 "{{ ability.target_team|join(' | ') }}"
+        "AbilityUnitTargetTeam"                              "{{ ability.target_team|join(' | ') }}"
         {% endif -%}
         {%- if ability.target_type -%}
-        "AbilityUnitTargetType"                 "{{ ability.target_type|join(' | ') }}"
+        "AbilityUnitTargetType"                              "{{ ability.target_type|join(' | ') }}"
         {% endif -%}
         {%- if ability.target_flags -%}
-        "AbilityUnitTargetFlags"                "{{ ability.target_flags|join(' | ') }}"
+        "AbilityUnitTargetFlags"                             "{{ ability.target_flags|join(' | ') }}"
         {% endif -%}
         {%- if ability.damage -%}
-        "AbilityUnitDamageType"                 "{{ ability.damage }}"
+        "AbilityUnitDamageType"                              "{{ ability.damage }}"
         {% endif -%}
         {%- if ability.cast_range -%}
-        "AbilityCastRange"                      "{{ ability.cast_range|join(' ') }}"
+        "AbilityCastRange"                                   "{{ ability.cast_range|join(' ') }}"
         {% endif -%}
         {%- if ability.cast_point -%}
-        "AbilityCastPoint"                      "{{ ability.cast_point|join(' ') }}"
+        "AbilityCastPoint"                                   "{{ ability.cast_point|join(' ') }}"
         {% endif -%}
         {%- if ability.cooldown -%}
-        "AbilityCooldown"                       "{{ ability.cooldown|join(' ') }}"
+        "AbilityCooldown"                                    "{{ ability.cooldown|join(' ') }}"
         {% endif -%}
         {%- if ability.cast_range_buffer -%}
-        "AbilityCastRangeBuffer"                "{{ ability.cast_range_buffer|join(' ') }}"
+        "AbilityCastRangeBuffer"                             "{{ ability.cast_range_buffer|join(' ') }}"
         {% endif -%}
         {%- if ability.channel_time -%}
-        "AbilityChannelTime"                    "{{ ability.channel_time|join(' ') }}"
+        "AbilityChannelTime"                                 "{{ ability.channel_time|join(' ') }}"
         {% endif -%}
         {%- if ability.channel_mana_cost -%}
-        "AbilityChannelledManaCostPerSecond"    "{{ ability.channel_mana_cost|join(' ') }}"
+        "AbilityChannelledManaCostPerSecond"                 "{{ ability.channel_mana_cost|join(' ') }}"
         {% endif -%}
         {%- if ability.duration -%}
-        "AbilityDuration"                       "{{ ability.duration|join(' ') }}"
+        "AbilityDuration"                                    "{{ ability.duration|join(' ') }}"
         {% endif -%}
 
         {%- if ability.mana_cost -%}
-        "AbilityManaCost"                       "{{ ability.mana_cost|join(' ') }}"
+        "AbilityManaCost"                                    "{{ ability.mana_cost|join(' ') }}"
         {% endif -%}
         {%- if ability.gold_cost -%}
-        "AbilityGoldCost"                       "{{ ability.gold_cost|join(' ') }}"
+        "AbilityGoldCost"                                    "{{ ability.gold_cost|join(' ') }}"
         {% endif -%}
         {%- if ability.cooldown_group -%}
-        "AbilitySharedCooldown"                 "{{ ability.cooldown_group }}"
+        "AbilitySharedCooldown"                              "{{ ability.cooldown_group }}"
         {% endif -%}
-        "AbilityProcsMagicStick"                "{{ ability.magic_stick }}"
-        "IsCastableWhileHidden"                 "{{ ability.cast_hidden ? 1 : 0 }}"
-        "CastFilterRejectCaster"                "{{ ability.deny_self_cast ? 1 : 0 }}"
+        "AbilityProcsMagicStick"                             "{{ ability.magic_stick }}"
+        "IsCastableWhileHidden"                              "{{ ability.cast_hidden ? 1 : 0 }}"
+        "CastFilterRejectCaster"                             "{{ ability.deny_self_cast ? 1 : 0 }}"
         {% endif %}
 
         {% if item.max_level > 1 -%}
@@ -123,7 +123,6 @@
         "ItemStockMax"                                       "{{ item.stock_max     ?? 0 }}"
         "ItemStockTime"                                      "{{ item.stock_time    ?? 0 }}"
         "ItemStockInitial"                                   "{{ item.stock_initial ?? 0 }}"
-
         "ShouldBeSuggested"                                  "{{ item.should_suggest      ?? '' }}"
         "ShouldBeInitiallySuggested"                         "{{ item.should_init_suggest ?? '' }}"
         "ItemSupport"                                        "{{ item.is_support_item     ?? '' }}"
@@ -150,9 +149,9 @@
 
         // Sounds
         //------------------------------------------------------------------------------------------------------------------
-        "UIPickupSound"                                     "{{ item.sound_pickup     ?? '' }}"
-        "UIDropSound"                                       "{{ item.sound_drop       ?? '' }}"
-        "WorldDropSound"                                    "{{ item.sound_drop_world ?? '' }}"
+        "UIPickupSound"                                      "{{ item.sound_pickup     ?? '' }}"
+        "UIDropSound"                                        "{{ item.sound_drop       ?? '' }}"
+        "WorldDropSound"                                     "{{ item.sound_drop_world ?? '' }}"
 
         {% if item.stats.count -%}
         // Stats
