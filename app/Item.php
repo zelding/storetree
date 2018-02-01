@@ -46,6 +46,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property array $shop_tags
  * @property array $aliases
  * @property null|Item $lvl1Recipe
+ * @property null|Item $lvl1
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|Item[] $buildsInto

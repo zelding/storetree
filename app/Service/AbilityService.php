@@ -198,67 +198,77 @@ class AbilityService
         }
 
         if ($data->has('AbilityUnitDamageType')) {
-            $ability->damage_type = $data->get('AbilityUnitDamageType') ?? null;
+            $ability->damage_type = $data->get('AbilityUnitDamageType');
         }
 
         if ($data->has('AbilityDamage')) {
-            $ability->damage = $data->get('AbilityDamage') ?? null;
+            $d = $data->get('AbilityDamage');
+            $ability->damage = is_array($d) ? $d : [$d];
         }
 
         if ($data->has('AbilityManaCost')) {
-            $ability->mana_cost = $data->get('AbilityManaCost') ?? null;
+            $d = $data->get('AbilityManaCost');
+            $ability->mana_cost = is_array($d) ? $d : [$d];
         }
 
         if ($data->has('AbilityGoldCost')) {
-            $ability->gold_cost = $data->get('AbilityGoldCost') ?? null;
+            $d = $data->get('AbilityGoldCost');
+            $ability->gold_cost = is_array($d) ? $d : [$d];
         }
 
         if ($data->has('AbilityCooldown')) {
-            $ability->cooldown = $data->get('AbilityCooldown') ?? [];
+            $d = $data->get('AbilityCooldown');
+            $ability->cooldown = is_array($d) ? $d : [$d];
         }
 
         if ($data->has('AbilityCastRange')) {
-            $ability->cast_range = $data->get('AbilityCastRange') ?? null;
+            $d = $data->get('AbilityCastRange');
+            $ability->cast_range = is_array($d) ? $d : [$d];
         }
 
         if ($data->has('AbilityCastPoint')) {
-            $ability->cast_point = $data->get('AbilityCastPoint') ?? null;
+            $d = $data->get('AbilityCastPoint');
+            $ability->cast_point = is_array($d) ? $d : [$d];
         }
 
         if ($data->has('AbilityCastRangeBuffer')) {
-            $ability->cast_range_buffer = $data->get('AbilityCastRangeBuffer') ?? null;
+            $d = $data->get('AbilityCastRangeBuffer');
+            $ability->cast_range_buffer = is_array($d) ? $d : [$d];
         }
 
         if ($data->has('AbilityChannelTime')) {
-            $ability->channel_time = $data->get('AbilityChannelTime') ?? null;
+            $d = $data->get('AbilityChannelTime');
+            $ability->channel_time = is_array($d) ? $d : [$d];
         }
 
         if ($data->has('AbilityChannelledManaCostPerSecond')) {
-            $ability->channel_mana_cost = $data->get('AbilityChannelledManaCostPerSecond') ?? null;
+            $d = $data->get('AbilityChannelledManaCostPerSecond');
+            $ability->channel_mana_cost = is_array($d) ? $d : [$d];
         }
 
         if ($data->has('AbilityDuration')) {
-            $ability->duration = $data->get('AbilityDuration') ?? null;
+            $d = $data->get('AbilityDuration');
+            $ability->duration = is_array($d) ? $d : [$d];
         }
 
         if ($data->has('CastFilterRejectCaster')) {
-            $ability->deny_self_cast = $data->get('CastFilterRejectCaster') ?? false;
+            $ability->deny_self_cast = $data->get('CastFilterRejectCaster');
         }
 
         if ($data->has('IsCastableWhileHidden')) {
-            $ability->cast_hidden = $data->get('IsCastableWhileHidden') ?? false;
+            $ability->cast_hidden = $data->get('IsCastableWhileHidden');
         }
 
         if ($data->has('AbilityProcsMagicStick')) {
-            $ability->magic_stick = $data->get('AbilityProcsMagicStick') ?? false;
+            $ability->magic_stick = $data->get('AbilityProcsMagicStick');
         }
 
         if ($data->has('AbilitySharedCooldown')) {
-            $ability->cooldown_group = $data->get('AbilitySharedCooldown') ?? "";
+            $ability->cooldown_group = $data->get('AbilitySharedCooldown');
         }
 
         if ($data->has("ScriptFile")) {
-            $ability->script = $data->get("ScriptFile") ?? null;
+            $ability->script = $data->get("ScriptFile");
         }
 
         return $ability;

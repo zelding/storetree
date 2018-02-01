@@ -62,7 +62,6 @@ class ImportService
 
                     case -2:
                         $itemList['new'][ $baseClass ] = $value;
-                        //$this->createItem(new Collection($value), $baseClass);
                     break;
                 }
 
@@ -141,6 +140,7 @@ class ImportService
                             break;
 
                             case "base_class_mismatch":
+                                $this->updateItem($itemData, $baseClass);
                             break;
 
                             case "dota_id_in_use":
@@ -372,12 +372,15 @@ class ImportService
     protected function updateAbility(Item $item, array $itemData)
     {
         if ( !empty($itemData["AbilityTextureName"]) ) {
-            $abilityName = $item->lvl1Recipe ?
-                $this->baseClassToName(
-                    app(ItemService::class)
-                        ->recipeItemNameToItemName($item->lvl1Recipe->base_class)
-                ) :
-                $this->baseClassToName($item->base_class);
+
+            if ( $item->base_level == 1 ) {
+                $abilityName = $this->baseClassToName($item->base_class);
+            }
+            else {
+                $abilityName = $this->baseClassToName($item->lvl1->base_class);
+            }
+
+            $abilityName = str_replace("Item", "", $abilityName);
 
             $ability = Ability::whereName($abilityName)->first();
 
@@ -389,12 +392,15 @@ class ImportService
             app(AbilityService::class)
                 ->setPresentAbilityAttributesFromImport($ability, new Collection($itemData));
 
-            if ( $ability->script ) {
-                $ability->base_class = "item_lua";
-            }
+
+            $ability->base_class = $ability->script ? "item_lua" : "item_datadriven";
 
             $ability->save();
-            $item->ability()->attach($ability);
+
+            $item->ability()->sync([$ability->id => [
+                "created_at" => new \DateTime(),
+                "updated_at" => new \DateTime()
+            ]]);
         }
     }
 
@@ -447,13 +453,13 @@ class ImportService
         $dotaIdMatch = Item::whereDotaId($dotaId)->first();
 
         if ( $dotaIdMatch instanceof Item) {
-            return -1;
+            return 0;
         }
 
         $baseClassMatch = Item::whereBaseClass($base_class)->first();
 
         if ( $baseClassMatch instanceof Item) {
-            return 0;
+            return -1;
         }
 
         return -2;

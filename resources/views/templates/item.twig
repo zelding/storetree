@@ -9,7 +9,7 @@
         "ID"                        "{{ item.recipe.dota_id }}"
         "BaseClass"                 "item_datadriven"
         "Model"                     "{{ item.recipe.model }}"
-        "AbilityTextureName"        "{{ item.recipe.icon ?? 'custom/recipe/recipe_'~item.base_level }}"
+        "AbilityTextureName"        "{{ item.recipe.icon ? item.recipe.icon : 'custom/recipe/recipe_'~item.base_level~'.png' }}"
 
         "ItemCost"                  "{{ item.recipe.cost }}"
         "ItemShopTags"              ""
@@ -32,7 +32,9 @@
         // General
         //------------------------------------------------------------------------------------------------------------------
         "ID"                                                 "{{ item.dota_id }}"
-        "BaseClass"                                          "{{ ability.script ? ability.base_class : item.lvl1.base_class }}"
+        {% if not item.is_override -%}
+        "BaseClass"                                          "{{ ability.script ? ability.base_class : item.lvl1.is_override ? item.lvl1.base_class : 'item_datadriven' }}"
+        {% endif -%}
         {% if ability.script -%}
         "ScriptFile"                                         "{{ ability.script }}"
         {% endif -%}
@@ -42,13 +44,14 @@
         "ItemDisassembleRule"                                "{{ item.disassemble }}"
         "ItemDeclarations"                                   "{{ item.declarations|join(' | ') }}"
 
+        "AbilityTextureName"                                 "{{ item.icon ?? 'custom/'~item.base_class|replace({'item_': ''}) }}"
+
         {% if ability -%}
         // Ability
         //------------------------------------------------------------------------------------------------------------------
         {% if ability.behaviour -%}
         "AbilityBehavior"                                    "{{ ability.behaviour|join(' | ') }}"
         {% endif -%}
-        "AbilityTextureName"                                 "{{ item.icon ?? 'custom/'~item.base_class|replace({'item_': ''}) }}"
         {% if ability.target_team -%}
         "AbilityUnitTargetTeam"                              "{{ ability.target_team|join(' | ') }}"
         {% endif -%}
