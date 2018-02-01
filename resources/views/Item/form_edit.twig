@@ -32,10 +32,10 @@
 
     <div class="col-lg-4">
         <div class="form-group">
-            <label class="col-lg-4 control-label" for="item_desc">Description</label>
-            <div class="col-lg-8" data-toggle="tooltip" title="Just some text, wont affect anything, but it will be included in the itemlist.txt as a comment">
-                <textarea class="form-control" rows="8" id="item_desc" placeholder="Breaks your face"
-                          name="description">{{ request.description ?? item.description }}</textarea>
+            <label class="col-lg-4 control-label" for="item-icon">Icon file</label>
+            <div class="col-lg-8" data-toggle="tooltip" data-placement="right" title="path to the icon file">
+                <input type="text" class="form-control" id="item-icon" placeholder="custom/recipe/recipe_1"
+                       name="icon" value="{{ request.icon ?? item.icon }}">
             </div>
         </div>
     </div>

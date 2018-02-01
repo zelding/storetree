@@ -99,46 +99,6 @@ class ImportService
         return $itemList;
     }
 
-    /*
-     $itemList = [];
-
-    foreach( $data as $key => $value ) {
-
-        if ( empty($value['ID']) ) {
-            continue;
-        }
-
-        $item = $this->createItem(new Collection($value), $key);
-
-        if ( !empty($value["_recipe"]) ) {
-            $recipe = $this->createRecipe(
-                $item,
-                new Collection($value["_recipe"]),
-                substr_replace("item_recipe_", "item_", $key)
-            );
-        }
-        else {
-            $item->is_base_item = true;
-        }
-
-        $item->is_boss_item = empty($data['SideShop']) && empty($data['SecretShop']);
-
-        if ( !$item->is_boss_item ) {
-            $item->shops()->attach(1);
-        }
-
-        if ( !empty($data['SideShop']) ) {
-            $item->shops()->attach(2);
-        }
-
-        if (  !empty($data['SecretShop']) ) {
-            $item->shops()->attach(3);
-        }
-
-        $itemList[] = $item;
-    }
-     */
-
     public function groupEntities(array $data) : array
     {
         $list = [];
@@ -193,7 +153,7 @@ class ImportService
                     }
                 }
                 catch(\Illuminate\Database\QueryException $exception) {
-                    $groupedData["unusable"][] = $baseClass;
+                    $groupedData["unusable"][$baseClass] = $exception->getMessage();
                 }
 
                 $this->resolveMissingComponents();

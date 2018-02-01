@@ -88,13 +88,14 @@ class ItemService
         $item->is_consumable        = $request->get('consumable_item', 0);
         $item->is_recipe            = $request->get('recipe_item', 0);
         $item->script               = $request->get('script', null);
+        $item->icon                 = $request->get('icon', null);
         $item->is_override          = $request->get('is_override', 0);
         $item->dota_id              = $request->get('dota_id');
         $item->base_class           = $request->get('base_class');
         $item->base_level           = $request->get('base_level', 1);
         $item->max_level            = $request->get('max_level', 1);
         $item->stack_size           = $request->get('stack_size', 1);
-        $item->start_charges        = $request->get('start_charges', 0);
+        $item->start_charges        = $request->get('start_charges', [0]);
         $item->alert_text           = $request->get('alert_text', null);
         $item->model                = $request->get('model');
         $item->fight_recap          = $request->get('fight_recap', 0);
@@ -115,7 +116,7 @@ class ItemService
         $item->stock_time           = $request->get('stock_time', 0);
         $item->aliases              = $request->get('aliases', []);
         $item->disassemble          = $request->get('disassemble', Constants::$disassemble[0]);
-        $item->declarations         = $request->get('declarations', null);
+        $item->declarations         = $request->get('declarations', []);
         $item->is_tempest_cloneable = $request->get('is_tempest_cloneable', 1);
         $item->inc_net_on_drop      = $request->get('inc_net_on_drop', 1);
         $item->should_suggest       = $request->get('should_suggest', 0);
@@ -152,6 +153,10 @@ class ItemService
 
         if ($request->exists('base_item')) {
             $item->is_base_item = $request->get('base_item');
+        }
+
+        if ($request->exists('icon')) {
+            $item->is_base_item = $request->get('icon');
         }
 
         if ($request->exists('boss_item')) {
@@ -195,7 +200,8 @@ class ItemService
         }
 
         if ($request->exists('start_charges')) {
-            $item->start_charges = $request->get('start_charges');
+            $d = $request->get('start_charges');
+            $item->start_charges = is_array($d) ? $d : [$d];
         }
 
         if ($request->exists('alert_text')) {
@@ -255,7 +261,8 @@ class ItemService
         }
 
         if ($request->exists('shop_tags')) {
-            $item->shop_tags = $request->get('shop_tags');
+            $d = $request->get('shop_tags');
+            $item->shop_tags = is_array($d) ? $d : [$d];
         }
 
         if ($request->exists('stock_max')) {
@@ -271,7 +278,8 @@ class ItemService
         }
 
         if ($request->exists('aliases')) {
-            $item->aliases = $request->get('aliases');
+            $d = $request->get('aliases');
+            $item->aliases = is_array($d) ? $d : [$d];
         }
 
         if ($request->exists('disassemble')) {
@@ -279,7 +287,8 @@ class ItemService
         }
 
         if ($request->exists('declarations')) {
-            $item->declarations = $request->get('declarations');
+            $d = $request->get('declarations');
+            $item->declarations = is_array($d) ? $d : [$d];
         }
 
         if ($request->exists('is_tempest_cloneable')) {
@@ -330,11 +339,12 @@ class ItemService
         $item->is_consumable        = 0;
         $item->is_recipe            = 0;
         $item->script               = null;
+        $item->icon                 = null;
         $item->is_override          = 0;
         $item->base_level           = 1;
         $item->max_level            = 1;
         $item->stack_size           = 1;
-        $item->start_charges        = 0;
+        $item->start_charges        = [0];
         $item->alert_text           = null;
         $item->fight_recap          = 0;
         $item->quality              = Constants::$itemQuality[2];
@@ -354,7 +364,7 @@ class ItemService
         $item->stock_time           = 0;
         $item->aliases              = [];
         $item->disassemble          = Constants::$disassemble[0];
-        $item->declarations         = null;
+        $item->declarations         = [];
         $item->is_tempest_cloneable = 1;
         $item->inc_net_on_drop      = 1;
         $item->should_suggest       = 0;
@@ -378,19 +388,23 @@ class ItemService
     public function setPresentItemAttributesFromImport(Item &$item, Collection $data)
     {
         if ($data->has('ID')) {
-            $item->dota_id = $data->get('ID') ?? 0;
+            $item->dota_id = $data->get('ID');
         }
 
         if ($data->has('ItemCost')) {
-            $item->cost = $data->get('ItemCost') ?? 0;
+            $item->cost = $data->get('ItemCost');
         }
 
         if ($data->has('ScriptFile')) {
-            $item->script = $data->get('ScriptFile') ?? null;
+            $item->script = $data->get('ScriptFile');
+        }
+
+        if ($data->has('AbilityTextureName')) {
+            $item->script = $data->get('AbilityTextureName');
         }
 
         if ($data->has('ItemBaseLevel')) {
-            $item->base_level = $data->get('ItemBaseLevel') ?? 1;
+            $item->base_level = $data->get('ItemBaseLevel');
         }
         else { //try to resolve the base_level from the base_class (last digit)
             $c = [];
@@ -406,11 +420,11 @@ class ItemService
         }
 
         if ($data->has('MaxUpgradeLevel')) {
-            $item->max_level = $data->get('MaxUpgradeLevel') ?? 1;
+            $item->max_level = $data->get('MaxUpgradeLevel');
         }
 
         if ($data->has('ItemStackable')) {
-            $item->stack_size = $data->get('ItemStackable') ?? 1;
+            $item->stack_size = $data->get('ItemStackable');
         }
 
         if ($data->has('Model')) {
@@ -418,83 +432,86 @@ class ItemService
         }
 
         if ($data->has('FightRecapLevel')) {
-            $item->fight_recap = $data->get('FightRecapLevel') ?? 0;
+            $item->fight_recap = $data->get('FightRecapLevel');
         }
 
         if ($data->has('ItemQuality')) {
-            $item->quality = $data->get('ItemQuality') ?? Constants::$itemQuality[2];
+            $item->quality = $data->get('ItemQuality');
         }
 
         if ($data->has('ItemShareability')) {
-            $item->share = $data->get('ItemShareability') ?? Constants::$shareable[0];
+            $item->share = $data->get('ItemShareability');
         }
 
         if ($data->has('ItemKillable')) {
-            $item->is_killable = $data->get('ItemKillable') ?? 0;
+            $item->is_killable = $data->get('ItemKillable');
         }
 
         if ($data->has('ItemSellable')) {
-            $item->is_sellable = $data->get('ItemSellable') ?? 0;
+            $item->is_sellable = $data->get('ItemSellable');
         }
 
         if ($data->has('ItemDroppable')) {
-            $item->is_droppable = $data->get('ItemDroppable') ?? 0;
+            $item->is_droppable = $data->get('ItemDroppable');
         }
 
         if ($data->has('AllowedInBackpack')) {
-            $item->in_backpack = $data->get('AllowedInBackpack') ?? 0;
+            $item->in_backpack = $data->get('AllowedInBackpack');
         }
 
         if ($data->has('ItemPermanent')) {
-            $item->is_permanent = $data->get('ItemPermanent') ?? 0;
+            $item->is_permanent = $data->get('ItemPermanent');
         }
 
         if ($data->has('ItemRequiresCharges')) {
-            $item->needs_charges = $data->get('ItemRequiresCharges') ?? 0;
+            $item->needs_charges = $data->get('ItemRequiresCharges');
         }
 
         if ($data->has('ItemDisplayCharges')) {
-            $item->show_charges = $data->get('ItemDisplayCharges') ?? 0;
+            $item->show_charges = $data->get('ItemDisplayCharges');
         }
 
         if ($data->has('ItemInitialCharges')) {
-            $item->start_charges = $data->get('ItemInitialCharges') ?? 0;
+            $d = $data->get('ItemInitialCharges');
+            $item->start_charges = is_array($d) ? $d : [$d];
         }
 
         if ($data->has('ItemAlertable')) {
-            $item->is_alertable = $data->get('ItemAlertable') ?? 0;
+            $item->is_alertable = $data->get('ItemAlertable');
         }
 
         if ($data->has('PingOverrideText')) {
-            $item->alert_text = $data->get('PingOverrideText') ?? null;
+            $item->alert_text = $data->get('PingOverrideText');
         }
 
         if ($data->has('ItemCastOnPickup')) {
-            $item->is_autocast = $data->get('ItemCastOnPickup') ?? 0;
+            $item->is_autocast = $data->get('ItemCastOnPickup');
         }
 
         if ($data->has('ItemShopTags')) {
-            $item->shop_tags = $data->get('ItemShopTags') ?? [];
+            $d = $data->get('ItemShopTags');
+            $item->shop_tags = is_array($d) ? $d : [$d];
         }
 
         if ($data->has('ItemStockMax')) {
-            $item->stock_max = $data->get('ItemStockMax') ?? 1;
+            $item->stock_max = $data->get('ItemStockMax');
         }
 
         if ($data->has('ItemStockInitial')) {
-            $item->stock_initial = $data->get('ItemStockInitial') ?? 0;
+            $item->stock_initial = $data->get('ItemStockInitial');
         }
 
         if ($data->has('ItemStockTime')) {
-            $item->stock_time = $data->get('ItemStockTime') ?? 0;
+            $item->stock_time = $data->get('ItemStockTime');
         }
 
         if ($data->has('ItemAliases')) {
-            $item->aliases = $data->get('ItemAliases') ?? [];
+            $d = $data->get('ItemAliases');
+            $item->aliases = is_array($d) ? $d : [$d];
         }
 
         if ($data->has('ItemDisassembleRule')) {
-            $item->disassemble = $data->get('ItemDisassembleRule') ?? Constants::$disassemble[0];
+            $item->disassemble = $data->get('ItemDisassembleRule');
         }
 
         if ($data->has('ItemDeclarations')) {
@@ -537,6 +554,11 @@ class ItemService
         return $this;
     }
 
+    /**
+     * @param string $baseClass
+     *
+     * @return string
+     */
     public function generateNameFromBaseClass(string $baseClass)
     {
         if ( $this->isRecipeBaseClass($baseClass) ) {

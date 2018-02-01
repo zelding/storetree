@@ -51,13 +51,14 @@ class ExportController extends Controller
         }
 
         $models = Item::with(
-            'shops',
-            'recipes.components',
-            'usedInRecipes.for',
             ['stats' => function ($query) {
                 /** @var Builder $query */
                 $query->orderBy('order', 'asc');
-            }], 'ability')
+            }],
+            'shops',
+            'recipes.components',
+            'usedInRecipes.for',
+            'ability')
                 ->whereIn('id', $items)
                 ->where('is_recipe', 0)
                 //->exportRequest($request)

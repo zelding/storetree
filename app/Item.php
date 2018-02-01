@@ -140,7 +140,8 @@ class Item extends Model
 
         'shop_tags'         => 'array',
         'aliases'           => 'array',
-        'declarations'      => 'array'
+        'declarations'      => 'array',
+        'start_charges'     => 'array'
     ];
 
     #region Relations
@@ -226,6 +227,17 @@ class Item extends Model
         }
 
         return null;
+    }
+
+    public function getLvl1Attribute()
+    {
+        if ( $this->max_level > 1 ) {
+            $name = preg_replace('~_\d{1,}~', '', $this->base_class);
+
+            return Item::whereBaseClass($name)->first();
+        }
+
+        return $this;
     }
 
     /**

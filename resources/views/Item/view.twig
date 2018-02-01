@@ -164,7 +164,7 @@
                                         <dt>Quality level</dt><dd>{{ item.quality }}</dd>
                                         <dt>Share flags</dt><dd><code>{{ item.share }}</code></dd>
                                         <dt>Needs charges</dt><dd>{{ item.needs_charges ? 'Yes' : 'No' }}</dd>
-                                        <dt>Start charges</dt><dd>{{ item.start_charges }}</dd>
+                                        <dt>Start charges</dt><dd>{{ item.start_charges|join(' ') }}</dd>
                                         <dt>Show charges</dt><dd>{{ item.show_charges ? 'Yes' : 'No' }}</dd>
                                         <dt>Autocast on pickup</dt><dd>{{ item.is_autocast ? 'Yes' : 'No' }}</dd>
                                         <dt>Is Alertable</dt><dd>{{ item.is_alertable ? 'Yes' : 'No' }}</dd>

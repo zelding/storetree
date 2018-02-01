@@ -46,7 +46,7 @@ class StoreItem extends JsonRequest
 
         return [
             "name"        => "required|unique:items,name,{$this->id}|max:255",
-            "description" => "required_without:recipe_item|max:2048",
+            //"description" => "required_without:recipe_item|max:2048",
             "cost"        => "required_if:base_item,1",
             "base_item"   => "required_with:recipe_item",
             "boss_item"   => "denied_with:recipe_item",

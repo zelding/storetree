@@ -9,7 +9,7 @@
         "ID"                        "{{ item.recipe.dota_id }}"
         "BaseClass"                 "item_datadriven"
         "Model"                     "{{ item.recipe.model }}"
-        "AbilityTextureName"        "custom/recipe/recipe_{{ item.base_level }}"
+        "AbilityTextureName"        "{{ item.recipe.icon ?? 'custom/recipe/recipe_'~item.base_level }}"
 
         "ItemCost"                  "{{ item.recipe.cost }}"
         "ItemShopTags"              ""
@@ -32,7 +32,7 @@
         // General
         //------------------------------------------------------------------------------------------------------------------
         "ID"                                                 "{{ item.dota_id }}"
-        "BaseClass"                                          "{{ item.base_class }}"
+        "BaseClass"                                          "{{ item.lvl1.base_class }}"
         "ItemPermanent"                                      "{{ item.is_permanent ? 1 : 0 }}"
         "ItemStackable"                                      "{{ item.max_stacks > 1 ? 1 : 0 }}"
         "FightRecapLevel"                                    "{{ item.fight_recap }}"
@@ -45,7 +45,7 @@
         {% if ability.behaviour -%}
         "AbilityBehavior"                                    "{{ ability.behaviour|join(' | ') }}"
         {% endif -%}
-        "AbilityTextureName"                                 "custom/{{ item.base_class|replace({'item_': ''}) }}"
+        "AbilityTextureName"                                 "{{ item.icon ?? 'custom/'~item.base_class|replace({'item_': ''}) }}"
         {% if ability.target_team -%}
         "AbilityUnitTargetTeam"                              "{{ ability.target_team|join(' | ') }}"
         {% endif -%}
@@ -130,7 +130,7 @@
         // Charges
         //------------------------------------------------------------------------------------------------------------------
         "ItemRequiresCharges"                                "{{ item.needs_charges ? 1 : '' }}"
-        "ItemInitialCharges"                                 "{{ item.start_charges ? 1 : '' }}"
+        "ItemInitialCharges"                                 "{{ item.start_charges ? item.start_charges|join(' ') : '' }}"
         "ItemDisplayCharges"                                 "{{ item.show_charges  ? 1 : '' }}"
 
         // Misc

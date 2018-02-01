@@ -50,9 +50,23 @@
         <div class="form-group">
             <label class="col-lg-4 control-label" for="item-start-charges">Initial charges</label>
             <div class="col-lg-8" data-toggle="tooltip" title="How many charges should it have when bought">
-                <input type="number" class="form-control" id="item-start-charges" placeholder="0" min="0"
-                       name="start_charges" value="{{ request.start_charges ?? item.start_charges }}"
-                       {{ item.needs_charges ?: ' disabled' }}>
+                <select id="item-start-charges" name="start_charges[]" multiple class="form-control select2">
+                    {% for d in item.start_charges %}
+                        <option value="{{ d }}" selected>{{ d }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-lg-1" for="declarations">Item declarations</label>
+            <div class="col-lg-11">
+                <select id="declarations" name="declarations[]" multiple class="form-control select2">
+                    {% for d in declarations %}
+                        {% set selected = (d in item.declarations or d in requlest.declarations) ? ' selected' : '' %}
+                        <option value="{{ d }}"{{ selected }}>{{ d }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
 
