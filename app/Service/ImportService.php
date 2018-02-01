@@ -181,6 +181,7 @@ class ImportService
             $item->is_boss_item   = app(ItemService::class)->shouldBeBossItem($baseClass);
             $item->is_base_item   = $item->is_boss_item ? true  : $item->is_base_item;
             $item->is_purchasable = $item->is_boss_item ? false : $item->is_purchasable;
+            $item->script         = $item->is_recipe ? null : $item->script;
 
             if ( !app(ItemService::class)->isRecipeBaseClass($item->base_class) && !$item->is_base_item ) {
                 $item->cost = 0;
@@ -277,6 +278,7 @@ class ImportService
         $item->is_base_item   = $item->is_boss_item ? true  : $item->is_base_item;
         $item->is_purchasable = $item->is_boss_item ? false : $item->is_purchasable;
         $item->name           = app(ItemService::class)->generateNameFromBaseClass($baseClass);
+        $item->script         = $item->is_recipe ? null : $item->script;
 
         if ( !app(ItemService::class)->isRecipeBaseClass($item->base_class) && !$item->is_base_item ) {
             $item->cost = 0;

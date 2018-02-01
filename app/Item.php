@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property int $stock_max
  * @property int $stock_time
  * @property int $stock_initial
- * @property bool $start_charges
+ * @property int[] $start_charges
  * @property bool $show_charges
  * @property bool $needs_charges
  * @property bool $is_autocast

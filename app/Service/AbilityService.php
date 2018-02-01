@@ -29,6 +29,7 @@ class AbilityService
         $ability->type              = $request->get('type') ?? null;
         $ability->texture_name      = $request->get('texture_name') ?? null;
         $ability->behaviour         = $request->get('behaviour') ?? null;
+        $ability->script            = $request->get('script') ?? null;
         $ability->target_team       = $request->get('target_team') ?? null;
         $ability->target_type       = $request->get('target_type') ?? null;
         $ability->target_flags      = $request->get('target_flags') ?? null;

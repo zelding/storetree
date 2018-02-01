@@ -59,7 +59,7 @@ class StoreItem extends JsonRequest
             "base_level"    => "numeric|min:1",
             "max_level"     => "numeric|greater_or_equal_than:base_level",
             "stack_size"    => "numeric|min:1",
-            "start_charges" => "required_with:needs_charges|numeric|min:0",
+            "start_charges" => "required_with:needs_charges|distinct",
             "alert_text"    => "string",
             "model"         => "required|string",
             "fight_recap"   => "required|numeric|min:0",

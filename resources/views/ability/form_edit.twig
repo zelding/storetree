@@ -28,6 +28,15 @@
         </div>
 
         <div class="form-group">
+            <label class="col-lg-4 control-label" for="ability-tex-name"
+                   data-toggle="tooltip" title="path to the lue script file">Script</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" id="ability-tex-name" placeholder=""
+                       name="script" value="{{ request.script ?? ability.script }}">
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="control-label col-lg-4" for="ability-type"
                    data-toggle="tooltip" title="Not sure if items need this">Ability type</label>
             <div class="col-lg-8">
