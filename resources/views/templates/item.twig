@@ -32,7 +32,8 @@
         // General
         //------------------------------------------------------------------------------------------------------------------
         "ID"                                                 "{{ item.dota_id }}"
-        "BaseClass"                                          "{{ item.lvl1.base_class }}"
+        "BaseClass"                                          "{{ item.script ? 'item_lua' : item.lvl1.base_class }}"
+        "ScriptFile"                                         "{{ item.script }}"
         "ItemPermanent"                                      "{{ item.is_permanent ? 1 : 0 }}"
         "ItemStackable"                                      "{{ item.max_stacks > 1 ? 1 : 0 }}"
         "FightRecapLevel"                                    "{{ item.fight_recap }}"
