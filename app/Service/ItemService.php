@@ -11,7 +11,6 @@
 namespace App\Service;
 use App\Item;
 use App\Utils\Constants;
-use Doctrine\Common\Collections\ArrayCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -40,10 +39,11 @@ class ItemService
             //remove the _# from the name
             $name = preg_replace('~_\d{1,}~', '', $item->base_class);
 
-            $lvl1 = Item::with(['stats' => function ($query) {
-                /** @var Builder $query */
-                $query->orderBy('order', 'asc');
-            }])
+            $lvl1 = Item::with(
+                ['stats' => function ($query) {
+                    /** @var Builder $query */
+                    $query->orderBy('order', 'asc');
+                }])
                         ->where('base_level', '=', 1)
                         ->where('base_class', $name)
                         ->first();

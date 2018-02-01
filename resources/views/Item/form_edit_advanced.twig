@@ -64,6 +64,30 @@
                        {{ item.is_alertable ?: ' disabled' }}>
             </div>
         </div>
+
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="item-pickup-sound">Pickup sound</label>
+            <div class="col-lg-8" data-toggle="tooltip" data-placement="right" title="path to the sound file">
+                <input type="text" class="form-control" id="item-pickup-sound" placeholder="Item.PickUpRingShop"
+                       name="sound_pickup" value="{{ request.sound_pickup ?? item.sound_pickup }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="item-drop-sound">Drop sound</label>
+            <div class="col-lg-8" data-toggle="tooltip" data-placement="right" title="path to the sound file">
+                <input type="text" class="form-control" id="item-drop-sound" placeholder="Item.DropRingShop"
+                       name="sound_drop" value="{{ request.sound_drop ?? item.sound_drop }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-4 control-label" for="item-drop-world-sound">Drop world sound</label>
+            <div class="col-lg-8" data-toggle="tooltip" data-placement="right" title="path to the sound file">
+                <input type="text" class="form-control" id="item-drop-world-sound" placeholder="Item.DropRingWorld"
+                       name="sound_drop_world" value="{{ request.sound_drop_world ?? item.sound_drop_world }}">
+            </div>
+        </div>
     </div>
 
     <div class="col-lg-4">
@@ -124,6 +148,61 @@
                         <option value="{{ d }}" {{ selected }}>{{ d }}</option>
                     {% endfor %}
                 </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="Allow arc wardens ult to copy it for use?">
+                        <input type="checkbox" name="is_tempest_cloneable" id="is-tempest-cloneable"
+                               value="1" {{ (request.is_tempest_cloneable ?? item.is_tempest_cloneable) ? 'checked="checked"' }}> Tempest clone
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="Contribute to net worth even if dropped?">
+                        <input type="checkbox" name="inc_net_on_drop" id="inc-net-on-drop"
+                               value="1" {{ (request.inc_net_on_drop ?? item.inc_net_on_drop) ? 'checked="checked"' }}> Affect net worth dropped
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="Should item be suggested in shop?">
+                        <input type="checkbox" name="should_suggest" id="should-suggest"
+                               value="1" {{ (request.should_suggest ?? item.should_suggest) ? 'checked="checked"' }}> Suggested Item
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="Should the item be suggested as a starting item?">
+                        <input type="checkbox" name="should_init_suggest" id="should-init-suggest"
+                               value="1" {{ (request.should_init_suggest ?? item.should_init_suggest) ? 'checked="checked"' }}> Suggested starting item
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-sm-8">
+                <div class="checkbox">
+                    <label data-toggle="tooltip" data-placement="right" title="is a support item?">
+                        <input type="checkbox" name="is_support_item" id="is-support-item"
+                               value="1" {{ (request.is_support_item ?? item.is_support_item) ? 'checked="checked"' }}> Support item
+                    </label>
+                </div>
             </div>
         </div>
     </div>
