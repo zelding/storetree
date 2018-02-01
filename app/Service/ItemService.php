@@ -40,7 +40,10 @@ class ItemService
             //remove the _# from the name
             $name = preg_replace('~_\d{1,}~', '', $item->base_class);
 
-            $lvl1 = Item::with('stats')
+            $lvl1 = Item::with(['stats' => function ($query) {
+                /** @var Builder $query */
+                $query->orderBy('order', 'asc');
+            }])
                         ->where('base_level', '=', 1)
                         ->where('base_class', $name)
                         ->first();
@@ -77,43 +80,50 @@ class ItemService
      */
     public function setItemAttributes(Item $item, Request $request): Item
     {
-        $item->name          = $request->get('name');
-        $item->description   = $request->get('description');
-        $item->cost          = $request->get('cost') ?? 0;
-        $item->is_base_item  = $request->get('base_item') ?? 0;
-        $item->is_boss_item  = $request->get('boss_item') ?? 0;
-        $item->is_consumable = $request->get('consumable_item') ?? 0;
-        $item->is_recipe     = $request->get('recipe_item') ?? 0;
-        $item->script        = $request->get('script') ?? null;
-        $item->is_override   = $request->get('is_override') ?? 0;
-
-        $item->dota_id       = $request->get('dota_id');
-        $item->base_class    = $request->get('base_class');
-        $item->base_level    = $request->get('base_level') ?? 1;
-        $item->max_level     = $request->get('max_level') ?? 1;
-        $item->stack_size    = $request->get('stack_size') ?? 1;
-        $item->start_charges = $request->get('start_charges') ?? 0;
-        $item->alert_text    = $request->get('alert_text') ?? null;
-        $item->model         = $request->get('model');
-        $item->fight_recap   = $request->get('fight_recap') ?? 0;
-        $item->quality       = $request->get('quality') ?? Constants::$itemQuality[2];
-        $item->share         = $request->get('share') ?? Constants::$shareable[0];
-        $item->is_killable   = $request->get('is_killable') ?? 0;
-        $item->is_sellable   = $request->get('is_sellable') ?? 0;
-        $item->is_droppable  = $request->get('is_droppable') ?? 0;
-        $item->in_backpack   = $request->get('is_backpackable') ?? 0;
-        $item->is_permanent  = $request->get('is_permanent') ?? 0;
-        $item->needs_charges = $request->get('needs_charges') ?? 0;
-        $item->show_charges  = $request->get('show_charges') ?? 0;
-        $item->is_alertable  = $request->get('is_alertable') ?? 0;
-        $item->is_autocast   = $request->get('is_autocast') ?? 0;
-        $item->shop_tags     = $request->get('shop_tags') ?? [];
-        $item->stock_max     = $request->get('stock_max') ?? 0;
-        $item->stock_initial = $request->get('stock_initial') ?? 0;
-        $item->stock_time    = $request->get('stock_time') ?? 0;
-        $item->aliases       = $request->get('aliases') ?? [];
-        $item->disassemble   = $request->get('disassemble') ?? Constants::$disassemble[0];
-        $item->declarations  = $request->get('declarations') ?? null;
+        $item->name                 = $request->get('name');
+        $item->description          = $request->get('description');
+        $item->cost                 = $request->get('cost', 0);
+        $item->is_base_item         = $request->get('base_item', 0);
+        $item->is_boss_item         = $request->get('boss_item', 0);
+        $item->is_consumable        = $request->get('consumable_item', 0);
+        $item->is_recipe            = $request->get('recipe_item', 0);
+        $item->script               = $request->get('script', null);
+        $item->is_override          = $request->get('is_override', 0);
+        $item->dota_id              = $request->get('dota_id');
+        $item->base_class           = $request->get('base_class');
+        $item->base_level           = $request->get('base_level', 1);
+        $item->max_level            = $request->get('max_level', 1);
+        $item->stack_size           = $request->get('stack_size', 1);
+        $item->start_charges        = $request->get('start_charges', 0);
+        $item->alert_text           = $request->get('alert_text', null);
+        $item->model                = $request->get('model');
+        $item->fight_recap          = $request->get('fight_recap', 0);
+        $item->quality              = $request->get('quality', Constants::$itemQuality[2]);
+        $item->share                = $request->get('share', Constants::$shareable[0]);
+        $item->is_killable          = $request->get('is_killable', 0) ?? 0;
+        $item->is_sellable          = $request->get('is_sellable', 0) ?? 0;
+        $item->is_droppable         = $request->get('is_droppable', 1) ?? 0;
+        $item->in_backpack          = $request->get('is_backpackable', 1) ?? 0;
+        $item->is_permanent         = $request->get('is_permanent', 1);
+        $item->needs_charges        = $request->get('needs_charges', 0);
+        $item->show_charges         = $request->get('show_charges', 0);
+        $item->is_alertable         = $request->get('is_alertable', 0);
+        $item->is_autocast          = $request->get('is_autocast', 0);
+        $item->shop_tags            = $request->get('shop_tags', []);
+        $item->stock_max            = $request->get('stock_max', 0);
+        $item->stock_initial        = $request->get('stock_initial', 0);
+        $item->stock_time           = $request->get('stock_time', 0);
+        $item->aliases              = $request->get('aliases', []);
+        $item->disassemble          = $request->get('disassemble', Constants::$disassemble[0]);
+        $item->declarations         = $request->get('declarations', null);
+        $item->is_tempest_cloneable = $request->get('is_tempest_cloneable', 1);
+        $item->inc_net_on_drop      = $request->get('inc_net_on_drop', 1);
+        $item->should_suggest       = $request->get('should_suggest', 0);
+        $item->should_init_suggest  = $request->get('should_init_suggest', 0);
+        $item->is_support_item      = $request->get('is_support_item', 0);
+        $item->sound_pickup         = $request->get('sound_pickup', null);
+        $item->sound_drop           = $request->get('sound_drop', null);
+        $item->sound_drop_world     = $request->get('sound_drop_world', null);
 
         return $item;
     }
@@ -137,31 +147,31 @@ class ItemService
         }
 
         if ($request->exists('cost')) {
-            $item->cost = $request->get('cost') ?? 0;
+            $item->cost = $request->get('cost');
         }
 
         if ($request->exists('base_item')) {
-            $item->is_base_item = $request->get('base_item') ?? 0;
+            $item->is_base_item = $request->get('base_item');
         }
 
         if ($request->exists('boss_item')) {
-            $item->is_boss_item = $request->get('boss_item') ?? 0;
+            $item->is_boss_item = $request->get('boss_item');
         }
 
         if ($request->exists('consumable_item')) {
-            $item->is_consumable = $request->get('consumable_item') ?? 0;
+            $item->is_consumable = $request->get('consumable_item');
         }
 
         if ($request->exists('recipe_item')) {
-            $item->is_recipe = $request->get('recipe_item') ?? 0;
+            $item->is_recipe = $request->get('recipe_item');
         }
 
         if ($request->exists('script')) {
-            $item->script = $request->get('script') ?? null;
+            $item->script = $request->get('script');
         }
 
         if ($request->exists('is_override')) {
-            $item->is_override = $request->get('is_override') ?? 0;
+            $item->is_override = $request->get('is_override');
         }
 
         if ($request->exists('dota_id')) {
@@ -173,23 +183,23 @@ class ItemService
         }
 
         if ($request->exists('base_level')) {
-            $item->base_level = $request->get('base_level') ?? 1;
+            $item->base_level = $request->get('base_level');
         }
 
         if ($request->exists('max_level')) {
-            $item->max_level = $request->get('max_level') ?? 1;
+            $item->max_level = $request->get('max_level');
         }
 
         if ($request->exists('stack_size')) {
-            $item->stack_size = $request->get('stack_size') ?? 1;
+            $item->stack_size = $request->get('stack_size');
         }
 
         if ($request->exists('start_charges')) {
-            $item->start_charges = $request->get('start_charges') ?? 0;
+            $item->start_charges = $request->get('start_charges');
         }
 
         if ($request->exists('alert_text')) {
-            $item->alert_text = $request->get('alert_text') ?? null;
+            $item->alert_text = $request->get('alert_text');
         }
 
         if ($request->exists('model')) {
@@ -197,79 +207,111 @@ class ItemService
         }
 
         if ($request->exists('fight_recap')) {
-            $item->fight_recap = $request->get('fight_recap') ?? 0;
+            $item->fight_recap = $request->get('fight_recap');
         }
 
         if ($request->exists('quality')) {
-            $item->quality = $request->get('quality') ?? Constants::$itemQuality[2];
+            $item->quality = $request->get('quality');
         }
 
         if ($request->exists('share')) {
-            $item->share = $request->get('share') ?? Constants::$shareable[0];
+            $item->share = $request->get('share');
         }
 
         if ($request->exists('is_killable')) {
-            $item->is_killable = $request->get('is_killable') ?? 0;
+            $item->is_killable = $request->get('is_killable');
         }
 
         if ($request->exists('is_sellable')) {
-            $item->is_sellable = $request->get('is_sellable') ?? 0;
+            $item->is_sellable = $request->get('is_sellable');
         }
 
         if ($request->exists('is_droppable')) {
-            $item->is_droppable = $request->get('is_droppable') ?? 0;
+            $item->is_droppable = $request->get('is_droppable');
         }
 
         if ($request->exists('is_backpackable')) {
-            $item->in_backpack = $request->get('is_backpackable') ?? 0;
+            $item->in_backpack = $request->get('is_backpackable');
         }
 
         if ($request->exists('is_permanent')) {
-            $item->is_permanent = $request->get('is_permanent') ?? 0;
+            $item->is_permanent = $request->get('is_permanent');
         }
 
         if ($request->exists('needs_charges')) {
-            $item->needs_charges = $request->get('needs_charges') ?? 0;
+            $item->needs_charges = $request->get('needs_charges');
         }
 
         if ($request->exists('show_charges')) {
-            $item->show_charges = $request->get('show_charges') ?? 0;
+            $item->show_charges = $request->get('show_charges');
         }
 
         if ($request->exists('is_alertable')) {
-            $item->is_alertable = $request->get('is_alertable') ?? 0;
+            $item->is_alertable = $request->get('is_alertable');
         }
 
         if ($request->exists('is_autocast')) {
-            $item->is_autocast = $request->get('is_autocast') ?? 0;
+            $item->is_autocast = $request->get('is_autocast');
         }
 
         if ($request->exists('shop_tags')) {
-            $item->shop_tags = $request->get('shop_tags') ?? [];
+            $item->shop_tags = $request->get('shop_tags');
         }
 
         if ($request->exists('stock_max')) {
-            $item->stock_max = $request->get('stock_max') ?? 0;
+            $item->stock_max = $request->get('stock_max');
         }
 
         if ($request->exists('stock_initial')) {
-            $item->stock_initial = $request->get('stock_initial') ?? 0;
+            $item->stock_initial = $request->get('stock_initial');
         }
 
         if ($request->exists('stock_time')) {
-            $item->stock_time = $request->get('stock_time') ?? 0;
+            $item->stock_time = $request->get('stock_time');
         }
 
         if ($request->exists('aliases')) {
-            $item->aliases = $request->get('aliases') ?? [];
+            $item->aliases = $request->get('aliases');
         }
 
         if ($request->exists('disassemble')) {
-            $item->disassemble = $request->get('disassemble') ?? Constants::$disassemble[0];
+            $item->disassemble = $request->get('disassemble');
         }
 
         if ($request->exists('declarations')) {
-            $item->declarations = $request->get('declarations') ?? null;
+            $item->declarations = $request->get('declarations');
+        }
+
+        if ($request->exists('is_tempest_cloneable')) {
+            $item->is_tempest_cloneable = $request->get('is_tempest_cloneable');
+        }
+
+        if ($request->exists('inc_net_on_drop')) {
+            $item->inc_net_on_drop = $request->get('inc_net_on_drop');
+        }
+
+        if ($request->exists('should_suggest')) {
+            $item->should_suggest = $request->get('should_suggest');
+        }
+
+        if ($request->exists('should_init_suggest')) {
+            $item->should_init_suggest = $request->get('should_init_suggest');
+        }
+
+        if ($request->exists('is_support_item')) {
+            $item->is_support_item = $request->get('is_support_item');
+        }
+
+        if ($request->exists('sound_pickup')) {
+            $item->sound_pickup = $request->get('sound_pickup');
+        }
+
+        if ($request->exists('sound_drop')) {
+            $item->sound_drop = $request->get('sound_drop');
+        }
+
+        if ($request->exists('sound_drop_world')) {
+            $item->sound_drop_world = $request->get('sound_drop_world');
         }
 
         return $item;
@@ -282,38 +324,45 @@ class ItemService
      */
     public function setDefaults(Item &$item)
     {
-        $item->cost          = 0;
-        $item->is_base_item  = 0;
-        $item->is_boss_item  = 0;
-        $item->is_consumable = 0;
-        $item->is_recipe     = 0;
-        $item->script        = null;
-        $item->is_override   = 0;
-
-        $item->base_level    = 1;
-        $item->max_level     = 1;
-        $item->stack_size    = 1;
-        $item->start_charges = 0;
-        $item->alert_text    = null;
-        $item->fight_recap   = 0;
-        $item->quality       = Constants::$itemQuality[2];
-        $item->share         = Constants::$shareable[0];
-        $item->is_killable   = 1;
-        $item->is_sellable   = 1;
-        $item->is_droppable  = 1;
-        $item->in_backpack   = 1;
-        $item->is_permanent  = 0;
-        $item->needs_charges = 0;
-        $item->show_charges  = 0;
-        $item->is_alertable  = 1;
-        $item->is_autocast   = 0;
-        $item->shop_tags     = [];
-        $item->stock_max     = 0;
-        $item->stock_initial = 0;
-        $item->stock_time    = 0;
-        $item->aliases       = [];
-        $item->disassemble   = Constants::$disassemble[0];
-        $item->declarations  = null;
+        $item->cost                 = 0;
+        $item->is_base_item         = 0;
+        $item->is_boss_item         = 0;
+        $item->is_consumable        = 0;
+        $item->is_recipe            = 0;
+        $item->script               = null;
+        $item->is_override          = 0;
+        $item->base_level           = 1;
+        $item->max_level            = 1;
+        $item->stack_size           = 1;
+        $item->start_charges        = 0;
+        $item->alert_text           = null;
+        $item->fight_recap          = 0;
+        $item->quality              = Constants::$itemQuality[2];
+        $item->share                = Constants::$shareable[0];
+        $item->is_killable          = 1;
+        $item->is_sellable          = 1;
+        $item->is_droppable         = 1;
+        $item->in_backpack          = 1;
+        $item->is_permanent         = 0;
+        $item->needs_charges        = 0;
+        $item->show_charges         = 0;
+        $item->is_alertable         = 1;
+        $item->is_autocast          = 0;
+        $item->shop_tags            = [];
+        $item->stock_max            = 0;
+        $item->stock_initial        = 0;
+        $item->stock_time           = 0;
+        $item->aliases              = [];
+        $item->disassemble          = Constants::$disassemble[0];
+        $item->declarations         = null;
+        $item->is_tempest_cloneable = 1;
+        $item->inc_net_on_drop      = 1;
+        $item->should_suggest       = 0;
+        $item->should_init_suggest  = 0;
+        $item->is_support_item      = 0;
+        $item->sound_pickup         = null;
+        $item->sound_drop           = null;
+        $item->sound_drop_world     = null;
 
         return $this;
     }
@@ -451,6 +500,38 @@ class ItemService
         if ($data->has('ItemDeclarations')) {
             $item->declarations =  app(ImportService::class)
                 ->flagListToArray($data->get('ItemDeclarations'));
+        }
+
+        if ($data->has('IsTempestDoubleClonable')) {
+            $item->is_tempest_cloneable = $data->get('IsTempestDoubleClonable');
+        }
+
+        if ($data->has('ItemContributesToNetWorthWhenDropped')) {
+            $item->inc_net_on_drop = $data->get('ItemContributesToNetWorthWhenDropped');
+        }
+
+        if ($data->has('ShouldBeSuggested')) {
+            $item->should_suggest = $data->get('ShouldBeSuggested');
+        }
+
+        if ($data->has('ShouldBeInitiallySuggested')) {
+            $item->should_init_suggest = $data->get('ShouldBeInitiallySuggested');
+        }
+
+        if ($data->has('ItemSupport')) {
+            $item->is_support_item = $data->get('ItemSupport');
+        }
+
+        if ($data->has('UIPickupSound')) {
+            $item->sound_pickup = $data->get('UIPickupSound');
+        }
+
+        if ($data->has('UIDropSound')) {
+            $item->sound_drop = $data->get('UIDropSound');
+        }
+
+        if ($data->has('WorldDropSound')) {
+            $item->sound_drop_world = $data->get('WorldDropSound');
         }
 
         return $this;

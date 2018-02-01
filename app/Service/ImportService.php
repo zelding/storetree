@@ -245,6 +245,8 @@ class ImportService
     {
         $statIds = [];
 
+        $i = 0;
+
         foreach( $statsData as $rn => $data ) {
             if ( empty($data["var_type"]) ) {
                 Log::alert("{$item->base_class} is missing stat var type");
@@ -276,6 +278,7 @@ class ImportService
 
                 $statIds[ $stat->id ] = [
                     "value"      => json_encode($value),
+                    "order"      => $i++,
                     "created_at" => new \DateTime(),
                     "updated_at" => new \DateTime()
                 ];

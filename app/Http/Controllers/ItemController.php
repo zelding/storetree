@@ -357,7 +357,10 @@ class ItemController extends Controller
 
                     foreach($items as $i_id) {
 
-                        $recipe->components()->attach(Item::findOrFail($i_id));
+                        $recipe->components()->attach(Item::findOrFail($i_id), [
+                            "created_at" => new \DateTime(),
+                            "updated_at" => new \DateTime()
+                        ]);
                     }
                 }
             }
@@ -462,7 +465,12 @@ class ItemController extends Controller
             sort($statValues, SORT_NUMERIC);
 
             $item->stats()->attach([
-                $request->get('new_stat') => ['value' => json_encode($statValues)]
+                $request->get('new_stat') => [
+                    'value'      => json_encode($statValues),
+                    "order"      => $item->stats->count(),
+                    "created_at" => new \DateTime(),
+                    "updated_at" => new \DateTime()
+                ]
             ]);
         }
 
@@ -580,7 +588,10 @@ class ItemController extends Controller
         if ( $request->get('ability_id') ) {
             $abilityToAdd = Ability::findOrFail($request->get('ability_id'));
 
-            $item->ability()->attach($abilityToAdd);
+            $item->ability()->attach($abilityToAdd, [
+                "created_at" => new \DateTime(),
+                "updated_at" => new \DateTime()
+            ]);
             $msg = "Added";
         }
 

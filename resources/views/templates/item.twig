@@ -6,13 +6,16 @@
     //======================================================================================================================
     "{{ item.recipe.base_class }}"
     {
-        "ID"                "{{ item.recipe.dota_id }}"
-        "BaseClass"         "item_datadriven"
-        "Model"             "{{ item.recipe.model }}"
-        "ItemCost"          "{{ item.recipe.cost }}"
-        "ItemShopTags"      ""
-        "ItemRecipe"        "{{ item.recipe.is_recipe }}"
-        "ItemResult"        "{{ item.base_class }}"
+        "ID"                        "{{ item.recipe.dota_id }}"
+        "BaseClass"                 "item_datadriven"
+        "Model"                     "{{ item.recipe.model }}"
+        "AbilityTextureName"        ""
+
+        "ItemCost"                  "{{ item.recipe.cost }}"
+        "ItemShopTags"              ""
+        "ItemRecipe"                "{{ item.recipe.is_recipe }}"
+        "ItemResult"                "{{ item.base_class }}"
+
         "ItemRequirements"
         {
         {% for recipe in item.recipes %}
@@ -94,50 +97,62 @@
         {% if item.max_level > 1 -%}
         // Upgrades
         //------------------------------------------------------------------------------------------------------------------
-        "MaxUpgradeLevel"               "{{ item.max_level }}"
-        "ItemBaseLevel"                 "{{ item.base_level }}"
+        "MaxUpgradeLevel"                                    "{{ item.max_level }}"
+        "ItemBaseLevel"                                      "{{ item.base_level }}"
         {% if item.max_level > 1 and item.base_level < item.max_level -%}
-        "UpgradesItems"                 "{{ item.base_class }}"
-        "UpgradeRecipe"                 "{{ item.lvl1Recipe.base_class }}"
+        "UpgradesItems"                                      "{{ item.base_class }}"
+        "UpgradeRecipe"                                      "{{ item.lvl1Recipe.base_class }}"
         {% endif %}
         {% endif %}
 
         // Item Info
         //------------------------------------------------------------------------------------------------------------------
-        "ItemCost"                      "{{ item.totalCost }}"
+        "ItemCost"                                           "{{ item.totalCost }}"
         {% if item.shop_tags -%}
-        "ItemShopTags"                  "{{ item.shop_tags|join(';') }}"
+        "ItemShopTags"                                       "{{ item.shop_tags|join(';') }}"
         {% endif -%}
         {% if item.aliases -%}
-        "ItemAliases"                   "{{ item.aliases|join(';') }}"
+        "ItemAliases"                                        "{{ item.aliases|join(';') }}"
         {% endif -%}
-        "ItemQuality"                   "{{ item.quality }}"
+        "ItemQuality"                                        "{{ item.quality }}"
 
         // Shop things
         //------------------------------------------------------------------------------------------------------------------
-        "SideShop"                      "{{ item.shops.where('id', 2).count ? 1 : 0 }}"
-        "SecretShop"                    "{{ item.shops.where('id', 3).count ? 1 : 0 }}"
-        "ItemStockMax"                  "{{ item.stock_max     ?? 0 }}"
-        "ItemStockTime"                 "{{ item.stock_time    ?? 0 }}"
-        "ItemStockInitial"              "{{ item.stock_initial ?? 0 }}"
+        "SideShop"                                           "{{ item.shops.where('id', 2).count ? 1 : 0 }}"
+        "SecretShop"                                         "{{ item.shops.where('id', 3).count ? 1 : 0 }}"
+        "ItemStockMax"                                       "{{ item.stock_max     ?? 0 }}"
+        "ItemStockTime"                                      "{{ item.stock_time    ?? 0 }}"
+        "ItemStockInitial"                                   "{{ item.stock_initial ?? 0 }}"
+
+        "ShouldBeSuggested"                                  "{{ item.should_suggest      ?? '' }}"
+        "ShouldBeInitiallySuggested"                         "{{ item.should_init_suggest ?? '' }}"
+        "ItemSupport"                                        "{{ item.is_support_item     ?? '' }}"
 
         // Charges
         //------------------------------------------------------------------------------------------------------------------
-        "ItemRequiresCharges"           "{{ item.needs_charges ? 1 : '' }}"
-        "ItemInitialCharges"            "{{ item.start_charges ? 1 : '' }}"
-        "ItemDisplayCharges"            "{{ item.show_charges  ? 1 : '' }}"
+        "ItemRequiresCharges"                                "{{ item.needs_charges ? 1 : '' }}"
+        "ItemInitialCharges"                                 "{{ item.start_charges ? 1 : '' }}"
+        "ItemDisplayCharges"                                 "{{ item.show_charges  ? 1 : '' }}"
 
         // Misc
         //------------------------------------------------------------------------------------------------------------------
-        "ItemShareability"              "{{ item.share }}"
-        "ItemKillable"                  "{{ item.is_killable    ? 1 : 0 }}"
-        "ItemSellable"                  "{{ item.is_sellable    ? 1 : 0 }}"
-        "ItemPurchasable"               "{{ item.is_purchasable ? 1 : 0 }}"
-        "ItemDroppable"                 "{{ item.is_droppable   ? 1 : 0 }}"
-        "ItemAlertable"                 "{{ item.is_alertable   ? 1 : 0 }}"
-        "PingOverrideText"              "{{ item.alert_text    ??    '' }}"
-        "ItemCastOnPickup"              "{{ item.is_autocast    ? 1 : 0 }}"
-        "AllowedInBackpack"             "{{ item.in_backpack    ? 1 : 0 }}"
+        "ItemShareability"                                   "{{ item.share }}"
+        "ItemKillable"                                       "{{ item.is_killable    ? 1 : 0 }}"
+        "ItemSellable"                                       "{{ item.is_sellable    ? 1 : 0 }}"
+        "ItemPurchasable"                                    "{{ item.is_purchasable ? 1 : 0 }}"
+        "ItemDroppable"                                      "{{ item.is_droppable   ? 1 : 0 }}"
+        "ItemAlertable"                                      "{{ item.is_alertable   ? 1 : 0 }}"
+        "PingOverrideText"                                   "{{ item.alert_text    ??    '' }}"
+        "ItemCastOnPickup"                                   "{{ item.is_autocast    ? 1 : 0 }}"
+        "AllowedInBackpack"                                  "{{ item.in_backpack    ? 1 : 0 }}"
+        "IsTempestDoubleClonable"                            "{{ item.is_tempest_cloneable ?? '' }}"
+        "ItemContributesToNetWorthWhenDropped"               "{{ item.inc_net_on_drop ?? '' }}"
+
+        // Sounds
+        //------------------------------------------------------------------------------------------------------------------
+        "UIPickupSound"                                     "{{ item.sound_pickup     ?? '' }}"
+        "UIDropSound"                                       "{{ item.sound_drop       ?? '' }}"
+        "WorldDropSound"                                    "{{ item.sound_drop_world ?? '' }}"
 
         {% if item.stats.count -%}
         // Stats
