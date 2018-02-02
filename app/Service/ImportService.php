@@ -16,6 +16,7 @@ use App\Item;
 use App\Recipe;
 use App\Shop;
 use App\Stat;
+use App\Utils\Constants;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
@@ -392,8 +393,8 @@ class ImportService
             app(AbilityService::class)
                 ->setPresentAbilityAttributesFromImport($ability, new Collection($itemData));
 
-
-            $ability->base_class = $ability->script ? "item_lua" : "item_datadriven";
+            $ability->base_class  = $ability->script ? "item_lua" : "item_datadriven";
+            $ability->is_override = $item->is_override;
 
             $ability->save();
 

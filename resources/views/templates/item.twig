@@ -44,7 +44,7 @@
         "ItemDisassembleRule"                                "{{ item.disassemble }}"
         "ItemDeclarations"                                   "{{ item.declarations|join(' | ') }}"
 
-        "AbilityTextureName"                                 "{{ item.icon ?? 'custom/'~item.base_class|replace({'item_': ''}) }}"
+        "AbilityTextureName"                                 "{{ item.icon ?? replaceLevel(ability.texture_name, item.base_level) }}"
 
         {% if ability -%}
         // Ability
