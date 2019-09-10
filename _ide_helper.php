@@ -1,14 +1,13 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.36 on 2017-10-12.
+ * Generated for Laravel 5.4.36 on 2019-09-09 14:33:55.
+ *
+ * This file should not be included in your code, only analyzed by your IDE!
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
  */
-namespace  {
-    exit("This file should not be included, only analyzed by your IDE");
-}
 
 namespace Illuminate\Support\Facades { 
 
@@ -2731,7 +2730,29 @@ namespace Illuminate\Support\Facades {
          */ 
         public static function flush()
         {
-            return \Illuminate\Cache\ArrayStore::flush();
+            return \Illuminate\Cache\FileStore::flush();
+        }
+        
+        /**
+         * Get the Filesystem instance.
+         *
+         * @return \Illuminate\Filesystem\Filesystem 
+         * @static 
+         */ 
+        public static function getFilesystem()
+        {
+            return \Illuminate\Cache\FileStore::getFilesystem();
+        }
+        
+        /**
+         * Get the working directory of the cache.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getDirectory()
+        {
+            return \Illuminate\Cache\FileStore::getDirectory();
         }
         
         /**
@@ -2742,7 +2763,7 @@ namespace Illuminate\Support\Facades {
          */ 
         public static function getPrefix()
         {
-            return \Illuminate\Cache\ArrayStore::getPrefix();
+            return \Illuminate\Cache\FileStore::getPrefix();
         }
          
     }
@@ -2998,86 +3019,6 @@ namespace Illuminate\Support\Facades {
         public static function getQueuedCookies()
         {
             return \Illuminate\Cookie\CookieJar::getQueuedCookies();
-        }
-         
-    }
-
-    class Crypt {
-        
-        /**
-         * Determine if the given key and cipher combination is valid.
-         *
-         * @param string $key
-         * @param string $cipher
-         * @return bool 
-         * @static 
-         */ 
-        public static function supported($key, $cipher)
-        {
-            return \Illuminate\Encryption\Encrypter::supported($key, $cipher);
-        }
-        
-        /**
-         * Encrypt the given value.
-         *
-         * @param mixed $value
-         * @param bool $serialize
-         * @return string 
-         * @throws \Illuminate\Contracts\Encryption\EncryptException
-         * @static 
-         */ 
-        public static function encrypt($value, $serialize = true)
-        {
-            return \Illuminate\Encryption\Encrypter::encrypt($value, $serialize);
-        }
-        
-        /**
-         * Encrypt a string without serialization.
-         *
-         * @param string $value
-         * @return string 
-         * @static 
-         */ 
-        public static function encryptString($value)
-        {
-            return \Illuminate\Encryption\Encrypter::encryptString($value);
-        }
-        
-        /**
-         * Decrypt the given value.
-         *
-         * @param mixed $payload
-         * @param bool $unserialize
-         * @return string 
-         * @throws \Illuminate\Contracts\Encryption\DecryptException
-         * @static 
-         */ 
-        public static function decrypt($payload, $unserialize = true)
-        {
-            return \Illuminate\Encryption\Encrypter::decrypt($payload, $unserialize);
-        }
-        
-        /**
-         * Decrypt the given string without unserialization.
-         *
-         * @param string $payload
-         * @return string 
-         * @static 
-         */ 
-        public static function decryptString($payload)
-        {
-            return \Illuminate\Encryption\Encrypter::decryptString($payload);
-        }
-        
-        /**
-         * Get the encryption key.
-         *
-         * @return string 
-         * @static 
-         */ 
-        public static function getKey()
-        {
-            return \Illuminate\Encryption\Encrypter::getKey();
         }
          
     }
@@ -5158,7 +5099,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function debug($message, $context = array())
@@ -5171,7 +5112,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function info($message, $context = array())
@@ -5184,7 +5125,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function notice($message, $context = array())
@@ -5197,7 +5138,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function warning($message, $context = array())
@@ -5210,7 +5151,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function error($message, $context = array())
@@ -5223,7 +5164,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function critical($message, $context = array())
@@ -5236,7 +5177,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function alert($message, $context = array())
@@ -5249,7 +5190,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function emergency($message, $context = array())
@@ -6786,7 +6727,7 @@ namespace Illuminate\Support\Facades {
          * @param array $cookies The COOKIE parameters
          * @param array $files The FILES parameters
          * @param array $server The SERVER parameters
-         * @param string|resource $content The raw body data
+         * @param string|resource|null $content The raw body data
          * @static 
          */ 
         public static function initialize($query = array(), $request = array(), $attributes = array(), $cookies = array(), $files = array(), $server = array(), $content = null)
@@ -6819,7 +6760,7 @@ namespace Illuminate\Support\Facades {
          * @param array $cookies The request cookies ($_COOKIE)
          * @param array $files The request files ($_FILES)
          * @param array $server The server parameters ($_SERVER)
-         * @param string $content The raw body data
+         * @param string|resource|null $content The raw body data
          * @return static 
          * @static 
          */ 
@@ -7021,8 +6962,8 @@ namespace Illuminate\Support\Facades {
          * 
          * Order of precedence: PATH (routing placeholders or custom attributes), GET, BODY
          *
-         * @param string $key the key
-         * @param mixed $default the default value if the parameter key does not exist
+         * @param string $key The key
+         * @param mixed $default The default value if the parameter key does not exist
          * @return mixed 
          * @static 
          */ 
@@ -7119,7 +7060,7 @@ namespace Illuminate\Support\Facades {
          *
          * @return string|null The client IP address
          * @see getClientIps()
-         * @see http://en.wikipedia.org/wiki/X-Forwarded-For
+         * @see https://wikipedia.org/wiki/X-Forwarded-For
          * @static 
          */ 
         public static function getClientIp()
@@ -7466,7 +7407,7 @@ namespace Illuminate\Support\Facades {
          * Gets the mime type associated with the format.
          *
          * @param string $format The format
-         * @return string The associated mime type (null if not found)
+         * @return string|null The associated mime type (null if not found)
          * @static 
          */ 
         public static function getMimeType($format)
@@ -7523,8 +7464,8 @@ namespace Illuminate\Support\Facades {
          *  * _format request attribute
          *  * $default
          *
-         * @param string $default The default format
-         * @return string The request format
+         * @param string|null $default The default format
+         * @return string|null The request format
          * @static 
          */ 
         public static function getRequestFormat($default = 'html')
@@ -7648,13 +7589,31 @@ namespace Illuminate\Support\Facades {
          * Checks whether the method is cacheable or not.
          *
          * @see https://tools.ietf.org/html/rfc7231#section-4.2.3
-         * @return bool 
+         * @return bool True for GET and HEAD, false otherwise
          * @static 
          */ 
         public static function isMethodCacheable()
         {
             //Method inherited from \Symfony\Component\HttpFoundation\Request            
             return \Illuminate\Http\Request::isMethodCacheable();
+        }
+        
+        /**
+         * Returns the protocol version.
+         * 
+         * If the application is behind a proxy, the protocol version used in the
+         * requests between the client and the proxy and between the proxy and the
+         * server might be different. This returns the former (from the "Via" header)
+         * if the proxy is trusted (see "setTrustedProxies()"), otherwise it returns
+         * the latter (from the "SERVER_PROTOCOL" server parameter).
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getProtocolVersion()
+        {
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getProtocolVersion();
         }
         
         /**
@@ -7762,7 +7721,7 @@ namespace Illuminate\Support\Facades {
          * It works if your JavaScript library sets an X-Requested-With HTTP header.
          * It is known to work with common JavaScript frameworks:
          *
-         * @see http://en.wikipedia.org/wiki/List_of_Ajax_frameworks#JavaScript
+         * @see https://wikipedia.org/wiki/List_of_Ajax_frameworks#JavaScript
          * @return bool true if the request is an XMLHttpRequest, false otherwise
          * @static 
          */ 
@@ -11638,7 +11597,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function getBaseTemplateClass()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getBaseTemplateClass();
         }
         
@@ -11650,7 +11609,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function setBaseTemplateClass($class)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::setBaseTemplateClass($class);
         }
         
@@ -11661,7 +11620,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function enableDebug()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::enableDebug();
         }
         
@@ -11672,7 +11631,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function disableDebug()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::disableDebug();
         }
         
@@ -11684,7 +11643,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function isDebug()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::isDebug();
         }
         
@@ -11695,7 +11654,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function enableAutoReload()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::enableAutoReload();
         }
         
@@ -11706,7 +11665,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function disableAutoReload()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::disableAutoReload();
         }
         
@@ -11718,7 +11677,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function isAutoReload()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::isAutoReload();
         }
         
@@ -11729,7 +11688,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function enableStrictVariables()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::enableStrictVariables();
         }
         
@@ -11740,7 +11699,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function disableStrictVariables()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::disableStrictVariables();
         }
         
@@ -11752,7 +11711,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function isStrictVariables()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::isStrictVariables();
         }
         
@@ -11760,28 +11719,28 @@ namespace TwigBridge\Facade {
          * Gets the current cache implementation.
          *
          * @param bool $original Whether to return the original cache option or the real cache instance
-         * @return \Twig_CacheInterface|string|false A Twig_CacheInterface implementation,
-         *                                          an absolute path to the compiled templates,
-         *                                          or false to disable cache
+         * @return \Twig\CacheInterface|string|false A Twig\Cache\CacheInterface implementation,
+         *                                     an absolute path to the compiled templates,
+         *                                     or false to disable cache
          * @static 
          */ 
         public static function getCache($original = true)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getCache($original);
         }
         
         /**
          * Sets the current cache implementation.
          *
-         * @param \Twig_CacheInterface|string|false $cache A Twig_CacheInterface implementation,
-         *                                                an absolute path to the compiled templates,
-         *                                                or false to disable cache
+         * @param \Twig\CacheInterface|string|false $cache A Twig\Cache\CacheInterface implementation,
+         *                                           an absolute path to the compiled templates,
+         *                                           or false to disable cache
          * @static 
          */ 
         public static function setCache($cache)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::setCache($cache);
         }
         
@@ -11795,7 +11754,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function getCacheFilename($name)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getCacheFilename($name);
         }
         
@@ -11818,7 +11777,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function getTemplateClass($name, $index = null)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getTemplateClass($name, $index);
         }
         
@@ -11831,57 +11790,69 @@ namespace TwigBridge\Facade {
          */ 
         public static function getTemplateClassPrefix()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getTemplateClassPrefix();
         }
         
         /**
          * Renders a template.
          *
-         * @param string $name The template name
+         * @param string|\Twig\TemplateWrapper $name The template name
          * @param array $context An array of parameters to pass to the template
          * @return string The rendered template
-         * @throws Twig_Error_Loader  When the template cannot be found
-         * @throws Twig_Error_Syntax  When an error occurred during compilation
-         * @throws Twig_Error_Runtime When an error occurred during rendering
+         * @throws LoaderError  When the template cannot be found
+         * @throws SyntaxError  When an error occurred during compilation
+         * @throws RuntimeError When an error occurred during rendering
          * @static 
          */ 
         public static function render($name, $context = array())
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::render($name, $context);
         }
         
         /**
          * Displays a template.
          *
-         * @param string $name The template name
+         * @param string|\Twig\TemplateWrapper $name The template name
          * @param array $context An array of parameters to pass to the template
-         * @throws Twig_Error_Loader  When the template cannot be found
-         * @throws Twig_Error_Syntax  When an error occurred during compilation
-         * @throws Twig_Error_Runtime When an error occurred during rendering
+         * @throws LoaderError  When the template cannot be found
+         * @throws SyntaxError  When an error occurred during compilation
+         * @throws RuntimeError When an error occurred during rendering
          * @static 
          */ 
         public static function display($name, $context = array())
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::display($name, $context);
         }
         
         /**
          * Loads a template.
          *
-         * @param string|\Twig_TemplateWrapper|\Twig_Template $name The template name
-         * @throws Twig_Error_Loader  When the template cannot be found
-         * @throws Twig_Error_Runtime When a previously generated cache is corrupted
-         * @throws Twig_Error_Syntax  When an error occurred during compilation
-         * @return \Twig_TemplateWrapper 
+         * @param string|\Twig\TemplateWrapper|\Twig\Template $name The template name
+         * @throws LoaderError  When the template cannot be found
+         * @throws RuntimeError When a previously generated cache is corrupted
+         * @throws SyntaxError  When an error occurred during compilation
+         * @return \Twig\TemplateWrapper 
          * @static 
          */ 
         public static function load($name)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::load($name);
+        }
+        
+        /**
+         * 
+         *
+         * @internal 
+         * @static 
+         */ 
+        public static function loadClass($cls, $name, $index = null)
+        {
+            //Method inherited from \Twig\Environment            
+            return \TwigBridge\Bridge::loadClass($cls, $name, $index);
         }
         
         /**
@@ -11890,15 +11861,16 @@ namespace TwigBridge\Facade {
          * This method should not be used as a generic way to load templates.
          *
          * @param string $template The template name
-         * @return \Twig_Template A template instance representing the given template name
-         * @throws Twig_Error_Loader When the template cannot be found
-         * @throws Twig_Error_Syntax When an error occurred during compilation
+         * @param string $name An optional name of the template to be used in error messages
+         * @return \Twig\TemplateWrapper A template instance representing the given template name
+         * @throws LoaderError When the template cannot be found
+         * @throws SyntaxError When an error occurred during compilation
          * @static 
          */ 
-        public static function createTemplate($template)
+        public static function createTemplate($template, $name = null)
         {
-            //Method inherited from \Twig_Environment            
-            return \TwigBridge\Bridge::createTemplate($template);
+            //Method inherited from \Twig\Environment            
+            return \TwigBridge\Bridge::createTemplate($template, $name);
         }
         
         /**
@@ -11915,25 +11887,25 @@ namespace TwigBridge\Facade {
          */ 
         public static function isTemplateFresh($name, $time)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::isTemplateFresh($name, $time);
         }
         
         /**
          * Tries to load a template consecutively from an array.
          * 
-         * Similar to loadTemplate() but it also accepts Twig_TemplateInterface instances and an array
-         * of templates where each is tried to be loaded.
+         * Similar to load() but it also accepts instances of \Twig\Template and
+         * \Twig\TemplateWrapper, and an array of templates where each is tried to be loaded.
          *
-         * @param string|\Twig_Template|array $names A template or an array of templates to try consecutively
-         * @return \Twig_Template 
-         * @throws Twig_Error_Loader When none of the templates can be found
-         * @throws Twig_Error_Syntax When an error occurred during compilation
+         * @param string|\Twig\Template|\Twig\TemplateWrapper|array $names A template or an array of templates to try consecutively
+         * @return \Twig\TemplateWrapper|\Twig\Template 
+         * @throws LoaderError When none of the templates can be found
+         * @throws SyntaxError When an error occurred during compilation
          * @static 
          */ 
         public static function resolveTemplate($names)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::resolveTemplate($names);
         }
         
@@ -11945,7 +11917,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function clearTemplateCache()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::clearTemplateCache();
         }
         
@@ -11957,7 +11929,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function clearCacheFiles()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::clearCacheFiles();
         }
         
@@ -11970,7 +11942,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function getLexer()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getLexer();
         }
         
@@ -11981,22 +11953,22 @@ namespace TwigBridge\Facade {
          */ 
         public static function setLexer($lexer)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::setLexer($lexer);
         }
         
         /**
          * Tokenizes a source code.
          *
-         * @param string|\Twig_Source $source The template source code
+         * @param string|\Twig\Source $source The template source code
          * @param string $name The template name (deprecated)
-         * @return \Twig_TokenStream 
-         * @throws Twig_Error_Syntax When the code is syntactically wrong
+         * @return \Twig\TokenStream 
+         * @throws SyntaxError When the code is syntactically wrong
          * @static 
          */ 
         public static function tokenize($source, $name = null)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::tokenize($source, $name);
         }
         
@@ -12009,7 +11981,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function getParser()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getParser();
         }
         
@@ -12020,20 +11992,20 @@ namespace TwigBridge\Facade {
          */ 
         public static function setParser($parser)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::setParser($parser);
         }
         
         /**
          * Converts a token stream to a node tree.
          *
-         * @return \Twig_Node_Module 
-         * @throws Twig_Error_Syntax When the token stream is syntactically or semantically wrong
+         * @return \Twig\ModuleNode 
+         * @throws SyntaxError When the token stream is syntactically or semantically wrong
          * @static 
          */ 
         public static function parse($stream)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::parse($stream);
         }
         
@@ -12046,7 +12018,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function getCompiler()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getCompiler();
         }
         
@@ -12057,7 +12029,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function setCompiler($compiler)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::setCompiler($compiler);
         }
         
@@ -12069,22 +12041,22 @@ namespace TwigBridge\Facade {
          */ 
         public static function compile($node)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::compile($node);
         }
         
         /**
          * Compiles a template source code.
          *
-         * @param string|\Twig_Source $source The template source code
+         * @param string|\Twig\Source $source The template source code
          * @param string $name The template name (deprecated)
          * @return string The compiled PHP source code
-         * @throws Twig_Error_Syntax When there was an error during tokenizing, parsing or compiling
+         * @throws SyntaxError When there was an error during tokenizing, parsing or compiling
          * @static 
          */ 
         public static function compileSource($source, $name = null)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::compileSource($source, $name);
         }
         
@@ -12095,19 +12067,19 @@ namespace TwigBridge\Facade {
          */ 
         public static function setLoader($loader)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::setLoader($loader);
         }
         
         /**
          * Gets the Loader instance.
          *
-         * @return \Twig_LoaderInterface 
+         * @return \Twig\LoaderInterface 
          * @static 
          */ 
         public static function getLoader()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getLoader();
         }
         
@@ -12119,7 +12091,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function setCharset($charset)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::setCharset($charset);
         }
         
@@ -12131,7 +12103,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function getCharset()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getCharset();
         }
         
@@ -12143,7 +12115,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function initRuntime()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::initRuntime();
         }
         
@@ -12156,7 +12128,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function hasExtension($class)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::hasExtension($class);
         }
         
@@ -12167,7 +12139,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function addRuntimeLoader($loader)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::addRuntimeLoader($loader);
         }
         
@@ -12175,12 +12147,12 @@ namespace TwigBridge\Facade {
          * Gets an extension by class name.
          *
          * @param string $class The extension class name
-         * @return \Twig_ExtensionInterface 
+         * @return \Twig\ExtensionInterface 
          * @static 
          */ 
         public static function getExtension($class)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getExtension($class);
         }
         
@@ -12189,12 +12161,12 @@ namespace TwigBridge\Facade {
          *
          * @param string $class A runtime class name
          * @return object The runtime implementation
-         * @throws Twig_Error_Runtime When the template cannot be found
+         * @throws RuntimeError When the template cannot be found
          * @static 
          */ 
         public static function getRuntime($class)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getRuntime($class);
         }
         
@@ -12205,7 +12177,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function addExtension($extension)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::addExtension($extension);
         }
         
@@ -12220,7 +12192,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function removeExtension($name)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::removeExtension($name);
         }
         
@@ -12232,19 +12204,19 @@ namespace TwigBridge\Facade {
          */ 
         public static function setExtensions($extensions)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::setExtensions($extensions);
         }
         
         /**
          * Returns all registered extensions.
          *
-         * @return \Twig_ExtensionInterface[] An array of extensions (keys are for internal usage only and should not be relied on)
+         * @return \Twig\ExtensionInterface[] An array of extensions (keys are for internal usage only and should not be relied on)
          * @static 
          */ 
         public static function getExtensions()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getExtensions();
         }
         
@@ -12255,7 +12227,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function addTokenParser($parser)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::addTokenParser($parser);
         }
         
@@ -12268,22 +12240,22 @@ namespace TwigBridge\Facade {
          */ 
         public static function getTokenParsers()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getTokenParsers();
         }
         
         /**
          * Gets registered tags.
          * 
-         * Be warned that this method cannot return tags defined by Twig_TokenParserBrokerInterface classes.
+         * Be warned that this method cannot return tags defined by \Twig_TokenParserBrokerInterface classes.
          *
-         * @return \Twig_TokenParserInterface[] 
+         * @return \Twig\TokenParserInterface[] 
          * @internal 
          * @static 
          */ 
         public static function getTags()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getTags();
         }
         
@@ -12294,33 +12266,33 @@ namespace TwigBridge\Facade {
          */ 
         public static function addNodeVisitor($visitor)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::addNodeVisitor($visitor);
         }
         
         /**
          * Gets the registered Node Visitors.
          *
-         * @return \Twig_NodeVisitorInterface[] 
+         * @return \Twig\NodeVisitorInterface[] 
          * @internal 
          * @static 
          */ 
         public static function getNodeVisitors()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getNodeVisitors();
         }
         
         /**
          * Registers a Filter.
          *
-         * @param string|\Twig_SimpleFilter $name The filter name or a Twig_SimpleFilter instance
-         * @param \Twig_FilterInterface|\Twig_SimpleFilter $filter
+         * @param string|\Twig\TwigFilter $name The filter name or a \Twig_SimpleFilter instance
+         * @param \Twig_FilterInterface|\Twig\TwigFilter $filter
          * @static 
          */ 
         public static function addFilter($name, $filter = null)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::addFilter($name, $filter);
         }
         
@@ -12331,13 +12303,13 @@ namespace TwigBridge\Facade {
          * so no list of filters is available.
          *
          * @param string $name The filter name
-         * @return \Twig_Filter|false A Twig_Filter instance or false if the filter does not exist
+         * @return \Twig_Filter|false 
          * @internal 
          * @static 
          */ 
         public static function getFilter($name)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getFilter($name);
         }
         
@@ -12348,7 +12320,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function registerUndefinedFilterCallback($callable)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::registerUndefinedFilterCallback($callable);
         }
         
@@ -12364,20 +12336,20 @@ namespace TwigBridge\Facade {
          */ 
         public static function getFilters()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getFilters();
         }
         
         /**
          * Registers a Test.
          *
-         * @param string|\Twig_SimpleTest $name The test name or a Twig_SimpleTest instance
-         * @param \Twig_TestInterface|\Twig_SimpleTest $test A Twig_TestInterface instance or a Twig_SimpleTest instance
+         * @param string|\Twig\TwigTest $name The test name or a \Twig_SimpleTest instance
+         * @param \Twig_TestInterface|\Twig\TwigTest $test A \Twig_TestInterface instance or a \Twig_SimpleTest instance
          * @static 
          */ 
         public static function addTest($name, $test = null)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::addTest($name, $test);
         }
         
@@ -12390,7 +12362,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function getTests()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getTests();
         }
         
@@ -12398,26 +12370,26 @@ namespace TwigBridge\Facade {
          * Gets a test by name.
          *
          * @param string $name The test name
-         * @return \Twig_Test|false A Twig_Test instance or false if the test does not exist
+         * @return \Twig_Test|false 
          * @internal 
          * @static 
          */ 
         public static function getTest($name)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getTest($name);
         }
         
         /**
          * Registers a Function.
          *
-         * @param string|\Twig_SimpleFunction $name The function name or a Twig_SimpleFunction instance
-         * @param \Twig_FunctionInterface|\Twig_SimpleFunction $function
+         * @param string|\Twig\TwigFunction $name The function name or a \Twig_SimpleFunction instance
+         * @param \Twig_FunctionInterface|\Twig\TwigFunction $function
          * @static 
          */ 
         public static function addFunction($name, $function = null)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::addFunction($name, $function);
         }
         
@@ -12428,13 +12400,13 @@ namespace TwigBridge\Facade {
          * so no list of functions is available.
          *
          * @param string $name function name
-         * @return \Twig_Function|false A Twig_Function instance or false if the function does not exist
+         * @return \Twig_Function|false 
          * @internal 
          * @static 
          */ 
         public static function getFunction($name)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getFunction($name);
         }
         
@@ -12445,7 +12417,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function registerUndefinedFunctionCallback($callable)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::registerUndefinedFunctionCallback($callable);
         }
         
@@ -12461,7 +12433,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function getFunctions()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getFunctions();
         }
         
@@ -12477,7 +12449,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function addGlobal($name, $value)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::addGlobal($name, $value);
         }
         
@@ -12490,7 +12462,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function getGlobals()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getGlobals();
         }
         
@@ -12503,7 +12475,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function mergeGlobals($context)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::mergeGlobals($context);
         }
         
@@ -12516,7 +12488,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function getUnaryOperators()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getUnaryOperators();
         }
         
@@ -12529,7 +12501,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function getBinaryOperators()
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::getBinaryOperators();
         }
         
@@ -12541,7 +12513,7 @@ namespace TwigBridge\Facade {
          */ 
         public static function computeAlternatives($name, $items)
         {
-            //Method inherited from \Twig_Environment            
+            //Method inherited from \Twig\Environment            
             return \TwigBridge\Bridge::computeAlternatives($name, $items);
         }
          
@@ -12661,375 +12633,7 @@ namespace Zizaco\Entrust {
  
 }
 
-namespace Sukohi\Surpass\Facades {
-
-    class Surpass {
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function path($path)
-        {
-            return \Sukohi\Surpass\Surpass::path($path);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function dir($dir)
-        {
-            return \Sukohi\Surpass\Surpass::dir($dir);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function id($mode, $id)
-        {
-            return \Sukohi\Surpass\Surpass::id($mode, $id);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function ids($ids)
-        {
-            return \Sukohi\Surpass\Surpass::ids($ids);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function renderId($mode)
-        {
-            return \Sukohi\Surpass\Surpass::renderId($mode);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function maxFiles($max_files)
-        {
-            return \Sukohi\Surpass\Surpass::maxFiles($max_files);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function alert($alert)
-        {
-            return \Sukohi\Surpass\Surpass::alert($alert);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function formData($form_data)
-        {
-            return \Sukohi\Surpass\Surpass::formData($form_data);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function button($label)
-        {
-            return \Sukohi\Surpass\Surpass::button($label);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function preview($params)
-        {
-            return \Sukohi\Surpass\Surpass::preview($params);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function resize($size, $force_crop = true)
-        {
-            return \Sukohi\Surpass\Surpass::resize($size, $force_crop);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function timeout($milliseconds)
-        {
-            return \Sukohi\Surpass\Surpass::timeout($milliseconds);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function overwrite($bool = false)
-        {
-            return \Sukohi\Surpass\Surpass::overwrite($bool);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function css($css)
-        {
-            return \Sukohi\Surpass\Surpass::css($css);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function progress($content)
-        {
-            return \Sukohi\Surpass\Surpass::progress($content);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function callback($callbacks)
-        {
-            return \Sukohi\Surpass\Surpass::callback($callbacks);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function dropZone($id)
-        {
-            return \Sukohi\Surpass\Surpass::dropZone($id);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function renameFiles($bool = true)
-        {
-            return \Sukohi\Surpass\Surpass::renameFiles($bool);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function renderCss($mode)
-        {
-            return \Sukohi\Surpass\Surpass::renderCss($mode);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function html($mode)
-        {
-            return \Sukohi\Surpass\Surpass::html($mode);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function filenameLength($length)
-        {
-            return \Sukohi\Surpass\Surpass::filenameLength($length);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function insert($file_path, $attributes = array())
-        {
-            return \Sukohi\Surpass\Surpass::insert($file_path, $attributes);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function save($attributes = array())
-        {
-            return \Sukohi\Surpass\Surpass::save($attributes);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function saveAttributes($id, $attributes)
-        {
-            return \Sukohi\Surpass\Surpass::saveAttributes($id, $attributes);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function saveDir()
-        {
-            return \Sukohi\Surpass\Surpass::saveDir();
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function remove()
-        {
-            return \Sukohi\Surpass\Surpass::remove();
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function removeById($ids = '')
-        {
-            return \Sukohi\Surpass\Surpass::removeById($ids);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function result()
-        {
-            return \Sukohi\Surpass\Surpass::result();
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function refresh()
-        {
-            return \Sukohi\Surpass\Surpass::refresh();
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function load($ids = array(), $old_flag = true)
-        {
-            return \Sukohi\Surpass\Surpass::load($ids, $old_flag);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function loadSaved()
-        {
-            return \Sukohi\Surpass\Surpass::loadSaved();
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function loadData()
-        {
-            return \Sukohi\Surpass\Surpass::loadData();
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function imageFileId($dir)
-        {
-            return \Sukohi\Surpass\Surpass::imageFileId($dir);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function imageFileIds($dir)
-        {
-            return \Sukohi\Surpass\Surpass::imageFileIds($dir);
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function getTable()
-        {
-            return \Sukohi\Surpass\Surpass::getTable();
-        }
-
-        /**
-         *
-         *
-         * @static
-         */
-        public static function getDefaultTable()
-        {
-            return \Sukohi\Surpass\Surpass::getDefaultTable();
-        }
-
-    }
-
-}
-
-namespace Yajra\Datatables\Facades {
+namespace Yajra\Datatables\Facades { 
 
     class Datatables {
         
@@ -13127,6 +12731,8 @@ namespace Orangehill\Iseed\Facades {
          * Generates a seed file.
          *
          * @param string $table
+         * @param string $prefix
+         * @param string $suffix
          * @param string $database
          * @param int $max
          * @param string $prerunEvent
@@ -13135,9 +12741,9 @@ namespace Orangehill\Iseed\Facades {
          * @throws Orangehill\Iseed\TableNotFoundException
          * @static 
          */ 
-        public static function generateSeed($table, $database = null, $max = 0, $exclude = null, $prerunEvent = null, $postrunEvent = null, $dumpAuto = true, $indexed = true, $orderBy = null, $direction = 'ASC')
+        public static function generateSeed($table, $prefix = null, $suffix = null, $database = null, $max = 0, $chunkSize = 0, $exclude = null, $prerunEvent = null, $postrunEvent = null, $dumpAuto = true, $indexed = true, $orderBy = null, $direction = 'ASC')
         {
-            return \Orangehill\Iseed\Iseed::generateSeed($table, $database, $max, $exclude, $prerunEvent, $postrunEvent, $dumpAuto, $indexed, $orderBy, $direction);
+            return \Orangehill\Iseed\Iseed::generateSeed($table, $prefix, $suffix, $database, $max, $chunkSize, $exclude, $prerunEvent, $postrunEvent, $dumpAuto, $indexed, $orderBy, $direction);
         }
         
         /**
@@ -13191,12 +12797,14 @@ namespace Orangehill\Iseed\Facades {
          * Generates a seed class name (also used as a filename)
          *
          * @param string $table
+         * @param string $prefix
+         * @param string $suffix
          * @return string 
          * @static 
          */ 
-        public static function generateClassName($table)
+        public static function generateClassName($table, $prefix = null, $suffix = null)
         {
-            return \Orangehill\Iseed\Iseed::generateClassName($table);
+            return \Orangehill\Iseed\Iseed::generateClassName($table, $prefix, $suffix);
         }
         
         /**
@@ -13288,8 +12896,6 @@ namespace  {
     class Config extends \Illuminate\Support\Facades\Config {}
 
     class Cookie extends \Illuminate\Support\Facades\Cookie {}
-
-    class Crypt extends \Illuminate\Support\Facades\Crypt {}
 
     class DB extends \Illuminate\Support\Facades\DB {}
 

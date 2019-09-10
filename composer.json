@@ -14,6 +14,7 @@
         "php": ">=7.0",
         "doctrine/dbal": "^2.5",
         "graham-campbell/exceptions": "^9.3",
+        "guzzlehttp/guzzle": "~6.0",
         "kronusme/dota2-api": "^2.2",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
