@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.36 on 2019-09-09 14:33:55.
+ * Generated for Laravel 5.4.36 on 2020-12-23 09:46:12.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -11860,7 +11860,7 @@ namespace TwigBridge\Facade {
          * 
          * This method should not be used as a generic way to load templates.
          *
-         * @param string $template The template name
+         * @param string $template The template source
          * @param string $name An optional name of the template to be used in error messages
          * @return \Twig\TemplateWrapper A template instance representing the given template name
          * @throws LoaderError When the template cannot be found
