@@ -12,10 +12,13 @@
     "gulp": "^3.9.1",
     "jquery": "^3.1.0",
     "jquery-file-download": "^1.4.5",
+    "jquery-sortable": "^0.9.13",
     "laravel-elixir": "^6.0.0-15",
     "laravel-elixir-webpack-advanced": "^0.3.9-3",
     "laravel-elixir-webpack-official": "^1.0.10",
-    "laravel-mix": "^0.6.0"
+    "laravel-mix": "^0.6.0",
+    "select2": "^4.1.0-rc.0",
+    "select2-bootstrap-theme": "0.1.0-beta.10"
   },
   "devDependencies": {
     "axios": "^0.19.0",

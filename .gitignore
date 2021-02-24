@@ -7,7 +7,6 @@
 Homestead.json
 Homestead.yaml
 .env
-/bower_components/
 /public/css/
 /public/fonts/
 /public/js/
@@ -15,7 +14,6 @@ Homestead.yaml
 /resources/assets/css/select2.css
 /resources/assets/css/select2-bootstrap.css
 /resources/assets/css/jquery.dataTables.css
-/composer.lock
 /resources/views/vendor/
 resources/assets/less/
 /resources/assets/css/_all.css
