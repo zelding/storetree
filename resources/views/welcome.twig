@@ -39,14 +39,22 @@
             font-size: 84px;
         }
 
+        .subtitle {
+            font-size: 48px;
+        }
+
         .links > a {
             color: #636b6f;
-            padding: 0 25px;
+            padding: 5px 25px;
             font-size: 12px;
             font-weight: 600;
             letter-spacing: .1rem;
             text-decoration: none;
             text-transform: uppercase;
+        }
+
+        .links > a:hover {
+            border-bottom: 2px solid #636b6f;
         }
 
         .m-b-md {
@@ -60,10 +68,21 @@
         <div class="content">
             <div class="title m-b-md">{{ config('app.name') }}</div>
 
+            <div class="subtitle m-b-md">No, I'm not sending a CV.</div>
+
+            <blockquote class="m-b-md">
+                If none of these are enough, nothing will be.
+            </blockquote>
+
             <div class="links">
-                <a title="My Github profile" target="_blank" href="https://github.com/zelding">GitHub</a>
-                <a title="My Stack overflow profile" target="_blank" href="http://stackoverflow.com/users/4308297/zedling">Stack overflow</a>
-                <a title="My LinkedIn profile" target="_blank" href="https://www.linkedin.com/in/kristof-dekany/">LinkedIn</a>
+                <a title="My Github profile" target="_blank"
+                   href="https://github.com/zelding">GitHub</a>
+                <a title="My Stack overflow profile" target="_blank"
+                   href="http://stackoverflow.com/users/4308297/zedling">Stack overflow</a>
+                <a title="my CodersRank profile"
+                   href="https://profile.codersrank.io/user/zelding/" target="_blank">CodersRank</a>
+                <a title="My LinkedIn profile" target="_blank"
+                   href="https://www.linkedin.com/in/kristof-dekany/">LinkedIn</a>
             </div>
         </div>
     </div>
